@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="${title}"></title>
+		
+	</head>
+	<body>
+		<h6 th:text="${ilkMesaj}">Yeni Proje</h6>
+		
+		<table>
+			<thead>
+					<td>id</td>
+					<td>adı</td>
+					<td>soyadı</td>
+					<td>email</td>
+					<td>kullaıcı adı</td>
+					<td>şifre</td>
+			</thead>
+			<tbody>
+				<tr th:each="user:${users}">
+					<td  th:text="${user.id}"></td>
+					<td th:text="${user.firstName}"></td>
+					<td th:text="${user.lastName}"></td>
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.userName}"></td>
+					<td th:text="${user.pwd}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
