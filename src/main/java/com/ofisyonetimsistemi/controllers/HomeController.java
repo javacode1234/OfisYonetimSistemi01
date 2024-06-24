@@ -38,6 +38,8 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String getHomePage(Model model) {
+		model.addAttribute("title","SMMM Muammer UZUN");
+		model.addAttribute("brandText","SMMMOYS");
 		return "index";
 		
 	}
