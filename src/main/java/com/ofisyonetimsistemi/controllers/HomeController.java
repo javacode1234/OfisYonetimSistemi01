@@ -39,7 +39,10 @@ public class HomeController {
 	@GetMapping("/")
 	public String getHomePage(Model model) {
 		model.addAttribute("title","SMMM Muammer UZUN");
-		model.addAttribute("brandText","SMMMOYS");
+		model.addAttribute("brandText","SMMM_OYS");
+		model.addAttribute("anaSayfaBaslik","Serbest Muhasebeci Mali Müşavir Ofis Yönetim Sistemi.");
+		model.addAttribute("anaSayfaAltBaslik","Nerede olursanız olun müşterilerinizin bilgilerine ulaşın. Müşteriler de kendi durumlarını görsün.");
+		model.addAttribute("videoLink","https://www.youtube.com/watch?v=tuus0A9u2jo");
 		return "index";
 		
 	}
