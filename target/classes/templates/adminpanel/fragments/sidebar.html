@@ -3,9 +3,9 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " th:href="@{/api/v1/admin-panel}">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>SMMM OFİS</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -179,10 +179,16 @@
         </ul>
       </li><!-- End Icons Nav -->
 
-      <li class="nav-heading">Pages</li>
+<!--      <li class="nav-heading">Pages</li>-->
+      <li class="nav-item">
+		  <a class="nav-link">
+			  <i class="bi bi-grid"></i>
+			  <span class="">Anasayfa Ayarları</span>
+		  </a>
+	  </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+        <a class="nav-link collapsed" th:href="@{/api/v1/user-profile}">
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
