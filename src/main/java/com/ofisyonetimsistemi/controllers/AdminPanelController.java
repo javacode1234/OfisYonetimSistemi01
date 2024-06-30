@@ -13,6 +13,8 @@ public class AdminPanelController {
 	public String getAdminPanel(Model model) {
 		model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
 		model.addAttribute("smmmisim","Muammer UZUN");
+		model.addAttribute("fullusername","Muammer UZUN");
+		model.addAttribute("gorev","SMMM");
 		return "adminpanel/index";
 	}
 	
@@ -20,6 +22,8 @@ public class AdminPanelController {
 	public String getAlerts(Model model) {
 		model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
 		model.addAttribute("smmmisim","Muammer UZUN");
+		model.addAttribute("fullusername","Muammer UZUN");
+		model.addAttribute("gorev","SMMM");
 		return "adminpanel/components-alerts";
 	}
 	
@@ -27,6 +31,8 @@ public class AdminPanelController {
 	public String getUserProfile(Model model) {
 		model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
 		model.addAttribute("smmmisim","Muammer UZUN");
+		model.addAttribute("fullusername","Muammer UZUN");
+		model.addAttribute("gorev","SMMM");
 		model.addAttribute("tabpane","view");
 		return "adminpanel/users-profile";
 	}
@@ -35,6 +41,8 @@ public class AdminPanelController {
 	public String getUserProfileWiew(Model model){
 		model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
 		model.addAttribute("smmmisim","Muammer UZUN");
+		model.addAttribute("fullusername","Muammer UZUN");
+		model.addAttribute("gorev","SMMM");
 		model.addAttribute("tabpane","view");
 		return "adminpanel/users-profile";
 	}
@@ -43,6 +51,8 @@ public class AdminPanelController {
 	public String getUserProfileEdit(Model model){
 		model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
 		model.addAttribute("smmmisim","Muammer UZUN");
+		model.addAttribute("fullusername","Muammer UZUN");
+		model.addAttribute("gorev","SMMM");
 		model.addAttribute("tabpane","edit");
 		return "adminpanel/users-profile";
 	}
@@ -51,6 +61,8 @@ public class AdminPanelController {
 	public String getUserProfileSettings(Model model){
 		model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
 		model.addAttribute("smmmisim","Muammer UZUN");
+		model.addAttribute("fullusername","Muammer UZUN");
+		model.addAttribute("gorev","SMMM");
 		model.addAttribute("tabpane","settings");
 		return "adminpanel/users-profile";
 	}
@@ -59,6 +71,8 @@ public class AdminPanelController {
 	public String getUserProfileChangepwd(Model model){
 		model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
 		model.addAttribute("smmmisim","Muammer UZUN");
+		model.addAttribute("fullusername","Muammer UZUN");
+		model.addAttribute("gorev","SMMM");
 		model.addAttribute("tabpane","changepwd");
 		return "adminpanel/users-profile";
 	}
