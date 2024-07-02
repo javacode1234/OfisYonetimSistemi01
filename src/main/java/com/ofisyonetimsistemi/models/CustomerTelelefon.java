@@ -26,7 +26,7 @@ public class CustomerTelelefon {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	private String adres;
+	private String telefon;
 	
 	private String description;
 	
