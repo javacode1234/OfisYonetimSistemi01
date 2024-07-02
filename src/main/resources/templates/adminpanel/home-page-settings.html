@@ -1,69 +1,83 @@
 
 
-  <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head th:replace="~{adminpanel/fragments/head}"></head>
 
 <body>
 
-  <!-- ======= Header ======= -->
-  <header th:replace="~{adminpanel/fragments/header}"></header>
-  <!-- End Header -->
+	<!-- ======= Header ======= -->
+	<header th:replace="~{adminpanel/fragments/header}"></header>
+	<!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
-  <aside th:replace="~{adminpanel/fragments/sidebar}"></aside>
-  <!-- End Sidebar-->
-  
-  <!-- ======== main ========== -->
-  
-  <div layout:fragment="content">
+	<!-- ======= Sidebar ======= -->
+	<aside th:replace="~{adminpanel/fragments/sidebar}"></aside>
+	<!-- End Sidebar-->
 
-  <main id="main" class="main">
-  
-    <div class="pagetitle">
-      <h1>SMMM Anasayfa Ayarları</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a th:href="@{/api/v1/admin-panel}">Kontrol Paneli Anasayfa</a></li>
-          <li class="breadcrumb-item">Ayarlar</li>
-          <li class="breadcrumb-item active">SMMM Anasayfa Ayarları</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+	<!-- ======== main ========== -->
 
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-6">
+	<div layout:fragment="content">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Example Card</h5>
-              <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-            </div>
-          </div>
+		<main id="main" class="main">
 
-        </div>
+			<div class="pagetitle">
+				<h1>SMMM Anasayfa Ayarları</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							th:href="@{/api/v1/admin-panel}">Kontrol Paneli Anasayfa</a></li>
+						<li class="breadcrumb-item">Ayarlar</li>
+						<li class="breadcrumb-item active">SMMM Anasayfa Ayarları</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
 
-        <div class="col-lg-6">
+			<section class="section">
+				<div class="row">
+					<div class="col-lg-6">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Example Card</h5>
-              <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-            </div>
-          </div>
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Example Card</h5>
+								<p>This is an examle page with no contrnt. You can use it as
+									a starter for your custom pages.</p>
 
-        </div>
-      </div>
-    </section>
+								<!-- multistep form start -->
+								
+								<!-- multistep form end -->
+							</div>
+						</div>
 
-  </main><!-- End #main -->
-  
-  </div>
-  
- <div th:replace="~{adminpanel/fragments/footer}"></div>
- <div th:replace="~{adminpanel/fragments/js}"></div>
+					</div>
+
+					<div class="col-lg-6">
+
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Example Card</h5>
+								<p>This is an examle page with no contrnt. You can use it as
+									a starter for your custom pages.</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</section>
+
+		</main>
+		<!-- End #main -->
+
+	</div>
+
+	<div th:replace="~{adminpanel/fragments/footer}"></div>
+	<div th:replace="~{adminpanel/fragments/js}"></div>
+
+	
+	
+	
 
 </body>
 
