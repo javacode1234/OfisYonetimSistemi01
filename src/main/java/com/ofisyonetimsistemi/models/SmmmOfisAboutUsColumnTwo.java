@@ -15,20 +15,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "customeradres")
-public class CustomerAdres {
+@Table(name = "smmmofisaboutuscolumntwo")
+public class SmmmOfisAboutUsColumnTwo {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	private String adres;
 	
-	private String description;
+	private String text;
 	
 	@ManyToOne
-	@JoinColumn(name="customer_id",insertable = false,updatable = false)
-	private SmmmOfisCustomer customer;
-	private Integer customer_id;
-
+	@JoinColumn(name="smmmofis_id",insertable = false,updatable = false)
+	private SmmmOfis smmmofis;
+	private Integer smmmofis_id;
+	
 }

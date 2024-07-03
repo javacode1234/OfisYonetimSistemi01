@@ -15,20 +15,35 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "customeradres")
-public class CustomerAdres {
-	
+@Table(name = "smmmofispricingplan")
+public class SmmmOfisPricingPlan {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	private String adres;
+	
+	private String header;
+	private String planName;
+	
+	private Long price;
 	
 	private String description;
 	
+	private String servis1;
+	private String servis2;
+	private String servis3;
+	private String servis4;
+	private String servis5;
+	private String servis6;
+	private String servis7;
+	private String servis8;
+	private String servis9;
+	private String servis10;
+	
+	
 	@ManyToOne
-	@JoinColumn(name="customer_id",insertable = false,updatable = false)
-	private SmmmOfisCustomer customer;
-	private Integer customer_id;
-
+	@JoinColumn(name = "smmmofis_id",insertable = false,updatable = false)
+	private SmmmOfis smmmofis;
+	private Integer smmmofis_id;
+	
 }

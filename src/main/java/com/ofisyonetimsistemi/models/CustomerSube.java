@@ -9,36 +9,28 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Data
 @Entity
-@Table(name = "homepageclient")
-public class HomePageClient {
+@Table(name = "customersube")
+public class CustomerSube {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String name;
-	
-	private String logo;
-	
-	private String url;
-	
+	private String nacekodu;
+	private String naceadi;
+	private String adres;
 	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name = "smmmofis_id",insertable = false,updatable = false)
-	private SmmmOfis smmmofis;
-	private Integer smmmofis_id;
-	
-	
+	@JoinColumn(name = "smmmofiscustomer_id",insertable = false,updatable = false)
+	private SmmmOfisCustomer customer;
+	private Integer smmmofiscustomer_id;
 
 }

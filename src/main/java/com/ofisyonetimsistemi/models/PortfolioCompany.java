@@ -11,24 +11,34 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
 @Entity
-@Table(name = "customeradres")
-public class CustomerAdres {
+@Data
+@Table(name="portfoliocompany")
+public class PortfolioCompany {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	private String adres;
+	
+	private String name;
+	
+	private String unvan;
+	
+	private byte[] resim;
+	
+	private String mainheader;
+	
+	private String header;
 	
 	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name="customer_id",insertable = false,updatable = false)
-	private SmmmOfisCustomer customer;
-	private Integer customer_id;
+	@JoinColumn(name="businessector_id",insertable = false,updatable = false)
+	private SmmmOfisBusinesSector sector;
+	private Integer businessector_id;
+	
+	
 
 }

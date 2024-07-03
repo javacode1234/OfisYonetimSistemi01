@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.ofisyonetimsistemi.models.commonmodels.BusinesSector;
-import com.ofisyonetimsistemi.models.commonmodels.IsletmeTipi;
 import com.ofisyonetimsistemi.models.commonmodels.NaceKodu;
 
 import jakarta.persistence.Entity;
@@ -20,25 +18,21 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Data
 @Entity
-@Table(name = "ofiscustomer")
-public class OfisCustomer {
+@Table(name = "smmmofiscustomer")
+public class SmmmOfisCustomer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	private byte[] logo;
 	private String unvan;
-	
 	private String firstName;
 	private String lastName;
 	private String fullName=firstName+" "+lastName;
@@ -50,10 +44,10 @@ public class OfisCustomer {
 	
 	@ManyToOne
 	@JoinColumn(name="businessector_id",updatable = false,insertable = false)
-	private BusinesSector businessector;
+	private SmmmOfisBusinesSector businessector;
 	private Integer businessector_id;
 	
-	@ManyToMany(mappedBy = "customers")
+	@ManyToMany(mappedBy = "customer")
 	private List<NaceKodu> nacekodlari;
 	
 	@DateTimeFormat(pattern = "dd/mm/yyyy")
@@ -68,10 +62,16 @@ public class OfisCustomer {
 	@OneToMany(mappedBy = "customer")
 	private List<CustomerEmail> emailler;
 	
+	@OneToMany(mappedBy = "customer")
+	private List<CustomerSube> subeler;
+	
 	@ManyToOne
 	@JoinColumn(name = "smmmofis_id",insertable = false, updatable = false)
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
+	
+	@ManyToMany(mappedBy = "customer")
+	private List<CustomerDonem> donem;
 	
 	
 	

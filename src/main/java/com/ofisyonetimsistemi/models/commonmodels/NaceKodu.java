@@ -2,7 +2,7 @@ package com.ofisyonetimsistemi.models.commonmodels;
 
 import java.util.List;
 
-import com.ofisyonetimsistemi.models.OfisCustomer;
+import com.ofisyonetimsistemi.models.SmmmOfisCustomer;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,7 +37,7 @@ public class NaceKodu {
 	private String nacetanim;
 	
 	@ManyToMany
-	private List<OfisCustomer> customers;
+	private List<SmmmOfisCustomer> customer;
 	
 
 }

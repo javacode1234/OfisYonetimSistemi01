@@ -9,29 +9,26 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@AllArgsConstructor
 @Data
 @Entity
-@Table(name = "whyus")
-public class WhyUs {
+@Table(name = "smmmofisfrequentlyaskedquestions")
+public class SmmmOfisAskedQuestions {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Integer id;
 	
 	private String header;
-	
 	private String text;
+	private String description;
 	
 	@ManyToOne
 	@JoinColumn(name="smmmofis_id",insertable = false,updatable = false)
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
+
 }

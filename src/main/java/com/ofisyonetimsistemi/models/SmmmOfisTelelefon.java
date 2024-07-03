@@ -1,39 +1,33 @@
-package com.ofisyonetimsistemi.models.commonmodels;
-
-import java.util.List;
-
-import com.ofisyonetimsistemi.models.OfisCustomer;
+package com.ofisyonetimsistemi.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor
 @Data
 @Entity
-@Table(name="businessector")
-public class BusinesSector {
+@Table(name = "smmmofistelefon")
+public class SmmmOfisTelelefon {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	private String name;
+
+	private String telefonNo;
 	
 	private String description;
 	
-	@OneToMany(mappedBy = "businessector")
-	private List<OfisCustomer> customers;
-
+	@ManyToOne
+	@JoinColumn(name="smmmofis_id",updatable = false, insertable = false)
+	private SmmmOfis smmmofis;
+	private Integer smmmofis_id;
 }

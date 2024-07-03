@@ -9,39 +9,25 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Data
 @Entity
-@Table(name = "ofisuser")
-public class OfisUser {
-
+@Table(name = "smmmofisadres")
+public class SmmmOfisAdres {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	private String adres;
 	
-	private String firstName;
-	
-	private String lastName;
-	
-	private String email;
-	
-	private String pwd;
-	
-	private String tel;
-	
-	private String ofisUserAdres;
+	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name = "smmmofis_id",updatable = false,insertable = false)
+	@JoinColumn(name="smmmofis_id",insertable = false,updatable = false)
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
-	
 }

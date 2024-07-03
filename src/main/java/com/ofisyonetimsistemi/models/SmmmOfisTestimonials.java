@@ -9,29 +9,32 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@AllArgsConstructor
 @Data
 @Entity
-@Table(name = "ofisadres")
-public class OfisAdres {
+@Table(name = "smmmofistestimonials")
+public class SmmmOfisTestimonials {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	private String adres;
 	
-	private String description;
+	private byte[] resim;
+	private String isim;
+	private String meslek;
+	private boolean star1;
+	private boolean star2;
+	private boolean star3;
+	private boolean star4;
+	private boolean star5;
+	private String gorus;
 	
 	@ManyToOne
-	@JoinColumn(name="smmmofis_id",insertable = false,updatable = false)
+	@JoinColumn(name = "smmmofis_id",insertable = false,updatable = false)
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
+
 }

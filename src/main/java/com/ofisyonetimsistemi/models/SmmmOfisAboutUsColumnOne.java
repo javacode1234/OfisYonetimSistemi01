@@ -9,18 +9,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Data
 @Entity
-@Table(name = "aboutuscolumntwo")
-public class AboutUsColumnTwo {
+@Table(name = "smmmofisaboutuscolumnone")
+public class SmmmOfisAboutUsColumnOne {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

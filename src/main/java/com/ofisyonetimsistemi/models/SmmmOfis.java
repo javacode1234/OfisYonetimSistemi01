@@ -2,7 +2,6 @@ package com.ofisyonetimsistemi.models;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,14 +10,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Data
 @Entity
 @Table(name = "smmmofis")
@@ -28,58 +23,93 @@ public class SmmmOfis {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	private byte[] logo;
 	private String unvan;
-	
 	private String firstName;
-	
 	private String lastName;
-	
 	private String fullName = firstName+" "+lastName;
-	
+	//TITLE
 	private String mainpageTitle;
-	
 	private String headerTitle;
-	
+	//HERO
 	private String heroTitle;
-	
-	@Column
 	private String heroPragraf;
-	
+	//CLIENT
 	@OneToMany(mappedBy = "smmmofis")
-	private List<HomePageClient> clients;
-	
+	private List<SmmmOfisHomePageClient> clients;
+	//ABOUT US
 	private String aboutusmainheader;
-	
 	private String aboutUsColumnOneHeader;
 	
 	@OneToMany(mappedBy = "smmmofis")
-	private List<AboutUsColumnOne> aboutuscolumnone;
+	private List<SmmmOfisAboutUsColumnOne> aboutuscolumnone;
 	
 	@OneToMany(mappedBy = "smmmofis")
-	private List<AboutUsColumnTwo> aboutuscolumntwo;
-	
+	private List<SmmmOfisAboutUsColumnTwo> aboutuscolumntwo;
+	//WHY US
 	private String whyusmainheader;
-	
 	private String whyusheader;
 	
 	@OneToMany(mappedBy = "smmmofis")
-	private List<WhyUs> whyus;
+	private List<SmmmOfisWhyUs> whyus;
+	//EMAİL
+	@OneToMany(mappedBy = "smmmofis")
+	private List<SmmmOfisEmail> emails;
+	//USER
+	@OneToMany(mappedBy = "smmmofis")
+	private List<SmmmOfisUser> users;
+	//CUSTOMER
+	@OneToMany(mappedBy = "smmmofis")
+	private List<SmmmOfisCustomer> customers;
+	//ADRES
+	@OneToMany(mappedBy = "smmmofis")
+	private List<SmmmOfisAdres> adreses;
+	//TELEFON
+	@OneToMany(mappedBy = "smmmofis")
+	private List<SmmmOfisTelelefon> telefons;
+	//SKILLS
+	private String skillsMainHeader;
+	private String skillsHeader;
+	
+	//SERVICEES
+	private String serviceMainHeader;
+	private String serviceHeader;
 	
 	@OneToMany(mappedBy = "smmmofis")
-	private List<OfisEmail> emails;
+	private List<SmmmOfisService> services;
+	//CALL TO ACTIONS
+	private String callToActionHeader;
+	private String callToActionText;
+	//PORTFOLİO
+	private String portfolioHeader;
+	private String portfolioText;
 	
 	@OneToMany(mappedBy = "smmmofis")
-	private List<OfisUser> users;
+	private List<SmmmOfisBusinesSector> sectors;
+	//TEAM
+	private String teammainheader;
+	private String teamheader;
 	
 	@OneToMany(mappedBy = "smmmofis")
-	private List<OfisCustomer> customers;
+	private List<SmmmOfisTeam> team;
+	//PRICING
+	private String pricingMainHeader;
+	private String pricingHeader;
 	
 	@OneToMany(mappedBy = "smmmofis")
-	private List<OfisAdres> adreses;
+	private List<SmmmOfisPricingPlan> pricing;
+	//TESTIMONIALS
+	private String testimonialsMainHeader;
+	private String testimonialsHeader;
 	
 	@OneToMany(mappedBy = "smmmofis")
-	private List<OfisTelelefon> telefons;
+	private List<SmmmOfisTestimonials> testimonials;
+	//FREQUANTLY ASKED QUESTIONS
+	private String smmmofisFrequantlyAskedQuestionsMainHeader;
+	private String smmmofisFrequantlyAskedQuestionsHeader;
 	
+	@OneToMany(mappedBy = "smmmofis")
+	private List<SmmmOfisAskedQuestions> questions;
 	
 	
 
