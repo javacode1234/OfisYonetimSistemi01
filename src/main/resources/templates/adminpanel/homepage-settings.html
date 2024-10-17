@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="~{adminpanel/fragments/head}"></head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<header th:replace="~{adminpanel/fragments/header}"></header>
+	<!-- End Header -->
+
+	<!-- ======= Sidebar ======= -->
+	<aside th:replace="~{adminpanel/fragments/sidebar}"></aside>
+	<!-- End Sidebar-->
+
+	<!-- ======== main ========== -->
+
+	<div layout:fragment="content">
+
+		<main id="main" class="main">
+
+			<div class="pagetitle">
+				<h1>SMMM Anasayfa Ayarları</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							th:href="@{/api/v1/admin-panel}">Kontrol Paneli Anasayfa</a></li>
+						<li class="breadcrumb-item">Ayarlar</li>
+						<li class="breadcrumb-item active">SMMM Anasayfa Ayarları</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+			<!-- multistepform start -->
+			<section class="section">
+				<div class="row">
+					<form class="row" action="#" th:action="@{/api/v1/save-smmm-homepage-settings}" th:object="${smmmOfis}" method="post">
+						<div class="col-lg-6">
+
+							<div class="card">
+								<div class="card-body">
+
+									<!-- <h5 class="card-title">Anasayfa genel ayarları</h5> -->
+									<div class="container section-title mb-5 mt-3 text-primary"
+										data-aos="fade-up">
+										<h2>Kişisel bilgiler</h2>
+									</div>
+									<!-- General Form Elements -->									
+									<!-- <div class="row mb-3">
+										<div class="row col-sm-8" style="padding-top: 40px;">
+											<label for="inputNumber" class="col-sm-5 col-form-label-sm">Logo :</label>										
+											<div class="col-sm-7">
+												<input class="form-control form-control-sm" type="file" th:field="*{logo}"
+													id="formFile">"
+											</div>
+										</div>
+										<div class="col-sm-4 text-center ">
+											<img class="rounded-circle" width="100" height="100"
+												th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
+										</div>
+									</div> -->
+									<div class="row mb-1">
+										<label for="id" class="col-sm-3 col-form-label-sm">Id :</label>
+										<div class="col-sm-9">
+											<input type="text" id="id" placeholder="id" th:field="*{id}" disabled="disabled"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="unvan" class="col-sm-3 col-form-label-sm">Ünvan :</label>
+										<div class="col-sm-9">
+											<input type="text" id="unvan" placeholder="Ünvan" th:field="*{unvan}"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="firstName" class="col-sm-3 col-form-label-sm">Ad :</label>
+										<div class="col-sm-9">
+											<input type="text" id="firstName" placeholder="Adınız" th:field="*{firstName}"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="lastName" class="col-sm-3 col-form-label-sm">Soyad :</label>
+										<div class="col-sm-9">
+											<input type="text" id="lastName" placeholder="Soyadınız" th:field="*{lastName}"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="fullName" class="col-sm-3 col-form-label-sm">Ad Soyad :</label>
+										<div class="col-sm-9">
+											<input type="text" id="fullName" th:field="*{fullName}"
+												class="form-control form-control-sm" disabled="disabled">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="email" class="col-sm-3 col-form-label-sm">Email :</label>
+										<div class="col-sm-9">
+											<input type="email" id="email" placeholder="Email adresiniz" th:field="*{email}"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="userName" class="col-sm-3 col-form-label-sm">Kullanıcı Adı :</label>
+										<div class="col-sm-9">
+											<input type="text" id="userName"  th:field="*{userName}"
+												placeholder="Yönetici Ad"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="password" class="col-sm-3 col-form-label-sm">Şifre :</label>
+										<div class="col-sm-9">
+											<input type="password" id="password" th:field="*{password}"
+												placeholder="yönetici Şifre"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="confirmPassword"
+											class="col-sm-3 col-form-label-sm">Şifre Doğrula :</label>
+										<div class="col-sm-9">
+											<input type="password" id="confirmPassword"
+												placeholder="Şifreyi Tekrar gir"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="sekmeBaslik" class="col-sm-3 col-form-label-sm">Sekme Başlık :</label>
+										<div class="col-sm-9">
+											<input type="text" id="usekmeBaslik" th:field="*{mainpageTitle}"
+												placeholder="Sayfa açıldığında sekme başlığı"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="navbarBaslik" class="col-sm-3 col-form-label-sm">Menu Başlık :</label>
+										<div class="col-sm-9">
+											<input type="text" id="navbarBaslik" th:field="*{headerTitle}"
+												placeholder="Menu sol taraf başlık"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<button type="submit" class="btn btn-primary btn-sm"> Kaydet </button>
+									</div>
+									<hr>
+									<div class="container section-title mb-5 text-primary"
+										data-aos="fade-up">
+										<h2>Anasayfa</h2>
+									</div>
+									<!-- End Section Title -->
+									<div class="row mb-1">
+										<label for="heroBaslik" class="col-sm-3 col-form-label-sm">Anasayfa Başlık :</label>
+										<div class="col-sm-9">
+											<input type="text" id="heroBaslik" th:field="*{heroTitle}"
+												placeholder="Anasayfa başlık"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="heroParagraf" class="col-sm-3 col-form-label-sm">Anasayfa Paragraf :</label>
+										<div class="col-sm-9">
+											<textarea id="heroParagraf" placeholder="Anasayfa paragraf" th:field="*{heroParagraf}"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="heroVideoLink" class="col-sm-3 col-form-label-sm">AnasayfaVideoLink :</label>
+										<div class="col-sm-9">
+											<textarea id="heroVideoLink"  th:field="*{videoLink}"
+												class="form-control form-control-sm"
+												placeholder="Anasayfada butona tıklandığında açılacak videonun linkini yapıştır."></textarea>
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-primary btn-sm"> Kaydet </a>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-outline-warning btn-sm"> Anasayfada kurumlar için resim ve link ekle. </a>
+									</div>
+									<hr>
+									<div class="container section-title mb-5" data-aos="fade-up">
+										<h2 class="text-primary">Hakkımızda</h2>
+									</div>
+									<div class="row mb-1">
+										<label for="aboutUsAnaBaslik"
+											class="col-sm-3 col-form-label-sm">Hakkımızda Ana Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="aboutUsAnaBaslik" th:field="*{aboutusmainheader}"
+												placeholder="Hakkımızda Kısmı Ana Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="aboutUsColOneBaslik"
+											class="col-sm-3 col-form-label-sm">Hakkımızda Sütun 1 Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="aboutUsColOneBaslik" th:field="*{aboutUsColumnOneHeader}"
+												placeholder="Hakkımızda Kısmı Sütun 1 Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="aboutUsColTwoParagraf"
+											class="col-sm-3 col-form-label-sm">Hakkımızda sütun 2 Paragraf :</label>
+										<div class="col-sm-9">
+											<textarea id="aboutUsColTwoParagraf" th:field="*{aboutUsColumnTwoParagraf}"
+												placeholder="Hakkımızda Kısmı sütun 2 paragraf"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-primary btn-sm"> Kaydet </a>
+									</div>
+									<div class="d-grid gap-2 mb-3">
+										<a class="btn btn-outline-warning btn-sm"> Hakkımızda kısmı 1. sütun için madde ekle. </a>
+									</div>
+									<hr>
+									<div class="container section-title mb-5 text-primary"
+										data-aos="fade-up">
+										<h2>Neden Biz ?</h2>
+									</div>
+									<div class="row mb-1">
+										<label for="whyUsAnaBaslik" class="col-sm-3 col-form-label-sm">Neden Biz Ana Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="whyUsAnaBaslik" th:field="*{whyusMainHeader}"
+												placeholder="Neden Biz Kısmı Ana Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="whyUsAltBaslik" class="col-sm-3 col-form-label-sm">Neden Biz Alt Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="whyUsAltBaslik" th:field="*{whyusHeader}"
+												placeholder="Neden Biz Kısmı Alt Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="whyUsAltParagraf"
+											class="col-sm-3 col-form-label-sm">Neden Biz Alt Paragraf :</label>
+										<div class="col-sm-9">
+											<textarea id="whyUsAltParagraf" th:field="*{whyusParagraf}"
+												placeholder="Neden Biz Kısmı Alt Paragraf"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-primary btn-sm"> Kaydet </a>
+									</div>
+									<div class="d-grid gap-2 mb-3">
+										<a class="btn btn-outline-warning btn-sm"> Neden biz kısmı için madde ekle. </a>
+									</div>
+									<hr>
+									<div class="container section-title mb-5 text-primary"
+										data-aos="fade-up">
+										<h2>Başarılar</h2>
+									</div>
+									<div class="row mb-1">
+										<label for="skillsAnaBaslik"
+											class="col-sm-3 col-form-label-sm">Başarılar Ana Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="skillsAnaBaslik" th:field="*{skillsMainHeader}"
+												placeholder="Başarılar Kısmı Ana Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="skillsAltBaslik"
+											class="col-sm-3 col-form-label-sm">Başarılar Alt Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="skillsAltBaslik" th:field="*{skillsHeader}"
+												placeholder="Başarılar Kısmı Alt Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="skillsAltParagraf"
+											class="col-sm-3 col-form-label-sm">Başarılar Alt Paragraf :</label>
+										<div class="col-sm-9">
+											<textarea id="skillsAltParagraf" th:field="*{skillsParagraf}"
+												placeholder="Başarılar Kısmı Alt Paragraf"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-primary btn-sm"> Kaydet </a>
+									</div>
+									<div class="d-grid gap-2 mb-3">
+										<a class="btn btn-outline-warning btn-sm"> Başarılar kısmı için madde ekle. </a>
+									</div>
+									<hr>
+									<div class="container section-title mb-5 text-primary"
+										data-aos="fade-up">
+										<h2>Hizmetler</h2>
+									</div>
+									<div class="row mb-1">
+										<label for="servicesAnaBaslik"
+											class="col-sm-3 col-form-label-sm">Hizmetler Ana Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="servicesAnaBaslik" th:field="*{serviceMainHeader}"
+												placeholder="Hizmetler Kısmı Ana Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="servicesAltBaslik"
+											class="col-sm-3 col-form-label-sm">Hizmetler Alt Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="servicesAltBaslik" th:field="*{serviceHeader}"
+												placeholder="hizmetler Kısmı Alt Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-primary btn-sm"> Kaydet </a>
+									</div>
+									<div class="d-grid gap-2 mb-3">
+										<a class="btn btn-outline-warning btn-sm"> Hizmetler kısmı için madde ekle. </a>
+									</div>
+
+									<!-- 								</form> -->
+									<!-- End General Form Elements -->
+
+								</div>
+							</div>
+
+						</div>
+
+						<div class="col-lg-6">
+
+							<div class="card">
+								<div class="card-body">
+									<!-- <h5 class="card-title">Anasayfa genel ayarları</h5> -->
+
+									<!-- Advanced Form Elements -->
+									<!--<form> -->
+									<div class="container section-title mb-5 mt-3  text-primary"
+										data-aos="fade-up">
+										<h2>Mevzuat</h2>
+									</div>
+									<!-- End Section Title -->
+									<div class="row mb-1">
+										<label for="calltoactionsAnaBaslik"
+											class="col-sm-3 col-form-label-sm">Mevzuat Ana Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="calltoactionsAnaBaslik" th:field="*{callToActionHeader}"
+												placeholder="Mevzuat Kısmı Ana Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="calltoactionsAltBaslik"
+											class="col-sm-3 col-form-label-sm">Mevzuat Alt Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="calltoactionsAltBaslik" th:field="*{callToActionText}"
+												placeholder="Mevzuat Kısmı Alt Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-primary btn-sm"> Kaydet </a>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-outline-warning btn-sm"> Mevzuat kısmı için madde ekle. </a>
+									</div>
+									<hr>
+									<!-- call to actions -->
+									<div class="container section-title mb-5 text-primary"
+										data-aos="fade-up">
+										<h2>Portföy</h2>
+									</div>
+									<div class="row mb-1">
+										<label for="portfolioAnaBaslik"
+											class="col-sm-3 col-form-label-sm">Portföy Ana Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="portfolioAnaBaslik" th:field="*{portfolioHeader}"
+												placeholder="Portföy Kısmı Ana Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="portfolioAltBaslik"
+											class="col-sm-3 col-form-label-sm">Portföy Alt Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="portfolioAltBaslik" th:field="*{portfolioText}"
+												placeholder="Portföy Kısmı Alt Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-primary btn-sm"> Kaydet </a>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-outline-warning btn-sm"> Portföy kısmı için sektör ekle. </a>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-outline-warning btn-sm"> Sektörler için şirket ekle. </a>
+									</div>
+									<hr>
+									<!-- call to actions -->
+									<div class="container section-title mb-5  text-primary"
+										data-aos="fade-up">
+										<h2>Çalışma arkadaşlarımız</h2>
+									</div>
+									<div class="row mb-1">
+										<label for="teamAnaBaslik" class="col-sm-3 col-form-label-sm">Çalışma ekibi Ana Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="teamAnaBaslik" th:field="*{teammainheader}"
+												placeholder="Çalışma ekibi Kısmı Ana Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="teamAltBaslik" class="col-sm-3 col-form-label-sm">Çalışma ekibi Alt Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="teamAltBaslik" th:field="*{teamheader}"
+												placeholder="Çalışma ekibi Kısmı Alt Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-primary btn-sm"> Kaydet </a>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-outline-warning btn-sm"> Çalışma Ekibi kısmı için personel ekle. </a>
+									</div>
+									<hr>
+									<!-- call to actions -->
+									<div class="container section-title mb-5  text-primary"
+										data-aos="fade-up">
+										<h2>Ücretlendirme</h2>
+									</div>
+									<div class="row mb-1">
+										<label for="pricingAnaBaslik"
+											class="col-sm-3 col-form-label-sm">Ücretlendirme Ana Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="pricingAnaBaslik" th:field="*{pricingMainHeader}"
+												placeholder="Ücretlendirme Kısmı Ana Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="pricingAltBaslik"
+											class="col-sm-3 col-form-label-sm">Ücretlendirme Alt Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="pricingAltBaslik" th:field="*{pricingHeader}"
+												placeholder="Ücretlendirme Kısmı Alt Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-primary btn-sm"> Kaydet </a>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-outline-warning btn-sm"> Ücretlendirme kısmı için kart ekle. </a>
+									</div>
+									<hr>
+									<!-- call to actions -->
+									<div class="container section-title mb-5  text-primary"
+										data-aos="fade-up">
+										<h2>Referanslarımız</h2>
+									</div>
+									<div class="row mb-1">
+										<label for="testimonialsAnaBaslik"
+											class="col-sm-3 col-form-label-sm">Referanslar Ana Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="testimonialsAnaBaslik" th:field="*{testimonialsMainHeader}"
+												placeholder="Referanslar Kısmı Ana Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="testimonialsAltBaslik"
+											class="col-sm-3 col-form-label-sm">Referanslar Alt Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="testimonialsAltBaslik" th:field="*{testimonialsHeader}"
+												placeholder="Referanslar Kısmı Alt Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-primary btn-sm"> Kaydet </a>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-outline-warning btn-sm"> Referanslar kısmı için kart ekle. </a>
+									</div>
+
+									<hr>
+									<div class="container section-title mb-5  text-primary"
+										data-aos="fade-up">
+										<h2>Sık sorulan sorular</h2>
+									</div>
+									<div class="row mb-1">
+										<label for="askedquestionsAnaBaslik"
+											class="col-sm-3 col-form-label-sm">Sık sorulan sorular Ana Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="askedquestionsAnaBaslik" th:field="*{smmmofisFrequantlyAskedQuestionsMainHeader}"
+												placeholder="Sık sorulan sorular Kısmı Ana Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="askedquestionsAltBaslik"
+											class="col-sm-3 col-form-label-sm">Sık sorulan sorular Alt Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="askedquestionsAltBaslik" th:field="*{smmmofisFrequantlyAskedQuestionsHeader}"
+												placeholder="Sık sorulan sorular Kısmı Alt Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-primary btn-sm"> Kaydet </a>
+									</div>
+									<div class="d-grid gap-2 mb-1">
+										<a class="btn btn-outline-warning btn-sm"> Sık sorulan sorular kısmı için madde ekle. </a>
+									</div>
+
+									<hr>
+									<div class="container section-title mb-5 text-primary"
+										data-aos="fade-up">
+										<h2>İletişim</h2>
+									</div>
+									<div class="row mb-1">
+										<label for="contactAnaBaslik"
+											class="col-sm-3 col-form-label-sm">İletişim Ana Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="contactAnaBaslik" th:field="*{contactMainHeader}"
+												placeholder="İletişim Kısmı Ana Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="contactAltBaslik"
+											class="col-sm-3 col-form-label-sm">İletişim Alt Başlık :</label>
+										<div class="col-sm-9">
+											<textarea id="contactAltBaslik" th:field="*{contactHeader}"
+												placeholder="İletişim Kısmı Alt Başlık"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="contactAdress" class="col-sm-3 col-form-label-sm">İletişim Adresi :</label>
+										<div class="col-sm-9">
+											<textarea id="contactAdress"
+												placeholder="İletişim Kısmı Adres" th:field="*{contactAddress}"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="contactTelephone"
+											class="col-sm-3 col-form-label-sm">İletişim Telefon No :</label>
+										<div class="col-sm-9">
+											<input type="text" id="contactTelephone" th:field="*{contactTelephone}"
+												placeholder="İletişim Kısmı için Telefon No"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="contactEmail" class="col-sm-3 col-form-label-sm">İletişim E-mail :</label>
+										<div class="col-sm-9">
+											<input type="email" id="contactEmail" th:field="*{contactEmail}"
+												placeholder="İletişim kısmı için E-mail"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="contactGoogleHarita"
+											class="col-sm-3 col-form-label-sm">Google Harita koordinatı :</label>
+										<div class="col-sm-9">
+											<textarea id="contactGoogleHarita" th:field="*{googleHarita}"
+												placeholder="Google harita koordinatı"
+												class="form-control form-control-sm"></textarea>
+										</div>
+									</div>
+									<div class="d-grid gap-2 mb-5">
+										<a class="btn btn-primary btn-sm"> Kaydet </a>
+									</div>
+									<!-- End General Form Elements -->
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="card">
+								<button type="submit" class="btn btn-primary">Tümünü Kaydet</button>									
+							</div>
+						</div>
+					</form>
+				</div>
+			</section>
+
+			<!-- multistepform end -->
+		</main>
+		<!-- End #main -->
+
+	</div>
+
+	<div th:replace="~{adminpanel/fragments/footer}"></div>
+	<div th:replace="~{adminpanel/fragments/js}"></div>
+
+
+
+
+
+</body>
+
+</html>

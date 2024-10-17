@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "smmmofisservice")
-public class SmmmOfisService {
+public class SmmmOfisServices {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +31,5 @@ public class SmmmOfisService {
 	@JoinColumn(name = "smmmofis_id",insertable = false,updatable = false)
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
-	
+		
 }
