@@ -15,10 +15,25 @@ public class SmmmOfisService {
 	
 	public void saveHomePageSettings(SmmmOfis smmmOfis) {
 		smmmOfisRepo.save(smmmOfis);
-	}
-	
+	}	
+		
 	public Optional<SmmmOfis> getById(Integer id) {
 		return smmmOfisRepo.findById(id);
 	}
+
+	public Optional<SmmmOfis> getFirstSmmmOfis() {
+		return smmmOfisRepo.findAll().stream().findFirst();
+	}
+
+	public void updateSmmmHomePageSettingsById(Integer id) {
+		SmmmOfis smmmOfis = smmmOfisRepo.findById(id).get();
+		smmmOfisRepo.save(smmmOfis);
+	}
+
+	public void updatdateSmmmOfis(SmmmOfis smmmOfis) {
+		smmmOfisRepo.save(smmmOfis);
+	}
+	
+	
 
 }
