@@ -163,6 +163,12 @@ public class SmmmOfis {
 	@Column(length = 2000)
 	private String googleHarita;
 	
+	//Sosyal medya
+	private String smmmOfisTwitter;
+	private String smmmOfisFacebook;
+	private String smmmOfisInstagram;
+	private String smmmOfisLinkedIn;
+	
 	
 
 }

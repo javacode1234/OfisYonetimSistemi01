@@ -1,10 +1,11 @@
-<header th:fragment="header" id="header" class="header d-flex align-items-center fixed-top" style="border-bottom:1px solid orange;">
+<header th:fragment="header" id="header" class="header d-flex align-items-center fixed-top" style="border-bottom:1px solid yellow;">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
       <a th:href="@{/}" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img th:src="@{arshahomepage/assets/img/smmmLogo.jpg}" alt=""> 
-        <h1 class="sitename" th:text="${smmmOfisHomePage.headerTitle}"></h1>
+<!--         <h1 class="sitename" th:text="${smmmOfisHomePage.headerTitle}==null ? 'HeaderTitle' : ${smmmOfisHomePage.headerTitle}"></h1> -->
+        <h1 class="sitename" data-th-text="${#strings.defaultString(smmmOfisHomePage.headerTitle,'SMMM-OYS')}"></h1>
       </a>
 
       <nav id="navmenu" class="navmenu">

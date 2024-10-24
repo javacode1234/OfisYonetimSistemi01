@@ -15,13 +15,14 @@
 					<div class="row gy-4">
 						<div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center"
 							data-aos="zoom-out">
-							<h1 th:text="${smmmOfisHomePage.heroTitle}">Better Solutions For Your Business</h1>
-							<p th:text="${smmmOfisHomePage.heroParagraf}">We are team of talented designers making websites with
+							<!-- th:text="${smmmOfisHomePage.heroTitle==null} ? 'Smmm Ofis Anasayfa başlık' : ${smmmOfisHomePage.heroTitle}" -->
+							<h1 th:text="${#strings.defaultString(smmmOfisHomePage.heroTitle,'Better Solutions For Your Business')}">Better Solutions For Your Business</h1>
+							<p th:text="${#strings.defaultString(smmmOfisHomePage.heroParagraf, 'We are team of talented designers making websites with')}">We are team of talented designers making websites with
 								Bootstrap</p>
 							<div class="d-flex">
 								<a href="#about" class="btn-get-started">Buradan başla.</a>
-								<a th:href="${smmmOfisHomePage.videoLink}" class="glightbox btn-watch-video d-flex align-items-center"><i
-										class="bi bi-play-circle"></i><span>Watch Video</span></a>
+								<a th:href="${#strings.defaultString(smmmOfisHomePage.videoLink,'https://www.youtube.com/watch?v=tuus0A9u2jo')}" 
+										class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
 							</div>
 						</div>
 						<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="200">
@@ -104,7 +105,7 @@
 
 				<!-- Section Title -->
 				<div class="container section-title" data-aos="fade-up">
-					<h2 th:text="${smmmOfisHomePage.aboutusmainheader}">About Us</h2>
+					<h2 th:text="${#strings.defaultString(smmmOfisHomePage.aboutusmainheader,'Hakkımızda Kısmı Başlık') }">About Us</h2>
 				</div><!-- End Section Title -->
 
 				<div class="container">
@@ -112,7 +113,7 @@
 					<div class="row gy-4">
 
 						<div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-							<p th:text="${smmmOfisHomePage.aboutUsColumnOneHeader}">
+							<p th:text="${#strings.defaultString(smmmOfisHomePage.aboutUsColumnOneHeader,'Hakkımızda Kısmı Kolon 1 Başlık')}">
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 								incididunt ut labore et dolore
 								magna aliqua.
@@ -128,7 +129,8 @@
 						</div>
 
 						<div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-							<p  th:text="${smmmOfisHomePage.aboutUsColumnTwoParagraf}">Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+							<p  th:text="${#strings.defaultString(smmmOfisHomePage.aboutUsColumnTwoParagraf, 'Hakkımızda Kısmı Kolon 2 Paragraf')}">
+								Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
 								reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
 								sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
 								est laborum. </p>
@@ -145,7 +147,7 @@
 			<section id="why-us" class="section why-us" data-builder="section">
 				<!-- Section Title -->
 				<div class="container section-title" data-aos="fade-up">
-					<h2 th:text="${smmmOfisHomePage.whyusMainHeader}">Why Us</h2>
+					<h2 th:text="${#strings.defaultString(smmmOfisHomePage.whyusMainHeader,'Neden Biz Kısmı Başlık')}">Why Us</h2>
 				</div><!-- End Section Title -->
 
 				<div class="container-fluid">
@@ -155,9 +157,10 @@
 						<div class="col-lg-7 d-flex flex-column justify-content-center order-2 order-lg-1">
 
 							<div class="content px-xl-5" data-aos="fade-up" data-aos-delay="100">
-								<h3 th:text="${smmmOfisHomePage.whyusHeader}"><span>Eum ipsam laborum deleniti </span><strong>velit pariatur architecto aut
+								<h3 th:text="${#strings.defaultString(smmmOfisHomePage.whyusHeader,'Neden biz kısmı alt başlık.') }"><span>
+										Eum ipsam laborum deleniti </span><strong>velit pariatur architecto aut
 										nihil</strong></h3>
-								<p th:text=${smmmOfisHomePage.whyusParagraf}>
+								<p th:text="${#strings.defaultString(smmmOfisHomePage.whyusParagraf,'Neden biz kısmı paragraf')}">
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 									incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
 								</p>
@@ -218,7 +221,7 @@
 			<section id="skills" class="skills section">
 				<!-- Section Title -->
 				<div class="container section-title" data-aos="fade-up">
-					<h2 th:text="${smmmOfisHomePage.skillsMainHeader}">Skills</h2>
+					<h2 th:text="${#strings.defaultString(smmmOfisHomePage.skillsMainHeader,'Başarılar Kısmı Başlık')}">Skills</h2>
 				</div><!-- End Section Title -->
 
 				<div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -231,8 +234,8 @@
 
 						<div class="col-lg-6 pt-4 pt-lg-0 content">
 
-							<h3 th:text="${smmmOfisHomePage.skillsHeader}">Voluptatem dignissimos provident quasi corporis voluptas</h3>
-							<p th:text="${smmmOfisHomePage.skillsParagraf}" class="fst-italic">
+							<h3 th:text="${#strings.defaultString(smmmOfisHomePage.skillsHeader,'Başarılar kısmı alt başlık')}">Voluptatem dignissimos provident quasi corporis voluptas</h3>
+							<p th:text="${#strings.defaultString(smmmOfisHomePage.skillsParagraf,'Başarılar kısmı paragraf')}" class="fst-italic">
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 								incididunt ut labore et dolore magna aliqua.
 							</p>
@@ -285,8 +288,8 @@
 
 				<!-- Section Title -->
 				<div class="container section-title" data-aos="fade-up">
-					<h2 th:text=${smmmOfisHomePage.serviceMainHeader}>Services</h2>
-					<p th:text=${smmmOfisHomePage.serviceHeader} >Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+					<h2 th:text="${#strings.defaultString(smmmOfisHomePage.serviceMainHeader,'Hizmetler kısmı ana başlık')}">Services</h2>
+					<p th:text="${#strings.defaultString(smmmOfisHomePage.serviceHeader,'Hizmetler kısmı alt başlık')} ">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
 				</div><!-- End Section Title -->
 
 				<div class="container">
@@ -340,8 +343,8 @@
 
 					<div class="row" data-aos="zoom-in" data-aos-delay="100">
 						<div class="col-xl-9 text-center text-xl-start">
-							<h3 th:text=${smmmOfisHomePage.callToActionHeader}>Call To Action</h3>
-							<p th:text=${smmmOfisHomePage.callToActionText}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+							<h3 th:text="${#strings.defaultString(smmmOfisHomePage.callToActionHeader,'Mevzuat kısmı başlık')}">Call To Action</h3>
+							<p th:text="${#strings.defaultString(smmmOfisHomePage.callToActionText,'Mevzuat kısmı paragraf')}">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
 								nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
 								officia deserunt mollit anim id est laborum.</p>
 						</div>
@@ -359,8 +362,8 @@
 
 				<!-- Section Title -->
 				<div class="container section-title" data-aos="fade-up">
-					<h2 th:text=${smmmOfisHomePage.portfolioHeader}>Portfolio</h2>
-					<p th:text=${smmmOfisHomePage.portfolioText}>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+					<h2 th:text="${#strings.defaultString(smmmOfisHomePage.portfolioHeader,'Potföy Kısmı Başlık')}">Portfolio</h2>
+					<p th:text="${#strings.defaultString(smmmOfisHomePage.portfolioText,'Portföy kısmı paragraf text')}">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
 				</div><!-- End Section Title -->
 
 				<div class="container">
@@ -516,8 +519,8 @@
 
 				<!-- Section Title -->
 				<div class="container section-title" data-aos="fade-up">
-					<h2 th:text=${smmmOfisHomePage.teammainheader}>Team</h2>
-					<p th:text=${smmmOfisHomePage.teamheader}>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+					<h2 th:text="${#strings.defaultString(smmmOfisHomePage.teammainheader,'çalışma ekibi kısmı ana başlık')}">Team</h2>
+					<p th:text="${#strings.defaultString(smmmOfisHomePage.teamheader,'çalışma ekibi kısmı alt başlık')}">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
 				</div><!-- End Section Title -->
 
 				<div class="container">
@@ -607,8 +610,8 @@
 
 				<!-- Section Title -->
 				<div class="container section-title" data-aos="fade-up">
-					<h2 th:text=${smmmOfisHomePage.pricingMainHeader}>Pricing</h2>
-					<p th:text=${smmmOfisHomePage.pricingHeader}>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+					<h2 th:text="${#strings.defaultString(smmmOfisHomePage.pricingMainHeader,'ücretlendirme kısmı ana başlık')}">Pricing</h2>
+					<p th:text="${#strings.defaultString(smmmOfisHomePage.pricingHeader,'ücretlendirme kısmı alt başlık')}">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
 				</div><!-- End Section Title -->
 
 				<div class="container">
@@ -673,8 +676,8 @@
 
 				<!-- Section Title -->
 				<div class="container section-title" data-aos="fade-up">
-					<h2 th:text=${smmmOfisHomePage.testimonialsMainHeader}>Testimonials</h2>
-					<p th:text=${smmmOfisHomePage.testimonialsHeader}>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+					<h2 th:text="${#strings.defaultString(smmmOfisHomePage.testimonialsMainHeader,'referanslar kısmı ana başlık')}">Testimonials</h2>
+					<p th:text="${#strings.defaultString(smmmOfisHomePage.testimonialsHeader,'referanslar kısmı alt başlık')}">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
 				</div><!-- End Section Title -->
 
 				<div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -815,8 +818,8 @@
 
 				<!-- Section Title -->
 				<div class="container section-title" data-aos="fade-up">
-					<h2 th:text=${smmmOfisHomePage.smmmofisFrequantlyAskedQuestionsMainHeader}>Frequently Asked Questions</h2>
-					<p th:text=${smmmOfisHomePage.smmmofisFrequantlyAskedQuestionsHeader}>
+					<h2 th:text="${#strings.defaultString(smmmOfisHomePage.smmmofisFrequantlyAskedQuestionsMainHeader,'sık sorulan sorular kısmı ana başlık')}">Frequently Asked Questions</h2>
+					<p th:text="${#strings.defaultString(smmmOfisHomePage.smmmofisFrequantlyAskedQuestionsHeader,'sık sorulan sorular kısmı alt başlık')}">
 						Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit
 						sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias
 						ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
@@ -905,8 +908,8 @@
 
 				<!-- Section Title -->
 				<div class="container section-title" data-aos="fade-up">
-					<h2 th:text="${smmmOfisHomePage.contactMainHeader}">İLETİŞİM</h2>
-					<p th:text="${smmmOfisHomePage.contactHeader}">Soru, istek ve şikayetlerinizi iletebilirsiniz.</p>
+					<h2 th:text="${#strings.defaultString(smmmOfisHomePage.contactMainHeader,'İletişim kısmı ana başlık')}">İLETİŞİM</h2>
+					<p th:text="${#strings.defaultString(smmmOfisHomePage.contactHeader,'İletişim kısmı alt başlık')}">Soru, istek ve şikayetlerinizi iletebilirsiniz.</p>
 				</div><!-- End Section Title -->
 
 				<div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -920,7 +923,7 @@
 									<i class="bi bi-geo-alt flex-shrink-0"></i>
 									<div>
 										<h3>Adres :</h3>
-										<p th:text="${smmmOfisHomePage.contactAddress}">A108 Adam Street, New York, NY 535022</p>
+										<p th:text="${#strings.defaultString(smmmOfisHomePage.contactAddress,'İletişim kısmı adres')}">A108 Adam Street, New York, NY 535022</p>
 									</div>
 								</div><!-- End Info Item -->
 
@@ -928,7 +931,7 @@
 									<i class="bi bi-telephone flex-shrink-0"></i>
 									<div>
 										<h3>Telefon :</h3>
-										<p th:text="${smmmOfisHomePage.contactTelephone}">+1 5589 55488 55</p>
+										<p th:text="${#strings.defaultString(smmmOfisHomePage.contactTelephone,'İletişim kısmı telefon')}">+1 5589 55488 55</p>
 									</div>
 								</div><!-- End Info Item -->
 
@@ -936,11 +939,11 @@
 									<i class="bi bi-envelope flex-shrink-0"></i>
 									<div>
 										<h3>Email :</h3>
-										<p th:text="${smmmOfisHomePage.contactEmail}">info@example.com</p>
+										<p th:text="${#strings.defaultString(smmmOfisHomePage.contactEmail,'İletişim kısmı E-mail')}">info@example.com</p>
 									</div>
 								</div><!-- End Info Item -->
 
-								<iframe th:src="${smmmOfisHomePage.googleHarita}"  frameborder="0" style="border:0; width: 100%; height: 270px;"
+								<iframe th:src="${#strings.defaultString(smmmOfisHomePage.googleHarita,'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d633.0934546627764!2d28.67063586480752!3d40.99205685891821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e0!3m2!1str!2str!4v1729792406232!5m2!1str!2strfullscreen') }"  frameborder="0" style="border:0; width: 100%; height: 270px;"
 									allowfullscreen="" loading="lazy"
 									referrerpolicy="no-referrer-when-downgrade">
 								</iframe>
@@ -971,8 +974,7 @@
 
 									<div class="col-md-12">
 										<label for="message-field" class="pb-2">Message</label>
-										<textarea class="form-control" name="message" rows="10" id="message-field"
-											required=""></textarea>
+										<textarea class="form-control" name="message" rows="10" id="message-field"required=""></textarea>
 									</div>
 
 									<div class="col-md-12 text-center">
