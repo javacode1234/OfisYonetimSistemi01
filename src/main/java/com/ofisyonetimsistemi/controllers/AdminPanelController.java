@@ -1,20 +1,47 @@
 package com.ofisyonetimsistemi.controllers;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ofisyonetimsistemi.models.SmmmOfis;
+import com.ofisyonetimsistemi.services.SmmmOfisService;
+
 @Controller
 @RequestMapping("/api/v1/")
 public class AdminPanelController {
 	
+	@Autowired
+	SmmmOfisService smmmOfisService;
+	
 	@GetMapping("/admin-panel")
 	public String getAdminPanel(Model model) {
-		model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
-		model.addAttribute("smmmisim","Muammer UZUN");
-		model.addAttribute("fullusername","Muammer UZUN");
-		model.addAttribute("gorev","SMMM");
+		 Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
+		  if(!smmmOfis.isEmpty()) {
+			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
+			  model.addAttribute("smmmisim", smmmOfis.get().getFullName());
+			  model.addAttribute("fullusername", smmmOfis.get().getUserName());
+			  model.addAttribute("gorev", smmmOfis.get().getUnvan());
+			  
+			  model.addAttribute("updateBtnActive", true);
+			  model.addAttribute("smmmOfisId", smmmOfis.get().getId());
+			  model.addAttribute("smmmOfis", smmmOfis.get());
+			  
+			  return "adminpanel/index";
+			  
+		   }else 
+		  
+			  model.addAttribute("dashboardtitle", "SMMM Muammer UZUN");
+			  model.addAttribute("smmmisim", "Muammer UZUN");
+			  model.addAttribute("fullusername", "Muammer UZUN");
+			  model.addAttribute("gorev", "SMMM");
+			  model.addAttribute("updateBtnActive", false);
+			  model.addAttribute("smmmOfis", new SmmmOfis());
+		 
 		return "adminpanel/index";
 	}
 	

@@ -2,6 +2,7 @@ package com.ofisyonetimsistemi.models;
 
 import java.util.List;
 
+import groovy.transform.ToString;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,11 +12,14 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@ToString
 @Data
 @Entity
 @Table(name = "smmmofis")
@@ -25,20 +29,25 @@ public class SmmmOfis {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Lob
+	// genel bilgiler kısmı //
+	
+	@Lob	
 	private byte[] logo;
+	
+	@Lob
+	private String stringLogo;
+	
 	private String unvan;
 	private String firstName;
 	private String lastName;
-	private String fullName = firstName+" "+lastName;
+	private String fullName;
 	private String email;
 	private String telephone;	
-	private String address;
-	private String googleMap;
-	
+	private String address;	
 	private String userName;
 	private String password;	
 	
+	// anasayfa ayarlar kısmı //
 	
 	private String mainpageTitle;//TITLE -- sekme başlığı
 	private String headerTitle;//navbar sol logonun yanı
@@ -54,7 +63,7 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisHomePageClient> clients;//kurum logoları ve linkleri
 	
-	//ABOUT US
+	// ABOUT US - hakkımızda kısmı //
 	private String aboutusmainheader;//hakkımızda anabaşlık
 	
 	@Column(length = 200)
@@ -65,7 +74,7 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisAboutUsColumnOne> aboutuscolumnone;//hakkımızda 1.kolon alt başlıklar
 	
-	//WHY US
+	// WHY US - neden biz kısmı //
 	private String whyusMainHeader;//neden biz kısmı ana başlık
 	@Column(length = 200)
 	private String whyusHeader;//neden biz kısmı alt başlık
@@ -75,7 +84,7 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisWhyUs> whyus;//neden biz kısmı liste
 	
-	//skills
+	// skills - başarılar kısmı //
 	private String skillsMainHeader;//başarılar kısmı ana başlık
 	
 	@Column(length = 200)
@@ -86,18 +95,8 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisSkills> skills;//başarılar kısmı liste
 	
-	@OneToMany(mappedBy = "smmmofis")
-	private List<SmmmOfisEmail> emails;//EMAİL
-	@OneToMany(mappedBy = "smmmofis")
-	private List<SmmmOfisUser> users;//USER
-	@OneToMany(mappedBy = "smmmofis")
-	private List<SmmmOfisCustomer> customers;//CUSTOMER
-	@OneToMany(mappedBy = "smmmofis")
-	private List<SmmmOfisAdres> adreses;//ADRES
-	@OneToMany(mappedBy = "smmmofis")
-	private List<SmmmOfisTelelefon> telefons;//TELEFON
 		
-	//SERVICEES
+	// SERVICEES - hizmetlerkısmı //
 	private String serviceMainHeader;
 	
 	@Column(length = 200)
@@ -105,13 +104,13 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisServices> services;
 	
-	//CALL TO ACTIONS
+	//CALL TO ACTIONS - mevzuat kısmı //
 	private String callToActionHeader;
 	
 	@Column(length = 200)
 	private String callToActionText;
 	
-	//PORTFOLİO
+	// PORTFOLİO - portföy kısmı //
 	private String portfolioHeader;
 	
 	@Column(length = 200)
@@ -119,7 +118,7 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisBusinesSector> sectors;
 	
-	//TEAM
+	// TEAM - çalışma takımı kısmı //
 	private String teammainheader;
 	
 	@Column(length = 200)
@@ -127,7 +126,7 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisTeam> team;
 	
-	//PRICING
+	// PRICING - ücretlendirme kısmı //
 	private String pricingMainHeader;
 	
 	@Column(length = 200)
@@ -135,7 +134,7 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisPricingPlan> pricing;
 	
-	//TESTIMONIALS
+	// TESTIMONIALS - referanslar-yorumlar kısmı //
 	private String testimonialsMainHeader;
 	
 	@Column(length = 200)
@@ -143,7 +142,7 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisTestimonials> testimonials;
 	
-	//FREQUANTLY ASKED QUESTIONS
+	// FREQUANTLY ASKED QUESTIONS - sık sorulan sorular kısmı //
 	private String smmmofisFrequantlyAskedQuestionsMainHeader;
 	
 	@Column(length = 200)
@@ -151,7 +150,7 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisAskedQuestions> questions;
 	
-	//CONTACT
+	// CONTACT - iletişim kısmı //
 	private String contactMainHeader;
 	
 	@Column(length = 100)
@@ -169,6 +168,22 @@ public class SmmmOfis {
 	private String smmmOfisInstagram;
 	private String smmmOfisLinkedIn;
 	
+	//***************************************//
+		@OneToMany(mappedBy = "smmmofis")
+		private List<SmmmOfisEmail> emails;//EMAİL
+		@OneToMany(mappedBy = "smmmofis")
+		private List<SmmmOfisUser> users;//USER
+		@OneToMany(mappedBy = "smmmofis")
+		private List<SmmmOfisCustomer> customers;//CUSTOMER
+		@OneToMany(mappedBy = "smmmofis")
+		private List<SmmmOfisAdres> adreses;//ADRES
+		@OneToMany(mappedBy = "smmmofis")
+		private List<SmmmOfisTelelefon> telefons;//TELEFON
+		//*******************************************//
+		
+		
+		
+		
 	
 
 }

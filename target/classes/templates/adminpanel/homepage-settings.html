@@ -35,78 +35,86 @@
 			</div>
 			<!-- End Page Title -->
 			<!-- multistepform start -->
-			<section class="section">
-				<div class="row">
-					<form class="row" th:action="@{/api/v1/save-smmm-homepage-settings}" th:object="${smmmOfis}" method="post">
-						<div class="col-lg-6">
-
-							<div class="card">
-								<div class="card-body">
+			<section class="section">				
+					
+										
+					<div class="row">
+<!-- 					<form class="row" th:action="@{/api/v1/save-smmm-homepage-settings}" id="homePageSettingsForm" -->
+<!-- 								th:object="${smmmOfis}" method="post" enctype="multipart/form-data"> -->
+						<div class="col-lg-6" id="col1">
+							
+							<div class="card" id="card">
+								<div class="card-body mb-5" id="card-budy">
 									<!-- <h5 class="card-title">Anasayfa genel ayarları</h5> -->
 									<div class="container section-title mb-5 mt-3 text-primary"
 										data-aos="fade-up">
 										<h2>Kişisel bilgiler</h2>
 									</div>
-									<!-- General Form Elements -->									
-									<!-- <div class="row mb-3">
-										<div class="row col-sm-8" style="padding-top: 40px;">
-											<label for="inputNumber" class="col-sm-5 col-form-label-sm">Logo</label>										
-											<div class="col-sm-7">
-												<input class="form-control form-control-sm" type="file" th:field="*{logo}"
-													id="formFile">"
+									<!-- General Form Elements -->	
+									<form th:action="@{ ${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-personal-info' : '/api/v1/update-smmm-homepage-settings-personal-info/' + ${smmmOfis.id} } " 
+											id="homePageSettingsPersonalInfoForm" method="post" enctype="multipart/form-data">
+																			
+								    <div class="row mb-3 mt-3" id="general-elements">
+										<div class="row d-flex-inline align-items-center" style="padding-top: 10px;">
+											<label for="inputNumber" class="col-sm-3 col-form-label-sm w-40">Logo</label>
+											<div class="col-sm-5">
+												<input class="form-control form-control-sm" type="file" name="logo"
+													 id="formImage" accept="image/*">
 											</div>
-										</div>
-										<div class="col-sm-4 text-center ">
-											<img class="rounded-circle" width="100" height="100"
-												th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
-										</div>
-									</div> -->
-									<div class="row mb-1">
+											<div class="col-sm-4 text-center ">
+												<img th:if="${smmmOfis.id==null}" class="rounded" width="80" height="80" id="smmmLogo"
+													th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
+												<img th:if="${smmmOfis.id!=null}" class="rounded" width="80" height="80" id="smmmLogo"
+													th:src=" 'data:image/*;base64,' + ${smmmOfis.stringLogo} " alt="">
+											</div>								
+										</div>										
+									</div>
+									<div class="row mb-1" >
 										<label for="id" class="col-sm-3 col-form-label-sm">Id</label>
 										<div class="col-sm-9">
-											<input type="text" id="id" placeholder="id" th:field="*{id}" readonly
+											<input type="text" id="id" placeholder="id" name="id" readonly th:value="${smmmOfis.id}"
 												class="form-control-plaintext form-control-sm">
 										</div>
 									</div>
 									<div class="row mb-1">
 										<label for="unvan" class="col-sm-3 col-form-label-sm">Ünvan</label>
 										<div class="col-sm-9">
-											<input type="text" id="unvan" placeholder="Ünvan" th:field="*{unvan}"
+											<input type="text" id="unvan" placeholder="Ünvan" name="unvan" th:value="${smmmOfis.unvan}"
 												class="form-control form-control-sm">
 										</div>
 									</div>
 									<div class="row mb-1">
 										<label for="firstName" class="col-sm-3 col-form-label-sm">Adı</label>
 										<div class="col-sm-9">
-											<input type="text" id="firstName" placeholder="Adınız" th:field="*{firstName}"
+											<input type="text" id="firstName" placeholder="Adınız" name="firstName" th:value="${smmmOfis.firstName}"
 												class="form-control form-control-sm">
 										</div>
 									</div>
 									<div class="row mb-1">
 										<label for="lastName" class="col-sm-3 col-form-label-sm">Soyadı</label>
 										<div class="col-sm-9">
-											<input type="text" id="lastName" placeholder="Soyadınız" th:field="*{lastName}"
+											<input type="text" id="lastName" placeholder="Soyadınız" name="lastName" th:value="${smmmOfis.lastName}"
 												class="form-control form-control-sm">
 										</div>
 									</div>
 									<div class="row mb-1">
 										<label for="fullName" class="col-sm-3 col-form-label-sm">Adı Soyadı</label>
 										<div class="col-sm-9">
-											<input type="text" id="fullName" th:field="*{fullName}"
-												class="form-control form-control-sm" disabled="disabled">
+											<input type="text" id="fullName" name="fullName" th:value="${smmmOfis.fullName}"
+												class="form-control form-control-sm" >
 										</div>
 									</div>
 									<div class="row mb-1">
 										<label for="email" class="col-sm-3 col-form-label-sm">Email</label>
 										<div class="col-sm-9">
-											<input type="email" id="email" placeholder="Email adresiniz" th:field="*{email}"
+											<input type="email" id="email" placeholder="Email adresiniz" name="email" th:value="${smmmOfis.email}"
 												class="form-control form-control-sm">
 										</div>
 									</div>
 									<div class="row mb-1">
 										<label for="userName" class="col-sm-3 col-form-label-sm">Kullanıcı Adı</label>
 										<div class="col-sm-9">
-											<input type="text" id="userName"  th:field="*{userName}"
+											<input type="text" id="userName"  name="userName"  th:value="${smmmOfis.userName}"
 												placeholder="Yönetici Ad"
 												class="form-control form-control-sm">
 										</div>
@@ -114,53 +122,58 @@
 									<div class="row mb-1">
 										<label for="password" class="col-sm-3 col-form-label-sm">Şifre</label>
 										<div class="col-sm-9">
-											<input type="password" id="password" th:field="*{password}"
+											<input type="text" id="password" name="password" th:value="${smmmOfis.password}"
 												placeholder="yönetici Şifre"
 												class="form-control form-control-sm">
 										</div>
 									</div>
-									<div class="row mb-1">
+									<div class="row mb-3">
 										<label for="confirmPassword"
 											class="col-sm-3 col-form-label-sm">Şifre Doğrula</label>
 										<div class="col-sm-9">
-											<input type="password" id="confirmPassword"
+											<input type="text" id="confirmPassword"
 												placeholder="Şifreyi Tekrar gir"
 												class="form-control form-control-sm">
 										</div>
-									</div>
-									<div class="row mb-1">
-										<label for="sekmeBaslik" class="col-sm-3 col-form-label-sm">Sekme Başlık</label>
-										<div class="col-sm-9">
-											<input type="text" id="usekmeBaslik" th:field="*{mainpageTitle}"
-												placeholder="Sayfa açıldığında sekme başlığı"
-												class="form-control form-control-sm">
-										</div>
-									</div>
-									<div class="row mb-3">
-										<label for="navbarBaslik" class="col-sm-3 col-form-label-sm">Menu Başlık</label>
-										<div class="col-sm-9">
-											<input type="text" id="navbarBaslik" th:field="*{headerTitle}"
-												placeholder="Menu sol taraf başlık"
-												class="form-control form-control-sm">
-										</div>
-									</div>
+									</div>									
 									<div class="d-grid gap-2 mb-1">
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 											
 									</div>
+									</form>
+									
 									<hr>
+									
 									<div class="container section-title mb-5 text-primary"
 										data-aos="fade-up">
 										<h2>Anasayfa</h2>
 									</div>
 									<!-- End Section Title -->
+									<form th:action="@{ ${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-homepage-info' : '/api/v1/update-smmm-homepage-settings-homepage-info/' + ${smmmOfis.id} }" 
+																id="homePageForm" method="post">
+									<div class="row mb-1">
+										<label for="sekmeBaslik" class="col-sm-3 col-form-label-sm">Sekme Başlık</label>
+										<div class="col-sm-9">
+											<input type="text" id="sekmeBaslik" name="mainpageTitle" th:value="${smmmOfis.mainpageTitle}"
+												placeholder="Sayfa açıldığında sekme başlığı"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="navbarBaslik" class="col-sm-3 col-form-label-sm">Menu Başlık</label>
+										<div class="col-sm-9">
+											<input type="text" id="navbarBaslik" name="headerTitle" th:value="${smmmOfis.headerTitle}"
+												placeholder="Menu sol taraf başlık"
+												class="form-control form-control-sm">
+										</div>
+									</div>
 									<div class="row mb-1">
 										<label for="heroBaslik" class="col-sm-3 col-form-label-sm">Anasayfa Başlık</label>
 										<div class="col-sm-9">
-											<input type="text" id="heroBaslik" th:field="*{heroTitle}"
+											<input type="text" id="heroBaslik" name="heroTitle" th:value="${smmmOfis.heroTitle}"
 												placeholder="Anasayfa başlık"
 												class="form-control form-control-sm">
 										</div>
@@ -168,36 +181,44 @@
 									<div class="row mb-1">
 										<label for="heroParagraf" class="col-sm-3 col-form-label-sm">Anasayfa Paragraf</label>
 										<div class="col-sm-9">
-											<textarea id="heroParagraf" placeholder="Anasayfa paragraf" th:field="*{heroParagraf}"
-												class="form-control form-control-sm"></textarea>
+											<textarea id="heroParagraf" placeholder="Anasayfa paragraf" name="heroParagraf" 
+														th:text="${smmmOfis.heroParagraf}"
+													class="form-control form-control-sm">
+											</textarea>
 										</div>
 									</div>
 									<div class="row mb-3">
 										<label for="heroVideoLink" class="col-sm-3 col-form-label-sm">Anasayfa<br>VideoLink</label>
 										<div class="col-sm-9">
-											<textarea id="heroVideoLink"  th:field="*{videoLink}"
+											<textarea id="heroVideoLink" name="videoLink"  th:text="${smmmOfis.videoLink}"
 												class="form-control form-control-sm"
-												placeholder="Anasayfada butona tıklandığında açılacak videonun linkini yapıştır."></textarea>
+												placeholder="Anasayfada butona tıklandığında açılacak videonun linkini yapıştır.">
+											</textarea>
 										</div>
 									</div>
 									<div class="d-grid gap-2 mb-1">
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
 										<a class="btn btn-outline-warning btn-sm"> Anasayfada kurumlar için resim ve link ekle. </a>
 									</div>
+									</form>
+									
 									<hr>
+									
 									<div class="container section-title mb-5" data-aos="fade-up">
 										<h2 class="text-primary">Hakkımızda</h2>
 									</div>
+									<form th:action="@{${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-aboutus-info' : '/api/v1/update-smmm-homepage-settings-aboutus-info/' + ${smmmOfis.id} }" 
+															id="aboutusPageForm" method="post">
 									<div class="row mb-1">
 										<label for="aboutUsAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Hakkımızda<br>Ana Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="aboutUsAnaBaslik" th:field="*{aboutusmainheader}"
+											<textarea id="aboutUsAnaBaslik" name="aboutusmainheader" th:text="${smmmOfis.aboutusmainheader}"
 												placeholder="Hakkımızda Kısmı Ana Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -206,7 +227,7 @@
 										<label for="aboutUsColOneBaslik"
 											class="col-sm-3 col-form-label-sm">Hakkımızda<br>Sütun 1 Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="aboutUsColOneBaslik" th:field="*{aboutUsColumnOneHeader}"
+											<textarea id="aboutUsColOneBaslik" name="aboutUsColumnOneHeader" th:text="${smmmOfis.aboutUsColumnOneHeader}"
 												placeholder="Hakkımızda Kısmı Sütun 1 Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -215,7 +236,7 @@
 										<label for="aboutUsColTwoParagraf"
 											class="col-sm-3 col-form-label-sm">Hakkımızda<br>sütun 2 Paragraf</label>
 										<div class="col-sm-9">
-											<textarea id="aboutUsColTwoParagraf" th:field="*{aboutUsColumnTwoParagraf}"
+											<textarea id="aboutUsColTwoParagraf" name="aboutUsColumnTwoParagraf" th:text="${smmmOfis.aboutUsColumnTwoParagraf}"
 												placeholder="Hakkımızda Kısmı sütun 2 paragraf"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -224,20 +245,25 @@
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-3">
 										<a class="btn btn-outline-warning btn-sm"> Hakkımızda kısmı 1. sütun için madde ekle. </a>
 									</div>
+									</form>
+									
 									<hr>
+									
 									<div class="container section-title mb-5 text-primary"
 										data-aos="fade-up">
 										<h2>Neden Biz ?</h2>
 									</div>
+									<form th:action="@{${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-whyus-info' : '/api/v1/update-smmm-homepage-settings-whyus-info/' + ${smmmOfis.id} }" 
+															id="whyusPageForm"  method="post">
 									<div class="row mb-1">
 										<label for="whyUsAnaBaslik" class="col-sm-3 col-form-label-sm">Neden Biz<br>Ana Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="whyUsAnaBaslik" th:field="*{whyusMainHeader}"
+											<textarea id="whyUsAnaBaslik" name="whyusMainHeader" th:text="${smmmOfis.whyusMainHeader}"
 												placeholder="Neden Biz Kısmı Ana Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -245,7 +271,7 @@
 									<div class="row mb-1">
 										<label for="whyUsAltBaslik" class="col-sm-3 col-form-label-sm">Neden Biz<br>Alt Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="whyUsAltBaslik" th:field="*{whyusHeader}"
+											<textarea id="whyUsAltBaslik" name="whyusHeader" th:text="${smmmOfis.whyusHeader}"
 												placeholder="Neden Biz Kısmı Alt Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -254,7 +280,7 @@
 										<label for="whyUsAltParagraf"
 											class="col-sm-3 col-form-label-sm">Neden Biz<br>Alt Paragraf</label>
 										<div class="col-sm-9">
-											<textarea id="whyUsAltParagraf" th:field="*{whyusParagraf}"
+											<textarea id="whyUsAltParagraf" name="whyusParagraf" th:text="${smmmOfis.whyusParagraf}"
 												placeholder="Neden Biz Kısmı Alt Paragraf"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -263,21 +289,26 @@
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-3">
 										<a class="btn btn-outline-warning btn-sm"> Neden biz kısmı için madde ekle. </a>
 									</div>
+									</form>
+									
 									<hr>
+									
 									<div class="container section-title mb-5 text-primary"
 										data-aos="fade-up">
 										<h2>Başarılar</h2>
 									</div>
+									<form th:action="@{${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-skillspage-info' : '/api/v1/update-smmm-homepage-settings-skillspage-info/' + ${smmmOfis.id}}" id="skillsPageForm"
+															 method="post">
 									<div class="row mb-1">
 										<label for="skillsAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Başarılar<br>Ana Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="skillsAnaBaslik" th:field="*{skillsMainHeader}"
+											<textarea id="skillsAnaBaslik" name="skillsMainHeader" th:text="${smmmOfis.skillsMainHeader}"
 												placeholder="Başarılar Kısmı Ana Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -286,7 +317,7 @@
 										<label for="skillsAltBaslik"
 											class="col-sm-3 col-form-label-sm">Başarılar<br>Alt Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="skillsAltBaslik" th:field="*{skillsHeader}"
+											<textarea id="skillsAltBaslik" name="skillsHeader" th:text="${smmmOfis.skillsHeader}"
 												placeholder="Başarılar Kısmı Alt Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -295,7 +326,7 @@
 										<label for="skillsAltParagraf"
 											class="col-sm-3 col-form-label-sm">Başarılar<br>Alt Paragraf</label>
 										<div class="col-sm-9">
-											<textarea id="skillsAltParagraf" th:field="*{skillsParagraf}"
+											<textarea id="skillsAltParagraf" name="skillsParagraf" th:text="${smmmOfis.skillsParagraf}"
 												placeholder="Başarılar Kısmı Alt Paragraf"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -304,16 +335,21 @@
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-3">
 										<a class="btn btn-outline-warning btn-sm"> Başarılar kısmı için madde ekle. </a>
 									</div>
+									</form>
+									
 									<hr>
+									
 									<div class="container section-title mb-5 text-primary"
 										data-aos="fade-up">
 										<h2>Hizmetler</h2>
 									</div>
+									<form th:action="@{/api/v1/save-smmm-homepage-settings-services-info}" id="servicesPageForm"
+											th:object="${smmmOfis}" method="post">
 									<div class="row mb-1">
 										<label for="servicesAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Hizmetler<br>Ana Başlık</label>
@@ -336,13 +372,13 @@
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
-									<div class="d-grid gap-2 mb-">
+									<div class="d-grid gap-2 mb-4">
 										<a class="btn btn-outline-warning btn-sm"> Hizmetler kısmı için madde ekle. </a>
 									</div>
 
-									<!-- 								</form> -->
+									</form>
 									<!-- End General Form Elements -->
 
 								</div>
@@ -350,7 +386,7 @@
 
 						</div>
 
-						<div class="col-lg-6">
+						<div class="col-lg-6" id="col2">
 
 							<div class="card">
 								<div class="card-body">
@@ -363,6 +399,8 @@
 										<h2>Mevzuat</h2>
 									</div>
 									<!-- End Section Title -->
+									<form th:action="@{/api/v1/save-smmm-homepage-settings-mevzuat-info}" id="mevzuatPageForm"
+											th:object="${smmmOfis}" method="post">
 									<div class="row mb-1">
 										<label for="calltoactionsAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Mevzuat kısmı<br>Ana Başlık</label>
@@ -385,17 +423,22 @@
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
-									<div class="d-grid gap-2 mb-1">
-										<a class="btn btn-outline-warning btn-sm"> Mevzuat kısmı için madde ekle. </a>
-									</div>
+<!-- 									<div class="d-grid gap-2 mb-1"> -->
+<!-- 										<a class="btn btn-outline-warning btn-sm"> Mevzuat kısmı için madde ekle. </a> -->
+<!-- 									</div> -->
+									</form>
+									
 									<hr>
+									
 									<!-- call to actions -->
 									<div class="container section-title mb-5 text-primary"
 										data-aos="fade-up">
 										<h2>Portföy</h2>
 									</div>
+									<form th:action="@{/api/v1/save-smmm-homepage-settings-portfoy-info}" id="portfoyPageForm"
+											th:object="${smmmOfis}" method="post">
 									<div class="row mb-1">
 										<label for="portfolioAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Portföy kısmı<br>Ana Başlık</label>
@@ -418,7 +461,7 @@
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
 										<a class="btn btn-outline-warning btn-sm"> Portföy kısmı için sektör ekle. </a>
@@ -426,12 +469,17 @@
 									<div class="d-grid gap-2 mb-1">
 										<a class="btn btn-outline-warning btn-sm"> Sektörler için şirket ekle. </a>
 									</div>
+									</form>
+									
 									<hr>
+									
 									<!-- call to actions -->
 									<div class="container section-title mb-5  text-primary"
 										data-aos="fade-up">
 										<h2>Çalışma arkadaşlarımız</h2>
 									</div>
+									<form th:action="@{/api/v1/save-smmm-homepage-settings-team-info}" id="teamPageForm"
+											th:object="${smmmOfis}" method="post">
 									<div class="row mb-1">
 										<label for="teamAnaBaslik" class="col-sm-3 col-form-label-sm">Çalışma ekibi kısmı<br>Ana Başlık</label>
 										<div class="col-sm-9">
@@ -452,17 +500,22 @@
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
 										<a class="btn btn-outline-warning btn-sm"> Çalışma Ekibi kısmı için personel ekle. </a>
 									</div>
+									</form>
+									
 									<hr>
+									
 									<!-- call to actions -->
 									<div class="container section-title mb-5  text-primary"
 										data-aos="fade-up">
 										<h2>Ücretlendirme</h2>
 									</div>
+									<form th:action="@{/api/v1/save-smmm-homepage-settings-pricing-info}" id="pricingPageForm"
+											th:object="${smmmOfis}" method="post">
 									<div class="row mb-1">
 										<label for="pricingAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Ücretlendirme kısmı<br>Ana Başlık</label>
@@ -485,17 +538,22 @@
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
 										<a class="btn btn-outline-warning btn-sm"> Ücretlendirme kısmı için kart ekle. </a>
 									</div>
+									</form>
+									
 									<hr>
+									
 									<!-- call to actions -->
 									<div class="container section-title mb-5  text-primary"
 										data-aos="fade-up">
 										<h2>Referanslarımız</h2>
 									</div>
+									<form th:action="@{/api/v1/save-smmm-homepage-settings-referans-info}" id="referansPageForm"
+											th:object="${smmmOfis}" method="post">
 									<div class="row mb-1">
 										<label for="testimonialsAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Referanslar kısmı<br>Ana Başlık</label>
@@ -518,17 +576,21 @@
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
 										<a class="btn btn-outline-warning btn-sm"> Referanslar kısmı için kart ekle. </a>
 									</div>
-
+									</form>
+									
 									<hr>
+									
 									<div class="container section-title mb-5  text-primary"
 										data-aos="fade-up">
 										<h2>Sık sorulan sorular</h2>
 									</div>
+									<form th:action="@{/api/v1/save-smmm-homepage-settings-questions-info}" id="questionsPageForm"
+											th:object="${smmmOfis}" method="post">
 									<div class="row mb-1">
 										<label for="askedquestionsAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Sık sorulan sorular<br>kısmı Ana Başlık</label>
@@ -551,17 +613,21 @@
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
 										<a class="btn btn-outline-warning btn-sm"> Sık sorulan sorular kısmı için madde ekle. </a>
 									</div>
-
+									</form>
+									
 									<hr>
+									
 									<div class="container section-title mb-5 text-primary"
 										data-aos="fade-up">
 										<h2>İletişim</h2>
 									</div>
+									<form th:action="@{/api/v1/save-smmm-homepage-settings-contact-info}" id="contactPageForm"
+											th:object="${smmmOfis}" method="post">
 									<div class="row mb-1">
 										<label for="contactAnaBaslik"
 											class="col-sm-3 col-form-label-sm">İletişim kısmı<br>Ana Başlık</label>
@@ -618,11 +684,14 @@
 										<button type="submit" th:if="${updateBtnActive == false}" class="btn btn-primary btn-sm"> Kaydet </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button>
+										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
+									</form>
+									
 									<!-- End General Form Elements -->
 								</div>
 							</div>
+							
 						</div>
 <!-- 						<div class="col-lg-12"> -->
 <!-- 							<div class="d-grid gap-2 mb-1"> -->
@@ -632,8 +701,8 @@
 <!-- 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Update </button> -->
 <!-- 									</div> -->
 <!-- 						</div> -->
-					</form>
-				</div>
+<!-- 						</form> -->
+					</div>
 			</section>
 
 			<!-- multistepform end -->

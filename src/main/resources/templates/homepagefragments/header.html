@@ -3,9 +3,10 @@
 
       <a th:href="@{/}" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <img th:src="@{arshahomepage/assets/img/smmmLogo.jpg}" alt=""> 
+        <img th:if="${smmmOfisHomePage.id==null}" th:src="@{arshahomepage/assets/img/smmmLogo.jpg}" alt=""> 
+		<img th:if="${smmmOfisHomePage.id!=null}" th:src=" 'data:image/*;base64,' + ${smmmOfisHomePage.stringLogo} " />
 <!--         <h1 class="sitename" th:text="${smmmOfisHomePage.headerTitle}==null ? 'HeaderTitle' : ${smmmOfisHomePage.headerTitle}"></h1> -->
-        <h1 class="sitename" data-th-text="${#strings.defaultString(smmmOfisHomePage.headerTitle,'SMMM-OYS')}"></h1>
+        <h1 class="sitename" data-th-text="${ #strings.defaultString(smmmOfisHomePage.headerTitle,'SMMM-OYS') }"></h1>
       </a>
 
       <nav id="navmenu" class="navmenu">

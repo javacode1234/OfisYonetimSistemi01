@@ -20,14 +20,13 @@ public class HomeController {
 	@GetMapping("/")
 	public String getHomePage(Model model) {		
 		
-		try {			
-			Optional<SmmmOfis> homePage = smmmOfisHomePageService.getFirstSmmmOfis();
-			model.addAttribute("smmmOfisHomePage", homePage.get());
-				
-			
-		} catch (Exception e) {
-			System.out.println("Eception : " + e.getMessage());			
-		}		
+		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
+		
+		if(!smmmOfis.isEmpty()) {
+			model.addAttribute("smmmOfisHomePage", smmmOfis.get());
+		}
+		
+		model.addAttribute("smmmOfisHomePage", new SmmmOfis());
 		
 		return "index";		
 		

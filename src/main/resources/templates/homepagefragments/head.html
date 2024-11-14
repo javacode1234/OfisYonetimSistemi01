@@ -1,12 +1,13 @@
 <head th:fragment="head">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title data-th-text="${#strings.defaultString(smmmOfisHomePage.mainpageTitle,'Smmm Ofis Yönetim Sistemi')}"></title>
+  <title th:text="${#strings.defaultString(smmmOfisHomePage.mainpageTitle,'Smmm Ofis Yönetim Sistemi')}"></title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link th:href="@{arshahomepage/assets/img/smmm.png}" rel="icon" type="image/png"> 
+  <link th:if="${smmmOfisHomePage.id==null}" th:href="@{arshahomepage/assets/img/smmm.png}" rel="icon" type="image/*"> 
+  <link th:if="${smmmOfisHomePage.id!=null}" th:href=" 'data:image/*;base64,' + ${smmmOfisHomePage.stringLogo}" rel="icon" type="image/*">
 <!--  <link th:href="@{arshahomepage/assets/img/smmmfavicon.png}" rel="icon">-->
 <!--  <link th:href="@{arshahomepage/assets/img/apple-touch-icon.png}" rel="apple-touch-icon"> -->
 
