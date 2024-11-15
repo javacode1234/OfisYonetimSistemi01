@@ -7,8 +7,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link th:href="@{../../arshahomepage/assets/img/smmm.png}" rel="icon">
-  <link th:href="@{../../niceadminpanel/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
+  <link th:href="${smmmOfis.stringLogo==null}? '../../arshahomepage/assets/img/smmm.png':'data:image/x-icon;base64,' + ${smmmOfis.stringLogo} " rel="icon" type="image/*">
+<!--   <link th:href="@{../../niceadminpanel/assets/img/apple-touch-icon.png}" rel="apple-touch-icon"> -->
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">

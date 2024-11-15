@@ -23,13 +23,13 @@
 		<main id="main" class="main">
 
 			<div class="pagetitle">
-				<h1>SMMM Anasayfa Ayarları</h1>
+				<h1>Anasayfa Ayarları</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a
-							th:href="@{/api/v1/admin-panel}">Kontrol Paneli Anasayfa</a></li>
+							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
 						<li class="breadcrumb-item">Ayarlar</li>
-						<li class="breadcrumb-item active">SMMM Anasayfa Ayarları</li>
+						<li class="breadcrumb-item active">Anasayfa Ayarları</li>
 					</ol>
 				</nav>
 			</div>
@@ -203,7 +203,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<a class="btn btn-outline-warning btn-sm"> Anasayfada kurumlar için resim ve link ekle. </a>
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-clients}"> Anasayfada kurumlar için resim ve link ekle. </a>
 									</div>
 									</form>
 									
@@ -348,13 +348,13 @@
 										data-aos="fade-up">
 										<h2>Hizmetler</h2>
 									</div>
-									<form th:action="@{/api/v1/save-smmm-homepage-settings-services-info}" id="servicesPageForm"
-											th:object="${smmmOfis}" method="post">
+									<form th:action="@{ ${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-services-info' : '/api/v1/update-smmm-homepage-settings-services-info/'+${smmmOfis.id}}" id="servicesPageForm"
+															 method="post">
 									<div class="row mb-1">
 										<label for="servicesAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Hizmetler<br>Ana Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="servicesAnaBaslik" th:field="*{serviceMainHeader}"
+											<textarea id="servicesAnaBaslik" name="serviceMainHeader" th:text="${smmmOfis.serviceMainHeader}"
 												placeholder="Hizmetler Kısmı Ana Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -363,7 +363,7 @@
 										<label for="servicesAltBaslik"
 											class="col-sm-3 col-form-label-sm">Hizmetler<br>Alt Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="servicesAltBaslik" th:field="*{serviceHeader}"
+											<textarea id="servicesAltBaslik" name="serviceHeader" th:text="${smmmOfis.serviceHeader}"
 												placeholder="hizmetler Kısmı Alt Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -399,13 +399,13 @@
 										<h2>Mevzuat</h2>
 									</div>
 									<!-- End Section Title -->
-									<form th:action="@{/api/v1/save-smmm-homepage-settings-mevzuat-info}" id="mevzuatPageForm"
-											th:object="${smmmOfis}" method="post">
+									<form th:action="@{${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-mevzuat-info' : '/api/v1/update-smmm-homepage-settings-mevzuat-info/' + ${smmmOfis.id}}" id="mevzuatPageForm"
+															 method="post">
 									<div class="row mb-1">
 										<label for="calltoactionsAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Mevzuat kısmı<br>Ana Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="calltoactionsAnaBaslik" th:field="*{callToActionHeader}"
+											<textarea id="calltoactionsAnaBaslik" name="callToActionHeader" th:text="${smmmOfis.callToActionHeader}"
 												placeholder="Mevzuat Kısmı Ana Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -414,7 +414,7 @@
 										<label for="calltoactionsAltBaslik"
 											class="col-sm-3 col-form-label-sm">Mevzuat kısmı<br>Alt Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="calltoactionsAltBaslik" th:field="*{callToActionText}"
+											<textarea id="calltoactionsAltBaslik" name="callToActionText" th:text="${smmmOfis.callToActionText}"
 												placeholder="Mevzuat Kısmı Alt Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -437,13 +437,13 @@
 										data-aos="fade-up">
 										<h2>Portföy</h2>
 									</div>
-									<form th:action="@{/api/v1/save-smmm-homepage-settings-portfoy-info}" id="portfoyPageForm"
-											th:object="${smmmOfis}" method="post">
+									<form th:action="@{ ${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-portfoy-info' : '/api/v1/update-smmm-homepage-settings-portfoy-info/' + ${smmmOfis.id} }" id="portfoyPageForm"
+															 method="post">
 									<div class="row mb-1">
 										<label for="portfolioAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Portföy kısmı<br>Ana Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="portfolioAnaBaslik" th:field="*{portfolioHeader}"
+											<textarea id="portfolioAnaBaslik" name="portfolioHeader" th:text="${smmmOfis.portfolioHeader}"
 												placeholder="Portföy Kısmı Ana Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -452,7 +452,7 @@
 										<label for="portfolioAltBaslik"
 											class="col-sm-3 col-form-label-sm">Portföy kısmı<br>Alt Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="portfolioAltBaslik" th:field="*{portfolioText}"
+											<textarea id="portfolioAltBaslik" name="portfolioText" th:text="${smmmOfis.portfolioText}"
 												placeholder="Portföy Kısmı Alt Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -478,12 +478,12 @@
 										data-aos="fade-up">
 										<h2>Çalışma arkadaşlarımız</h2>
 									</div>
-									<form th:action="@{/api/v1/save-smmm-homepage-settings-team-info}" id="teamPageForm"
-											th:object="${smmmOfis}" method="post">
+									<form th:action="@{ ${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-team-info':'/api/v1/update-smmm-homepage-settings-team-info/' + ${smmmOfis.id} }" id="teamPageForm"
+											 method="post">
 									<div class="row mb-1">
 										<label for="teamAnaBaslik" class="col-sm-3 col-form-label-sm">Çalışma ekibi kısmı<br>Ana Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="teamAnaBaslik" th:field="*{teammainheader}"
+											<textarea id="teamAnaBaslik" name="teammainheader" th:text="${smmmOfis.teammainheader}"
 												placeholder="Çalışma ekibi Kısmı Ana Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -491,7 +491,7 @@
 									<div class="row mb-3">
 										<label for="teamAltBaslik" class="col-sm-3 col-form-label-sm">Çalışma ekibi kısmı<br>Alt Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="teamAltBaslik" th:field="*{teamheader}"
+											<textarea id="teamAltBaslik" name="teamheader" th:text="${smmmOfis.teamheader}"
 												placeholder="Çalışma ekibi Kısmı Alt Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -514,13 +514,13 @@
 										data-aos="fade-up">
 										<h2>Ücretlendirme</h2>
 									</div>
-									<form th:action="@{/api/v1/save-smmm-homepage-settings-pricing-info}" id="pricingPageForm"
-											th:object="${smmmOfis}" method="post">
+									<form th:action="@{ ${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-pricing-info':'/api/v1/update-smmm-homepage-settings-pricing-info/'+${smmmOfis.id}}" id="pricingPageForm"
+																 method="post">
 									<div class="row mb-1">
 										<label for="pricingAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Ücretlendirme kısmı<br>Ana Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="pricingAnaBaslik" th:field="*{pricingMainHeader}"
+											<textarea id="pricingAnaBaslik" name="pricingMainHeader" th:text="${smmmOfis.pricingMainHeader}"
 												placeholder="Ücretlendirme Kısmı Ana Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -529,7 +529,7 @@
 										<label for="pricingAltBaslik"
 											class="col-sm-3 col-form-label-sm">Ücretlendirme kısmı<br>Alt Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="pricingAltBaslik" th:field="*{pricingHeader}"
+											<textarea id="pricingAltBaslik" name="pricingHeader" th:text="${smmmOfis.pricingHeader}"
 												placeholder="Ücretlendirme Kısmı Alt Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -552,13 +552,13 @@
 										data-aos="fade-up">
 										<h2>Referanslarımız</h2>
 									</div>
-									<form th:action="@{/api/v1/save-smmm-homepage-settings-referans-info}" id="referansPageForm"
-											th:object="${smmmOfis}" method="post">
+									<form th:action="@{${smmmOfis.id==null}?'/api/v1/save-smmm-homepage-settings-referans-info':'/api/v1/update-smmm-homepage-settings-referans-info/'+${smmmOfis.id}}" id="referansPageForm"
+																 method="post">
 									<div class="row mb-1">
 										<label for="testimonialsAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Referanslar kısmı<br>Ana Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="testimonialsAnaBaslik" th:field="*{testimonialsMainHeader}"
+											<textarea id="testimonialsAnaBaslik" name="testimonialsMainHeader" th:text="${smmmOfis.testimonialsMainHeader}"
 												placeholder="Referanslar Kısmı Ana Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -567,7 +567,7 @@
 										<label for="testimonialsAltBaslik"
 											class="col-sm-3 col-form-label-sm">Referanslar kısmı<br>Alt Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="testimonialsAltBaslik" th:field="*{testimonialsHeader}"
+											<textarea id="testimonialsAltBaslik" name="testimonialsHeader" th:text="${smmmOfis.testimonialsHeader}"
 												placeholder="Referanslar Kısmı Alt Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -589,13 +589,13 @@
 										data-aos="fade-up">
 										<h2>Sık sorulan sorular</h2>
 									</div>
-									<form th:action="@{/api/v1/save-smmm-homepage-settings-questions-info}" id="questionsPageForm"
-											th:object="${smmmOfis}" method="post">
+									<form th:action="@{${smmmOfis.id==null}?'/api/v1/save-smmm-homepage-settings-questions-info':'/api/v1/update-smmm-homepage-settings-questions-info/'+${smmmOfis.id}}" id="questionsPageForm"
+															 method="post">
 									<div class="row mb-1">
 										<label for="askedquestionsAnaBaslik"
 											class="col-sm-3 col-form-label-sm">Sık sorulan sorular<br>kısmı Ana Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="askedquestionsAnaBaslik" th:field="*{smmmofisFrequantlyAskedQuestionsMainHeader}"
+											<textarea id="askedquestionsAnaBaslik" name="smmmofisFrequantlyAskedQuestionsMainHeader" th:text="${smmmOfis.smmmofisFrequantlyAskedQuestionsMainHeader}"
 												placeholder="Sık sorulan sorular Kısmı Ana Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -604,7 +604,7 @@
 										<label for="askedquestionsAltBaslik"
 											class="col-sm-3 col-form-label-sm">Sık sorulan sorular<br>kısmı Alt Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="askedquestionsAltBaslik" th:field="*{smmmofisFrequantlyAskedQuestionsHeader}"
+											<textarea id="askedquestionsAltBaslik" name="smmmofisFrequantlyAskedQuestionsHeader" th:text="${smmmOfis.smmmofisFrequantlyAskedQuestionsHeader}"
 												placeholder="Sık sorulan sorular Kısmı Alt Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -626,13 +626,13 @@
 										data-aos="fade-up">
 										<h2>İletişim</h2>
 									</div>
-									<form th:action="@{/api/v1/save-smmm-homepage-settings-contact-info}" id="contactPageForm"
-											th:object="${smmmOfis}" method="post">
+									<form th:action="@{${smmmOfis.id==null}?'/api/v1/save-smmm-homepage-settings-contact-info':'/api/v1/update-smmm-homepage-settings-contact-info/'+${smmmOfis.id}}" id="contactPageForm"
+															 method="post">
 									<div class="row mb-1">
 										<label for="contactAnaBaslik"
 											class="col-sm-3 col-form-label-sm">İletişim kısmı<br>Ana Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="contactAnaBaslik" th:field="*{contactMainHeader}"
+											<textarea id="contactAnaBaslik" name="contactMainHeader" th:text="${smmmOfis.contactMainHeader}"
 												placeholder="İletişim Kısmı Ana Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -641,7 +641,7 @@
 										<label for="contactAltBaslik"
 											class="col-sm-3 col-form-label-sm">İletişim kısmı<br>Alt Başlık</label>
 										<div class="col-sm-9">
-											<textarea id="contactAltBaslik" th:field="*{contactHeader}"
+											<textarea id="contactAltBaslik" name="contactHeader" th:text="${smmmOfis.contactHeader}"
 												placeholder="İletişim Kısmı Alt Başlık"
 												class="form-control form-control-sm"></textarea>
 										</div>
@@ -650,7 +650,7 @@
 										<label for="contactAdress" class="col-sm-3 col-form-label-sm">İletişim kısmı<br>Adres</label>
 										<div class="col-sm-9">
 											<textarea id="contactAdress"
-												placeholder="İletişim Kısmı Adres" th:field="*{contactAddress}"
+												placeholder="İletişim Kısmı Adres" name="contactAddress" th:text="${smmmOfis.contactAddress}"
 												class="form-control form-control-sm"></textarea>
 										</div>
 									</div>
@@ -658,7 +658,7 @@
 										<label for="contactTelephone"
 											class="col-sm-3 col-form-label-sm">İletişim kısmı<br>Telefon No</label>
 										<div class="col-sm-9">
-											<input type="text" id="contactTelephone" th:field="*{contactTelephone}"
+											<input type="text" id="contactTelephone" name="contactTelephone" th:value="${smmmOfis.contactTelephone}"
 												placeholder="İletişim Kısmı için Telefon No"
 												class="form-control form-control-sm">
 										</div>
@@ -666,7 +666,7 @@
 									<div class="row mb-1">
 										<label for="contactEmail" class="col-sm-3 col-form-label-sm">İletişim kısmı<br>E-mail</label>
 										<div class="col-sm-9">
-											<input type="email" id="contactEmail" th:field="*{contactEmail}"
+											<input type="email" id="contactEmail" name="contactEmail" th:value="${smmmOfis.contactEmail}"
 												placeholder="İletişim kısmı için E-mail"
 												class="form-control form-control-sm">
 										</div>
@@ -675,7 +675,7 @@
 										<label for="contactGoogleHarita"
 											class="col-sm-3 col-form-label-sm">Google<br>Harita koordinatı</label>
 										<div class="col-sm-9">
-											<textarea id="contactGoogleHarita" th:field="*{googleHarita}"
+											<textarea id="contactGoogleHarita" name="googleHarita" th:text="${smmmOfis.googleHarita}"
 												placeholder="Google harita koordinatı"
 												class="form-control form-control-sm"></textarea>
 										</div>

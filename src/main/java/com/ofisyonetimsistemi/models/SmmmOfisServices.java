@@ -22,8 +22,9 @@ public class SmmmOfisServices {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Lob
-	private byte[] icon;
+	
+	
+	private String icon;
 	private String header;
 	private String description;
 	

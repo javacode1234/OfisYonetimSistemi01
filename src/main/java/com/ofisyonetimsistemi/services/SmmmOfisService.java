@@ -16,15 +16,45 @@ public class SmmmOfisService {
 
 	@Autowired
 	SmmmOfisRepository smmmOfisRepo;
-
-	public void saveHomePageSettings(SmmmOfis smmmOfis) {
-
-		smmmOfisRepo.save(smmmOfis);
-	}
 	
 	public Optional<SmmmOfis> getFirstSmmmOfis() {
 		return smmmOfisRepo.findAll().stream().findFirst();
 	}
+	
+	public SmmmOfis getSmmmOfisById(Integer id) {
+		return smmmOfisRepo.findById(id).get();
+	}
+	
+	public SmmmOfis saveHomePageSettingsPersonalInfo(  
+															MultipartFile file, String unvan, String firstName, String lastName,
+															String fullName, String email, String userName, String password
+													) throws IOException {
+		
+			byte[] byteResim = file.getBytes();
+			String stringResim = Base64.getEncoder().encodeToString(byteResim);
+			
+			try {
+				SmmmOfis smmmOfis = new SmmmOfis();
+				
+				smmmOfis.setLogo(byteResim);
+				smmmOfis.setStringLogo(stringResim);
+				smmmOfis.setUnvan(unvan);
+				smmmOfis.setFirstName(firstName);
+				smmmOfis.setLastName(lastName);
+				smmmOfis.setFullName(fullName);
+				smmmOfis.setEmail(email);
+				smmmOfis.setUserName(userName);
+				smmmOfis.setPassword(password);
+			
+			return smmmOfisRepo.save(smmmOfis);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	
+		return null;		
+	
+	
+	}	
 	
 	public void updateHomePageSettingsPersonalInfo(
 													Integer id,MultipartFile file, String unvan, 
@@ -56,43 +86,6 @@ public class SmmmOfisService {
 		smmmOfis.setPassword(password);
 
 		smmmOfisRepo.save(smmmOfis);
-	}
-
-	
-		
-	public SmmmOfis saveHomePageSettingsPersonalInfo(  
-														MultipartFile file, String unvan, String firstName, String lastName,
-														String fullName, String email, String userName, String password
-													) throws IOException {
-		
-		byte[] byteResim = file.getBytes();
-		String stringResim = Base64.getEncoder().encodeToString(byteResim);
-		
-			try {
-				SmmmOfis smmmOfis = new SmmmOfis();
-				
-				smmmOfis.setLogo(byteResim);
-				smmmOfis.setStringLogo(stringResim);
-				smmmOfis.setUnvan(unvan);
-				smmmOfis.setFirstName(firstName);
-				smmmOfis.setLastName(lastName);
-				smmmOfis.setFullName(fullName);
-				smmmOfis.setEmail(email);
-				smmmOfis.setUserName(userName);
-				smmmOfis.setPassword(password);
-				
-				return smmmOfisRepo.save(smmmOfis);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			return null;		
-			
-			
-	}
-
-	public SmmmOfis getSmmmOfisById(Integer id) {
-		return smmmOfisRepo.findById(id).get();
 	}
 
 	public void saveHomePageSettingsHomeInfo(String mainpageTitle, String headerTitle, 
@@ -189,6 +182,189 @@ public class SmmmOfisService {
 		smmmOfis.setSkillsMainHeader(skillsMainHeader);
 		smmmOfis.setSkillsHeader(skillsHeader);
 		smmmOfis.setSkillsParagraf(skillsParagraf);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void saveHomePageSettingServicesPageInfo(String serviceMainHeader, String serviceHeader) {
+		
+		SmmmOfis smmmOfis = new SmmmOfis();
+		
+		smmmOfis.setServiceMainHeader(serviceMainHeader);
+		smmmOfis.setServiceHeader(serviceHeader);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void updateHomePageSettingServicesPageInfo(Integer id, String serviceMainHeader, String serviceHeader) {
+		
+		SmmmOfis smmmOfis = smmmOfisRepo.findById(id).get();
+		
+		smmmOfis.setServiceMainHeader(serviceMainHeader);
+		smmmOfis.setServiceHeader(serviceHeader);
+		
+		smmmOfisRepo.save(smmmOfis);
+	}
+
+	public void saveHomePageSettingMevzuatPageInfo(String callToActionHeader, String callToActionText) {
+		
+		SmmmOfis smmmOfis = new SmmmOfis();
+		
+		smmmOfis.setCallToActionHeader(callToActionHeader);
+		smmmOfis.setCallToActionText(callToActionText);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void updateHomePageSettingMevzuatPageInfo(Integer id, String callToActionHeader, String callToActionText) {
+		
+		SmmmOfis smmmOfis = smmmOfisRepo.findById(id).get();
+		
+		smmmOfis.setCallToActionHeader(callToActionHeader);
+		smmmOfis.setCallToActionText(callToActionText);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void saveHomePageSettingPortfoyPageInfo(String portfolioHeader, String portfolioText) {
+		
+		SmmmOfis smmmOfis = new SmmmOfis();
+		
+		smmmOfis.setPortfolioHeader(portfolioHeader);
+		smmmOfis.setPortfolioText(portfolioText);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void updateHomePageSettingPortfoyPageInfo(Integer id, String portfolioHeader, String portfolioText) {
+
+        SmmmOfis smmmOfis = smmmOfisRepo.findById(id).get();
+		
+		smmmOfis.setPortfolioHeader(portfolioHeader);
+		smmmOfis.setPortfolioText(portfolioText);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void saveHomePageSettingTeamPageInfo(String teammainheader, String teamheader) {
+		
+		SmmmOfis smmmOfis = new SmmmOfis();
+		
+		smmmOfis.setTeammainheader(teammainheader);
+		smmmOfis.setTeamheader(teamheader);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void updateHomePageSettingTeamPageInfo(Integer id, String teammainheader, String teamheader) {
+		
+		SmmmOfis smmmOfis = smmmOfisRepo.findById(id).get();
+		
+		smmmOfis.setTeammainheader(teammainheader);
+		smmmOfis.setTeamheader(teamheader);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void saveHomePageSettingPricingPageInfo(String pricingMainHeader, String pricingHeader) {
+		
+		SmmmOfis smmmOfis = new SmmmOfis();
+		
+		smmmOfis.setPricingMainHeader(pricingMainHeader);
+		smmmOfis.setPricingHeader(pricingHeader);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void updateHomePageSettingPricingPageInfo(Integer id, String pricingMainHeader, String pricingHeader) {
+		
+		SmmmOfis smmmOfis = smmmOfisRepo.findById(id).get();
+		
+		smmmOfis.setPricingMainHeader(pricingMainHeader);
+		smmmOfis.setPricingHeader(pricingHeader);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void saveHomePageSettingReferansPageInfo(String testimonialsMainHeader, String testimonialsHeader) {
+		
+		SmmmOfis smmmOfis = new SmmmOfis();
+		
+		smmmOfis.setTestimonialsMainHeader(testimonialsMainHeader);
+		smmmOfis.setTestimonialsHeader(testimonialsHeader);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void updateHomePageSettingReferansPageInfo(Integer id, String testimonialsMainHeader,String testimonialsHeader) {
+			
+		SmmmOfis smmmOfis = smmmOfisRepo.findById(id).get();
+		
+		smmmOfis.setTestimonialsMainHeader(testimonialsMainHeader);
+		smmmOfis.setTestimonialsHeader(testimonialsHeader);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void saveHomePageSettingQuestionsPageInfo(String smmmofisFrequantlyAskedQuestionsMainHeader, String smmmofisFrequantlyAskedQuestionsHeader) {
+			
+		SmmmOfis smmmOfis = new SmmmOfis();
+		
+		smmmOfis.setSmmmofisFrequantlyAskedQuestionsMainHeader(smmmofisFrequantlyAskedQuestionsMainHeader);
+		smmmOfis.setSmmmofisFrequantlyAskedQuestionsHeader(smmmofisFrequantlyAskedQuestionsHeader);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void updateHomePageSettingQuestionsPageInfo(Integer id, String smmmofisFrequantlyAskedQuestionsMainHeader, String smmmofisFrequantlyAskedQuestionsHeader) {
+			
+		SmmmOfis smmmOfis = smmmOfisRepo.findById(id).get();
+		
+		smmmOfis.setSmmmofisFrequantlyAskedQuestionsMainHeader(smmmofisFrequantlyAskedQuestionsMainHeader);
+		smmmOfis.setSmmmofisFrequantlyAskedQuestionsHeader(smmmofisFrequantlyAskedQuestionsHeader);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void saveHomePageSettingContactPageInfo(String contactMainHeader, String contactHeader, String contactAddress, String contactTelephone, String contactEmail, String googleHarita) {
+			
+		SmmmOfis smmmOfis = new SmmmOfis();
+		
+		smmmOfis.setContactMainHeader(contactMainHeader);
+		smmmOfis.setContactHeader(contactHeader);
+		smmmOfis.setContactAddress(contactAddress);
+		smmmOfis.setContactTelephone(contactTelephone);
+		smmmOfis.setContactEmail(contactEmail);
+		smmmOfis.setGoogleHarita(googleHarita);
+		
+		smmmOfisRepo.save(smmmOfis);
+		
+	}
+
+	public void updateHomePageSettingContactPageInfo(Integer id, String contactMainHeader, String contactHeader, String contactAddress, String contactTelephone, String contactEmail, String googleHarita) {
+			
+		SmmmOfis smmmOfis = smmmOfisRepo.findById(id).get();
+		
+		smmmOfis.setContactMainHeader(contactMainHeader);
+		smmmOfis.setContactHeader(contactHeader);
+		smmmOfis.setContactAddress(contactAddress);
+		smmmOfis.setContactTelephone(contactTelephone);
+		smmmOfis.setContactEmail(contactEmail);
+		smmmOfis.setGoogleHarita(googleHarita);
 		
 		smmmOfisRepo.save(smmmOfis);
 		

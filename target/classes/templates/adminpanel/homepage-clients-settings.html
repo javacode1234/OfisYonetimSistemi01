@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="~{adminpanel/fragments/head}"></head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<header th:replace="~{adminpanel/fragments/header}"></header>
+	<!-- End Header -->
+
+	<!-- ======= Sidebar ======= -->
+	<aside th:replace="~{adminpanel/fragments/sidebar}"></aside>
+	<!-- End Sidebar-->
+
+	<!-- ======== main ========== -->
+
+	<div layout:fragment="content">
+
+		<main id="main" class="main">
+
+			<div class="pagetitle">
+				<h1>Anasayfa Kurumlar</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
+						<li class="breadcrumb-item active">Ayarlar</li>
+						<li class="breadcrumb-item active">Anasayfa Kurumlar</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<section class="section dashboard">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Kurum Ekle</h5>
+								<!-- Horizontal Form -->
+								<form th:action="@{ /api/v1/save-homepage-client}" th:object="${hpClient}"
+												method="post"	enctype="multipart/form-data">
+									<div class="row mb-3 mt-3" id="general-elements">
+										<div class="row d-flex-inline align-items-center" style="padding-top: 10px;">
+											<label for="inputNumber" class="col-sm-3 col-form-label-sm w-40">Logo</label>
+											<div class="col-sm-5">
+												<input class="form-control form-control-sm" type="file" name="logo"
+													 id="hpcformImage" accept="image/*">
+											</div>
+											<div class="col-sm-4 text-center ">
+												<img th:if="${hpClient.id==null}" class="rounded" width="80"
+													height="80" id="hpcLogo"
+													th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
+												<img th:if="${hpClient.id!=null}" class="rounded" width="80"
+													height="80" id="hpcLogo"
+													th:src=" 'data:image/*;base64,' + ${hpClient.stringLogo} "
+													alt="">
+											</div>
+										</div>
+									</div>
+									<div class="row mb-2 mt-3">
+										<label for="inputEmail3" class="col-sm-2 col-form-label-sm">Id</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control form-control-sm" name="id" readonly
+															id="hpcId">
+										</div>
+									</div>
+									<div class="row mb-2">
+										<label for="inputEmail3" class="col-sm-2 col-form-label-sm">Kurum adı</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control form-control-sm" name="name"
+															id="hpcName">
+										</div>
+									</div>
+									<div class="row mb-2">
+										<label for="inputPassword3" class="col-sm-2 col-form-label-sm">URL</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control form-control-sm" name="url"
+																	id="hpcUrl">
+										</div>
+									</div>
+									<div class="row mb-2">
+										<label for="inputPassword3" class="col-sm-2 col-form-label-sm">Açıklama</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control form-control-sm" name="description"
+																id="hpcDescription">
+										</div>
+									</div>
+									
+									<div class="grid gap-2 text-center">
+										<button type="submit" class="btn btn-primary">Kaydet</button>
+										<button type="reset" class="btn btn-secondary">Formu
+											Temizle</button>
+									</div>
+								</form>
+								<!-- End Horizontal Form -->
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">
+
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Kayıtlı Kurumlar listesi</h5>
+
+								<!-- Table with hoverable rows -->
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th scope="col">#id</th>
+											<th scope="col">#Logo</th>
+											<th scope="col">Kurum Adı</th>
+											<th scope="col">Link</th>
+											<th scope="col">Açıklama</th>
+											<th scope="col">İşlemler</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="hpc : ${hpClients}">
+											<td scope="row" th:text="${hpc.id}">1</td>
+											<td>
+												<a id="hpcTableLogo">
+													<img class="rounded-circle" th:src=" 'data:image/*;base64,' + ${hpc.stringLogo}"/>
+												</a>
+											</td>
+											<td th:text="${hpc.name}">Brandon Jacob</td>
+											<td th:text="${hpc.url}">Designer</td>
+											<td th:text="${hpc.description}">28</td>
+											<td>
+											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+								                <button type="button" class="btn btn-success">Gör</button>
+								                <button type="button" class="btn btn-warning">Güncelle</button>
+								                <button type="button" class="btn btn-danger">Sil</button>
+								            </div>
+											</td>
+										</tr>
+										
+									</tbody>
+								</table>
+								<!-- End Table with hoverable rows -->
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</main>
+		<!-- End #main -->
+
+	</div>
+
+	<div th:replace="~{adminpanel/fragments/footer}"></div>
+	<div th:replace="~{adminpanel/fragments/js}"></div>
+
+</body>
+
+</html>

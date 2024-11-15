@@ -1,5 +1,6 @@
 package com.ofisyonetimsistemi.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,7 +29,12 @@ public class PortfolioCompany {
 	private String unvan;
 	
 	@Lob
+	@Column(name = "resim", columnDefinition = "LONGBLOB")
 	private byte[] resim;
+	
+	@Lob
+	@Column(name = "stringResim", columnDefinition = "LONGTEXT")
+	private String stringResim;
 	
 	private String mainheader;
 	

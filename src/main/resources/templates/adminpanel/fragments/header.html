@@ -2,7 +2,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a th:href="@{/api/v1/admin-panel}" class="logo d-flex align-items-center">
-        <img th:src="@{../../arshahomepage/assets/img/smmm.png}" alt="">
+        <img th:src="${smmmOfis.stringLogo==null}?'../../arshahomepage/assets/img/smmm.png':'data:image/*;base64,' + ${smmmOfis.stringLogo}" alt="">
 <!--        <span><i class="bx bxl-medium-square"></i></span>-->
         <span class="d-none d-lg-block" th:text="${smmmisim}">NiceAdmin</span>
       </a>

@@ -22,11 +22,11 @@ public class HomeController {
 		
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		
-		if(!smmmOfis.isEmpty()) {
+		if(smmmOfis.isPresent()) {
 			model.addAttribute("smmmOfisHomePage", smmmOfis.get());
-		}
-		
-		model.addAttribute("smmmOfisHomePage", new SmmmOfis());
+		}else if(!smmmOfis.isPresent()){
+			model.addAttribute("smmmOfisHomePage", new SmmmOfis());
+		}		
 		
 		return "index";		
 		

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -207,6 +206,202 @@ public class SmmmHomePageSettingsContoller {
 		
 		return "redirect:/api/v1/smmm-homepage-settings";
 	}
+	
+	@PostMapping("/save-smmm-homepage-settings-services-info")
+	public String saveHomePageSettingsServicesPageInfo(
+												@RequestParam("serviceMainHeader")String serviceMainHeader,
+												@RequestParam("serviceHeader")String serviceHeader																								
+												) {
+		
+		smmmOfisService.saveHomePageSettingServicesPageInfo( serviceMainHeader, serviceHeader);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+
+	@PostMapping("/update-smmm-homepage-settings-services-info/{id}")
+	public String updateHomePageSettingsServicesPageInfo(
+												@PathVariable("id")Integer id,
+												@RequestParam("serviceMainHeader")String serviceMainHeader,
+												@RequestParam("serviceHeader")String serviceHeader
+												) {
+		
+		smmmOfisService.updateHomePageSettingServicesPageInfo(id, serviceMainHeader, serviceHeader);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+
+	@PostMapping("/save-smmm-homepage-settings-mevzuat-info")
+	public String saveHomePageSettingsMevzuatPageInfo(
+												@RequestParam("callToActionHeader")String callToActionHeader,
+												@RequestParam("callToActionText")String callToActionText																								
+												) {
+		
+		smmmOfisService.saveHomePageSettingMevzuatPageInfo( callToActionHeader, callToActionText);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+
+	@PostMapping("/update-smmm-homepage-settings-mevzuat-info/{id}")
+	public String updateHomePageSettingsMevzuatPageInfo(
+												@PathVariable("id")Integer id,
+												@RequestParam("callToActionHeader")String callToActionHeader,
+												@RequestParam("callToActionText")String callToActionText
+												) {
+		
+		smmmOfisService.updateHomePageSettingMevzuatPageInfo(id, callToActionHeader, callToActionText);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+	
+	@PostMapping("/save-smmm-homepage-settings-portfoy-info")
+	public String saveHomePageSettingsPortfoyPageInfo(
+												@RequestParam("portfolioHeader")String portfolioHeader,
+												@RequestParam("portfolioText")String portfolioText																								
+												) {
+		
+		smmmOfisService.saveHomePageSettingPortfoyPageInfo( portfolioHeader, portfolioText);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+
+	@PostMapping("/update-smmm-homepage-settings-portfoy-info/{id}")
+	public String updateHomePageSettingsPortfoyPageInfo(
+												@PathVariable("id")Integer id,
+												@RequestParam("portfolioHeader")String portfolioHeader,
+												@RequestParam("portfolioText")String portfolioText
+												) {
+		
+		smmmOfisService.updateHomePageSettingPortfoyPageInfo(id, portfolioHeader, portfolioText);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+	
+	@PostMapping("/save-smmm-homepage-settings-team-info")
+	public String saveHomePageSettingsTeamPageInfo(
+												@RequestParam("teammainheader")String teammainheader,
+												@RequestParam("teamheader")String teamheader																								
+												) {
+		
+		smmmOfisService.saveHomePageSettingTeamPageInfo( teammainheader, teamheader);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+
+	@PostMapping("/update-smmm-homepage-settings-team-info/{id}")
+	public String updateHomePageSettingsTeamPageInfo(
+												@PathVariable("id")Integer id,
+												@RequestParam("teammainheader")String teammainheader,
+												@RequestParam("teamheader")String teamheader
+												) {
+		
+		smmmOfisService.updateHomePageSettingTeamPageInfo(id, teammainheader, teamheader);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+
+	@PostMapping("/save-smmm-homepage-settings-pricing-info")
+	public String saveHomePageSettingsPricingPageInfo(
+												@RequestParam("pricingMainHeader")String pricingMainHeader,
+												@RequestParam("pricingHeader")String pricingHeader																								
+												) {
+		
+		smmmOfisService.saveHomePageSettingPricingPageInfo( pricingMainHeader, pricingHeader);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+
+	@PostMapping("/update-smmm-homepage-settings-pricing-info/{id}")
+	public String updateHomePageSettingsPricingPageInfo(
+												@PathVariable("id")Integer id,
+												@RequestParam("pricingMainHeader")String pricingMainHeader,
+												@RequestParam("pricingHeader")String pricingHeader
+												) {
+		
+		smmmOfisService.updateHomePageSettingPricingPageInfo(id, pricingMainHeader, pricingHeader);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+	
+	@PostMapping("/save-smmm-homepage-settings-referans-info")
+	public String saveHomePageSettingsReferansPageInfo(
+												@RequestParam("testimonialsMainHeader")String testimonialsMainHeader,
+												@RequestParam("testimonialsHeader")String testimonialsHeader																								
+												) {
+		
+		smmmOfisService.saveHomePageSettingReferansPageInfo( testimonialsMainHeader, testimonialsHeader);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+
+	@PostMapping("/update-smmm-homepage-settings-referans-info/{id}")
+	public String updateHomePageSettingsReferansPageInfo(
+												@PathVariable("id")Integer id,
+												@RequestParam("testimonialsMainHeader")String testimonialsMainHeader,
+												@RequestParam("testimonialsHeader")String testimonialsHeader
+												) {
+		
+		smmmOfisService.updateHomePageSettingReferansPageInfo(id, testimonialsMainHeader, testimonialsHeader);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+	
+	@PostMapping("/save-smmm-homepage-settings-questions-info")
+	public String saveHomePageSettingsQuestionsPageInfo(
+												@RequestParam("smmmofisFrequantlyAskedQuestionsMainHeader")String smmmofisFrequantlyAskedQuestionsMainHeader,
+												@RequestParam("smmmofisFrequantlyAskedQuestionsHeader")String smmmofisFrequantlyAskedQuestionsHeader																								
+												) {
+		
+		smmmOfisService.saveHomePageSettingQuestionsPageInfo( smmmofisFrequantlyAskedQuestionsMainHeader, smmmofisFrequantlyAskedQuestionsHeader);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+
+	@PostMapping("/update-smmm-homepage-settings-questions-info/{id}")
+	public String updateHomePageSettingsQuestionsPageInfo(
+												@PathVariable("id")Integer id,
+												@RequestParam("smmmofisFrequantlyAskedQuestionsMainHeader")String smmmofisFrequantlyAskedQuestionsMainHeader,
+												@RequestParam("smmmofisFrequantlyAskedQuestionsHeader")String smmmofisFrequantlyAskedQuestionsHeader
+												) {
+		
+		smmmOfisService.updateHomePageSettingQuestionsPageInfo(id, smmmofisFrequantlyAskedQuestionsMainHeader, smmmofisFrequantlyAskedQuestionsHeader);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+
+	@PostMapping("/save-smmm-homepage-settings-contact-info")
+	public String saveHomePageSettingsContactPageInfo(
+												@RequestParam("contactMainHeader")String contactMainHeader,
+												@RequestParam("contactHeader")String contactHeader,
+												@RequestParam("contactAddress")String contactAddress,
+												@RequestParam("contactTelephone")String contactTelephone,
+												@RequestParam("contactEmail")String contactEmail,
+												@RequestParam("googleHarita")String googleHarita
+												) {
+		
+		smmmOfisService.saveHomePageSettingContactPageInfo( contactMainHeader, contactHeader, contactAddress, contactTelephone, contactEmail, googleHarita);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+
+	@PostMapping("/update-smmm-homepage-settings-contact-info/{id}")
+	public String updateHomePageSettingsContactPageInfo(
+												@PathVariable("id")Integer id,
+												@RequestParam("contactMainHeader")String contactMainHeader,
+												@RequestParam("contactHeader")String contactHeader,
+												@RequestParam("contactAddress")String contactAddress,
+												@RequestParam("contactTelephone")String contactTelephone,
+												@RequestParam("contactEmail")String contactEmail,
+												@RequestParam("googleHarita")String googleHarita
+												) {
+		
+		smmmOfisService.updateHomePageSettingContactPageInfo(id, contactMainHeader, contactHeader, contactAddress, contactTelephone, contactEmail, googleHarita);
+		
+		return "redirect:/api/v1/smmm-homepage-settings";
+	}
+
+
+	
+
 
 
 }

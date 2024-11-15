@@ -32,9 +32,11 @@ public class SmmmOfis {
 	// genel bilgiler kısmı //
 	
 	@Lob	
+	@Column(name = "logo", columnDefinition = "LONGBLOB")
 	private byte[] logo;
 	
 	@Lob
+	@Column(name = "stringLogo", columnDefinition = "LONGTEXT")
 	private String stringLogo;
 	
 	private String unvan;
