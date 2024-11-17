@@ -1,15 +1,18 @@
 package com.ofisyonetimsistemi.controllers;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
@@ -17,7 +20,6 @@ import com.ofisyonetimsistemi.models.SmmmOfisHomePageClient;
 import com.ofisyonetimsistemi.services.SmmmOfisHomePageClientService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -60,19 +62,50 @@ public class HomePageClientController {
 	}
 
 	@PostMapping("/save-homepage-client")
-	public String postMethodName(
-								@RequestParam("logo")MultipartFile file,
-								@RequestParam("name")String name,
-								@RequestParam("url")String url,
-								@RequestParam("description")String description
-								
-								) throws IOException {
+	public String saveHomePageClient(
+										@RequestParam("logo")MultipartFile file,
+										@RequestParam("name")String name,
+										@RequestParam("url")String url,
+										@RequestParam("description")String description,
+										@RequestParam(value="active", required = false)boolean active
+										
+										) throws IOException {
+		
 		Integer smmmOfisId = smmmOfisService.getFirstSmmmOfis().get().getId();
-		hpcService.saveHomePageClient(file, name, url, description,smmmOfisId );
+		hpcService.saveHomePageClient(file, name, url, description, active, smmmOfisId );
 		
 		return "redirect:/api/v1/smmm-homepage-clients";
 	}
 	
+	@PostMapping("/update-homepage-client/{id}")
+	public String updateUserById(   
+									@PathVariable Integer id, 
+									@RequestParam("logo")MultipartFile file,
+									@RequestParam("name")String name,
+									@RequestParam("url")String url,
+									@RequestParam("description")String description,
+									@RequestParam(value="active", required = false)boolean active 
+									
+								) throws IOException {
+		
+		Integer smmmOfisId = smmmOfisService.getFirstSmmmOfis().get().getId();
+		
+		hpcService.updateHomePageClient(id, file, name, url, description, active, smmmOfisId);
+		
+		return "redirect:/api/v1/smmm-homepage-clients";
+	}
+
+	@GetMapping("/get-homepage-client/{id}")
+	@ResponseBody
+	public Optional<SmmmOfisHomePageClient> getUserById(@PathVariable("id")Integer id) {
+		return hpcService.getById(id);
+	}
+	
+	@RequestMapping(value="/delete-homepage-client/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
+	public String delById(@PathVariable("id") Integer id) {
+		hpcService.deleteById(id);
+		return "redirect:/api/v1/smmm-homepage-clients";
+	}
 	
 	
 	
