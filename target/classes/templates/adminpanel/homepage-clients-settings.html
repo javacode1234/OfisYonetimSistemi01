@@ -26,8 +26,12 @@
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a
 							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
-						<li class="breadcrumb-item active">Ayarlar</li>
-						<li class="breadcrumb-item active">Anasayfa Kurumlar</li>
+						<li class="breadcrumb-item active">
+							<a th:href="@{/api/v1/smmm-homepage-settings}">Anasayfa Ayarları</a>
+						</li>
+						<li class="breadcrumb-item active">
+							<a th:href="@{/api/v1/smmm-homepage-clients-settings}">Anasayfa Kurumlar</a>
+						</li>
 					</ol>
 				</nav>
 			</div>
@@ -66,7 +70,7 @@
 											<th scope="col">Açıklama</th>
 											<th scope="col">Aktif-Pasif</th>
 											<th scope="col">smmmOfisId</th>
-											<th scope="col"></th>
+											<th scope="col"><i class="bi bi-gear"></i> İşlemler</th>
 										</tr>
 									</thead>									
 									<tbody id="clientTableBody">
@@ -89,16 +93,16 @@
 											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
 								                <a id="viewBtn" type="button" class="btn btn-success" 
 								                	 data-bs-toggle="modal" data-bs-target="#viewClientModal"
-								                	th:href="@{/api/v1/get-homepage-client/{id}(id=${hpc.id})}">
+								                	th:href="@{/api/v1/get-homepage-client-settings/{id}(id=${hpc.id})}">
 								                	<i class="bi bi-eye"></i>
 								                </a>
 								                <a id="editBtn" type="button" class="btn btn-warning"  
 								                	data-bs-toggle="modal" data-bs-target="#editClientModal"
-								                	th:href="@{/api/v1/get-homepage-client/{id}(id=${hpc.id})}">
+								                	th:href="@{/api/v1/get-homepage-client-settings/{id}(id=${hpc.id})}">
 								                	<i class="bi bi-pencil"></i>
 								                </a>
 								                <a id="deleteBtn" type="button" class="btn btn-danger" 
-								                	th:href="@{/api/v1/delete-homepage-client/{id}(id=${hpc.id})}"
+								                	th:href="@{/api/v1/delete-homepage-client-settings/{id}(id=${hpc.id})}"
 								                	data-bs-toggle="modal" data-bs-target="#deleteClientModal">
 								                	<i class="bi bi-trash"></i>
 								                </a>
@@ -125,14 +129,14 @@
 		role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Kurum Ekle</h5>
+				<div class="modal-header bg-primary">
+					<h5 class="modal-title text-white">Kurum Ekle</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 				<!-- Horizontal Form -->
-								<form id="addClientForm" th:action="@{ /api/v1/save-homepage-client}" th:object="${hpClient}"
+								<form id="addClientForm" th:action="@{ /api/v1/save-homepage-client-settings}" th:object="${hpClient}"
 												method="post"	enctype="multipart/form-data">
 									<div class="row mb-3 mt-3" id="general-elements">
 										<div class="row d-flex-inline align-items-center" style="padding-top: 10px;">
@@ -211,14 +215,14 @@
 		role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title"></h5>
+				<div class="modal-header bg-success">
+					<h5 class="modal-title text-white"></h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 				<!-- Horizontal Form -->
-								<form>
+								<form id="viewClientForm">
 									<div class="row mb-3 mt-3" id="general-elements">
 										<div class="row d-flex-inline align-items-center" style="padding-top: 10px;">
 											<label for="inputNumber" class="col-sm-3 col-form-label-sm w-40">Logo</label>
@@ -292,8 +296,8 @@
 		role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title"></h5>
+				<div class="modal-header bg-warning">
+					<h5 class="modal-title text-success"></h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
@@ -357,7 +361,7 @@
 																		
 									<div class="grid gap-2 text-center float-end">
 										<button type="submit" class="btn btn-primary">Güncelle</button>
-										<button type="reset" class="btn btn-secondary">Formu Temizle</button>
+										<button type="button" id="editClientFormClearBtn" class="btn btn-secondary">Formu Temizle</button>
 									</div>
 								</form>
 								<!-- End Horizontal Form -->
@@ -378,8 +382,8 @@
 		role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title"></h5>
+				<div class="modal-header bg-danger">
+					<h5 class="modal-title text-white"></h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>

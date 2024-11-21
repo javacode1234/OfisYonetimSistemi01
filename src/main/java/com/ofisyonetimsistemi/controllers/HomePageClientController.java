@@ -1,7 +1,6 @@
 package com.ofisyonetimsistemi.controllers;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,7 @@ public class HomePageClientController {
 	@Autowired
 	private SmmmOfisHomePageClientService hpcService;
 	
-	@GetMapping("/smmm-homepage-clients")
+	@GetMapping("/smmm-homepage-clients-settings")
 	public String getHomePageClientsSettingsPage(Model model) {
 		
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
@@ -61,7 +60,7 @@ public class HomePageClientController {
 		return "adminpanel/homepage-clients-settings";
 	}
 
-	@PostMapping("/save-homepage-client")
+	@PostMapping("/save-homepage-client-settings")
 	public String saveHomePageClient(
 										@RequestParam("logo")MultipartFile file,
 										@RequestParam("name")String name,
@@ -74,10 +73,10 @@ public class HomePageClientController {
 		Integer smmmOfisId = smmmOfisService.getFirstSmmmOfis().get().getId();
 		hpcService.saveHomePageClient(file, name, url, description, active, smmmOfisId );
 		
-		return "redirect:/api/v1/smmm-homepage-clients";
+		return "redirect:/api/v1/smmm-homepage-clients-settings";
 	}
 	
-	@PostMapping("/update-homepage-client/{id}")
+	@PostMapping("/update-homepage-client-settings/{id}")
 	public String updateUserById(   
 									@PathVariable Integer id, 
 									@RequestParam("logo")MultipartFile file,
@@ -92,19 +91,19 @@ public class HomePageClientController {
 		
 		hpcService.updateHomePageClient(id, file, name, url, description, active, smmmOfisId);
 		
-		return "redirect:/api/v1/smmm-homepage-clients";
+		return "redirect:/api/v1/smmm-homepage-clients-settings";
 	}
 
-	@GetMapping("/get-homepage-client/{id}")
+	@GetMapping("/get-homepage-client-settings/{id}")
 	@ResponseBody
 	public Optional<SmmmOfisHomePageClient> getUserById(@PathVariable("id")Integer id) {
 		return hpcService.getById(id);
 	}
 	
-	@RequestMapping(value="/delete-homepage-client/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
+	@RequestMapping(value="/delete-homepage-client-settings/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
 	public String delById(@PathVariable("id") Integer id) {
 		hpcService.deleteById(id);
-		return "redirect:/api/v1/smmm-homepage-clients";
+		return "redirect:/api/v1/smmm-homepage-clients-settings";
 	}
 	
 	

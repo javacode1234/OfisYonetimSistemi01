@@ -23,13 +23,15 @@
 		<main id="main" class="main">
 
 			<div class="pagetitle">
-				<h1>Anasayfa Ayarları</h1>
+				<h1>Web Sayfası Ayarları</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a
 							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
-						<li class="breadcrumb-item">Ayarlar</li>
-						<li class="breadcrumb-item active">Anasayfa Ayarları</li>
+<!-- 						<li class="breadcrumb-item">Ayarlar</li> -->
+						<li class="breadcrumb-item active">
+							<a th:href="@{/api/v1/smmm-homepage-settings}">Anasayfa Ayarları</a>
+						</li>
 					</ol>
 				</nav>
 			</div>
@@ -203,7 +205,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-clients}"> Anasayfada kurumlar için resim ve link ekle. </a>
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-clients-settings}"> Anasayfada kurumlar için resim ve link ekle. </a>
 									</div>
 									</form>
 									
@@ -248,7 +250,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-3">
-										<a class="btn btn-outline-warning btn-sm"> Hakkımızda kısmı 1. sütun için madde ekle. </a>
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-aboutus-settings}"> Hakkımızda kısmı 1. sütun için madde ekle. </a>
 									</div>
 									</form>
 									
@@ -292,7 +294,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-3">
-										<a class="btn btn-outline-warning btn-sm"> Neden biz kısmı için madde ekle. </a>
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-whyus-settings}"> Neden biz kısmı için madde ekle. </a>
 									</div>
 									</form>
 									

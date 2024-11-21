@@ -1,5 +1,7 @@
 package com.ofisyonetimsistemi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,8 +26,11 @@ public class SmmmOfisAboutUsColumnOne {
 	
 	private String text;
 	
+	private boolean active;
+	
 	@ManyToOne
 	@JoinColumn(name="smmmofis_id",insertable = false,updatable = false)
+	@JsonIgnore
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
 	

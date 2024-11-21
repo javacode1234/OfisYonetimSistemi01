@@ -22,7 +22,7 @@ $("document").ready(function(){
 					$("#editClientModal .modal-title").text("Kurum Bilgilerini Güncelle");
 					var href = $(this).attr('href');		
 					$.get(href, function(hpc, status){
-						$("#editClientModal .modal-body #editClientForm").attr('action', '/api/v1/update-homepage-client/'+hpc.id);
+						$("#editClientModal .modal-body #editClientForm").attr('action', '/api/v1/update-homepage-client-settings/'+hpc.id);
 						$("#editClientModal .modal-body #hpcLogo").attr('src','data:image/*;base64,'+hpc.stringLogo);
 						$("#editClientModal .modal-body #hpcId").val(hpc.id);
 						$("#editClientModal .modal-body #hpcName").val(hpc.name);
@@ -34,6 +34,17 @@ $("document").ready(function(){
 						
 				});
 				/* edit modal end  */
+				
+				/* editClientform clear */
+				$('#editClientModal #editClientForm #editClientFormClearBtn').click(function(e){
+					e.preventDefault();
+					$("#editClientModal .modal-body #hpcLogo").attr('src','');
+					$("#editClientModal .modal-body #hpcName").val("");
+					$("#editClientModal .modal-body #hpcUrl").val("");
+					$("#editClientModal .modal-body #hpcDescription").val("");
+					$("#editClientModal .modal-body #hpcActive").prop('checked', false);
+				});
+				/* editClientform clear */
 				
 				/* client delete modal sart */
 				$('table#clientTable #clientTableBody #deleteBtn').click(function(e){
@@ -55,9 +66,7 @@ $("document").ready(function(){
 						$('#deleteClientModal #hpcActive').prop('checked', true);
 					}else if(active==="Pasif"){
 						$('#deleteClientModal #hpcActive').prop('checked', false);
-					}
-					
-					
+					}					
 							
 					var resimhref = $(this).closest('tr').find('td:eq(1) a img').attr('src');
 					$('#deleteClientModal #hpcLogo').attr('src',  resimhref.toString() );

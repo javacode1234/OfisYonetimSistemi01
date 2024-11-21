@@ -16,9 +16,6 @@ import com.ofisyonetimsistemi.repositories.SmmmOfisHomePageClientRepo;
 public class SmmmOfisHomePageClientService {
 
 	@Autowired
-	private SmmmOfisService smmmOfisService;
-
-	@Autowired
 	private SmmmOfisHomePageClientRepo hpcRepo;
 
 	public void saveHomePageClient(SmmmOfisHomePageClient homepageClient) {
