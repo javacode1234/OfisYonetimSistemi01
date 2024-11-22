@@ -1,5 +1,17 @@
 $("document").ready(function() {
-
+	
+	/* add Modal clear form */
+	$("#addServiceBtn").click(function(e) {
+		e.preventDefault();
+		//alert('deneme')
+		$("#addServiceModal .modal-body #hpServiceIcon").val("");
+		$('#addServiceModal #addServiceForm #addServiceDisplayIcon').attr('class','');
+		$("#addServiceModal .modal-body #hpServiceHeader").val("");
+		$("#addServiceModal .modal-body #hpServiceText").val("");
+		$("#addServiceModal .modal-body #hpServiceActive").prop('checked', false);
+	});
+	/* add Modal clear form */
+	
 	/* view modal start*/
 	$("table#servicesTable #servicesTableBody #viewBtn").click(function(e) {
 		e.preventDefault();
@@ -8,6 +20,7 @@ $("document").ready(function() {
 		$.get(href, function(s, status) {
 			$("#viewServiceModal .modal-body #hpServiceId").val(s.id);
 			$("#viewServiceModal .modal-body #hpServiceIcon").val(s.icon);
+			$('#viewServiceModal .modal-body #viewServiceDisplayIcon').attr('class', s.icon);
 			$("#viewServiceModal .modal-body #hpServiceHeader").val(s.header);
 			$("#viewServiceModal .modal-body #hpServiceText").val(s.description);
 			$("#viewServiceModal .modal-body #hpServiceActive").prop('checked', s.active);
@@ -26,6 +39,7 @@ $("document").ready(function() {
 			$.get(href, function(s, status) {
 				$("#editServiceModal .modal-body #hpServiceId").val(s.id);
 				$("#editServiceModal .modal-body #hpServiceIcon").val(s.icon);
+				$('#editServiceModal .modal-body #editServiceDisplayIcon').attr('class', s.icon);
 				$("#editServiceModal .modal-body #hpServiceHeader").val(s.header);
 				$("#editServiceModal .modal-body #hpServiceText").val(s.description);
 				$("#editServiceModal .modal-body #hpServiceActive").prop('checked', s.active);
@@ -42,6 +56,7 @@ $("document").ready(function() {
 			$("#editServiceModal .modal-body #hpServiceHeader").val("");
 			$("#editServiceModal .modal-body #hpServiceText").val("");
 			$("#editServiceModal .modal-body #hpServiceActive").prop('checked', false);
+			$('#editServiceModal .modal-body #editServiceDisplayIcon').attr('class', '');
 		});
 		/* edit ServiceFormClearBtn clear btn */
 		
@@ -56,6 +71,7 @@ $("document").ready(function() {
 			$("#deleteServiceModal .modal-body #hpServiceId").val(id);
 			var icon = $(this).closest('tr').find('td:eq(1) p').text();
 			$("#deleteServiceModal .modal-body #hpServiceIcon").val(icon);
+			$('#deleteServiceModal .modal-body #deleteServiceDisplayIcon').attr('class', icon);
 			var header = $(this).closest('tr').find('td:eq(2)').text();
 			$("#deleteServiceModal .modal-body #hpServiceHeader").val(header);
 			var description = $(this).closest('tr').find('td:eq(3)').text();

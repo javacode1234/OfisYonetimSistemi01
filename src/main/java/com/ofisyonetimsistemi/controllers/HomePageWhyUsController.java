@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
-import com.ofisyonetimsistemi.models.SmmmOfisAboutUsColumnOne;
 import com.ofisyonetimsistemi.models.SmmmOfisWhyUs;
-import com.ofisyonetimsistemi.services.SmmmOfisAboutUsColumnOneService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 import com.ofisyonetimsistemi.services.SmmmOfisWhyUsService;
 

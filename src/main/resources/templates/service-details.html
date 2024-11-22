@@ -14,10 +14,10 @@
         <nav class="breadcrumbs">
           <ol>
             <li><a th:href="@{/}">Anasayfa</a></li>
-            <li class="current">Service Details</li>
+            <li class="current">Hizmet Detayları</li>
           </ol>
         </nav>
-        <h1>Service Details</h1>
+        <h1>Hizmet Detayları</h1>
       </div>
     </div><!-- End Page Title -->
 
@@ -30,11 +30,9 @@
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             <div class="services-list">
-              <a href="#" class="active">Web Design</a>
-              <a href="#">Software Development</a>
-              <a href="#">Product Management</a>
-              <a href="#">Graphic Design</a>
-              <a href="#">Marketing</a>
+              <th:block th:each=" s : ${smmmOfisHomePage.services} ">
+              <a href="#" class="active" th:if="${s.active==true}" th:text="${s.header}">Web Design</a>
+              </th:block>
             </div>
 
             <h4>Enim qui eos rerum in delectus</h4>

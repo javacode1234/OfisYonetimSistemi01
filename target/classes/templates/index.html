@@ -263,7 +263,7 @@
 
 					<div class="row gy-4">
 
-						<div class="col-xl-3 col-md-6 d-flex mb-5" data-aos="fade-up" data-aos-delay="100"
+						<div class="col-xl-3 col-md-6 d-flex mb-2" data-aos="fade-up" data-aos-delay="100"
 											th:each="s : ${smmmOfisHomePage.services}"	th:if="${s.active==true}"	>
 							<div class="service-item position-relative"  
 									style="width: 300px;height: 300px;border-radius: 5%;border:1px solid orange;">
@@ -279,7 +279,7 @@
 
 			</section><!-- /Services Section -->
 
-			<!-- Call To Action Section -->
+			<!-- Call To Action Section mevzuat -->
 			<section id="call-to-action" class="call-to-action section">
 
 				<img th:src="@{arshahomepage/assets/img/cta-bg.jpg}" alt="">
@@ -294,7 +294,8 @@
 								officia deserunt mollit anim id est laborum.</p>
 						</div>
 						<div class="col-xl-3 cta-btn-container text-center">
-							<a class="cta-btn align-middle" href="#" th:text="Mevzuat">Call To Action</a>
+							<a class="cta-btn align-middle" 
+							href="https://www.turmob.org.tr/mevzuat" target="blank">Türmob Mevzuat</a>
 						</div>
 					</div>
 
@@ -346,10 +347,10 @@
 									<h4>Product 1</h4>
 									<p>Lorem ipsum, dolor sit</p>
 									<a th:href="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-2.jpg}" title="Product 1"
-										data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i
-											class="bi bi-zoom-in"></i></a>
-									<a th:href="@{portfolio-details}" title="More Details" class="details-link"><i
-											class="bi bi-link-45deg"></i></a>
+										data-gallery="portfolio-gallery-product" class="glightbox preview-link">
+											<i class="bi bi-zoom-in"></i></a>
+									<a th:href="@{portfolio-details}" title="More Details" class="details-link">
+											<i class="bi bi-link-45deg"></i></a>
 								</div>
 							</div><!-- End Portfolio Item -->
 

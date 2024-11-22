@@ -15,7 +15,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 @Controller
 public class HomeController {
 	
-	@Autowired SmmmOfisService smmmOfisHomePageService;
+	@Autowired private SmmmOfisService smmmOfisHomePageService;
 		
 	@GetMapping("/")
 	public String getHomePage(Model model) {		
@@ -34,37 +34,27 @@ public class HomeController {
 	
 	@GetMapping("/portfolio-details")
 	public String portfolioDetails(Model model) {
-		Optional<SmmmOfis> smmmOfisHomePage = smmmOfisHomePageService.getFirstSmmmOfis();
 		
-		if( smmmOfisHomePage.isPresent() ) {
-			model.addAttribute("smmmOfisHomePage", smmmOfisHomePage);
-			return "index";			
-		}
+		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		
-		SmmmOfis smmmOfis = new SmmmOfis();
-		
-		smmmOfis.setMainpageTitle("SMMM Muammer UZUN");
-		smmmOfis.setHeaderTitle("MMOYS");
-		
-		model.addAttribute("smmmOfisHomePage", smmmOfis);
+		if(smmmOfis.isPresent()) {
+			model.addAttribute("smmmOfisHomePage", smmmOfis.get());
+		}else if(!smmmOfis.isPresent()){
+			model.addAttribute("smmmOfisHomePage", new SmmmOfis());
+		}		
 		return "portfolio-details";
 	}
 	
 	@GetMapping("/service-details")
 	public String serviceDetails(Model model) {
-		Optional<SmmmOfis> smmmOfisHomePage = smmmOfisHomePageService.getFirstSmmmOfis();
 		
-		if( smmmOfisHomePage.isPresent() ) {
-			model.addAttribute("smmmOfisHomePage", smmmOfisHomePage);
-			return "index";			
-		}
+		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		
-		SmmmOfis smmmOfis = new SmmmOfis();
-		
-		smmmOfis.setMainpageTitle("SMMM Muammer UZUN");
-		smmmOfis.setHeaderTitle("MMOYS");
-		
-		model.addAttribute("smmmOfisHomePage", smmmOfis);
+		if(smmmOfis.isPresent()) {
+			model.addAttribute("smmmOfisHomePage", smmmOfis.get());
+		}else if(!smmmOfis.isPresent()){
+			model.addAttribute("smmmOfisHomePage", new SmmmOfis());
+		}		
 		return "service-details";
 	}
 	

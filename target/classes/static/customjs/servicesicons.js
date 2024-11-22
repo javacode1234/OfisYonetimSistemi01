@@ -9,6 +9,7 @@ $(document).ready(function(){
 		$('#addServiceModal #addServiceForm #hpServiceIcon').val(icon);
 		//$('#addServiceModal #addServiceForm #hpServiceIcon').attr('readonly', 'readonly');
 		
+		$('#addServiceModal #addServiceForm #addServiceDisplayIcon').attr('class', icon);
 	});
 	
 	$('#editServiceModal #editServiceForm .dropdown-item').click(function(e){
@@ -20,6 +21,7 @@ $(document).ready(function(){
 			//alert(icon2);
 			$('#editServiceModal #editServiceForm #hpServiceIcon').val(icon);
 			//$('#addServiceModal #addServiceForm #hpServiceIcon').attr('readonly', 'readonly');
+			$('#editServiceModal #editServiceForm #editServiceDisplayIcon').attr('class', icon);
 			
 		});
 });

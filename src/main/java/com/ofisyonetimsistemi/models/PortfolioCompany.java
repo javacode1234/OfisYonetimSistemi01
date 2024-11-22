@@ -1,5 +1,7 @@
 package com.ofisyonetimsistemi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,6 +46,7 @@ public class PortfolioCompany {
 	
 	@ManyToOne
 	@JoinColumn(name="businessector_id",insertable = false,updatable = false)
+	@JsonIgnore
 	private SmmmOfisBusinesSector sector;
 	private Integer businessector_id;
 	
