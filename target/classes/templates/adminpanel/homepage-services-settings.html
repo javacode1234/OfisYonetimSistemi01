@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="~{adminpanel/fragments/head}"></head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<header th:replace="~{adminpanel/fragments/header}"></header>
+	<!-- End Header -->
+
+	<!-- ======= Sidebar ======= -->
+	<aside th:replace="~{adminpanel/fragments/sidebar}"></aside>
+	<!-- End Sidebar-->
+
+	<!-- ======== main ========== -->
+
+	<div layout:fragment="content">
+
+		<main id="main" class="main">
+
+			<div class="pagetitle">
+				<h1>Neden Biz Kısmı</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
+						<li class="breadcrumb-item active">
+							<a th:href="@{/api/v1/smmm-homepage-settings}">Anasayfa Ayarları</a>
+						</li>
+						<li class="breadcrumb-item active">
+							<a th:href="@{/api/v1/smmm-homepage-whyus-settings}">Anasayfa Hizmetler</a>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<section class="section dashboard">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+<!-- 								<h5 class="card-title">Anasayfa hakkımızda kısmına madde ekle</h5> -->
+								<div class="mt-3">
+									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addServiceModal">
+						                Hizmetler kısmı kart ekle
+						            </button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">					
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Hizmetlerimiz kısmı</h5>
+								<!-- Table with hoverable rows -->
+								<div style="height: 260px; overflow: auto">
+								<table id="servicesTable" class="table table-hover table-sm">
+								<thead style="position:sticky;top:0;">
+									<tr>
+										<th>id</th>
+										<th>İkon</th>
+										<th>Başlık</th>
+										<th>Açıklama</th>
+										<th>Durum</th>
+										<th>smmmofisId</th>
+										<th><i class="bi bi-gear"></i> işlemler</th>
+									</tr>
+								</thead>
+								<tbody id="servicesTableBody">
+									<tr th:each="s,i :${homepageServices}">
+										<td th:text="${s.id}"></td>
+										<td>
+											<p style="display: none;">[[${s.icon}]]</p>
+											<i th:class="${s.icon}"></i>											
+										</td>
+										<td th:text="${s.header}"></td>
+										<td th:text="${s.description}"></td>
+										<td>
+											<span class="badge bg-primary" th:if="${s.active==true}">Aktif</span>
+											<span class="badge bg-danger" th:if="${s.active==false}">Pasif</span>
+										</td>
+										<td th:text="${s.smmmofis.id}"></td>
+										<td>
+											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+								                <a id="viewBtn" type="button" class="btn btn-success" 
+								                	 data-bs-toggle="modal" data-bs-target="#viewServiceModal"
+								                	th:href="@{/api/v1/get-homepage-service/{id}(id=${s.id})}">
+								                	<i class="bi bi-eye"></i>
+								                </a>
+								                <a id="editBtn" type="button" class="btn btn-warning"  
+								                	data-bs-toggle="modal" data-bs-target="#editServiceModal"
+								                	th:href="@{/api/v1/get-homepage-service/{id}(id=${s.id})}">
+								                	<i class="bi bi-pencil"></i>
+								                </a>
+								                <a id="deleteBtn" type="button" class="btn btn-danger" 
+								                	th:href="@{/api/v1/delete-homepage-services/{id}(id=${s.id})}"
+								                	data-bs-toggle="modal" data-bs-target="#deleteServiceModal">
+								                	<i class="bi bi-trash"></i>
+								                </a>
+								            </div>
+										</td>
+									</tr>
+								</tbody>
+								</table>
+								</div>
+								<!-- End Table with hoverable rows -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<!-- End #main -->
+
+	</div>
+	
+	<!-- add service modal sart -->
+	<div class="modal fade" id="addServiceModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h5 class="modal-title text-white">Neden Biz Kısmı Madde Ekle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<!-- Horizontal Form -->
+					<form id="addServiceForm"
+						th:action="@{ /api/v1/save-homepage-service}"
+						th:object="${homePageService}" method="post">
+
+						<div class="row mb-2 mt-3" style="display: none;">
+							<label for="hpServiceId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="id" id="hpServiceId">
+							</div>
+						</div>						
+						<div class="row mb-2">
+							<div class="btn-group col-sm-2">
+								<button class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split"
+									type="button" data-bs-toggle="dropdown" aria-expanded="false">
+									İkon Seç </button>
+								<div class="dropdown-menu" style="margin-left: 2em;max-height:280px;overflow-y: auto;">                   
+								<ul >
+								<th:block th:each="i, t : ${boxicons}">
+									<li class="dropdown-item">[[${t.index+1}]] : [[${i.icon}]] : <i class="" th:classAppend=" ${i.icon} "></i></li>
+								</th:block>
+								</ul>								
+								</div>
+							</div>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="icon" id="hpServiceIcon" 
+									readonly="readonly"	required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceHeader" class="col-sm-2 col-form-label-sm">Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="header" id="hpServiceHeader" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceText" class="col-sm-2 col-form-label-sm">Açıklama</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="description" id="hpServiceText" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceActive" class="col-sm-2 col-form-label-sm">Aktif-Pasif</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active"
+									id="hpServiceActive">
+							</div>
+						</div>						
+						<div class="grid gap-2 text-center float-end">
+							<button type="submit" class="btn btn-primary">Kaydet</button>
+							<button type="reset" class="btn btn-secondary">Formu
+								Temizle</button>
+						</div>
+					</form>
+					<!-- / Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">Kapat</button>
+<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- add service modal end -->
+	
+	<!-- view service modal sart -->
+	<div class="modal fade" id="viewServiceModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-success">
+					<h5 class="modal-title text-white"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<!-- Horizontal Form -->
+				<form id="addServiceForm"
+						th:action="@{ /api/v1/save-homepage-service}"
+						th:object="${homePageService}" method="post">
+
+						<div class="row mb-2 mt-3">
+							<label for="hpServiceId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="id" id="hpServiceId">
+							</div>
+						</div>						
+						<div class="row mb-2">
+							<div class="btn-group col-sm-2">
+								<button class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split"
+									type="button" data-bs-toggle="dropdown" aria-expanded="false">
+									İkon Seç </button>
+								<div class="dropdown-menu" style="margin-left: 2em;max-height:280px;overflow-y: auto;">                   
+								<ul >
+								<th:block th:each="i, t : ${boxicons}">
+									<li class="dropdown-item">[[${t.index+1}]] : [[${i.icon}]] : <i class="" th:classAppend=" ${i.icon} "></i></li>
+								</th:block>
+								</ul>								
+								</div>
+							</div>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="icon" id="hpServiceIcon" 
+														disabled="disabled"	required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceHeader" class="col-sm-2 col-form-label-sm">Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="header" id="hpServiceHeader" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceText" class="col-sm-2 col-form-label-sm">Açıklama</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="description" id="hpServiceText" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceActive" class="col-sm-2 col-form-label-sm">Aktif-Pasif</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active" disabled="disabled"
+																id="hpServiceActive">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="smmmofis.id"
+																		disabled="disabled" id="hpServiceSmmmOfisId">
+							</div>
+						</div>
+					</form>
+				<!-- /End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">Kapat</button>
+<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- view service modal end -->
+	
+	<!-- edit service modal start -->
+	<div class="modal fade" id="editServiceModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+					<h5 class="modal-title text-success"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<!-- Horizontal Form -->
+						<form id="editServiceForm"
+						th:action="@{ /api/v1/update-homepage-services}"
+						th:object="${homePageService}" method="post">
+
+						<div class="row mb-2 mt-3">
+							<label for="hpServiceId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" readonly="readonly"
+									name="id" id="hpServiceId">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<div class="btn-group col-sm-2">
+								<button class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split"
+									type="button" data-bs-toggle="dropdown" aria-expanded="false">
+									İkon Seç </button>
+								<div class="dropdown-menu" style="margin-left: 2em;max-height:280px;overflow-y: auto;">                   
+								<ul >
+								<th:block th:each="i, t : ${boxicons}">
+									<li class="dropdown-item">[[${t.index+1}]] : [[${i.icon}]] : <i class="" th:classAppend=" ${i.icon} "></i></li>
+								</th:block>
+								</ul>								
+								</div>
+							</div>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="icon" id="hpServiceIcon" 
+												readonly="readonly"	required="required">
+							</div>
+						</div>						
+						<div class="row mb-2">
+							<label for="hpServiceHeader" class="col-sm-2 col-form-label-sm">Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="header" id="hpServiceHeader" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceText" class="col-sm-2 col-form-label-sm">Açıklama</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="description" id="hpServiceText" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceActive" class="col-sm-2 col-form-label-sm">Aktif-Pasif</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active"
+									id="hpServiceActive">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="smmmofis.id"
+																					readonly="readonly"	id="hpServiceSmmmOfisId">
+							</div>
+						</div>
+						<div class="grid gap-2 text-center float-end">
+							<button type="submit" class="btn btn-primary">Kaydet</button>
+							<button type="reset" id="editServiceFormClearBtn" class="btn btn-secondary">Formu Temizle</button>
+						</div>
+					</form>
+				<!-- / Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">Kapat</button>
+<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- edit service modal end -->
+	
+	<!-- delete service modal sart -->
+	<div class="modal fade" id="deleteServiceModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-danger">
+					<h5 class="modal-title text-white"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<!-- Horizontal Form -->
+						<form id="deleteServiceForm">				
+
+						<div class="row mb-2 mt-3">
+							<label for="hpServiceId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"  disabled="disabled"
+																name="id" id="hpServiceId">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<div class="btn-group col-sm-2">
+								<button class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split"
+									type="button" data-bs-toggle="dropdown" aria-expanded="false">
+									İkon Seç </button>
+								<div class="dropdown-menu" style="margin-left: 2em;max-height:280px;overflow-y: auto;">                   
+								<ul >
+								<th:block th:each="i, t : ${boxicons}">
+									<li class="dropdown-item">[[${t.index+1}]] : [[${i.icon}]] : <i class="" th:classAppend=" ${i.icon} "></i></li>
+								</th:block>
+								</ul>								
+								</div>
+							</div>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="icon" id="hpServiceIcon" 
+								 									disabled="disabled" required="required">
+							</div>
+						</div>						
+						<div class="row mb-2">
+							<label for="hpServiceHeader" class="col-sm-2 col-form-label-sm">Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="header" id="hpServiceHeader" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceText" class="col-sm-2 col-form-label-sm">Açıklama</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="description" id="hpServiceText" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceActive" class="col-sm-2 col-form-label-sm">Aktif-Pasif</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active" disabled="disabled"
+									id="hpServiceActive">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="smmmofis.id" disabled="disabled"
+									id="hpServiceSmmmOfisId">
+							</div>
+						</div>						
+					</form>
+				<!-- /Horizontal Form --> 
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">Kapat</button>
+					<a type="button" id="deleteServiceConfirmBtn" href="" class="btn btn-danger">Evet Sil</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- delete service modal end -->
+
+	<div th:replace="~{adminpanel/fragments/footer}"></div>
+	<div th:replace="~{adminpanel/fragments/js}"></div>
+
+</body>
+
+</html>
