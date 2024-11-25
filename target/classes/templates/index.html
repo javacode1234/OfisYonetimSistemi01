@@ -268,7 +268,7 @@
 							<div class="service-item position-relative"  
 									style="width: 300px;height: 300px;border-radius: 5%;border:1px solid orange;">
 								<div class="icon"><i class="" th:classAppend="${s.icon}"></i></div>
-								<h4><a th:href="@{/service-details}" class="stretched-link" th:text="${s.header}">Lorem Ipsum</a></h4>
+								<h4><a th:href="@{/service-details(id=${s.id})}" class="stretched-link" th:text="${s.header}">Lorem Ipsum</a></h4>
 								<p th:text="${s.description}">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
 							</div>
 						</div><!-- End Service Item -->
@@ -317,141 +317,36 @@
 					<div class="isotope-layout" data-default-filter="*" data-layout="masonry"
 						data-sort="original-order">
 
-						<ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-							<li data-filter="*" class="filter-active">All</li>
-							<li data-filter=".filter-app">App</li>
-							<li data-filter=".filter-product">Card</li>
-							<li data-filter=".filter-branding">Web</li>
+						<ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100"> 										
+							<li data-filter="*" class="filter-active">Bütün Sektörler</li>
+							<th:block th:each=" sector : ${sectors}">
+								<li th:data-filter=" '.filter-x' + ${sector.id}" th:text="${sector.name}">App</li>	
+							</th:block>						
 						</ul><!-- End Portfolio Filters -->
 
 						<div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
-							<div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-								<img th:src="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-1.jpg}"
-									class="img-fluid" alt="">
+							<th:block th:each="company : ${companies}" th:if="${company.active==true}">
+							
+							<div class="col-lg-4 col-md-6 portfolio-item isotope-item" th:classAppend=" 'filter-x' + ${company.businessector_id}">
+								<img th:src=" 'data:image/jpg;base64,' + ${company.stringResim}" class="img-fluid" alt="">
+									
 								<div class="portfolio-info">
-									<h4>App 1</h4>
-									<p>Lorem ipsum, dolor sit</p>
-									<a th:src="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-1.jpg}"
-										title="App 1" data-gallery="portfolio-gallery-app"
-										class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-									<a th:href="@{/portfolio-details}" title="More Details"
-										class="details-link"><i class="bi bi-link-45deg"></i></a>
+									<h4 th:text="${company.name}">App 1</h4>
+									<p th:text="${company.unvan}">Lorem ipsum, dolor sit</p>
+									<p th:text="${company.mainheader}">Lorem ipsum, dolor sit</p>
+									<p th:text="${company.header}">Lorem ipsum, dolor sit</p>
+									<p th:text="${company.description}">Lorem ipsum, dolor sit</p>
+									
+									<a th:href="@{ /portfolio-details (id=${company.id}) }" title="More Details"
+										class="details-link"><i class="bi bi-arrow-right-square-fill"></i></a>
+<!-- 									<a th:href="@{ /smmmofis-homepage-portfolio-details }" title="More Details" -->
+<!-- 										class="details-link"><i class="bi bi-arrow-right-square-fill"></i></a> -->
 								</div>
-							</div><!-- End Portfolio Item -->
-
-							<div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-								<img th:src="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-2.jpg}"
-									class="img-fluid" alt="">
-								<div class="portfolio-info">
-									<h4>Product 1</h4>
-									<p>Lorem ipsum, dolor sit</p>
-									<a th:href="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-2.jpg}" title="Product 1"
-										data-gallery="portfolio-gallery-product" class="glightbox preview-link">
-											<i class="bi bi-zoom-in"></i></a>
-									<a th:href="@{portfolio-details}" title="More Details" class="details-link">
-											<i class="bi bi-link-45deg"></i></a>
-								</div>
-							</div><!-- End Portfolio Item -->
-
-							<div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-								<img th:src="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-3.jpg}"
-									class="img-fluid" alt="">
-								<div class="portfolio-info">
-									<h4>Branding 1</h4>
-									<p>Lorem ipsum, dolor sit</p>
-									<a th:href="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-3.jpg}"
-										title="Branding 1" data-gallery="portfolio-gallery-branding"
-										class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-									<a th:href="@{portfolio-details}" title="More Details" class="details-link"><i
-											class="bi bi-link-45deg"></i></a>
-								</div>
-							</div><!-- End Portfolio Item -->
-
-							<div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-								<img th:src="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-4.jpg}"
-									class="img-fluid" alt="">
-								<div class="portfolio-info">
-									<h4>App 2</h4>
-									<p>Lorem ipsum, dolor sit</p>
-									<a th:href="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-4.jpg}"
-										title="App 2" data-gallery="portfolio-gallery-app"
-										class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-									<a th:href="@{portfolio-details}" title="More Details" class="details-link"><i
-											class="bi bi-link-45deg"></i></a>
-								</div>
-							</div><!-- End Portfolio Item -->
-
-							<div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-								<img th:src="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-5.jpg}"
-									class="img-fluid" alt="">
-								<div class="portfolio-info">
-									<h4>Product 2</h4>
-									<p>Lorem ipsum, dolor sit</p>
-									<a th:href="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-5.jpg}"
-										title="Product 2" data-gallery="portfolio-gallery-product"
-										class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-									<a th:href="@{portfolio-details}" title="More Details" class="details-link"><i
-											class="bi bi-link-45deg"></i></a>
-								</div>
-							</div><!-- End Portfolio Item -->
-
-							<div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-								<img th:src="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-6.jpg}"
-									class="img-fluid" alt="">
-								<div class="portfolio-info">
-									<h4>Branding 2</h4>
-									<p>Lorem ipsum, dolor sit</p>
-									<a th:href="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-6.jpg}"
-										title="Branding 2" data-gallery="portfolio-gallery-branding"
-										class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-									<a th:href="@{portfolio-details}" title="More Details" class="details-link"><i
-											class="bi bi-link-45deg"></i></a>
-								</div>
-							</div><!-- End Portfolio Item -->
-
-							<div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-								<img th:src="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-7.jpg}"
-									class="img-fluid" alt="">
-								<div class="portfolio-info">
-									<h4>App 3</h4>
-									<p>Lorem ipsum, dolor sit</p>
-									<a th:srhrefc="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-7.jpg}"
-										title="App 3" data-gallery="portfolio-gallery-app"
-										class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-									<a th:href="@{portfolio-details}" title="More Details" class="details-link"><i
-											class="bi bi-link-45deg"></i></a>
-								</div>
-							</div><!-- End Portfolio Item -->
-
-							<div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-								<img th:src="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-8.jpg}"
-									class="img-fluid" alt="">
-								<div class="portfolio-info">
-									<h4>Product 3</h4>
-									<p>Lorem ipsum, dolor sit</p>
-									<a th:href="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-8.jpg}"
-										title="Product 3" data-gallery="portfolio-gallery-product"
-										class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-									<a th:href="@{portfolio-details}" title="More Details" class="details-link"><i
-											class="bi bi-link-45deg"></i></a>
-								</div>
-							</div><!-- End Portfolio Item -->
-
-							<div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-								<img th:src="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-9.jpg}"
-									class="img-fluid" alt="">
-								<div class="portfolio-info">
-									<h4>Branding 3</h4>
-									<p>Lorem ipsum, dolor sit</p>
-									<a th:href="@{arshahomepage/assets/img/masonry-portfolio/masonry-portfolio-9.jpg}"
-										title="Branding 2" data-gallery="portfolio-gallery-branding"
-										class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-									<a th:href="@{portfolio-details}" title="More Details" class="details-link"><i
-											class="bi bi-link-45deg"></i></a>
-								</div>
-							</div><!-- End Portfolio Item -->
-
+							</div>
+							
+							</th:block>
+							<!-- End Portfolio Item -->
 						</div><!-- End Portfolio Container -->
 
 					</div>
@@ -943,6 +838,10 @@
 
 		</main>
 	</div>
+	
+	<!-- portfolio slider -->
+	
+	<!-- / portfolio slider -->
 
 	<footer th:replace="~{homepagefragments/footer}"></footer>
 

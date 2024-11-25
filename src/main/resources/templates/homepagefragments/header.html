@@ -1,6 +1,6 @@
 <header th:fragment="header" id="header" class="header d-flex align-items-center fixed-top" 
 														style="border-bottom:1px solid yellow;">
-    <div class="container-fluid position-relative d-flex align-items-center" style="margin-right:150px;">
+    <div class="container-fluid position-relative d-flex align-items-center">
 
       <a th:href="@{/}" class="logo d-flex align-items-center me-auto">
 		<img th:src="${smmmOfisHomePage.stringLogo!=null} ? 'data:image/*;base64,' + ${smmmOfisHomePage.stringLogo} : 'arshahomepage/assets/img/smmm.png' " />
@@ -43,7 +43,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-<!--      <a class="btn-getstarted" href="#about">Get Started</a>-->
+     <a class="btn-getstarted" th:href="@{/api/v1/admin-panel}" target="blank">Smmm Giriş</a>
 
     </div>
   </header>

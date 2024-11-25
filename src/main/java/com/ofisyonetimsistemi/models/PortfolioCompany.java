@@ -1,5 +1,10 @@
 package com.ofisyonetimsistemi.models;
 
+import java.time.LocalDate;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -11,6 +16,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +37,12 @@ public class PortfolioCompany {
 	
 	private String unvan;
 	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate startDate;
+	
+	private String webUrl;
+	
 	@Lob
 	@Column(name = "resim", columnDefinition = "LONGBLOB")
 	private byte[] resim;
@@ -43,6 +56,8 @@ public class PortfolioCompany {
 	private String header;
 	
 	private String description;
+	
+	private boolean active;
 	
 	@ManyToOne
 	@JoinColumn(name="businessector_id",insertable = false,updatable = false)

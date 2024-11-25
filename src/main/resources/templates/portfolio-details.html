@@ -5,7 +5,7 @@
   <header th:replace="~{homepagefragments/header}" ></header>
 
   <div layout:fragment="content" style="margin-top: 85px;" >
-  <main class="main">
+  <main class="main" id="main">
 
     <!-- Page Title -->
     <div class="page-title" data-aos="fade">
@@ -13,10 +13,10 @@
         <nav class="breadcrumbs">
           <ol>
             <li><a th:href="@{/}">Anasayfa</a></li>
-            <li class="current">Portföy detay</li>
+            <li class="current">Şirket detay</li>
           </ol>
         </nav>
-        <h1>Portföy detay</h1>
+        <h1>Şirket detay</h1>
       </div>
     </div><!-- End Page Title -->
 
@@ -48,21 +48,13 @@
 
               <div class="swiper-wrapper align-items-center">
 
-                <div class="swiper-slide">
-                  <img th:src="@{arshahomepage/assets/img/portfolio/app-1.jpg}" alt="">
+               
+
+                <div class="swiper-slide"> <!-- 'data:image/*;base64,' + ${company.stringResim} -->
+                  <img th:src="@{'data:image/*;base64,' + ${company.stringResim}}" alt="">
                 </div>
 
-                <div class="swiper-slide">
-                  <img th:src="@{arshahomepage/assets/img/portfolio/product-1.jpg}" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img th:src="@{arshahomepage/assets/img/portfolio/branding-1.jpg}" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img th:src="@{arshahomepage/assets/img/portfolio/books-1.jpg}" alt="">
-                </div>
+                
 
               </div>
               <div class="swiper-pagination"></div>
@@ -71,17 +63,19 @@
 
           <div class="col-lg-4">
             <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-              <h3>Project information</h3>
+              <h3>Şirket Profili</h3>
               <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                <li><strong>Faaliyet Alanı:</strong><p> [[${company.sector.name}]]</p></li>
+                <li><strong>Şirket İsmi:</strong><p> [[${company.name}]]</p></li>
+                <li><strong>Şirket Ünvanı:</strong><p> [[${company.unvan}]]</p></li>
+                <li><strong>Başlama Tarihi:</strong> [[${company.startDate}]]</li>
+                <li><strong>Web Sayfası:</strong> <a href="#">[[${company.webUrl}]]</a></li>
               </ul>
             </div>
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-              <h2>Exercitationem repudiandae officiis neque suscipit</h2>
-              <p>
+              <h2 th:text="${company.mainheader}">Exercitationem repudiandae officiis neque suscipit</h2>
+              <h2 th:text="${company.header}">Exercitationem repudiandae officiis neque suscipit</h2>
+              <p th:text="${company.description}">
                 Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
               </p>
             </div>
@@ -94,7 +88,9 @@
     </section><!-- /Portfolio Details Section -->
 
   </main>
+  
   </div>
+  
   <footer th:replace="~{homepagefragments/footer}"></footer>
 
   <div th:replace="~{homepagefragments/js}"></div>

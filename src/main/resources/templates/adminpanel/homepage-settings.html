@@ -467,10 +467,10 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<a class="btn btn-outline-warning btn-sm"> Portföy kısmı için sektör ekle. </a>
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-sector-settings}"> Portföy kısmı için sektör ekle. </a>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<a class="btn btn-outline-warning btn-sm"> Sektörler için şirket ekle. </a>
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-portfoy-company-settings}"> Sektörler için şirket ekle. </a>
 									</div>
 									</form>
 									

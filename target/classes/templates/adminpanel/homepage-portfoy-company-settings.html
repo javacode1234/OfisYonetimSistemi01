@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="~{adminpanel/fragments/head}"></head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<header th:replace="~{adminpanel/fragments/header}"></header>
+	<!-- End Header -->
+
+	<!-- ======= Sidebar ======= -->
+	<aside th:replace="~{adminpanel/fragments/sidebar}"></aside>
+	<!-- End Sidebar-->
+
+	<!-- ======== main ========== -->
+
+	<div layout:fragment="content">
+
+		<main id="main" class="main">
+
+			<div class="pagetitle">
+				<h1>Anasayfa Kurumlar</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
+						<li class="breadcrumb-item active">
+							<a th:href="@{/api/v1/smmm-homepage-settings}">Anasayfa Ayarları</a>
+						</li>
+						<li class="breadcrumb-item active">
+							<a th:href="@{/api/v1/smmm-homepage-portfoy-company-settings}">Portfoy Şirketler</a>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<section class="section dashboard">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+<!-- 								<h5 class="card-title">İşlemler</h5> -->
+								<div class="mt-3">
+									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCompanyModal">
+						                Şirket Ekle
+						            </button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">					
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Kayıtlı Kurumlar listesi</h5>
+								<!-- Table with hoverable rows -->
+								<div style="height: 260px; overflow: auto">
+								<table  id="companyTable" class="table table-hover table-sm">
+									<thead style="position:sticky;top:0;">
+										<tr>
+											<th scope="col">#id</th>
+											<th scope="col">Resim</th>
+											<th scope="col">Şirket Adı</th>
+											<th scope="col">Ünvan</th>
+											<th scope="col">Baş.Tar.</th>
+											<th scope="col">Web url</th>
+											<th scope="col">Ana Başlık</th>
+											<th scope="col">Alt Başlık</th>
+											<th scope="col">Açıklama</th>
+											<th scope="col">Durum</th>
+											<th scope="col">businessectorId</th>
+											<th scope="col"><i class="bi bi-gear"></i> İşlemler</th>
+										</tr>
+									</thead>									
+									<tbody id="companyTableBody">
+										<tr th:each="company : ${hpCompanies}">
+											<td scope="row" th:text="${company.id}">1</td>
+											<td>
+												<a id="companyTableResim">
+													<img class="rounded" th:src=" 'data:image/*;base64,' + ${company.stringResim}"
+															style="width: 50px; height: 50px;"/>
+												</a>
+											</td>
+											<td th:text="${company.name}"></td>
+											<td th:text="${company.unvan}"></td>
+											<td th:text="${company.startDate}"></td>
+											<td th:text="${company.webUrl}"></td>
+											<td th:text="${company.mainheader}"></td>
+											<td th:text="${company.header}"></td>
+											<td th:text="${company.description}"></td>
+											<td>
+												<span class="badge bg-primary" th:if="${company.active==true}">Aktif</span>
+												<span class="badge bg-danger" th:if="${company.active==false}">Pasif</span>
+											</td>
+											<td th:text="${company.businessector_id}"></td>
+											<td>
+											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+								                <a id="viewBtn" type="button" class="btn btn-success" 
+								                	 data-bs-toggle="modal" data-bs-target="#viewCompanyModal"
+								                	th:href="@{/api/v1/get-homepage-portfoy-company-settings/{id}(id=${company.id})}">
+								                	<i class="bi bi-eye"></i>
+								                </a>
+								                <a id="editBtn" type="button" class="btn btn-warning"  
+								                	data-bs-toggle="modal" data-bs-target="#editCompanyModal"
+								                	th:href="@{/api/v1/get-homepage-portfoy-company-settings/{id}(id=${company.id})}">
+								                	<i class="bi bi-pencil"></i>
+								                </a>
+								                <a id="deleteBtn" type="button" class="btn btn-danger" 
+								                	th:href="@{/api/v1/delete-homepage-portfoy-company-settings/{id}(id=${company.id})}"
+								                	data-bs-toggle="modal" data-bs-target="#deleteCompanyModal">
+								                	<i class="bi bi-trash"></i>
+								                </a>
+								            </div>
+											</td>
+										</tr>										
+									</tbody>									
+								</table>
+								</div>
+								<!-- End Table with hoverable rows -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<!-- End #main -->
+
+	</div>
+	
+	<!-- add client modal sart -->
+	<div class="modal fade" id="addCompanyModal" tabindex="-1"
+		style="display: none; padding-right: 1px;" aria-hidden="true"
+		role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h5 class="modal-title text-white">Şirket Ekle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form id="addCompanyForm"
+						th:action="@{ /api/v1/save-homepage-portfoy-company-settings}"
+						th:object="${hpCompany}" method="post"
+						enctype="multipart/form-data">
+						<div class="row mb-3 mt-3" id="general-elements">
+							<div class="row d-flex-inline align-items-center"
+								style="padding-top: 10px;">
+								<label for="companyformImage"
+									class="col-sm-3 col-form-label-sm w-40">Resim</label>
+								<div class="col-sm-5">
+									<input class="form-control form-control-sm" type="file"
+										name="resim" id="companyformImage" accept="image/*">
+								</div>
+								<div class="col-sm-4 text-center ">
+									<img th:if="${hpCompany.id==null}" class="" width="120"
+										height="120" id="companyResim"
+										th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
+									<img th:if="${hpCompany.id!=null}" class="" width="120"
+										height="120" id="companyResim"
+										th:src=" 'data:image/*;base64,' + ${hpCompany.stringResim} "
+										alt="">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2 mt-3" style="display: none;">
+							<label for="companyId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="id" id="companyId">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyName" class="col-sm-2 col-form-label-sm">Şirket
+								adı</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="name" id="companyName" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyUnvan" class="col-sm-2 col-form-label-sm">Ünvan</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="unvan" id="companyUnvan" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+		                  <label for="companyStartDate" class="col-sm-2 col-form-label">Baş.Tarihi</label>
+		                  <div class="col-sm-10">
+		                    <input type="date" class="form-control form-control-sm" name="startDate" 
+		                    					id="companyStartDate" required="required">
+		                  </div>
+		                </div>
+		                <div class="row mb-2">
+							<label for="companyWebUrl" class="col-sm-2 col-form-label-sm">Web </label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+												name="webUrl" id="companyWebUrl" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyMainHeader" class="col-sm-2 col-form-label-sm">Ana
+								Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="mainheader" id="companyMainHeader" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyHeader" class="col-sm-2 col-form-label-sm">Alt
+								Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="header" id="companyHeader">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyDescription"
+								class="col-sm-2 col-form-label-sm">Açıklama</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="description" id="companyDescription"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active"
+									id="companyActive">
+							</div>
+						</div>
+
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label">Sectör</label>
+							<div class="col-sm-10">
+								<select class="form-select" aria-label="Default select example"
+									name="businessector_id">
+									<option selected="">Sectör seç</option>
+									<th:block th:each=" s : ${sectorList}">
+										<option th:value="${s.id}">[[${s.name}]]</option>
+									</th:block>
+								</select>
+							</div>
+						</div>
+
+						<div class="grid gap-2 text-center float-end">
+							<button type="submit" class="btn btn-primary">Kaydet</button>
+							<button type="reset" class="btn btn-secondary">Formu
+								Temizle</button>
+						</div>
+					</form>
+					<!-- End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">Kapat</button>
+					<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- add client modal end -->
+	
+	<!-- view sector-company modal sart -->
+	<div class="modal fade" id="viewCompanyModal" tabindex="-1"
+		style="display: none; padding-right: 1px;" aria-hidden="true"
+		role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-success">
+					<h5 class="modal-title text-white"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form id="viewCompanyForm">
+						<div class="row mb-3 mt-3" id="general-elements">
+							<div class="row d-flex-inline align-items-center"
+								style="padding-top: 10px;">
+								<label for="companyformImage"
+									class="col-sm-3 col-form-label-sm w-40">Resim</label>
+								<div class="col-sm-5">
+									<input class="form-control form-control-sm" type="file" disabled="disabled"
+										name="resim" id="companyformImage" accept="image/*">
+								</div>
+								<div class="col-sm-4 text-center ">
+									<img th:if="${hpCompany.id==null}" class="" width="120"
+										height="120" id="companyResim"
+										th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
+									<img th:if="${hpCompany.id!=null}" class="" width="120"
+										height="120" id="companyResim"
+										th:src=" 'data:image/*;base64,' + ${hpCompany.stringResim} "
+										alt="">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2 mt-3">
+							<label for="companyId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="id" id="companyId" disabled="disabled">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyName" class="col-sm-2 col-form-label-sm">Şirket
+								adı</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="name" id="companyName" disabled="disabled">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyUnvan" class="col-sm-2 col-form-label-sm">Ünvan</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="unvan" id="companyUnvan" disabled="disabled">
+							</div>
+						</div>
+						<div class="row mb-2">
+		                  <label for="companyStartDate" class="col-sm-2 col-form-label-sm">Baş.Tarihi</label>
+		                  <div class="col-sm-10">
+		                    <input type="date" class="form-control form-control-sm" name="startDate" 
+		                    			disabled="disabled"	id="companyStartDate" required="required">
+		                  </div>
+		                </div>
+		                <div class="row mb-2">
+							<label for="companyWebUrl" class="col-sm-2 col-form-label-sm">Web </label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									 				disabled="disabled" name="webUrl" id="companyWebUrl" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyMainHeader" class="col-sm-2 col-form-label-sm">Ana
+								Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="mainheader" id="companyMainHeader" disabled="disabled">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyHeader" class="col-sm-2 col-form-label-sm">Alt
+								Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="header" id="companyHeader" disabled="disabled">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyDescription"
+								class="col-sm-2 col-form-label-sm">Açıklama</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="description" id="companyDescription" disabled="disabled"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active"
+									id="companyActive" disabled="disabled">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label for="businesSectorId" class="col-sm-2 col-form-label">Sectör</label>
+							<div class="col-sm-10">
+								<select class="form-select" aria-label="Default select example" id="businesSectorId" disabled="disabled"
+									name="businessector_id">
+									<option selected="">Sectör seç</option>
+									<th:block th:each=" s : ${sectorList}">
+										<option th:value="${s.id}">[[${s.name}]]</option>
+									</th:block>
+								</select>
+							</div>
+						</div>
+												
+					</form>
+					<!-- End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">Kapat</button>
+<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- view sector-company modal end -->
+	
+	<!-- edit sector-company modal start -->
+	<div class="modal fade" id="editCompanyModal" tabindex="-1"
+		style="display: none; padding-right: 1px;" aria-hidden="true"
+		role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+					<h5 class="modal-title text-success"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form id="editCompanyForm" action="" method="post"
+						enctype="multipart/form-data">
+
+						<div class="row mb-3 mt-3" id="general-elements">
+							<div class="row d-flex-inline align-items-center"
+								style="padding-top: 10px;">
+								<label for="companyformImage"
+									class="col-sm-3 col-form-label-sm w-40">Resim</label>
+								<div class="col-sm-5">
+									<input class="form-control form-control-sm" type="file"
+										name="resim" id="companyformImage" accept="image/*">
+								</div>
+								<div class="col-sm-4 text-center ">
+									<img th:if="${hpCompany.id==null}" class="" width="120"
+										height="120" id="companyResim"
+										th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
+									<img th:if="${hpCompany.id!=null}" class="" width="120"
+										height="120" id="companyResim"
+										th:src=" 'data:image/*;base64,' + ${hpCompany.stringResim} "
+										alt="">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2 mt-3" style="display: none;">
+							<label for="companyId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" readonly="readonly"
+									name="id" id="companyId">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyName" class="col-sm-2 col-form-label-sm">Şirket
+								adı</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="name" id="companyName" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyUnvan" class="col-sm-2 col-form-label-sm">Ünvan</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="unvan" id="companyUnvan" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+		                  <label for="companyStartDate" class="col-sm-2 col-form-label">Baş.Tarihi</label>
+		                  <div class="col-sm-10">
+		                    <input type="date" class="form-control form-control-sm" name="startDate" 
+		                    					id="companyStartDate" required="required">
+		                  </div>
+		                </div>
+		                <div class="row mb-2">
+							<label for="companyWebUrl" class="col-sm-2 col-form-label-sm">Web </label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+												name="webUrl" id="companyWebUrl" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyMainHeader" class="col-sm-2 col-form-label-sm">Ana
+								Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" 
+									name="mainheader" id="companyMainHeader" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyHeader" class="col-sm-2 col-form-label-sm">Alt
+								Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" required="required"
+									name="header" id="companyHeader">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyDescription"
+								class="col-sm-2 col-form-label-sm">Açıklama</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="description" id="companyDescription"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active"
+									id="companyActive">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label for="businesSectorId" class="col-sm-2 col-form-label">Sectör</label>
+							<div class="col-sm-10">
+								<select class="form-select" aria-label="Default select example" id="businesSectorId" required="required"
+									name="businessector_id">
+									<option selected="" value="defaultSelected">Sectör seç</option>
+									<th:block th:each=" s : ${sectorList}">
+										<option th:value="${s.id}">[[${s.name}]]</option>
+									</th:block>
+								</select>
+							</div>
+						</div>
+
+						<div class="grid gap-2 text-center float-end">
+							<button type="submit" class="btn btn-primary">Güncelle</button>
+							<button type="button" id="editCompanyFormClearBtn"
+								class="btn btn-secondary">Formu Temizle</button>
+						</div>
+					</form>
+					<!-- End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">Kapat</button>
+<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- edit sector-company modal end -->
+	
+	<!-- delete sector-company modal sart -->
+	<div class="modal fade" id="deleteCompanyModal" tabindex="-1"
+		style="display: none; padding-right: 1px;" aria-hidden="true"
+		role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-danger">
+					<h5 class="modal-title text-white"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form>
+					 <div class="row mb-3 mt-3" id="general-elements">
+							<div class="row d-flex-inline align-items-center"
+								style="padding-top: 10px;">
+								<label for="companyformImage"
+									class="col-sm-3 col-form-label-sm w-40">Resim</label>
+								<div class="col-sm-5">
+									<input class="form-control form-control-sm" type="file" disabled="disabled"
+										name="resim" id="companyformImage" accept="image/*">
+								</div>
+								<div class="col-sm-4 text-center ">
+									<img th:if="${hpCompany.id==null}" class="" width="120"
+										height="120" id="companyResim"
+										th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
+									<img th:if="${hpCompany.id!=null}" class="" width="120"
+										height="120" id="companyResim"
+										th:src=" 'data:image/*;base64,' + ${hpCompany.stringResim} "
+										alt="">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2 mt-3">
+							<label for="companyId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="id" id="companyId" disabled="disabled">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyName" class="col-sm-2 col-form-label-sm">Şirket
+								adı</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="name" id="companyName" disabled="disabled">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyUnvan" class="col-sm-2 col-form-label-sm">Ünvan</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="unvan" id="companyUnvan" disabled="disabled">
+							</div>
+						</div>
+						<div class="row mb-2">
+		                  <label for="companyStartDate" class="col-sm-2 col-form-label">Baş.Tarihi</label>
+		                  <div class="col-sm-10">
+		                    <input type="date" class="form-control form-control-sm" name="startDate" 
+		                    				disabled="disabled"	id="companyStartDate" required="required">
+		                  </div>
+		                </div>
+		                <div class="row mb-2">
+							<label for="companyWebUrl" class="col-sm-2 col-form-label-sm">Web </label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+											disabled="disabled"	name="webUrl" id="companyWebUrl" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyMainHeader" class="col-sm-2 col-form-label-sm">Ana
+								Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="mainheader" id="companyMainHeader" disabled="disabled">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyHeader" class="col-sm-2 col-form-label-sm">Alt
+								Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="header" id="companyHeader" disabled="disabled">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyDescription"
+								class="col-sm-2 col-form-label-sm">Açıklama</label>
+							<div class="col-sm-10">
+								<textarea  class="form-control form-control-sm"
+									name="description" id="companyDescription" disabled="disabled"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="companyActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active"
+									id="companyActive" disabled="disabled">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label for="businesSectorId" class="col-sm-2 col-form-label">Sectör</label>
+							<div class="col-sm-10">
+								<select class="form-select" aria-label="Default select example" id="businesSectorId" disabled="disabled"
+									name="businessector_id">
+									<option selected="">Sectör seç</option>
+									<th:block th:each=" s : ${sectorList}">
+										<option th:value="${s.id}">[[${s.name}]]</option>
+									</th:block>
+								</select>
+							</div>
+						</div>
+						
+					</form>
+					<!-- End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">Kapat</button>
+					<a type="button" id="deleteConfirmBtn" href=""
+						class="btn btn-danger">Evet Sil</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- delete sector-company modal end -->
+
+	<div th:replace="~{adminpanel/fragments/footer}"></div>
+	<div th:replace="~{adminpanel/fragments/js}"></div>
+
+</body>
+
+</html>

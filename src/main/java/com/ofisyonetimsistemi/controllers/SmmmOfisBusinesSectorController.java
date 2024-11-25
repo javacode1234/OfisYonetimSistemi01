@@ -1,0 +1,88 @@
+package com.ofisyonetimsistemi.controllers;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.ofisyonetimsistemi.models.SmmmOfis;
+import com.ofisyonetimsistemi.models.SmmmOfisBusinesSector;
+import com.ofisyonetimsistemi.services.SmmmOfisBusinesSectorService;
+import com.ofisyonetimsistemi.services.SmmmOfisService;
+
+@Controller
+@RequestMapping("/api/v1/")
+public class SmmmOfisBusinesSectorController {
+	
+	@Autowired
+	SmmmOfisService smmmOfisHomePageService ;
+	@Autowired 
+	private SmmmOfisBusinesSectorService sectorService;
+	
+	@GetMapping("/smmm-homepage-sector-settings")
+	public String getMethodName(Model model) {
+		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
+		if (!smmmOfis.isEmpty()) {
+			model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan() + " " + smmmOfis.get().getFullName());
+			model.addAttribute("smmmisim", smmmOfis.get().getFullName());
+			model.addAttribute("fullusername", smmmOfis.get().getUserName());
+			model.addAttribute("gorev", smmmOfis.get().getUnvan());
+
+			model.addAttribute("smmmOfis", smmmOfis.get());
+			model.addAttribute("hpSector", new SmmmOfisBusinesSector());
+			model.addAttribute("sectorList", sectorService.getAllSector());
+
+			return "adminpanel/homepage-sector-settings";
+
+		} else {
+
+			model.addAttribute("dashboardtitle", "SMMM Muammer UZUN");
+			model.addAttribute("smmmisim", "Muammer UZUN");
+			model.addAttribute("fullusername", "Muammer UZUN");
+			model.addAttribute("gorev", "SMMM");
+			model.addAttribute("smmmOfis", new SmmmOfis());
+		}
+
+		return "adminpanel/homepage-sector-settings";
+	}
+
+	@GetMapping("/get-homepage-sector/{id}")
+	@ResponseBody
+	public Optional<SmmmOfisBusinesSector> getServiceById(@PathVariable("id") Integer id) {
+		return sectorService.getSectorById(id);
+	}
+
+	@PostMapping("/save-homepage-sector")
+	public String saveSector(@ModelAttribute("hpSector") SmmmOfisBusinesSector homepageSector) {
+
+		homepageSector.setSmmmofis_id(smmmOfisHomePageService.getFirstSmmmOfis().get().getId());
+		sectorService.saveSector(homepageSector);
+
+		return "redirect:/api/v1/smmm-homepage-sector-settings";
+	}
+
+	@PostMapping("/update-homepage-sector")
+	public String updateSector(@ModelAttribute("hpSector") SmmmOfisBusinesSector homePageSector) {
+
+		homePageSector.setSmmmofis_id(smmmOfisHomePageService.getFirstSmmmOfis().get().getId());
+		sectorService.saveSector(homePageSector);
+
+		return "redirect:/api/v1/smmm-homepage-sector-settings";
+	}
+
+	@RequestMapping(value = "/delete-homepage-sector/{id}", method = { RequestMethod.DELETE, RequestMethod.GET })
+	public String delSectorById(@PathVariable("id") Integer id) {
+		sectorService.deleteSectorById(id);
+		return "redirect:/api/v1/smmm-homepage-sector-settings";
+	}
+
+
+}

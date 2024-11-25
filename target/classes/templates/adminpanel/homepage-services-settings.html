@@ -21,7 +21,7 @@
 		<main id="main" class="main">
 
 			<div class="pagetitle">
-				<h1>Neden Biz Kısmı</h1>
+				<h1>Hizmetler Kısmı</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a
@@ -30,7 +30,7 @@
 							<a th:href="@{/api/v1/smmm-homepage-settings}">Anasayfa Ayarları</a>
 						</li>
 						<li class="breadcrumb-item active">
-							<a th:href="@{/api/v1/smmm-homepage-whyus-settings}">Anasayfa Hizmetler</a>
+							<a th:href="@{/api/v1/smmm-homepage-services-settings}">Anasayfa Hizmetler</a>
 						</li>
 					</ol>
 				</nav>
@@ -66,8 +66,13 @@
 									<tr>
 										<th>id</th>
 										<th>İkon</th>
+										<th>İsim</th>
 										<th>Başlık</th>
 										<th>Açıklama</th>
+										<th>Detay ana başlık</th>
+										<th>Detay ana paragraf</th>
+										<th>Detay alt başlık</th>
+										<th>Detay alt paragraf</th>
 										<th>Durum</th>
 										<th>smmmofisId</th>
 										<th><i class="bi bi-gear"></i> işlemler</th>
@@ -80,8 +85,13 @@
 											<p style="display: none;">[[${s.icon}]]</p>
 											<i th:class="${s.icon}"></i>											
 										</td>
+										<td th:text="${s.name}"></td>
 										<td th:text="${s.header}"></td>
 										<td th:text="${s.description}"></td>
+										<td th:text="${s.detailsmainheader}"></td>
+										<td th:text="${s.detailsmainparagraf}"></td>
+										<td th:text="${s.detailssubheader}"></td>
+										<td th:text="${s.detailssubparagraf}"></td>
 										<td>
 											<span class="badge bg-primary" th:if="${s.active==true}">Aktif</span>
 											<span class="badge bg-danger" th:if="${s.active==false}">Pasif</span>
@@ -165,6 +175,13 @@
 							</div>
 						</div>
 						<div class="row mb-2">
+							<label for="hpServiceName" class="col-sm-2 col-form-label-sm">Hizmet Adı</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="name" id="hpServiceName" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
 							<label for="hpServiceHeader" class="col-sm-2 col-form-label-sm">Başlık</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm"
@@ -174,8 +191,36 @@
 						<div class="row mb-2">
 							<label for="hpServiceText" class="col-sm-2 col-form-label-sm">Açıklama</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm"
-									name="description" id="hpServiceText" required="required">
+								<textarea class="form-control form-control-sm"
+									name="description" id="hpServiceText" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsMainHeader" class="col-sm-2 col-form-label-sm">Detay Ana Başlık</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="detailsmainheader" id="hpServiceDetailsMainHeader" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsMainParagraf" class="col-sm-2 col-form-label-sm">Detay Ana Paragraf</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="detailsmainparagraf" id="hpServiceDetailsMainParagraf" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsSubHeader" class="col-sm-2 col-form-label-sm">Detay Alt Başlık</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="detailssubheader" id="hpServiceDetailsSubHeader" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsSubParagraf" class="col-sm-2 col-form-label-sm">Detay Alt Paragraf</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="detailssubparagraf" id="hpServiceDetailsSubParagraf" required="required"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
@@ -187,7 +232,7 @@
 						</div>						
 						<div class="grid gap-2 text-center float-end">
 							<button type="submit" class="btn btn-primary">Kaydet</button>
-							<button type="reset" class="btn btn-secondary">Formu
+							<button id="addServiceFormClearBtn" class="btn btn-secondary">Formu
 								Temizle</button>
 						</div>
 					</form>
@@ -234,6 +279,13 @@
 							</div>
 						</div>
 						<div class="row mb-2">
+							<label for="hpServiceName" class="col-sm-2 col-form-label-sm">Hizmet Adı</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="name" id="hpServiceName" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
 							<label for="hpServiceHeader" class="col-sm-2 col-form-label-sm">Başlık</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" disabled="disabled"
@@ -243,8 +295,36 @@
 						<div class="row mb-2">
 							<label for="hpServiceText" class="col-sm-2 col-form-label-sm">Açıklama</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm" disabled="disabled"
-									name="description" id="hpServiceText" required="required">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="description" id="hpServiceText" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsMainHeader" class="col-sm-2 col-form-label-sm">Detay Ana Başlık</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="detailsmainheader" id="hpServiceDetailsMainHeader" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsMainParagraf" class="col-sm-2 col-form-label-sm">Detay Ana Paragraf</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="detailsmainparagraf" id="hpServiceDetailsMainParagraf" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsSubHeader" class="col-sm-2 col-form-label-sm">Detay Alt Başlık</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="detailssubheader" id="hpServiceDetailsSubHeader" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsSubParagraf" class="col-sm-2 col-form-label-sm">Detay Alt Paragraf</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="detailssubparagraf" id="hpServiceDetailsSubParagraf" required="required"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
@@ -316,6 +396,13 @@
 							</div>
 						</div>						
 						<div class="row mb-2">
+							<label for="hpServiceName" class="col-sm-2 col-form-label-sm">Hizmet Adı</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="name" id="hpServiceName" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
 							<label for="hpServiceHeader" class="col-sm-2 col-form-label-sm">Başlık</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm"
@@ -325,27 +412,56 @@
 						<div class="row mb-2">
 							<label for="hpServiceText" class="col-sm-2 col-form-label-sm">Açıklama</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm"
-									name="description" id="hpServiceText" required="required">
+								<textarea class="form-control form-control-sm"
+									name="description" id="hpServiceText" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsMainHeader" class="col-sm-2 col-form-label-sm">Detay Ana Başlık</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="detailsmainheader" id="hpServiceDetailsMainHeader" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsMainParagraf" class="col-sm-2 col-form-label-sm">Detay Ana Paragraf</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="detailsmainparagraf" id="hpServiceDetailsMainParagraf" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsSubHeader" class="col-sm-2 col-form-label-sm">Detay Alt Başlık</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="detailssubheader" id="hpServiceDetailsSubHeader" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsSubParagraf" class="col-sm-2 col-form-label-sm">Detay Alt Paragraf</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="detailssubparagraf" id="hpServiceDetailsSubParagraf" required="required"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
 							<label for="hpServiceActive" class="col-sm-2 col-form-label-sm">Aktif-Pasif</label>
 							<div class="col-sm-10">
-								<input type="checkbox" class="form-check-input" name="active"
-									id="hpServiceActive">
+								<input type="checkbox" class="form-check-input" name="active" 
+																id="hpServiceActive">
 							</div>
 						</div>
 						<div class="row mb-2">
 							<label for="hpServiceSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="smmmofis.id"
-																					readonly="readonly"	id="hpServiceSmmmOfisId">
+																		readonly="readonly" id="hpServiceSmmmOfisId">
 							</div>
 						</div>
 						<div class="grid gap-2 text-center float-end">
-							<button type="submit" class="btn btn-primary">Kaydet</button>
-							<button type="reset" id="editServiceFormClearBtn" class="btn btn-secondary">Formu Temizle</button>
+							<button type="submit" class="btn btn-primary">Güncelle</button>
+							<button id="editServiceFormClearBtn" class="btn btn-secondary">Formu
+								Temizle</button>
 						</div>
 					</form>
 				<!-- / Horizontal Form -->
@@ -389,6 +505,13 @@
 							</div>
 						</div>						
 						<div class="row mb-2">
+							<label for="hpServiceName" class="col-sm-2 col-form-label-sm">Hizmet Adı</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="name" id="hpServiceName" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
 							<label for="hpServiceHeader" class="col-sm-2 col-form-label-sm">Başlık</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" disabled="disabled"
@@ -398,24 +521,52 @@
 						<div class="row mb-2">
 							<label for="hpServiceText" class="col-sm-2 col-form-label-sm">Açıklama</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm" disabled="disabled"
-									name="description" id="hpServiceText" required="required">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="description" id="hpServiceText" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsMainHeader" class="col-sm-2 col-form-label-sm">Detay Ana Başlık</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="detailsmainheader" id="hpServiceDetailsMainHeader" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsMainParagraf" class="col-sm-2 col-form-label-sm">Detay Ana Paragraf</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="detailsmainparagraf" id="hpServiceDetailsMainParagraf" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsSubHeader" class="col-sm-2 col-form-label-sm">Detay Alt Başlık</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="detailssubheader" id="hpServiceDetailsSubHeader" required="required"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpServiceDetailsSubParagraf" class="col-sm-2 col-form-label-sm">Detay Alt Paragraf</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="detailssubparagraf" id="hpServiceDetailsSubParagraf" required="required"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
 							<label for="hpServiceActive" class="col-sm-2 col-form-label-sm">Aktif-Pasif</label>
 							<div class="col-sm-10">
 								<input type="checkbox" class="form-check-input" name="active" disabled="disabled"
-									id="hpServiceActive">
+																id="hpServiceActive">
 							</div>
 						</div>
 						<div class="row mb-2">
 							<label for="hpServiceSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm" name="smmmofis.id" disabled="disabled"
-									id="hpServiceSmmmOfisId">
+								<input type="text" class="form-control form-control-sm" name="smmmofis.id"
+																		disabled="disabled" id="hpServiceSmmmOfisId">
 							</div>
-						</div>						
+						</div>
 					</form>
 				<!-- /Horizontal Form --> 
 				</div>
