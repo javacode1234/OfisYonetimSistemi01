@@ -3,7 +3,6 @@ package com.ofisyonetimsistemi.services;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +22,7 @@ public class HomePagePortfolioCompanyService {
 		repo.save(portfolioCompany);
 	}
 
-	public void saveHomePageCompany(MultipartFile file, String name, String unvan, LocalDate startDate, String webUrl,
+	public PortfolioCompany saveHomePageCompany(MultipartFile file, String name, String unvan, LocalDate startDate, String webUrl,
 										 String mainHeader,String header,String description,
 											 boolean active, Integer sectorId) throws IOException {
 		
@@ -43,7 +42,7 @@ public class HomePagePortfolioCompanyService {
 			portfoyCompany.setActive(active);
 			portfoyCompany.setBusinessector_id(sectorId);
 
-			repo.save(portfoyCompany);
+			return repo.save(portfoyCompany);
 		} 
 		
 		portfoyCompany.setName(name);
@@ -56,10 +55,10 @@ public class HomePagePortfolioCompanyService {
 		portfoyCompany.setActive(active);
 		portfoyCompany.setBusinessector_id(sectorId);
 
-		repo.save(portfoyCompany);
+		return repo.save(portfoyCompany);
 	}
 
-	public void updateHomePageCompany(Integer id, MultipartFile file, String name, String unvan, LocalDate startDate, String webUrl,
+	public PortfolioCompany updateHomePageCompany(Integer id, MultipartFile file, String name, String unvan, LocalDate startDate, String webUrl,
 			  String mainheader,String header,String description, boolean active, Integer sector_id) throws IOException {
 		
 		PortfolioCompany selectedCompany = repo.findById(id).get();
@@ -78,7 +77,7 @@ public class HomePagePortfolioCompanyService {
 			selectedCompany.setActive(active);
 			selectedCompany.setBusinessector_id(sector_id);
 			
-			repo.save(selectedCompany);
+			return repo.save(selectedCompany);
 		}
 		
 		selectedCompany.setName(name);
@@ -91,7 +90,7 @@ public class HomePagePortfolioCompanyService {
 		selectedCompany.setActive(active);
 		selectedCompany.setBusinessector_id(sector_id);
 		
-		repo.save(selectedCompany);
+		return repo.save(selectedCompany);
 		
 	}
 
@@ -105,6 +104,10 @@ public class HomePagePortfolioCompanyService {
 
 	public void deleteById(Integer id) {
 		repo.deleteById(id);
+	}
+
+	public List<PortfolioCompany> getByPortfoyId(Integer id) {
+		return repo.findAllByPortfoyId(id);
 	}
 
 

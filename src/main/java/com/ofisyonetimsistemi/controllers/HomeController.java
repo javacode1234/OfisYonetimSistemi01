@@ -12,6 +12,7 @@ import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.services.HomePagePortfolioCompanyService;
 import com.ofisyonetimsistemi.services.SmmmOfisBusinesSectorService;
 import com.ofisyonetimsistemi.services.SmmmOfisHomePageServicesService;
+import com.ofisyonetimsistemi.services.SmmmOfisPricingService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 
@@ -23,6 +24,7 @@ public class HomeController {
 	@Autowired private SmmmOfisBusinesSectorService businesSectorService;
 	@Autowired private HomePagePortfolioCompanyService companyService;
 	@Autowired private SmmmOfisHomePageServicesService homepageServicesServis;
+	@Autowired private SmmmOfisPricingService pricingService;
 		
 	@GetMapping("/")
 	public String getHomePage(Model model) {		
@@ -33,6 +35,7 @@ public class HomeController {
 			model.addAttribute("smmmOfisHomePage", smmmOfis.get());
 			model.addAttribute("sectors", businesSectorService.getAllSector());
 			model.addAttribute("companies", companyService.getAll());
+			model.addAttribute("pricingList", pricingService.getAll());
 		}else if(!smmmOfis.isPresent()){
 			model.addAttribute("smmmOfisHomePage", new SmmmOfis());
 		}		

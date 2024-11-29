@@ -24,7 +24,7 @@ $("document").ready(function(){
 		/* edit modal portfoy company start*/
 				$("table#companyTable #companyTableBody #editBtn").click(function(e) {
 					e.preventDefault();
-					$("#editCompanyModal .modal-title").text("Kurum Bilgilerini Güncelle");
+					$("#editCompanyModal .modal-title").text("Şirket Bilgilerini Güncelle");
 					var href = $(this).attr('href');		
 					$.get(href, function(company, status){
 						$("#editCompanyModal .modal-body #editCompanyForm").attr('action', '/api/v1/update-homepage-portfoy-company-settings/'+company.id);
@@ -66,7 +66,7 @@ $("document").ready(function(){
 					e.preventDefault();
 					var href = $(this).attr('href');
 					$('#deleteCompanyModal #deleteConfirmBtn').attr('href',href);
-					$('#deleteCompanyModal .modal-title').text('Kurum kaydı silinecek. Emin misin ?');
+					$('#deleteCompanyModal .modal-title').text('Şirket kaydı silinecek. Emin misin ?');
 							
 					var id = $(this).closest('tr').find('td').eq(0).text();
 					$('#deleteCompanyModal #companyId').val(id);
@@ -107,13 +107,13 @@ $("document").ready(function(){
 
 /* addCompanyModal form change img satart */
 	$("#addCompanyModal form#addCompanyForm #companyformImage").on('change', function(){
-		readURLAdd(this);
+		readURLAddPortfoyCompany(this);
 	});
 /* addCompanyModal form change img end */
 
 /* editCompanyModal form change img satart */
 	$("#editCompanyModal form#editCompanyForm #companyformImage").on('change', function(){
-		readURLEdit(this);
+		readURLEditPortfoyCompany(this);
 	});
 /* editCompanyModal form change img end */
 
@@ -121,7 +121,7 @@ $("document").ready(function(){
 
 
 /* addCompanyModal form change img satart */
-function readURLAdd(input) {
+function readURLAddPortfoyCompany(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -133,7 +133,7 @@ function readURLAdd(input) {
 /* addCompanyModal change img satart */
 
 /* editCompanyModal form change img satart */
-function readURLEdit(input) {
+function readURLEditPortfoyCompany(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {

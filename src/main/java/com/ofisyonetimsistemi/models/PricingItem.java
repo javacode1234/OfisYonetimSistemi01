@@ -1,5 +1,7 @@
 package com.ofisyonetimsistemi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,19 +17,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "pricingplanservices")
-public class PricingPlanServices {
+@Table(name = "pricingitem")
+public class PricingItem {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String name;
 	
-	private String serviceName;
+	private String description;
 	
 	private boolean active;
-	
+		
 	@ManyToOne
-	@JoinColumn(name="pricingplan_id",insertable = false,updatable = false)
-	private SmmmOfisPricingPlan smmmofispricingplan;
-	private Integer pricingplan_id;
-
+	@JoinColumn(name = "smmmofispricing_id",insertable = false,updatable = false)
+	@JsonIgnore
+	private SmmmOfisPricing smmmofispricing;
+	private Integer smmmofispricing_id;
 }

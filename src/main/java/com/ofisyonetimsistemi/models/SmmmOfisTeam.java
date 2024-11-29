@@ -1,5 +1,7 @@
 package com.ofisyonetimsistemi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,7 @@ public class SmmmOfisTeam {
 	@Column(name = "stringResim", columnDefinition = "LONGTEXT")
 	private String stringResim;
 	
+	private String name;
 	private String mainheader;
 	private String header;
 	private String text;
@@ -39,11 +42,12 @@ public class SmmmOfisTeam {
 	private String facelink;
 	private String inslink;
 	private String linklink;
-	private boolean active;
 	private String description;
+	private boolean active;
 	
 	@ManyToOne
 	@JoinColumn(name = "smmmofis_id",insertable = false,updatable = false)
+	@JsonIgnore
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
 	

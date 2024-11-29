@@ -21,16 +21,19 @@
 		<main id="main" class="main">
 
 			<div class="pagetitle">
-				<h1>Anasayfa Kurumlar</h1>
+				<h1>Anasayfa Portföy Şirketler</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a
 							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
 						<li class="breadcrumb-item active">
-							<a th:href="@{/api/v1/smmm-homepage-settings}">Anasayfa Ayarları</a>
+							<a th:href="@{/api/v1/smmm-homepage-settings}">Ayarlar</a>
 						</li>
 						<li class="breadcrumb-item active">
-							<a th:href="@{/api/v1/smmm-homepage-portfoy-company-settings}">Portfoy Şirketler</a>
+							<a th:href="@{/api/v1/smmm-homepage-sector-settings}">Portföy (Sektör & Şirket)</a>
+						</li>
+						<li class="breadcrumb-item active">
+							<a>Şirketler</a>
 						</li>
 					</ol>
 				</nav>
@@ -45,7 +48,7 @@
 <!-- 								<h5 class="card-title">İşlemler</h5> -->
 								<div class="mt-3">
 									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCompanyModal">
-						                Şirket Ekle
+						                <i class="bi bi-plus-circle-fill"></i> Şirket Ekle
 						            </button>
 								</div>
 							</div>
@@ -57,24 +60,24 @@
 					<div class="col-sm-12">
 						<div class="card">
 							<div class="card-body">
-								<h5 class="card-title">Kayıtlı Kurumlar listesi</h5>
+								<h5 class="card-title">Kayıtlı Şirketler listesi</h5>
 								<!-- Table with hoverable rows -->
 								<div style="height: 260px; overflow: auto">
 								<table  id="companyTable" class="table table-hover table-sm">
 									<thead style="position:sticky;top:0;">
 										<tr>
 											<th scope="col">#id</th>
-											<th scope="col">Resim</th>
-											<th scope="col">Şirket Adı</th>
+											<th scope="col"><i class="bi bi-image-fill"></i></th>
+											<th scope="col">Ad</th>
 											<th scope="col">Ünvan</th>
 											<th scope="col">Baş.Tar.</th>
-											<th scope="col">Web url</th>
+											<th scope="col"><i class="bi bi-link-45deg"></i></th>
 											<th scope="col">Ana Başlık</th>
 											<th scope="col">Alt Başlık</th>
 											<th scope="col">Açıklama</th>
-											<th scope="col">Durum</th>
-											<th scope="col">businessectorId</th>
-											<th scope="col"><i class="bi bi-gear"></i> İşlemler</th>
+											<th scope="col"><i class="bi bi-check-circle-fill"></i></th>
+											<th scope="col">sectorId</th>
+											<th scope="col"><i class="bi bi-tools"></i></th>
 										</tr>
 									</thead>									
 									<tbody id="companyTableBody">
@@ -159,11 +162,11 @@
 										name="resim" id="companyformImage" accept="image/*">
 								</div>
 								<div class="col-sm-4 text-center ">
-									<img th:if="${hpCompany.id==null}" class="" width="120"
-										height="120" id="companyResim"
+									<img th:if="${hpCompany.id==null}" class="" width="80"
+										height="80" id="companyResim"
 										th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
-									<img th:if="${hpCompany.id!=null}" class="" width="120"
-										height="120" id="companyResim"
+									<img th:if="${hpCompany.id!=null}" class="" width="80"
+										height="80" id="companyResim"
 										th:src=" 'data:image/*;base64,' + ${hpCompany.stringResim} "
 										alt="">
 								</div>
@@ -241,8 +244,8 @@
 							<label class="col-sm-2 col-form-label">Sectör</label>
 							<div class="col-sm-10">
 								<select class="form-select" aria-label="Default select example"
-									name="businessector_id">
-									<option selected="">Sectör seç</option>
+									name="businessector_id" th:value="${portfoyid}">
+									<option>Sectör seç</option>
 									<th:block th:each=" s : ${sectorList}">
 										<option th:value="${s.id}">[[${s.name}]]</option>
 									</th:block>
@@ -251,16 +254,16 @@
 						</div>
 
 						<div class="grid gap-2 text-center float-end">
-							<button type="submit" class="btn btn-primary">Kaydet</button>
-							<button type="reset" class="btn btn-secondary">Formu
-								Temizle</button>
+							<button type="submit" class="btn btn-primary"><i class="bi bi-music-player-fill"></i> Kaydet</button>
+							<button type="reset" class="btn btn-secondary"><i class="bi bi-eraser"></i> Formu Temizle</button>
+								
 						</div>
 					</form>
 					<!-- End Horizontal Form -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-warning"
-						data-bs-dismiss="modal">Kapat</button>
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
 					<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
 				</div>
 			</div>
@@ -387,7 +390,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-warning"
-						data-bs-dismiss="modal">Kapat</button>
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
 <!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
 				</div>
 			</div>
@@ -512,16 +515,16 @@
 						</div>
 
 						<div class="grid gap-2 text-center float-end">
-							<button type="submit" class="btn btn-primary">Güncelle</button>
+							<button type="submit" class="btn btn-primary"><i class="bi bi-music-player-fill"></i> Güncelle</button>
 							<button type="button" id="editCompanyFormClearBtn"
-								class="btn btn-secondary">Formu Temizle</button>
+								class="btn btn-secondary"><i class="bi bi-eraser"></i> Formu Temizle</button>
 						</div>
 					</form>
 					<!-- End Horizontal Form -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-warning"
-						data-bs-dismiss="modal">Kapat</button>
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
 <!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
 				</div>
 			</div>
@@ -648,9 +651,9 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-warning"
-						data-bs-dismiss="modal">Kapat</button>
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
 					<a type="button" id="deleteConfirmBtn" href=""
-						class="btn btn-danger">Evet Sil</a>
+						class="btn btn-danger"><i class="bi bi-trash-fill"></i> Evet Sil</a>
 				</div>
 			</div>
 		</div>

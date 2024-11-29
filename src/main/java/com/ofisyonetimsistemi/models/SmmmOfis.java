@@ -134,7 +134,7 @@ public class SmmmOfis {
 	@Column(length = 200)
 	private String pricingHeader;
 	@OneToMany(mappedBy = "smmmofis")
-	private List<SmmmOfisPricingPlan> pricing;
+	private List<SmmmOfisPricing> pricing;
 	
 	// TESTIMONIALS - referanslar-yorumlar kısmı //
 	private String testimonialsMainHeader;

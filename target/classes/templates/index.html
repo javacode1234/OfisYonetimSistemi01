@@ -368,78 +368,26 @@
 
 					<div class="row gy-4">
 
-						<div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+						<div class="col-lg-6" data-aos="fade-up" data-aos-delay="100" 
+								th:each="tp : ${smmmOfisHomePage.team}" th:if="${tp.active==true}">
 							<div class="team-member d-flex align-items-start">
-								<div class="pic"><img th:src="@{arshahomepage/assets/img/team/team-1.jpg}"
+								<div class="pic"><img th:src="@{ 'data:image/*;base64,' + ${tp.stringResim}}"
 										class="img-fluid" alt=""></div>
 								<div class="member-info">
-									<h4>Walter White</h4>
-									<span>Chief Executive Officer</span>
-									<p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
+									<h3 th:text="${tp.name}">Walter White</h3>
+									<h3 th:text="${tp.mainheader}">Chief Executive Officer</h3>
+									<span th:text="${tp.header}">Chief Executive Officer</span>
+									<p th:text="${tp.text}">Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
 									<div class="social">
-										<a href=""><i class="bi bi-twitter-x"></i></a>
-										<a href=""><i class="bi bi-facebook"></i></a>
-										<a href=""><i class="bi bi-instagram"></i></a>
-										<a href=""> <i class="bi bi-linkedin"></i> </a>
+										<a th:href="@{ ${tp.xlink} }"><i class="bi bi-twitter-x"></i></a>
+										<a th:href="@{ ${tp.facelink} }"><i class="bi bi-facebook"></i></a>
+										<a th:href="@{ ${tp.inslink} }"><i class="bi bi-instagram"></i></a>
+										<a th:href="@{ ${tp.linklink} }"> <i class="bi bi-linkedin"></i> </a>
 									</div>
 								</div>
 							</div>
 						</div><!-- End Team Member -->
-
-						<div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-							<div class="team-member d-flex align-items-start">
-								<div class="pic"><img th:src="@{arshahomepage/assets/img/team/team-2.jpg}"
-										class="img-fluid" alt=""></div>
-								<div class="member-info">
-									<h4>Sarah Jhonson</h4>
-									<span>Product Manager</span>
-									<p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
-									<div class="social">
-										<a href=""><i class="bi bi-twitter-x"></i></a>
-										<a href=""><i class="bi bi-facebook"></i></a>
-										<a href=""><i class="bi bi-instagram"></i></a>
-										<a href=""> <i class="bi bi-linkedin"></i> </a>
-									</div>
-								</div>
-							</div>
-						</div><!-- End Team Member -->
-
-						<div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-							<div class="team-member d-flex align-items-start">
-								<div class="pic"><img th:src="@{arshahomepage/assets/img/team/team-3.jpg}"
-										class="img-fluid" alt=""></div>
-								<div class="member-info">
-									<h4>William Anderson</h4>
-									<span>CTO</span>
-									<p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
-									<div class="social">
-										<a href=""><i class="bi bi-twitter-x"></i></a>
-										<a href=""><i class="bi bi-facebook"></i></a>
-										<a href=""><i class="bi bi-instagram"></i></a>
-										<a href=""> <i class="bi bi-linkedin"></i> </a>
-									</div>
-								</div>
-							</div>
-						</div><!-- End Team Member -->
-
-						<div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-							<div class="team-member d-flex align-items-start">
-								<div class="pic"><img th:src="@{arshahomepage/assets/img/team/team-4.jpg}"
-										class="img-fluid" alt=""></div>
-								<div class="member-info">
-									<h4>Amanda Jepson</h4>
-									<span>Accountant</span>
-									<p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-									<div class="social">
-										<a href=""><i class="bi bi-twitter-x"></i></a>
-										<a href=""><i class="bi bi-facebook"></i></a>
-										<a href=""><i class="bi bi-instagram"></i></a>
-										<a href=""> <i class="bi bi-linkedin"></i> </a>
-									</div>
-								</div>
-							</div>
-						</div><!-- End Team Member -->
-
+						
 					</div>
 
 				</div>
@@ -459,52 +407,16 @@
 
 					<div class="row gy-4">
 
-						<div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+						<div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100" th:each="pr : ${pricingList}" th:if="${pr.active==true}">
 							<div class="pricing-item">
-								<h3>Free Plan</h3>
-								<h4><sup>$</sup>0<span> / month</span></h4>
-								<ul>
-									<li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-									<li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-									<li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-									<li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span>
-									</li>
-									<li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis
-											hendrerit</span></li>
+								<h3 th:text="${pr.name}">Free Plan</h3>
+								<h4>[[${pr.price}]]<sup>TL</sup><span> / ay</span></h4>
+								<ul th:each="c : ${pr.pricingItems}" th:if="${c.active==true}">
+									<li><i class="bi bi-check"></i> <span th:text="${c.name}">Quam adipiscing vitae proin</span></li>									
 								</ul>
-								<a href="#" class="buy-btn">Buy Now</a>
+								<a href="#contact" class="buy-btn">İletişime geç</a>
 							</div>
-						</div><!-- End Pricing Item -->
-
-						<div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
-							<div class="pricing-item featured">
-								<h3>Business Plan</h3>
-								<h4><sup>$</sup>29<span> / month</span></h4>
-								<ul>
-									<li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-									<li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-									<li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-									<li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
-									<li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-								</ul>
-								<a href="#" class="buy-btn">Buy Now</a>
-							</div>
-						</div><!-- End Pricing Item -->
-
-						<div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
-							<div class="pricing-item">
-								<h3>Developer Plan</h3>
-								<h4><sup>$</sup>49<span> / month</span></h4>
-								<ul>
-									<li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-									<li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-									<li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-									<li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
-									<li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-								</ul>
-								<a href="#" class="buy-btn">Buy Now</a>
-							</div>
-						</div><!-- End Pricing Item -->
+						</div><!-- End Pricing Item -->						
 
 					</div>
 

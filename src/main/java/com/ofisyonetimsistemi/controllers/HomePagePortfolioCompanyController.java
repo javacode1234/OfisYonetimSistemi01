@@ -2,7 +2,7 @@ package com.ofisyonetimsistemi.controllers;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +69,42 @@ public class HomePagePortfolioCompanyController {
 		return "adminpanel/homepage-portfoy-company-settings";
 	}
 
+	@GetMapping("/smmm-homepage-portfoy-company-setting")
+	public String getHomePageSectorCompanySettingPage(Model model, @RequestParam("id")Integer portfoyid) {
+		
+		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
+		List<PortfolioCompany> companies = companyService.getByPortfoyId(portfoyid);
+		
+		  if(!smmmOfis.isEmpty() && !companies.isEmpty()) {
+			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
+			  model.addAttribute("smmmisim", smmmOfis.get().getFullName());
+			  model.addAttribute("fullusername", smmmOfis.get().getUserName());
+			  model.addAttribute("gorev", smmmOfis.get().getUnvan());
+			  
+			  model.addAttribute("smmmOfis", smmmOfis.get());
+			  model.addAttribute("hpCompany", new PortfolioCompany());
+			  model.addAttribute("hpCompanies", companies);
+			  model.addAttribute("portfoyid", portfoyid);
+			  model.addAttribute("sectorList", sectorService.getAllSector());
+			  
+			  return "adminpanel/homepage-portfoy-company-settings";
+			  
+		   }else {
+		  
+			  model.addAttribute("dashboardtitle", "SMMM Muammer UZUN");
+			  model.addAttribute("smmmisim", "Muammer UZUN");
+			  model.addAttribute("fullusername", "Muammer UZUN");
+			  model.addAttribute("gorev", "SMMM");
+			  model.addAttribute("smmmOfis", new SmmmOfis());
+			  model.addAttribute("hpCompany", new PortfolioCompany());
+			  model.addAttribute("hpCompanies", companies);
+			  model.addAttribute("portfoyid", portfoyid);
+			  model.addAttribute("sectorList", sectorService.getAllSector());
+		   }
+		  
+		return "adminpanel/homepage-portfoy-company-settings";
+	}
+	
 	@PostMapping("/save-homepage-portfoy-company-settings")
 	public String saveSectorCompany(
 										@RequestParam("resim")MultipartFile file,
@@ -84,9 +120,9 @@ public class HomePagePortfolioCompanyController {
 										
 										) throws IOException {
 		
-		companyService.saveHomePageCompany(file, name, unvan, startDate, webUrl, mainheader, header, description, active, sector_id);
+		PortfolioCompany savedCompany = companyService.saveHomePageCompany(file, name, unvan, startDate, webUrl, mainheader, header, description, active, sector_id);
 		
-		return "redirect:/api/v1/smmm-homepage-portfoy-company-settings";
+		return "redirect:/api/v1/smmm-homepage-portfoy-company-setting?id="+savedCompany.getBusinessector_id();
 	}
 	
 	@PostMapping("/update-homepage-portfoy-company-settings/{id}")
@@ -104,9 +140,9 @@ public class HomePagePortfolioCompanyController {
 									@RequestParam("businessector_id")Integer sector_id
 								) throws IOException {
 		
-		companyService.updateHomePageCompany(id, file, name, unvan, startDate, webUrl, mainheader, header, description, active, sector_id);
+		PortfolioCompany updatedCompany = companyService.updateHomePageCompany(id, file, name, unvan, startDate, webUrl, mainheader, header, description, active, sector_id);
 		
-		return "redirect:/api/v1/smmm-homepage-portfoy-company-settings";
+		return "redirect:/api/v1/smmm-homepage-portfoy-company-setting?id="+updatedCompany.getBusinessector_id();
 	}
 
 	@GetMapping("/get-homepage-portfoy-company-settings/{id}")
@@ -117,8 +153,9 @@ public class HomePagePortfolioCompanyController {
 	
 	@RequestMapping(value="/delete-homepage-portfoy-company-settings/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
 	public String delSectorCompanyById(@PathVariable("id") Integer id) {
+		PortfolioCompany deleteCompany = companyService.getById(id).get();
 		companyService.deleteById(id);
-		return "redirect:/api/v1/smmm-homepage-portfoy-company-settings";
+		return "redirect:/api/v1/smmm-homepage-portfoy-company-setting?id="+deleteCompany.getBusinessector_id();
 	}
 	
 	

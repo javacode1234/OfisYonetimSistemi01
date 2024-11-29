@@ -1,7 +1,11 @@
 package com.ofisyonetimsistemi.models;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,24 +23,26 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "smmmofispricingplan")
-public class SmmmOfisPricingPlan {
+public class SmmmOfisPricing {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String name;
 	
-	private String header;
-	private String planName;
-	
-	private Long price;
+	@Column(name="price")
+	private BigDecimal price;
 	
 	private String description;
 	
-	@OneToMany(mappedBy = "smmmofispricingplan")
-	private List<PricingPlanServices> ppservices;
+	private boolean active;
 	
+	@OneToMany(mappedBy = "smmmofispricing")	
+	private List<PricingItem> pricingItems;
+		
 	@ManyToOne
 	@JoinColumn(name = "smmmofis_id",insertable = false,updatable = false)
+	@JsonIgnore
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
 	

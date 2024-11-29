@@ -27,10 +27,10 @@
 						<li class="breadcrumb-item"><a
 							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
 						<li class="breadcrumb-item active">
-							<a th:href="@{/api/v1/smmm-homepage-settings}">Anasayfa Ayarları</a>
+							<a th:href="@{/api/v1/smmm-homepage-settings}">Ayarlar</a>
 						</li>
 						<li class="breadcrumb-item active">
-							<a th:href="@{/api/v1/smmm-homepage-services-settings}">Anasayfa Hizmetler</a>
+							<a th:href="@{/api/v1/smmm-homepage-services-settings}">Anasayfa Hizmetler Kısmı</a>
 						</li>
 					</ol>
 				</nav>
@@ -46,7 +46,7 @@
 								<div class="mt-3">
 									<button id="addServiceBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" 
 															data-bs-target="#addServiceModal">
-						                Hizmetler kısmı kart ekle
+						                <i class="bi bi-plus-circle-fill"></i> Hizmetler kısmı kart ekle
 						            </button>
 								</div>
 							</div>
@@ -58,14 +58,14 @@
 					<div class="col-sm-12">
 						<div class="card">
 							<div class="card-body">
-								<h5 class="card-title">Hizmetlerimiz kısmı</h5>
+								<h5 class="card-title">Hizmetler Listesi</h5>
 								<!-- Table with hoverable rows -->
 								<div style="height: 260px; overflow: auto">
 								<table id="servicesTable" class="table table-hover table-sm">
 								<thead style="position:sticky;top:0;">
 									<tr>
 										<th>id</th>
-										<th>İkon</th>
+										<th><i class="bi bi-image-fill"></i></th>
 										<th>İsim</th>
 										<th>Başlık</th>
 										<th>Açıklama</th>
@@ -73,9 +73,9 @@
 										<th>Detay ana paragraf</th>
 										<th>Detay alt başlık</th>
 										<th>Detay alt paragraf</th>
-										<th>Durum</th>
+										<th><i class="bi bi-check-circle-fill"></i></th>
 										<th>smmmofisId</th>
-										<th><i class="bi bi-gear"></i> işlemler</th>
+										<th><i class="bi bi-tools"></i></th>
 									</tr>
 								</thead>
 								<tbody id="servicesTableBody">
@@ -231,16 +231,16 @@
 							</div>
 						</div>						
 						<div class="grid gap-2 text-center float-end">
-							<button type="submit" class="btn btn-primary">Kaydet</button>
-							<button id="addServiceFormClearBtn" class="btn btn-secondary">Formu
-								Temizle</button>
+							<button type="submit" class="btn btn-primary"><i class="bi bi-music-player-fill"></i> Kaydet</button>
+							<button id="addServiceFormClearBtn" class="btn btn-secondary">
+								<i class="bi bi-eraser"></i> Formu Temizle</button>
 						</div>
 					</form>
 					<!-- / Horizontal Form -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-warning"
-						data-bs-dismiss="modal">Kapat</button>
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
 <!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
 				</div>
 			</div>
@@ -346,7 +346,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-warning"
-						data-bs-dismiss="modal">Kapat</button>
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
 <!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
 				</div>
 			</div>
@@ -459,16 +459,16 @@
 							</div>
 						</div>
 						<div class="grid gap-2 text-center float-end">
-							<button type="submit" class="btn btn-primary">Güncelle</button>
-							<button id="editServiceFormClearBtn" class="btn btn-secondary">Formu
-								Temizle</button>
+							<button type="submit" class="btn btn-primary"><i class="bi bi-music-player-fill"></i> Güncelle</button>
+							<button id="editServiceFormClearBtn" class="btn btn-secondary"><i class="bi bi-eraser"></i> 
+								Formu Temizle</button>
 						</div>
 					</form>
 				<!-- / Horizontal Form -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-warning"
-						data-bs-dismiss="modal">Kapat</button>
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
 <!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
 				</div>
 			</div>
@@ -572,8 +572,9 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-warning"
-						data-bs-dismiss="modal">Kapat</button>
-					<a type="button" id="deleteServiceConfirmBtn" href="" class="btn btn-danger">Evet Sil</a>
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
+					<a type="button" id="deleteServiceConfirmBtn" href="" class="btn btn-danger">
+						<i class="bi bi-trash-fill"></i> Evet Sil</a>
 				</div>
 			</div>
 		</div>
