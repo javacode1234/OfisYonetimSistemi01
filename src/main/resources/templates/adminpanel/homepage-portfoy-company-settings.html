@@ -239,15 +239,21 @@
 									id="companyActive">
 							</div>
 						</div>
-
+<!-- 						<div class="row mb-2"> -->
+<!-- 							<label for="businesSectorId" class="col-sm-2 col-form-label-sm">Sektör</label> -->
+<!-- 							<div class="col-sm-10"> -->
+<!-- 								<input type="text" class="form-control form-control-sm" name="businessector_id" -->
+<!-- 									id="businesSectorId" th:value="${portfoyid}" readonly="readonly"> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label">Sectör</label>
 							<div class="col-sm-10">
-								<select class="form-select" aria-label="Default select example"
-									name="businessector_id" th:value="${portfoyid}">
-									<option>Sectör seç</option>
+								<select class="form-select" aria-label="Default select example" th:attr="value= ${portfoyid}"
+									name="businessector_id"  id="businesSectorId">
+									<option selected="selected">Sectör seç</option>
 									<th:block th:each=" s : ${sectorList}">
-										<option th:value="${s.id}">[[${s.name}]]</option>
+										<option th:value="${s.id}" th:text="${s.name}" th:selected="${portfoyid==s.id}? s.name"></option>
 									</th:block>
 								</select>
 							</div>

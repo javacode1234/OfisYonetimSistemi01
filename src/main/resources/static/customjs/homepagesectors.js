@@ -9,6 +9,7 @@ $("document").ready(function() {
 			$("#viewSectorModal .modal-body #hpSectorId").val(hpSector.id);
 			$("#viewSectorModal .modal-body #hpSectorName").val(hpSector.name);
 			$("#viewSectorModal .modal-body #hpSectorDescription").val(hpSector.description);
+			$("#viewSectorModal .modal-body #hpSectorActive").prop('checked', hpSector.active);
 			$("#viewSectorModal .modal-body #hpSectorSmmmOfisId").val(hpSector.smmmofis_id);
 		});
 
@@ -23,6 +24,7 @@ $("document").ready(function() {
 			$("#editSectorModal .modal-body #hpSectorId").val(hpSector.id);
 			$("#editSectorModal .modal-body #hpSectorName").val(hpSector.name);
 			$("#editSectorModal .modal-body #hpSectorDescription").val(hpSector.description);
+			$("#editSectorModal .modal-body #hpSectorActive").prop('checked', hpSector.active);
 			$("#editSectorModal .modal-body #hpSectorSmmmOfisId").val(hpSector.smmmofis_id);
 		});
 
@@ -34,6 +36,7 @@ $("document").ready(function() {
 		e.preventDefault();
 		$("#editSectorModal .modal-body #hpSectorName").val("");
 		$("#editSectorModal .modal-body #hpSectorDescription").val("");
+		$("#viewSectorModal .modal-body #hpSectorActive").prop('checked', false);
 	});
 	/* editSectorform clear */
 
@@ -49,7 +52,14 @@ $("document").ready(function() {
 			$("#deleteSectorModal .modal-body #hpSectorName").val(name);
 			var description = $(this).closest('tr').find('td:eq(2)').text();
 			$("#deleteSectorModal .modal-body #hpSectorDescription").val(description);
-			var smmmofis_id = $(this).closest('tr').find('td:eq(3)').text();
+			var active=$(this).closest('tr').find('td:eq(3) span').text();
+			if(active==='Aktif'){
+				$("#deleteSectorModal .modal-body #hpSectorActive").prop('checked', true);
+			}else if(active==='Pasif'){
+				$("#deleteSectorModal .modal-body #hpSectorActive").prop('checked', false);
+			}
+			
+			var smmmofis_id = $(this).closest('tr').find('td:eq(4)').text();
 			$("#deleteSectorModal .modal-body #hpSectorSmmmOfisId").val(smmmofis_id);
 			
 	})

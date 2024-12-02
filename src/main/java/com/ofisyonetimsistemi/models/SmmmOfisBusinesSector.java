@@ -31,6 +31,8 @@ public class SmmmOfisBusinesSector {
 	
 	private String description;
 	
+	private boolean active;
+	
 	@OneToMany(mappedBy = "sector")
 	private List<PortfolioCompany> company;
 	

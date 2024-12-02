@@ -65,7 +65,8 @@
 									<tr>
 										<th>id</th>
 										<th>Sektör İsmi</th>
-										<th>Açıklama</th>
+										<th>Açıklama</th>										
+										<th><i class="bi bi-check-circle-fill"></i></th>
 										<th>smmmofisId</th>
 										<th><i class="bi bi-tools"></i></th>
 									</tr>
@@ -74,7 +75,11 @@
 									<tr th:each="s :${sectorList}">
 										<td th:text="${s.id}"></td>
 										<td th:text="${s.name}"></td>
-										<td th:text="${s.description}"></td>										
+										<td th:text="${s.description}"></td>
+										<td>
+											<span class="badge bg-primary" th:if="${s.active==true}">Aktif</span>
+											<span class="badge bg-danger" th:if="${s.active==false}">Pasif</span>
+										</td>										
 										<td th:text="${s.smmmofis_id}"></td>
 										<td>
 											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -118,7 +123,7 @@
 
 	</div>
 	
-	<!-- add aboutus modal sart -->
+	<!-- add sector modal sart -->
 	<div class="modal fade" id="addSectorModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -153,6 +158,13 @@
 									name="description" id="hpSectorDescription" required="required">
 							</div>
 						</div>
+						<div class="row mb-2">
+							<label for="hpSectorActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" 
+									name="active" id="hpSectorActive">
+							</div>
+						</div>
 						<div class="grid gap-2 text-center float-end">
 							<button type="submit" class="btn btn-primary"><i class="bi bi-music-player-fill"></i> Kaydet</button>
 							<button type="reset" class="btn btn-secondary"><i class="bi bi-eraser"></i> Formu Temizle</button>								
@@ -167,9 +179,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- add aboutus modal end -->
+	<!-- add sector modal end -->
 	
-	<!-- view aboutus modal sart -->
+	<!-- view sector modal sart -->
 	<div class="modal fade" id="viewSectorModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -203,6 +215,13 @@
 							</div>
 						</div>	
 						<div class="row mb-2">
+							<label for="hpSectorActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" disabled="disabled"
+									name="active" id="hpSectorActive" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
 							<label for="hpSectorSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm"
@@ -220,9 +239,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- view aboutus modal end -->
+	<!-- view sector modal end -->
 	
-	<!-- edit aboutus modal start -->
+	<!-- edit sector modal start -->
 	<div class="modal fade" id="editSectorModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -256,6 +275,13 @@
 								<input type="text" class="form-control form-control-sm"
 									name="description" id="hpSectorDescription" required="required">
 							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpSectorActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input"
+									name="active" id="hpSectorActive">
+							</div>
 						</div>	
 						<div class="row mb-2">
 							<label for="hpSectorSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
@@ -280,9 +306,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- edit aboutus modal end -->
+	<!-- edit sector modal end -->
 	
-	<!-- delete aboutus modal sart -->
+	<!-- delete sector modal sart -->
 	<div class="modal fade" id="deleteSectorModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -314,7 +340,14 @@
 								<input type="text" class="form-control form-control-sm"
 									name="description" id="hpSectorDescription" required="required">
 							</div>
-						</div>	
+						</div>
+						<div class="row mb-2">
+							<label for="hpSectorActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" disabled="disabled"
+									name="active" id="hpSectorActive" required="required">
+							</div>
+						</div>		
 						<div class="row mb-2">
 							<label for="hpSectorSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
 							<div class="col-sm-10">
@@ -333,7 +366,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- delete aboutus modal end -->
+	<!-- delete sector modal end -->
 
 	<div th:replace="~{adminpanel/fragments/footer}"></div>
 	<div th:replace="~{adminpanel/fragments/js}"></div>

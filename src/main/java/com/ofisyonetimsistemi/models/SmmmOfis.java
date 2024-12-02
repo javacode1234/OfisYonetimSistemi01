@@ -142,7 +142,7 @@ public class SmmmOfis {
 	@Column(length = 200)
 	private String testimonialsHeader;
 	@OneToMany(mappedBy = "smmmofis")
-	private List<SmmmOfisTestimonials> testimonials;
+	private List<SmmmOfisReferanses> referanses;
 	
 	// FREQUANTLY ASKED QUESTIONS - sık sorulan sorular kısmı //
 	private String smmmofisFrequantlyAskedQuestionsMainHeader;
@@ -171,17 +171,17 @@ public class SmmmOfis {
 	private String smmmOfisLinkedIn;
 	
 	//***************************************//
-		@OneToMany(mappedBy = "smmmofis")
-		private List<SmmmOfisEmail> emails;//EMAİL
-		@OneToMany(mappedBy = "smmmofis")
-		private List<SmmmOfisUser> users;//USER
-		@OneToMany(mappedBy = "smmmofis")
-		private List<SmmmOfisCustomer> customers;//CUSTOMER
-		@OneToMany(mappedBy = "smmmofis")
-		private List<SmmmOfisAdres> adreses;//ADRES
-		@OneToMany(mappedBy = "smmmofis")
-		private List<SmmmOfisTelelefon> telefons;//TELEFON
-		//*******************************************//
+	@OneToMany(mappedBy = "smmmofis")
+	private List<SmmmOfisEmail> emails;//EMAİL
+	@OneToMany(mappedBy = "smmmofis")
+	private List<SmmmOfisUser> users;//USER
+	@OneToMany(mappedBy = "smmmofis")
+	private List<SmmmOfisCustomer> customers;//CUSTOMER
+	@OneToMany(mappedBy = "smmmofis")
+	private List<SmmmOfisAdres> adreses;//ADRES
+	@OneToMany(mappedBy = "smmmofis")
+	private List<SmmmOfisTelelefon> telefons;//TELEFON
+	//*******************************************//
 		
 		
 		

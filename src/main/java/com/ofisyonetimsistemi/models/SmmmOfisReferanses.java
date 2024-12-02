@@ -1,5 +1,7 @@
 package com.ofisyonetimsistemi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,8 +19,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "smmmofistestimonials")
-public class SmmmOfisTestimonials {
+@Table(name = "smmmofisreferans")
+public class SmmmOfisReferanses {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +34,7 @@ public class SmmmOfisTestimonials {
 	@Column(name = "stringResim", columnDefinition = "LONGTEXT")
 	private String stringResim;
 	
-	private String isim;
+	private String name;
 	private String meslek;
 	private boolean star1;
 	private boolean star2;
@@ -40,9 +42,11 @@ public class SmmmOfisTestimonials {
 	private boolean star4;
 	private boolean star5;
 	private String gorus;
+	private boolean active;
 	
 	@ManyToOne
 	@JoinColumn(name = "smmmofis_id",insertable = false,updatable = false)
+	@JsonIgnore
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
 
