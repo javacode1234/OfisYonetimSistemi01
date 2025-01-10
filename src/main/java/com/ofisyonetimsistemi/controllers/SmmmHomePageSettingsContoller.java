@@ -1,6 +1,7 @@
 package com.ofisyonetimsistemi.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class SmmmHomePageSettingsContoller {
 	@Autowired
 	private SmmmOfisService smmmOfisService;
 
+	//@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/smmm-homepage-settings")
 	public String getHomePageSettingsPage( Model model) {
 		  

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+				xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		 		xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
 <head th:replace="~{adminpanel/fragments/head}"></head>
 
 <body>
@@ -165,12 +166,24 @@
 							</div>
 						</div>
 						<div class="row mb-2 mt-3">
-							<label for="hpPricingId" class="col-sm-2 col-form-label-sm">Id</label>
+							<label for="hpPricingId" class="col-sm-2 col-form-label-sm">hpPricingId</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" readonly="readonly"
 									name="smmmofispricing_id" id="hpPricingId" th:value="${pricing_id}">
 							</div>
-						</div>							
+						</div>
+<!-- 						<div class="row mb-3"> -->
+<!-- 							<label class="col-sm-2 col-form-label">Sınıf</label> -->
+<!-- 							<div class="col-sm-10"> -->
+<!-- 								<select class="form-select" aria-label="Default select example" th:attr="value= ${pricing_id}" -->
+<!-- 									name="businessector_id"  id="businesSectorId"> -->
+<!-- 									<option selected="selected">Sectör seç</option> -->
+<!-- 									<th:block th:each=" p : ${hpPricingList}"> -->
+<!-- 										<option th:value="${p.id}" th:text="${p.name}" th:selected="${pricing_id==p.id}? p.name"></option> -->
+<!-- 									</th:block> -->
+<!-- 								</select> -->
+<!-- 							</div> -->
+<!-- 						</div>					 -->
 						<div class="grid gap-2 text-center float-end">
 							<button type="submit" class="btn btn-primary"><i class="bi bi-music-player-fill"></i> Kaydet</button>
 							<button type="reset" id="addPricingItemFormClearBtn" class="btn btn-secondary">
@@ -236,7 +249,19 @@
 								<input type="text" class="form-control form-control-sm" disabled="disabled"
 									name="smmmofispricing_id" id="pricingItemId">
 							</div>
-						</div>						
+						</div>
+<!-- 						<div class="row mb-3"> -->
+<!-- 							<label for="pricingId" class="col-sm-2 col-form-label">Sınıf</label> -->
+<!-- 							<div class="col-sm-10"> -->
+<!-- 								<select class="form-select" aria-label="Default select example" th:attr="value= ${pricing_id}" -->
+<!-- 									name="smmmofispricing_id"  id="pricingId" disabled="disabled"> -->
+<!-- 									<option selected="selected">Sectör seç</option> -->
+<!-- 									<th:block th:each=" p : ${hpPricingList}"> -->
+<!-- 										<option th:value="${p.id}" th:text="${p.name}" th:selected="${pricing_id==p.id}? p.name"></option> -->
+<!-- 									</th:block> -->
+<!-- 								</select> -->
+<!-- 							</div> -->
+<!-- 						</div>								 -->
 					</form>
 				<!-- /End Horizontal Form -->
 				</div>
@@ -300,7 +325,19 @@
 								<input type="text" class="form-control form-control-sm" readonly="readonly"
 									name="smmmofispricing_id" id="pricingItemId">
 							</div>
-						</div>				
+						</div>
+<!-- 						<div class="row mb-3"> -->
+<!-- 							<label for="pricingId" class="col-sm-2 col-form-label">Sınıf</label> -->
+<!-- 							<div class="col-sm-10"> -->
+<!-- 								<select class="form-select" aria-label="Default select example" th:attr="value= ${pricing_id}" -->
+<!-- 									name="smmmofispricing_id"  id="pricingId"> -->
+<!-- 									<option selected="selected">Sectör seç</option> -->
+<!-- 									<th:block th:each=" p : ${hpPricingList}"> -->
+<!-- 										<option th:value="${p.id}" th:text="${p.name}" th:selected="${pricing_id==p.id}? p.name"></option> -->
+<!-- 									</th:block> -->
+<!-- 								</select> -->
+<!-- 							</div> -->
+<!-- 						</div>						 -->
 						<div class="grid gap-2 text-center float-end">
 							<button type="submit" class="btn btn-primary"><i class="bi bi-music-player-fill"></i> Güncelle</button>
 							<button id="editPricingFormClearBtn" class="btn btn-secondary">
@@ -368,7 +405,19 @@
 								<input type="text" class="form-control form-control-sm" disabled="disabled"
 									name="smmmofispricing_id" id="pricingItemId">
 							</div>
-						</div>				
+						</div>
+<!-- 						<div class="row mb-3"> -->
+<!-- 							<label for="pricingId" class="col-sm-2 col-form-label">Sınıf</label> -->
+<!-- 							<div class="col-sm-10"> -->
+<!-- 								<select class="form-select" aria-label="Default select example" th:attr="value= ${pricing_id}" -->
+<!-- 									name="smmmofispricing_id"  id="pricingId" disabled="disabled"> -->
+<!-- 									<option selected="selected">Sectör seç</option> -->
+<!-- 									<th:block th:each=" p : ${hpPricingList}"> -->
+<!-- 										<option th:value="${p.id}" th:text="${p.name}" th:selected="${pricing_id==p.id}? p.name"></option> -->
+<!-- 									</th:block> -->
+<!-- 								</select> -->
+<!-- 							</div> -->
+<!-- 						</div>						 -->
 					</form>
 				<!-- /Horizontal Form --> 
 				</div>

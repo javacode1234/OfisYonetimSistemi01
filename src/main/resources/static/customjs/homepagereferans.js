@@ -1,13 +1,5 @@
 $("document").ready(function() {
 
-	/* add referans modal clear stars btn */
-	//	$('#addReferansModal #clearStarsBtn').click(function(e) {
-	//		e.preventDefault();
-	//		$(this).siblings('input[type=checkbox]').prop("checked", false).attr('disabled', false)
-	//		.siblings('i').removeClass().addClass('bi bi-star');
-	//	});
-	/* add referans modal clear stars btn */
-	/* addReferansform clear */
 	$('#addReferansModalBtn').click(function(e) {
 		e.preventDefault();
 		$("#addReferansModal .modal-body #refaransFormImage").val('');
@@ -25,7 +17,7 @@ $("document").ready(function() {
 		$("#addReferansModal .modal-body #referansActive").prop('checked', false);
 	});
 	/* /addReferansform clear */
-	/* sta1 when clicked */
+	/* star1 when clicked */
 	$("#addReferansModal .modal-body input[type='checkbox'], #editReferansModal .modal-body input[type='checkbox']").change(function(e) {
 		e.preventDefault();
 		if ($(this).is(':checked')) {
@@ -37,7 +29,7 @@ $("document").ready(function() {
 		}
 
 	});
-	/* sta1 when clicked */
+	/* star1 when clicked */
 	/* addReferansform clearbtn */
 	$('#addReferansModal .modal-body #addReferansFormClearBtn').click(function(e) {
 		e.preventDefault();
@@ -257,7 +249,7 @@ function readURLEditReferans(input) {
 function editReferansModalClear() {
 	$("#editReferansModal .modal-body #refaransFormImage").val('');
 	$("#editReferansModal .modal-body #referansResim").attr('src', '../../niceadminpanel/assets/img/smmm.png');
-	$("#editReferansModal .modal-body #referansId").val("");
+	//$("#editReferansModal .modal-body #referansId").val("");
 	$("#editReferansModal .modal-body #referansName").val("");
 	$("#editReferansModal .modal-body #referansMeslek").val("");
 	$("#editReferansModal .modal-body #referansStar1").prop('checked', false);

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ofisyonetimsistemi.models.PricingItem;
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.services.PricingItemService;
+import com.ofisyonetimsistemi.services.SmmmOfisPricingService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 
@@ -26,9 +27,11 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 public class HomePagePricingItemController {
 
 	@Autowired
-	SmmmOfisService smmmOfisHomePageService;
+	private SmmmOfisService smmmOfisHomePageService;
 	@Autowired
-	PricingItemService pricingItemService;
+	private PricingItemService pricingItemService;
+	@Autowired
+	private SmmmOfisPricingService hpPricingService;
 	
 
 	@GetMapping("/smmm-homepage-pricing-item-settings")
@@ -43,6 +46,7 @@ public class HomePagePricingItemController {
 			model.addAttribute("smmmOfis", smmmOfis.get());
 			model.addAttribute("pricingitem", new PricingItem());
 			model.addAttribute("listPricingItem", pricingItemService.getAll() );
+			model.addAttribute("hpPricingList", hpPricingService.getAll());
 
 			return "adminpanel/homepage-pricing-item-settings";
 
@@ -54,6 +58,8 @@ public class HomePagePricingItemController {
 			model.addAttribute("gorev", "SMMM");
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			model.addAttribute("pricingitem", new PricingItem());
+			model.addAttribute("listPricingItem", pricingItemService.getAll() );
+			model.addAttribute("hpPricingList", hpPricingService.getAll());
 		}
 
 		return "adminpanel/homepage-pricing-item-settings";
@@ -75,6 +81,7 @@ public class HomePagePricingItemController {
 			model.addAttribute("pricingitem", new PricingItem());
 			model.addAttribute("pricing_id", pricingId);
 			model.addAttribute("listOfPricingItem", pricingItems );
+			model.addAttribute("hpPricingList", hpPricingService.getAll());
 
 			return "adminpanel/homepage-pricing-item-settings";
 
@@ -88,6 +95,7 @@ public class HomePagePricingItemController {
 			model.addAttribute("pricingitem", new PricingItem());
 			model.addAttribute("pricing_id", pricingId);
 			model.addAttribute("listOfPricingItem", pricingItems );
+			model.addAttribute("hpPricingList", hpPricingService.getAll());
 		}
 		
 		return "adminpanel/homepage-pricing-item-settings";

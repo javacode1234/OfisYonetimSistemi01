@@ -1,5 +1,6 @@
 package com.ofisyonetimsistemi.controllers;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class AdminPanelController {
 	@Autowired
 	private SmmmOfisService smmmOfisService;
 	
+	
+	
 	@GetMapping("/admin-panel")
 	public String getAdminPanel(Model model) {
 		 Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
@@ -31,13 +34,14 @@ public class AdminPanelController {
 			  model.addAttribute("smmmOfisId", smmmOfis.get().getId());
 			  model.addAttribute("smmmOfis", smmmOfis.get());
 			  
+			  
 			  return "adminpanel/index";
 			  
 		   }else {
 		  
-			  model.addAttribute("dashboardtitle", "SMMM Muammer UZUN");
-			  model.addAttribute("smmmisim", "Muammer UZUN");
-			  model.addAttribute("fullusername", "Muammer UZUN");
+			  model.addAttribute("dashboardtitle", "SMMM Ofis Yönetim Sistemi");
+			  model.addAttribute("smmmisim", "Smmm İsim");
+			  model.addAttribute("fullusername", "Smmm AdSoyad");
 			  model.addAttribute("gorev", "SMMM");
 			  model.addAttribute("updateBtnActive", false);
 			  model.addAttribute("smmmOfis", new SmmmOfis());

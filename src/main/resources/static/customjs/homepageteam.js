@@ -38,7 +38,7 @@ $("document").ready(function() {
 	$('#editTeamModal #editTeamFormResetBtn').click(function() {
 		$("#editTeamModal .modal-body #hptformImage").val('');
 		$("#editTeamModal .modal-body #hptResim").attr('src', '../../niceadminpanel/assets/img/smmm.png');
-		$("#editTeamModal .modal-body #hptId").val('');
+		//$("#editTeamModal .modal-body #hptId").val('');
 		$("#editTeamModal .modal-body #hptName").val('');
 		$("#editTeamModal .modal-body #hptMainHeader").val('');
 		$("#editTeamModal .modal-body #hptHeader").val('');

@@ -36,7 +36,7 @@ $("document").ready(function() {
 		e.preventDefault();
 		$("#editSectorModal .modal-body #hpSectorName").val("");
 		$("#editSectorModal .modal-body #hpSectorDescription").val("");
-		$("#viewSectorModal .modal-body #hpSectorActive").prop('checked', false);
+		$("#editSectorModal .modal-body #hpSectorActive").prop('checked', false);
 	});
 	/* editSectorform clear */
 

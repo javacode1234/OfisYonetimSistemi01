@@ -442,12 +442,12 @@
 
 					<div class="row gy-4">
 
-						<div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100" th:each="pr : ${pricingList}" th:if="${pr.active==true}">
-							<div class="pricing-item">
+						<div class="col-lg-4 rounded aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100" th:each="pr : ${pricingList}" th:if="${pr.active==true}">
+							<div class="pricing-item featured">
 								<h3 th:text="${pr.name}">Free Plan</h3>
 								<h4>[[${pr.price}]]<sup>TL</sup><span> / ay</span></h4>
-								<ul th:each="c : ${pr.pricingItems}" th:if="${c.active==true}">
-									<li><i class="bi bi-check"></i> <span th:text="${c.name}">Quam adipiscing vitae proin</span></li>									
+								<ul th:each=" p : ${pr.pricingItems}" th:if="${p.active==true}">
+									<li><i class="bi bi-check-circle"></i> <span th:text="${p.name}">Quam adipiscing vitae proin</span></li>									
 								</ul>
 								<a href="#contact" class="buy-btn">İletişime geç</a>
 							</div>
@@ -478,7 +478,7 @@
               "autoplay": {
                 "delay": 5000
               },
-              "slidesPerView": "3",
+              "slidesPerView": "1",
               "pagination": {
                 "el": ".swiper-pagination",
                 "type": "bullets",

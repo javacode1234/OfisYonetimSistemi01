@@ -1,5 +1,7 @@
 package com.ofisyonetimsistemi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,13 +38,20 @@ public class SmmmOfisUser {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String pwd;
 	private String tel;
-	private boolean active;
+	
+	private String username;
+	private String password;
+	
+	private String role;
+	
+	private boolean isActive;
+	
 	private String ofisUserAdres;
 	
 	@ManyToOne
 	@JoinColumn(name = "smmmofis_id",updatable = false,insertable = false)
+	@JsonIgnore
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
 	
