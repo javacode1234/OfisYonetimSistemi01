@@ -1,6 +1,7 @@
 package com.ofisyonetimsistemi.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisReferanses;
+import com.ofisyonetimsistemi.security.model.MyUser;
+import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisReferansesService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,9 +35,14 @@ public class HomePageReferansController {
 	@Autowired
 	private SmmmOfisReferansesService hpReferansService;
 	
+	@Autowired 
+	private MyUserService myUserService;
+	
+	private static MyUser myUser;
+	
 	@GetMapping("/smmm-homepage-referans-settings")
-	public String getHomePageReferanses(Model model) {
-		
+	public String getHomePageReferanses(Model model, Principal principal) {
+		myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		  if(!smmmOfis.isEmpty()) {
 			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
@@ -46,7 +54,9 @@ public class HomePageReferansController {
 			  model.addAttribute("hpReferans", new SmmmOfisReferanses());
 			  model.addAttribute("hpReferanses", hpReferansService.getAllHomePageReferanses());
 			  
-			  return "adminpanel/homepage-referans-settings";
+			  model.addAttribute("currentUser", myUser);
+			  
+			  return "adminpanel/homepagesettings/homepage-referans-settings";
 			  
 		   }else {
 		  
@@ -55,9 +65,11 @@ public class HomePageReferansController {
 			  model.addAttribute("fullusername", "Muammer UZUN");
 			  model.addAttribute("gorev", "SMMM");
 			  model.addAttribute("smmmOfis", new SmmmOfis());
+			  
+			  model.addAttribute("currentUser", myUser);
 		   }
 		  
-		return "adminpanel/homepage-referans-settings";
+		return "adminpanel/homepagesettings/homepage-referans-settings";
 	}
 
 	@PostMapping("/save-homepage-referans-settings")

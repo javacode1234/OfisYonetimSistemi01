@@ -1,6 +1,7 @@
 package com.ofisyonetimsistemi.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ofisyonetimsistemi.models.PortfolioCompany;
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisBusinesSector;
+import com.ofisyonetimsistemi.security.model.MyUser;
+import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.HomePagePortfolioCompanyService;
 import com.ofisyonetimsistemi.services.SmmmOfisBusinesSectorService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
@@ -39,9 +42,14 @@ public class HomePagePortfolioCompanyController {
 	@Autowired
 	private SmmmOfisBusinesSectorService sectorService;
 	
+	@Autowired 
+	private MyUserService myUserService;
+	
+	private static MyUser myUser;
+	
 	@GetMapping("/smmm-homepage-portfoy-company-settings")
-	public String getHomePageSectorCompanySettingsPage(Model model) {
-		
+	public String getHomePageSectorCompanySettingsPage(Model model, Principal principal) {
+		myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		  if(!smmmOfis.isEmpty()) {
 			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
@@ -55,7 +63,9 @@ public class HomePagePortfolioCompanyController {
 			  model.addAttribute("hpSector", new SmmmOfisBusinesSector());
 			  model.addAttribute("sectorList", sectorService.getAllSector());
 			  
-			  return "adminpanel/homepage-portfoy-company-settings";
+			  model.addAttribute("currentUser", myUser);
+			  
+			  return "adminpanel/homepagesettings/homepage-portfoy-company-settings";
 			  
 		   }else {
 		  
@@ -64,14 +74,16 @@ public class HomePagePortfolioCompanyController {
 			  model.addAttribute("fullusername", "Muammer UZUN");
 			  model.addAttribute("gorev", "SMMM");
 			  model.addAttribute("smmmOfis", new SmmmOfis());
+			  
+			  model.addAttribute("currentUser", myUser);
 		   }
 		  
-		return "adminpanel/homepage-portfoy-company-settings";
+		return "adminpanel/homepagesettings/homepage-portfoy-company-settings";
 	}
 
 	@GetMapping("/smmm-homepage-portfoy-company-setting")
-	public String getHomePageSectorCompanySettingPage(Model model, @RequestParam("id")Integer portfoyid) {
-		
+	public String getHomePageSectorCompanySettingPage(Model model, @RequestParam("id")Integer portfoyid, Principal principal) {
+		myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		List<PortfolioCompany> companies = companyService.getByPortfoyId(portfoyid);
 		
@@ -87,7 +99,9 @@ public class HomePagePortfolioCompanyController {
 			  model.addAttribute("portfoyid", portfoyid);
 			  model.addAttribute("sectorList", sectorService.getAllSector());
 			  
-			  return "adminpanel/homepage-portfoy-company-settings";
+			  model.addAttribute("currentUser", myUser);
+			  
+			  return "adminpanel/homepagesettings/homepage-portfoy-company-settings";
 			  
 		   }else {
 		  
@@ -100,9 +114,11 @@ public class HomePagePortfolioCompanyController {
 			  model.addAttribute("hpCompanies", companies);
 			  model.addAttribute("portfoyid", portfoyid);
 			  model.addAttribute("sectorList", sectorService.getAllSector());
+			  
+			  model.addAttribute("currentUser", myUser);
 		   }
 		  
-		return "adminpanel/homepage-portfoy-company-settings";
+		return "adminpanel/homepagesettings/homepage-portfoy-company-settings";
 	}
 	
 	@PostMapping("/save-homepage-portfoy-company-settings")

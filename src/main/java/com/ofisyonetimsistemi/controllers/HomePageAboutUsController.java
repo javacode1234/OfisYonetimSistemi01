@@ -1,5 +1,6 @@
 package com.ofisyonetimsistemi.controllers;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisAboutUsColumnOne;
+import com.ofisyonetimsistemi.security.model.MyUser;
+import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisAboutUsColumnOneService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/api/v1/")
@@ -25,9 +27,14 @@ public class HomePageAboutUsController {
 	
 	@Autowired SmmmOfisService smmmOfisHomePageService;
 	@Autowired SmmmOfisAboutUsColumnOneService smmmOfisHomePageAboutUsColOneService;
+	
+	@Autowired private MyUserService myUserService;
+	
+	private static MyUser myUser;
 
 	@GetMapping("/smmm-homepage-aboutus-settings")
-	public String getMethodName(Model model) {
+	public String getMethodName(Model model, Principal principal) {
+		myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		  if(!smmmOfis.isEmpty()) {
 			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
@@ -39,7 +46,9 @@ public class HomePageAboutUsController {
 			  model.addAttribute("${hpAboutUsColOneItem}", new SmmmOfisAboutUsColumnOne());
 			  model.addAttribute("aboutUsColOneItems", smmmOfisHomePageAboutUsColOneService.getAllAboutUscolOneItems());
 			  
-			  return "adminpanel/homepage-aboutus-settings";
+			  model.addAttribute("currentUser", myUser);
+			  
+			  return "adminpanel/homepagesettings/homepage-aboutus-settings";
 			  
 		   }else {
 		  
@@ -48,9 +57,12 @@ public class HomePageAboutUsController {
 			  model.addAttribute("fullusername", "Muammer UZUN");
 			  model.addAttribute("gorev", "SMMM");
 			  model.addAttribute("smmmOfis", new SmmmOfis());
+			  
+			  model.addAttribute("currentUser", myUser);
+			  
 		   }
 		  
-		return "adminpanel/homepage-aboutus-settings";
+		return "adminpanel/homepagesettings/homepage-aboutus-settings";
 	}
 	
 	@GetMapping("/get-homepage-aboutus-col-one-item/{id}")

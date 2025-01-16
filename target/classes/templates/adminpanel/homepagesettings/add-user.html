@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head th:replace="~{adminpanel/fragments/head}"></head>
+<body>
+  <!-- ======= Header ======= -->
+  <header th:replace="~{adminpanel/fragments/header}"></header>
+  <!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside th:replace="~{adminpanel/fragments/sidebar}"></aside>
+  <!-- End Sidebar-->
+
+	<!-- ======== main ========== -->
+
+	<div layout:fragment="content">
+
+		<main id="main" class="main">
+
+			<div class="pagetitle">
+				<h1>Kullanıcılar</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
+						<li class="breadcrumb-item active"><a
+							th:href="@{/api/v1/smmm-homepage-settings}">Ayarlar</a></li>
+						<li class="breadcrumb-item active"><a
+							th:href="@{/api/v1/users}">Kullanıcı Ekle</a></li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<section id="addUser" class="section dashboard">
+				<div class="container d-inline p-3">
+
+					<div class="row m-0 p-0">
+						<div class="col-md-5 m-0 p-1">
+							<div class="card">
+								<h1 class="card-title" style="margin-left:15px;">Kullanıcı Ekle</h1>
+								<div class="card-body">
+									<form th:action="@{/api/v1/users}" method="post"
+										id="addUserForm" th:object="${userDto}"
+										enctype="multipart/form-data">
+
+										<div
+											class="alert alert-warning alert-dismissible fade text-danger mb-2"
+											th:if="${userExist==true}"
+											th:classappend="${userExist==true} ? 'show':''" role="alert">
+											<strong>Kullanıcı : [[${existUsername}]] !</strong> kullanıcı zaten kayıtlı !!!
+											<button type="button" class="btn-close"
+												data-bs-dismiss="alert" aria-label="Close"></button>
+										</div>
+										<div class="col-md-12 position-relative mb-2"
+											style="display: none;" id="userFormId">
+											<label for="username" class="form-label">#</label> <input
+												type="text" class="form-control" name="id" readonly
+												id="userid">
+										</div>
+										<div class="row mb-2">
+											
+											<div class="col-md-8 mb-2">
+												<label for="formUserImage" class="form-label">Kullanıcı Resim</label>
+												<input class="form-control form-control-sm"
+													id="formUserImage" type="file" name="stringResim">
+											</div>
+											<div class="col-md-4 mb-2">
+												<img th:src="@{../../niceadminpanel/images/icons8-account-80.png}"
+													class="rounded float-end" alt="..." width="80" height="80"
+													id="userImage" accept="image/*">
+											</div>
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="firstname" class="form-label">Adı</label>
+											<input type="text" class="form-control" name="firstname" placeholder="Adı"
+												autocomplete="chrome-off" th:field="*{firstname}"
+												th:classappend="${#fields.hasErrors('firstname')} == true ? 'is-invalid':'is-valid'"
+												id="firstname">
+											<div th:if="${#fields.hasErrors('firstname')}"
+												th:errors="*{firstname}" class=""
+												th:classappend="${#fields.hasErrors('firstname')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="lastname" class="form-label">Soyadı</label> <input
+												type="text" class="form-control" name="lastname" placeholder="Soyadı"
+												autocomplete="chrome-off" th:field="*{lastname}"
+												th:classappend="${#fields.hasErrors('lastname')} == true ? 'is-invalid':'is-valid'"
+												id="lastname">
+											<div th:if="${#fields.hasErrors('lastname')}"
+												th:errors="*{lastname}" class=""
+												th:classappend="${#fields.hasErrors('lastname')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="email" class="form-label">Email</label> <input
+												type="email" class="form-control" name="email" placeholder="e-mail"
+												autocomplete="chrome-off" th:field="*{email}"
+												th:classappend="${#fields.hasErrors('email')} == true ? 'is-invalid':'is-valid'"
+												id="email">
+											<div th:if="${#fields.hasErrors('email')}"
+												th:errors="*{email}" class=""
+												th:classappend="${#fields.hasErrors('email')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="about" class="form-label">Hakkında</label>
+											<textarea type="text" class="form-control" name="about"
+												autocomplete="chrome-off" th:field="*{about}" placeholder="Hakkında"
+												th:classappend="${#fields.hasErrors('about')} == true ? 'is-invalid':'is-valid'"
+												id="about"></textarea>
+											<div th:if="${#fields.hasErrors('email')}"
+												th:errors="*{about}" class=""
+												th:classappend="${#fields.hasErrors('about')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="username" class="form-label">Kullanıcı Adı</label> <input
+												type="text" class="form-control" name="username" placeholder="Kullanıcı Adı"
+												autocomplete="chrome-off" th:field="*{username}"
+												th:classappend="${#fields.hasErrors('username')} == true ? 'is-invalid':'is-valid'"
+												id="username">
+											<div th:if="${#fields.hasErrors('username')}"
+												th:errors="*{username}" class=""
+												th:classappend="${#fields.hasErrors('username')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="password" class="form-label">Şifre</label>
+											<div class=" input-group">
+												<input type="password" class="form-control" name="password"
+													th:field="*{password}" placeholder="Şifre"
+													th:classappend="${#fields.hasErrors('password')} == true ? 'is-invalid':'is-valid'"
+													id="password">
+												<button class="btn btn-outline-secondary" type="button"
+													id="togglePassword">
+													<i class="bi bi-eye-slash"></i>
+												</button>
+											</div>
+											<div th:if="${#fields.hasErrors('password')}"
+												th:errors="*{password}" class=""
+												th:classappend="${#fields.hasErrors('password')} == true ? 'invalid-tooltip':'valid-tooltip' ">
+											</div>
+										</div>
+										<div class="col-md-12 mb-2 position-relative mb-2">
+											<label class="form-label">Kullanıcıya Role Ekle</label>
+											<div class="row d-flex justify-content-between">
+												<div class="col-sm-5 pr-0 mr-0">
+													<select id="sourceRoleSelect" class="form-select"
+														aria-label="Multiple select example" multiple>
+														<option th:each="role : ${roles}" th:value="${role}"
+															th:text="${role}"></option>
+													</select>
+												</div>
+												<div class="d-grid gap-2 col-sm-2 px-1">
+													<input id="addRoleBtn" type="button"
+														class="rounded text-success" value=">>"> <input
+														id="removeRoleBtn" type="button"
+														class="rounded text-danger" value="<<">
+												</div>
+												<div class="col-sm-5 pl-0 ml-0">
+													<select id="targetRoleSelect" name="roles"
+														class="form-select" aria-label="Multiple select example"
+														multiple
+														th:classappend="${#fields.hasErrors('roles')} == true ? 'is-invalid':'is-valid'">
+													</select> <span th:if="${#fields.hasErrors('roles')}"
+														th:errors="*{roles}" class=""
+														th:classappend="${#fields.hasErrors('roles')} == true ? 'invalid-tooltip':'valid-tooltip' "></span>
+												</div>
+
+											</div>
+
+										</div>
+
+
+										<div class="form-check form-switch mb-2">
+											<input class="form-check-input" type="checkbox"
+												name="enabled" id="enabled" checked="checked" role="switch">
+											<label class="form-check-label" for="flexSwitchCheckDefault">Aktif</label>
+
+										</div>
+
+										<div class="form-check form-switch mb-2">
+											<input class="form-check-input" type="checkbox"
+												id="accountNonExpired" name="accountNonExpired"
+												checked="checked" role="switch"> <label
+												class="form-check-label" for="flexSwitchCheckDefault">Hesabın Süresi Dolmadı</label>
+										</div>
+
+										<div class="form-check form-switch mb-2">
+											<input class="form-check-input" type="checkbox"
+												id="accountNonLocked" name="accountNonLocked"
+												checked="checked" role="switch"> <label
+												class="form-check-label" for="flexSwitchCheckDefault">Hesap Kilitli Değil</label>
+										</div>
+
+										<div class="form-check form-switch mb-2">
+											<input class="form-check-input" type="checkbox"
+												id="credentialsNonExpired" name="credentialsNonExpired"
+												checked="checked" role="switch"> <label
+												class="form-check-label" for="flexSwitchCheckDefault">Kimlik Bilgileri Süresi Dolmamış</label>
+										</div>
+
+										<div class="d-flex justify-content-end gap-2">
+											<a class="btn btn-primary" id="newUserBtn"
+												th:href="@{/api/v1/users}">Yeni Kullanıcı Ekle</a>
+											<button class="btn btn-primary" type="submit">
+												<i class="bi bi-floppy"></i>
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-7 m-0 p-1">
+							<div class="card">
+								<h1 class="card-title" style="margin-left:15px;">Kullanıcı Listesi</h1>
+								<div class="card-body">
+									<div class="overflow-scroll" style="height: 500px;">
+										<table id=userTable class="table table-hover table-stripped">
+											<thead class="position-sticky top-0 table-light">
+												<tr>
+													<th scope="col">#</th>
+													<th scope="col">İşlemler</th>
+													<th scope="col">Kullanıcı Adı</th>
+													<th scope="col">Şifre</th>
+<!-- 													<th scope="col">Rol</th> -->
+<!-- 													<th scope="col">enabled</th> -->
+<!-- 													<th scope="col">Non</br>Expired -->
+<!-- 													</th> -->
+<!-- 													<th scope="col">Non</br>Locked -->
+<!-- 													</th> -->
+<!-- 													<th scope="col">crNon</br>Expired -->
+<!-- 													</th> -->
+												</tr>
+											</thead>
+											<tbody class="">
+												<tr th:each="user, i : ${dbUsers}">
+													<th th:text="${i.count}"></th>
+													<td><a id="userFormEditBtn" class="btn btn-primary"
+														th:href="@{'/api/v1/get/user/'+${user.id} }"> <i
+															class="bi bi-vector-pen"></i></a> <a id="userDeleteBtn"
+														class="btn btn-danger"
+														th:href="@{'/api/v1/delete/user/'+${user.id}}"
+														data-bs-toggle="modal" data-bs-target="#userDeleteModal">
+															<i class="bi bi-trash"></i>
+													</a></td>
+
+													<td th:text="${user.username}"></td>
+													<td>
+														<div class="input-group">
+															<input type="password" id="passwordField"
+																class="form-control" th:value="${user.openpassword}">
+															<button class="btn btn-outline-secondary" type="button"
+																id="togglePassword">
+																<i class="bi bi-eye-slash"></i>
+															</button>
+														</div>
+
+													</td>
+<!-- 													<td><input type="text" class="form-control" -->
+<!-- 														th:value="${user.roles}" readonly /></td> -->
+<!-- 													<td><i class="bi bi-check-square text-success" -->
+<!-- 														th:if=${user.enabled==true}></i> <i -->
+<!-- 														class="bi bi-x-square text-danger" -->
+<!-- 														th:if=${user.enabled==false}></i></td> -->
+<!-- 													<td><i class="bi bi-check-square text-success" -->
+<!-- 														th:if=${user.accountNonExpired==true}></i> <i -->
+<!-- 														class="bi bi-x-square text-danger" -->
+<!-- 														th:if=${user.accountNonExpired==false}></i></td> -->
+<!-- 													<td><i class="bi bi-check-square text-success" -->
+<!-- 														th:if=${user.accountNonLocked==true}></i> <i -->
+<!-- 														class="bi bi-x-square text-danger" -->
+<!-- 														th:if=${user.accountNonLocked==false}></i></td> -->
+<!-- 													<td><i class="bi bi-check-square text-success" -->
+<!-- 														th:if=${user.credentialsNonExpired==true}></i> <i -->
+<!-- 														class="bi bi-x-square text-danger" -->
+<!-- 														th:if=${user.credentialsNonExpired==false}></i></td> -->
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<!-- End #main -->
+
+	</div>
+
+	<!-- Delete Modal -->
+
+	<div class="modal fade" id="userDeleteModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-danger">
+					<h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Kayıt
+						Silinecek.</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body text-danger">
+					<h1>Silmek istediğine eminmisin ?</h1>
+				</div>
+				<div class="modal-footer">
+					<a type="button" class="btn btn-info" data-bs-dismiss="modal"><i
+						class="bi bi-x-lg"></i></a> <a id="deleteConfirmBtn" href=""
+						type="button" class="btn btn-danger text-white"><i
+						class="bi bi-trash-fill"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- /Delete Modal -->
+
+
+	<div th:replace="~{adminpanel/fragments/footer}"></div>
+	<div th:replace="~{adminpanel/fragments/js}"></div>
+	<script th:src="@{../../customjs/adduser.js}" type="text/javascript"></script>
+
+</body>
+
+</html>

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
+import com.ofisyonetimsistemi.security.model.MyUser;
+import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 
@@ -25,11 +27,16 @@ public class SmmmHomePageSettingsContoller {
 
 	@Autowired
 	private SmmmOfisService smmmOfisService;
+	
+	@Autowired 
+	private MyUserService myUserService;
+	
+	private static MyUser myUser;
 
 	//@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/smmm-homepage-settings")
-	public String getHomePageSettingsPage( Model model) {
-		  
+	public String getHomePageSettingsPage( Model model, Principal principal) {
+		  myUser = myUserService.getMyUserByUsername(principal.getName());
 		  Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		  
 		  if(!smmmOfis.isEmpty()) {
@@ -42,7 +49,9 @@ public class SmmmHomePageSettingsContoller {
 			  model.addAttribute("smmmOfisId", smmmOfis.get().getId());
 			  model.addAttribute("smmmOfis", smmmOfis.get());
 			  
-			  return "adminpanel/homepage-settings";
+			  model.addAttribute("currentUser", myUser);
+			  
+			  return "adminpanel/homepagesettings/homepage-settings";
 			  
 		   }else{
 		  
@@ -52,9 +61,11 @@ public class SmmmHomePageSettingsContoller {
 			  model.addAttribute("gorev", "SMMM");
 			  model.addAttribute("updateBtnActive", false);
 			  model.addAttribute("smmmOfis", new SmmmOfis());
+			  
+			  model.addAttribute("currentUser", myUser);
 		  }
 		  
-		  return "adminpanel/homepage-settings";			
+		  return "adminpanel/homepagesettings/homepage-settings";			
 		
 	}
 

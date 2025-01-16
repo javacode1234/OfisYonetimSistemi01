@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
+import com.ofisyonetimsistemi.security.model.MyUser;
+import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
+
+
 
 @Controller
 @RequestMapping("/api/v1/")
@@ -19,10 +23,14 @@ public class AdminPanelController {
 	@Autowired
 	private SmmmOfisService smmmOfisService;
 	
+	@Autowired
+	private MyUserService myUserService;
 	
+	private static MyUser myUser;
 	
 	@GetMapping("/admin-panel")
-	public String getAdminPanel(Model model) {
+	public String getAdminPanel(Model model, Principal principal) {
+		 myUser = myUserService.getMyUserByUsername(principal.getName());
 		 Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		  if(!smmmOfis.isEmpty()) {
 			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
@@ -32,35 +40,30 @@ public class AdminPanelController {
 			  
 			  model.addAttribute("updateBtnActive", true);
 			  model.addAttribute("smmmOfisId", smmmOfis.get().getId());
-			  model.addAttribute("smmmOfis", smmmOfis.get());
+			  model.addAttribute("smmmOfis", smmmOfis.get());			  
 			  
+			  model.addAttribute("currentUser", myUser);
 			  
 			  return "adminpanel/index";
 			  
 		   }else {
-		  
+			   
 			  model.addAttribute("dashboardtitle", "SMMM Ofis Yönetim Sistemi");
 			  model.addAttribute("smmmisim", "Smmm İsim");
 			  model.addAttribute("fullusername", "Smmm AdSoyad");
 			  model.addAttribute("gorev", "SMMM");
 			  model.addAttribute("updateBtnActive", false);
 			  model.addAttribute("smmmOfis", new SmmmOfis());
+			  
+			  model.addAttribute("currentUser", myUser);
 		   }
 		  
 		return "adminpanel/index";
 	}
 	
-	@GetMapping("/components-alerts")
-	public String getAlerts(Model model) {
-		model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
-		model.addAttribute("smmmisim","Muammer UZUN");
-		model.addAttribute("fullusername","Muammer UZUN");
-		model.addAttribute("gorev","SMMM");
-		return "adminpanel/components-alerts";
-	}
-	
 	@GetMapping("/user-profile")
 	public String getUserProfile(Model model) {
+		
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		  if(smmmOfis.isPresent()) {
 			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
@@ -71,7 +74,9 @@ public class AdminPanelController {
 			  model.addAttribute("tabpane","view");
 			  model.addAttribute("smmmOfis", smmmOfis.get());
 			  
-			  return "adminpanel/users-profile";
+			  model.addAttribute("currentUser", myUser);
+			  
+			  return "adminpanel/homepagesettings/user-profile";
 			  
 		   }else {
 				model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
@@ -81,8 +86,10 @@ public class AdminPanelController {
 				model.addAttribute("tabpane","view");
 				
 				model.addAttribute("smmmOfis", new SmmmOfis());
+				
+				 model.addAttribute("currentUser", myUser);
 		   }
-		return "adminpanel/users-profile";
+		return "adminpanel/homepagesettings/user-profile";
 	}
 	
 	@GetMapping("/user-profile-view")
@@ -97,7 +104,9 @@ public class AdminPanelController {
 			  model.addAttribute("tabpane","view");
 			  model.addAttribute("smmmOfis", smmmOfis.get());
 			  
-			  return "adminpanel/users-profile";
+			  model.addAttribute("currentUser", myUser);
+			  
+			  return "adminpanel/homepagesettings/user-profile";
 			  
 		   }else {
 				model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
@@ -107,8 +116,10 @@ public class AdminPanelController {
 				model.addAttribute("tabpane","view");
 				
 				model.addAttribute("smmmOfis", new SmmmOfis());
+				
+				model.addAttribute("currentUser", myUser);
 		   }
-		return "adminpanel/users-profile";
+		return "adminpanel/homepagesettings/user-profile";
 	}
 	
 	@GetMapping("/user-profile-edit")
@@ -123,7 +134,9 @@ public class AdminPanelController {
 			  model.addAttribute("tabpane","edit");
 			  model.addAttribute("smmmOfis", smmmOfis.get());
 			  
-			  return "adminpanel/users-profile";
+			  model.addAttribute("currentUser", myUser);
+			  
+			  return "adminpanel/homepagesettings/user-profile";
 			  
 		   }else {
 				model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
@@ -133,8 +146,10 @@ public class AdminPanelController {
 				model.addAttribute("tabpane","edit");
 				
 				model.addAttribute("smmmOfis", new SmmmOfis());
+				
+				 model.addAttribute("currentUser", myUser);
 		   }
-		return "adminpanel/users-profile";
+		return "adminpanel/homepagesettings/user-profile";
 	}
 	
 	@GetMapping("/user-profile-settings")
@@ -149,7 +164,9 @@ public class AdminPanelController {
 			  model.addAttribute("tabpane","settings");
 			  model.addAttribute("smmmOfis", smmmOfis.get());
 			  
-			  return "adminpanel/users-profile";
+			  model.addAttribute("currentUser", myUser);
+			  
+			  return "adminpanel/homepagesettings/user-profile";
 			  
 		   }else {
 				model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
@@ -159,8 +176,10 @@ public class AdminPanelController {
 				model.addAttribute("tabpane","settings");
 				
 				model.addAttribute("smmmOfis", new SmmmOfis());
+				
+				model.addAttribute("currentUser", myUser);
 		   }
-		return "adminpanel/users-profile";
+		return "adminpanel/homepagesettings/user-profile";
 	}
 	
 	@GetMapping("/user-profile-changepwd")
@@ -175,7 +194,9 @@ public class AdminPanelController {
 			  model.addAttribute("tabpane","changepwd");
 			  model.addAttribute("smmmOfis", smmmOfis.get());
 			  
-			  return "adminpanel/users-profile";
+			  model.addAttribute("currentUser", myUser);
+			  
+			  return "adminpanel/homepagesettings/user-profile";
 			  
 		   }else {
 				model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
@@ -185,8 +206,15 @@ public class AdminPanelController {
 				model.addAttribute("tabpane","changepwd");
 				
 				model.addAttribute("smmmOfis", new SmmmOfis());
+				
+				model.addAttribute("currentUser", myUser);
 		   }
-		return "adminpanel/users-profile";
+		return "adminpanel/homepagesettings/user-profile";
 	}
+	
+
+	
+	
+	
 
 }

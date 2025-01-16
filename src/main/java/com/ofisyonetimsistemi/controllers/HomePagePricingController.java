@@ -1,5 +1,6 @@
 package com.ofisyonetimsistemi.controllers;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ofisyonetimsistemi.models.PricingItem;
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisPricing;
+import com.ofisyonetimsistemi.security.model.MyUser;
+import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.PricingItemService;
 import com.ofisyonetimsistemi.services.SmmmOfisPricingService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
@@ -32,10 +35,15 @@ public class HomePagePricingController {
 	private SmmmOfisPricingService pricingService;
 	@Autowired
 	private PricingItemService prItemSercise;
+	@Autowired 
+	private MyUserService myUserService;
+	
+	private static MyUser myUser;
 	
 
 	@GetMapping("/smmm-homepage-pricing-settings")
-	public String get(Model model) {
+	public String get(Model model, Principal principal) {
+		myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		if (!smmmOfis.isEmpty()) {
 			model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan() + " " + smmmOfis.get().getFullName());
@@ -46,8 +54,10 @@ public class HomePagePricingController {
 			model.addAttribute("smmmOfis", smmmOfis.get());
 			model.addAttribute("pricing", new SmmmOfisPricing());
 			model.addAttribute("listPricing", pricingService.getAll() );
+			
+			model.addAttribute("currentUser", myUser);
 
-			return "adminpanel/homepage-pricing-settings";
+			return "adminpanel/homepagesettings/homepage-pricing-settings";
 
 		} else {
 
@@ -56,9 +66,11 @@ public class HomePagePricingController {
 			model.addAttribute("fullusername", "Muammer UZUN");
 			model.addAttribute("gorev", "SMMM");
 			model.addAttribute("smmmOfis", new SmmmOfis());
+			
+			model.addAttribute("currentUser", myUser);
 		}
 
-		return "adminpanel/homepage-pricing-settings";
+		return "adminpanel/homepagesettings/homepage-pricing-settings";
 	}
 
 	@GetMapping("/get-homepage-pricing/{id}")

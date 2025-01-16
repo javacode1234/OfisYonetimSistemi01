@@ -1,6 +1,7 @@
 package com.ofisyonetimsistemi.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,9 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisTeam;
+import com.ofisyonetimsistemi.security.model.MyUser;
+import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisHomePageTeamService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
-import org.springframework.web.bind.annotation.PostMapping;
 
 
 
@@ -32,9 +35,14 @@ public class HomePageTeamController {
 	@Autowired
 	private SmmmOfisHomePageTeamService hptService;
 	
+	@Autowired 
+	private MyUserService myUserService;
+	
+	private static MyUser myUser;
+	
 	@GetMapping("/smmm-homepage-team-settings")
-	public String getHomePageTeamsSettingsPage(Model model) {
-		
+	public String getHomePageTeamsSettingsPage(Model model, Principal principal) {
+		myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		  if(!smmmOfis.isEmpty()) {
 			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
@@ -46,7 +54,9 @@ public class HomePageTeamController {
 			  model.addAttribute("hpTeam", new SmmmOfisTeam());
 			  model.addAttribute("hpTeams", hptService.getAllHomePageTeams());
 			  
-			  return "adminpanel/homepage-team-settings";
+			  model.addAttribute("currentUser", myUser);
+			  
+			  return "adminpanel/homepagesettings/homepage-team-settings";
 			  
 		   }else {
 		  
@@ -55,9 +65,11 @@ public class HomePageTeamController {
 			  model.addAttribute("fullusername", "Muammer UZUN");
 			  model.addAttribute("gorev", "SMMM");
 			  model.addAttribute("smmmOfis", new SmmmOfis());
+			  
+			  model.addAttribute("currentUser", myUser);
 		   }
 		  
-		return "adminpanel/homepage-team-settings";
+		return "adminpanel/homepagesettings/homepage-team-settings";
 	}
 
 	@PostMapping("/save-homepage-team-settings")

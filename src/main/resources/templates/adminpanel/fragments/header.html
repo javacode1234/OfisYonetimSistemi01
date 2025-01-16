@@ -3,7 +3,6 @@
     <div class="d-flex align-items-center justify-content-between">
       <a th:href="@{/api/v1/admin-panel}" class="logo d-flex align-items-center">
         <img th:src="${smmmOfis.stringLogo==null}?'../../arshahomepage/assets/img/smmm.png':'data:image/*;base64,' + ${smmmOfis.stringLogo}" alt="">
-<!--        <span><i class="bx bxl-medium-square"></i></span>-->
         <span class="d-none d-lg-block" th:text="${smmmisim}">NiceAdmin</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -169,14 +168,14 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img th:src="@{../../niceadminpanel/assets/img/profile-img.jpg}" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${fullusername}">K. Anderson</span>
+            <img th:src="@{ ${currentUser.image==null} ? '../../niceadminpanel/images/icons8-account-80.png' : 'data:image/*;base64,' + ${currentUser.image} }" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${currentUser.username}">K. Anderson</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6 >Kevin Anderson***</h6> 
-              <span >Web Designer</span>
+              <h6 th:text="${currentUser.firstname+' '+currentUser.lastname}">Kevin Anderson***</h6> 
+              <span th:text="${currentUser.email}">Web Designer</span>
 				
             </li>
             <li>

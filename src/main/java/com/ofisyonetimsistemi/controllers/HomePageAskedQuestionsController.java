@@ -1,5 +1,6 @@
 package com.ofisyonetimsistemi.controllers;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisAskedQuestions;
+import com.ofisyonetimsistemi.security.model.MyUser;
+import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisAskedQuestionsService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
@@ -26,9 +29,15 @@ public class HomePageAskedQuestionsController {
 	private SmmmOfisService smmmOfisHomePageService;
 	@Autowired
 	private SmmmOfisAskedQuestionsService hpFaqService;
+	
+	@Autowired 
+	private MyUserService myUserService;
+	
+	private static MyUser myUser;
 
 	@GetMapping("/smmm-homepage-faq-settings")
-	public String getMethodName(Model model) {
+	public String getMethodName(Model model, Principal principal) {
+		myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		if (!smmmOfis.isEmpty()) {
 			model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan() + " " + smmmOfis.get().getFullName());
@@ -39,8 +48,10 @@ public class HomePageAskedQuestionsController {
 			model.addAttribute("smmmOfis", smmmOfis.get());
 			model.addAttribute("hpFaq", new SmmmOfisAskedQuestions());
 			model.addAttribute("hpFaqList", hpFaqService.getAll());
+			
+			model.addAttribute("currentUser", myUser);
 
-			return "adminpanel/homepage-faq-settings";
+			return "adminpanel/homepagesettings/homepage-faq-settings";
 
 		} else {
 
@@ -49,9 +60,11 @@ public class HomePageAskedQuestionsController {
 			model.addAttribute("fullusername", "Muammer UZUN");
 			model.addAttribute("gorev", "SMMM");
 			model.addAttribute("smmmOfis", new SmmmOfis());
+			
+			model.addAttribute("currentUser", myUser);
 		}
 
-		return "adminpanel/homepage-faq-settings";
+		return "adminpanel/homepagesettings/homepage-faq-settings";
 	}
 
 	@GetMapping("/get-homepage-faq/{id}")

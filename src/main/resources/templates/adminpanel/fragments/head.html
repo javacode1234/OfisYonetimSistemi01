@@ -7,8 +7,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link th:href="${smmmOfis.stringLogo==null}? '../../arshahomepage/assets/img/smmm.png':'data:image/x-icon;base64,' + ${smmmOfis.stringLogo} " rel="icon" type="image/*">
-<!--   <link th:href="@{../../niceadminpanel/assets/img/apple-touch-icon.png}" rel="apple-touch-icon"> -->
+  <link th:href="@{ ${smmmOfis.stringLogo==null}? '../../arshahomepage/assets/img/smmm.png':'data:image/x-icon;base64,' + ${smmmOfis.stringLogo} }" rel="icon" type="image/*">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -22,9 +21,6 @@
   <link th:href="@{../../niceadminpanel/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
   <link th:href="@{../../niceadminpanel/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
   <link th:href="@{../../niceadminpanel/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
-  
-  <!-- multistep form mainpagesettings -->
-  <link th:href="@{../../customcss/mainpagesettingsmultistepform.css}" rel="stylesheet">
   
   <!-- Template Main CSS File -->
   <link th:href="@{../../niceadminpanel/assets/css/style.css}" rel="stylesheet">

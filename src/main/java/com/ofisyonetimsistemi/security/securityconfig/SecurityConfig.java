@@ -52,9 +52,9 @@ public class SecurityConfig {
 			
 			req.requestMatchers("/api/v1/**").hasRole("ADMIN");
 			
-			req.requestMatchers("/admin/**").hasRole("ADMIN");
-			req.requestMatchers("/user/**").hasRole("USER");
-			req.requestMatchers("/customer/**").hasRole("CUSTOMER");
+			req.requestMatchers("/api/v1/admin/**").hasRole("ADMIN");
+			req.requestMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER");
+			req.requestMatchers("/api/v1/customer/**").hasAnyRole("ADMIN", "USER", "CUSTOMER");
 			req.anyRequest().authenticated();
 			
 		})

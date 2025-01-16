@@ -25,7 +25,6 @@ public class HomeController {
 	@Autowired private HomePagePortfolioCompanyService companyService;
 	@Autowired private SmmmOfisHomePageServicesService homepageServicesServis;
 	@Autowired private SmmmOfisPricingService pricingService;
-	//@Autowired private SmmmOfisAskedQuestionsService hpFaqService;
 		
 	@GetMapping("/")
 	public String getHomePage(Model model) {		

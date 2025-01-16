@@ -18,13 +18,13 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
 		
 		boolean isAdmin = authentication.getAuthorities().stream()
 				.anyMatch(grantedAuthority->grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
-		System.err.println(isAdmin);
+		//System.err.println(isAdmin);
 		boolean isUser = authentication.getAuthorities().stream()
 				.anyMatch(grantedAuthority->grantedAuthority.getAuthority().equals("ROLE_USER"));
-		System.err.println(isUser);
+		//System.err.println(isUser);
 		boolean isCustomer = authentication.getAuthorities().stream()
 				.anyMatch(grantedAuthority->grantedAuthority.getAuthority().equals("ROLE_CUSTOMER"));
-		System.err.println(isCustomer);
+		//System.err.println(isCustomer);
 		
 		if(isAdmin) {
 			setDefaultTargetUrl("/api/v1/admin-panel");

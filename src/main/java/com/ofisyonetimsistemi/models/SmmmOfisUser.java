@@ -27,9 +27,9 @@ public class SmmmOfisUser {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Lob
-	@Column(name = "resim", columnDefinition = "LONGBLOB")
-	private byte[] resim;
+//	@Lob
+//	@Column(name = "resim", columnDefinition = "LONGBLOB")
+//	private byte[] resim;
 	
 	@Lob
 	@Column(name = "stringResim", columnDefinition = "LONGTEXT")

@@ -1,5 +1,6 @@
 package com.ofisyonetimsistemi.controllers;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ofisyonetimsistemi.models.PricingItem;
 import com.ofisyonetimsistemi.models.SmmmOfis;
+import com.ofisyonetimsistemi.security.model.MyUser;
+import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.PricingItemService;
 import com.ofisyonetimsistemi.services.SmmmOfisPricingService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
@@ -32,10 +35,14 @@ public class HomePagePricingItemController {
 	private PricingItemService pricingItemService;
 	@Autowired
 	private SmmmOfisPricingService hpPricingService;
+	@Autowired 
+	private MyUserService myUserService;
 	
+	private static MyUser myUser;
 
 	@GetMapping("/smmm-homepage-pricing-item-settings")
-	public String get(Model model) {
+	public String get(Model model, Principal principal) {
+		myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		if (!smmmOfis.isEmpty()) {
 			model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan() + " " + smmmOfis.get().getFullName());
@@ -47,8 +54,10 @@ public class HomePagePricingItemController {
 			model.addAttribute("pricingitem", new PricingItem());
 			model.addAttribute("listPricingItem", pricingItemService.getAll() );
 			model.addAttribute("hpPricingList", hpPricingService.getAll());
+			
+			model.addAttribute("currentUser", myUser);
 
-			return "adminpanel/homepage-pricing-item-settings";
+			return "adminpanel/homepagesettings/homepage-pricing-item-settings";
 
 		} else {
 
@@ -60,14 +69,16 @@ public class HomePagePricingItemController {
 			model.addAttribute("pricingitem", new PricingItem());
 			model.addAttribute("listPricingItem", pricingItemService.getAll() );
 			model.addAttribute("hpPricingList", hpPricingService.getAll());
+			
+			model.addAttribute("currentUser", myUser);
 		}
 
-		return "adminpanel/homepage-pricing-item-settings";
+		return "adminpanel/homepagesettings/homepage-pricing-item-settings";
 	}
 	
 	@GetMapping("/smmm-homepage-pricing-item-setting")
-	public String getByPricingId(@RequestParam("id")Integer pricingId, Model model) {
-		
+	public String getByPricingId(@RequestParam("id")Integer pricingId, Model model, Principal principal) {
+		myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		List<PricingItem> pricingItems = pricingItemService.getPricingItemByPricingId(pricingId);
 		
@@ -82,8 +93,10 @@ public class HomePagePricingItemController {
 			model.addAttribute("pricing_id", pricingId);
 			model.addAttribute("listOfPricingItem", pricingItems );
 			model.addAttribute("hpPricingList", hpPricingService.getAll());
+			
+			model.addAttribute("currentUser", myUser);
 
-			return "adminpanel/homepage-pricing-item-settings";
+			return "adminpanel/homepagesettings/homepage-pricing-item-settings";
 
 		} else {
 
@@ -96,9 +109,11 @@ public class HomePagePricingItemController {
 			model.addAttribute("pricing_id", pricingId);
 			model.addAttribute("listOfPricingItem", pricingItems );
 			model.addAttribute("hpPricingList", hpPricingService.getAll());
+			
+			model.addAttribute("currentUser", myUser);
 		}
 		
-		return "adminpanel/homepage-pricing-item-settings";
+		return "adminpanel/homepagesettings/homepage-pricing-item-settings";
 	}
 
 	@GetMapping("/get-homepage-pricing-item/{id}")

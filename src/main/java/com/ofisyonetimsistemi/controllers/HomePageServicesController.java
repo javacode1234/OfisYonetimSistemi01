@@ -1,5 +1,6 @@
 package com.ofisyonetimsistemi.controllers;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisServices;
+import com.ofisyonetimsistemi.security.model.MyUser;
+import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.BoxIconsService;
 import com.ofisyonetimsistemi.services.SmmmOfisHomePageServicesService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
@@ -29,9 +32,15 @@ public class HomePageServicesController {
 	SmmmOfisHomePageServicesService homePageServices;
 	@Autowired
 	private BoxIconsService boxiconService;
+	
+	@Autowired 
+	private MyUserService myUserService;
+	
+	private static MyUser myUser;
 
 	@GetMapping("/smmm-homepage-services-settings")
-	public String getMethodName(Model model) {
+	public String getMethodName(Model model, Principal principal) {
+		myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		if (!smmmOfis.isEmpty()) {
 			model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan() + " " + smmmOfis.get().getFullName());
@@ -43,8 +52,10 @@ public class HomePageServicesController {
 			model.addAttribute("homePageService", new SmmmOfisServices());
 			model.addAttribute("homepageServices", homePageServices.getAllServices());
 			model.addAttribute("boxicons", boxiconService.getAllBoxIcons());
+			
+			 model.addAttribute("currentUser", myUser);
 
-			return "adminpanel/homepage-services-settings";
+			return "adminpanel/homepagesettings/homepage-services-settings";
 
 		} else {
 
@@ -53,9 +64,11 @@ public class HomePageServicesController {
 			model.addAttribute("fullusername", "Muammer UZUN");
 			model.addAttribute("gorev", "SMMM");
 			model.addAttribute("smmmOfis", new SmmmOfis());
+			
+			 model.addAttribute("currentUser", myUser);
 		}
 
-		return "adminpanel/homepage-services-settings";
+		return "adminpanel/homepagesettings/homepage-services-settings";
 	}
 
 	@GetMapping("/get-homepage-service/{id}")

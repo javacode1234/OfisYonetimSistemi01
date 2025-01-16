@@ -2,6 +2,8 @@ package com.ofisyonetimsistemi.models;
 
 import java.util.List;
 
+import com.ofisyonetimsistemi.security.model.MyUser;
+
 import groovy.transform.ToString;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -175,6 +177,8 @@ public class SmmmOfis {
 	private List<SmmmOfisEmail> emails;//EMAİL
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisUser> users;//USER
+	@OneToMany(mappedBy = "smmmofis")
+	private List<MyUser> myusers;//USER
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisCustomer> customers;//CUSTOMER
 	@OneToMany(mappedBy = "smmmofis")

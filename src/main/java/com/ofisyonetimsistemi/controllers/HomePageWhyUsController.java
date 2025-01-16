@@ -1,5 +1,6 @@
 package com.ofisyonetimsistemi.controllers;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisWhyUs;
+import com.ofisyonetimsistemi.security.model.MyUser;
+import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 import com.ofisyonetimsistemi.services.SmmmOfisWhyUsService;
 
@@ -24,9 +27,15 @@ public class HomePageWhyUsController {
 	
 	@Autowired SmmmOfisService smmmOfisHomePageService;
 	@Autowired SmmmOfisWhyUsService whyUsService;
+	
+	@Autowired 
+	private MyUserService myUserService;
+	
+	private static MyUser myUser;
 
 	@GetMapping("/smmm-homepage-whyus-settings")
-	public String getWhyUsSettingPage(Model model) {
+	public String getWhyUsSettingPage(Model model, Principal principal) {
+		myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		  if(!smmmOfis.isEmpty()) {
 			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
@@ -38,7 +47,9 @@ public class HomePageWhyUsController {
 			  model.addAttribute("hpWhyUs", new SmmmOfisWhyUs());
 			  model.addAttribute("whyUsList", whyUsService.getAllWhyUs());
 			  
-			  return "adminpanel/homepage-whyus-settings";
+			  model.addAttribute("currentUser", myUser);
+			  
+			  return "adminpanel/homepagesettings/homepage-whyus-settings";
 			  
 		   }else {
 		  
@@ -47,9 +58,11 @@ public class HomePageWhyUsController {
 			  model.addAttribute("fullusername", "Muammer UZUN");
 			  model.addAttribute("gorev", "SMMM");
 			  model.addAttribute("smmmOfis", new SmmmOfis());
+			  
+			  model.addAttribute("currentUser", myUser);
 		   }
 		  
-		return "adminpanel/homepage-whyus-settings";
+		return "adminpanel/homepagesettings/homepage-whyus-settings";
 	}
 	
 	@GetMapping("/get-homepage-whyus/{id}")
