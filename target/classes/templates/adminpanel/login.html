@@ -25,8 +25,11 @@
 
 								<div class="card-body">
 
-									<div th:if="${param.error}">
-										<h3>Invalid username and password.</h3>
+									<div class="alert alert-warning alert-dismissible fade text-danger mb-2 mt-3" th:if="${param.error}"
+										 th:classappend="${param.error} ? 'show':''" role="alert">
+										<strong>Kullanıcı Adı Yada Şifre Hatalı !!!</strong>
+										<button type="button" class="btn-close"
+												data-bs-dismiss="alert" aria-label="Close"></button>
 									</div>
 									
 									<div th:if="${param.logout}">

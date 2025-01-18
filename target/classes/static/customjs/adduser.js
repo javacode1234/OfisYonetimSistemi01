@@ -79,6 +79,17 @@ $(document).ready(function() {
 				$("#addUserForm #userImage").attr("src", "data:image/*;base64," + user.image);
 			}
 			
+			$("#addUserForm #x").val(user.x);
+			$("#addUserForm #f").val(user.f);
+			$("#addUserForm #i").val(user.i);
+			$("#addUserForm #l").val(user.f);
+			
+			$("#addUserForm #company").val(user.company);
+			$("#addUserForm #adres").val(user.adres);
+			$("#addUserForm #country").val(user.country);
+			$("#addUserForm #job").val(user.job);
+			$("#addUserForm #telefon").val(user.telefon);
+			
 			$("#addUserForm #firstname").val(user.firstname);
 			$("#addUserForm #lastname").val(user.lastname);			
 			$("#addUserForm #email").val(user.email);
@@ -158,6 +169,12 @@ $(document).ready(function() {
 		readURLAddUserImage(this);
 	});
 	// /add user image to form //
+	
+	// updateProfile image to form //
+	$("form#updateProfileForm #inputUserImage").on('change', function() {
+		readURLUpdateProfileImage(this);
+	});
+	// /updateProfile image to form //
 
 });
 
@@ -174,3 +191,15 @@ function readURLAddUserImage(input) {
 	}
 }
 /* /add user image to form */
+
+/* updateProfile image to form */
+function readURLUpdateProfileImage(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$("form#updateProfileForm #userImage").attr('src', e.target.result);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+/* /updateProfile image to form */

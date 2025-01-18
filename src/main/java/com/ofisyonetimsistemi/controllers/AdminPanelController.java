@@ -8,213 +8,204 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.ofisyonetimsistemi.models.SmmmOfis;
+import com.ofisyonetimsistemi.security.dto.UserProfileDto;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
-
-
 @Controller
 @RequestMapping("/api/v1/")
 public class AdminPanelController {
-	
+
 	@Autowired
 	private SmmmOfisService smmmOfisService;
-	
 	@Autowired
 	private MyUserService myUserService;
-	
-	private static MyUser myUser;
-	
+
 	@GetMapping("/admin-panel")
 	public String getAdminPanel(Model model, Principal principal) {
-		 myUser = myUserService.getMyUserByUsername(principal.getName());
-		 Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
-		  if(!smmmOfis.isEmpty()) {
-			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
-			  model.addAttribute("smmmisim", smmmOfis.get().getFullName());
-			  model.addAttribute("fullusername", smmmOfis.get().getUserName());
-			  model.addAttribute("gorev", smmmOfis.get().getUnvan());
-			  
-			  model.addAttribute("updateBtnActive", true);
-			  model.addAttribute("smmmOfisId", smmmOfis.get().getId());
-			  model.addAttribute("smmmOfis", smmmOfis.get());			  
-			  
-			  model.addAttribute("currentUser", myUser);
-			  
-			  return "adminpanel/index";
-			  
-		   }else {
-			   
-			  model.addAttribute("dashboardtitle", "SMMM Ofis Yönetim Sistemi");
-			  model.addAttribute("smmmisim", "Smmm İsim");
-			  model.addAttribute("fullusername", "Smmm AdSoyad");
-			  model.addAttribute("gorev", "SMMM");
-			  model.addAttribute("updateBtnActive", false);
-			  model.addAttribute("smmmOfis", new SmmmOfis());
-			  
-			  model.addAttribute("currentUser", myUser);
-		   }
-		  
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
+		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
+		if (!smmmOfis.isEmpty()) {
+			model.addAttribute("updateBtnActive", true);
+			model.addAttribute("smmmOfisId", smmmOfis.get().getId());
+			model.addAttribute("smmmOfis", smmmOfis.get());
+
+			model.addAttribute("currentUser", myUser);
+
+			return "adminpanel/index";
+
+		} else {
+
+			model.addAttribute("dashboardtitle", "SMMM İsim Soyisim");
+			model.addAttribute("smmmisim", "SMMM İsim Soyisim");
+			model.addAttribute("fullusername", "Kullanıcı İsim Soyisim");
+
+			model.addAttribute("updateBtnActive", false);
+			model.addAttribute("smmmOfis", new SmmmOfis());
+
+			model.addAttribute("currentUser", myUser);
+		}
+
 		return "adminpanel/index";
 	}
-	
-	@GetMapping("/user-profile")
-	public String getUserProfile(Model model) {
-		
-		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
-		  if(smmmOfis.isPresent()) {
-			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
-			  model.addAttribute("smmmisim", smmmOfis.get().getFullName());
-			  model.addAttribute("fullusername", smmmOfis.get().getUserName());
-			  model.addAttribute("gorev", smmmOfis.get().getUnvan());
-			  
-			  model.addAttribute("tabpane","view");
-			  model.addAttribute("smmmOfis", smmmOfis.get());
-			  
-			  model.addAttribute("currentUser", myUser);
-			  
-			  return "adminpanel/homepagesettings/user-profile";
-			  
-		   }else {
-				model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
-				model.addAttribute("smmmisim","Muammer UZUN");
-				model.addAttribute("fullusername","Muammer UZUN");
-				model.addAttribute("gorev","SMMM");
-				model.addAttribute("tabpane","view");
-				
-				model.addAttribute("smmmOfis", new SmmmOfis());
-				
-				 model.addAttribute("currentUser", myUser);
-		   }
-		return "adminpanel/homepagesettings/user-profile";
-	}
-	
-	@GetMapping("/user-profile-view")
-	public String getUserProfileWiew(Model model){
-		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
-		  if(smmmOfis.isPresent()) {
-			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
-			  model.addAttribute("smmmisim", smmmOfis.get().getFullName());
-			  model.addAttribute("fullusername", smmmOfis.get().getUserName());
-			  model.addAttribute("gorev", smmmOfis.get().getUnvan());
-			  
-			  model.addAttribute("tabpane","view");
-			  model.addAttribute("smmmOfis", smmmOfis.get());
-			  
-			  model.addAttribute("currentUser", myUser);
-			  
-			  return "adminpanel/homepagesettings/user-profile";
-			  
-		   }else {
-				model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
-				model.addAttribute("smmmisim","Muammer UZUN");
-				model.addAttribute("fullusername","Muammer UZUN");
-				model.addAttribute("gorev","SMMM");
-				model.addAttribute("tabpane","view");
-				
-				model.addAttribute("smmmOfis", new SmmmOfis());
-				
-				model.addAttribute("currentUser", myUser);
-		   }
-		return "adminpanel/homepagesettings/user-profile";
-	}
-	
-	@GetMapping("/user-profile-edit")
-	public String getUserProfileEdit(Model model){
-		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
-		  if(smmmOfis.isPresent()) {
-			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
-			  model.addAttribute("smmmisim", smmmOfis.get().getFullName());
-			  model.addAttribute("fullusername", smmmOfis.get().getUserName());
-			  model.addAttribute("gorev", smmmOfis.get().getUnvan());
-			  
-			  model.addAttribute("tabpane","edit");
-			  model.addAttribute("smmmOfis", smmmOfis.get());
-			  
-			  model.addAttribute("currentUser", myUser);
-			  
-			  return "adminpanel/homepagesettings/user-profile";
-			  
-		   }else {
-				model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
-				model.addAttribute("smmmisim","Muammer UZUN");
-				model.addAttribute("fullusername","Muammer UZUN");
-				model.addAttribute("gorev","SMMM");
-				model.addAttribute("tabpane","edit");
-				
-				model.addAttribute("smmmOfis", new SmmmOfis());
-				
-				 model.addAttribute("currentUser", myUser);
-		   }
-		return "adminpanel/homepagesettings/user-profile";
-	}
-	
-	@GetMapping("/user-profile-settings")
-	public String getUserProfileSettings(Model model){
-		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
-		  if(smmmOfis.isPresent()) {
-			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
-			  model.addAttribute("smmmisim", smmmOfis.get().getFullName());
-			  model.addAttribute("fullusername", smmmOfis.get().getUserName());
-			  model.addAttribute("gorev", smmmOfis.get().getUnvan());
-			  
-			  model.addAttribute("tabpane","settings");
-			  model.addAttribute("smmmOfis", smmmOfis.get());
-			  
-			  model.addAttribute("currentUser", myUser);
-			  
-			  return "adminpanel/homepagesettings/user-profile";
-			  
-		   }else {
-				model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
-				model.addAttribute("smmmisim","Muammer UZUN");
-				model.addAttribute("fullusername","Muammer UZUN");
-				model.addAttribute("gorev","SMMM");
-				model.addAttribute("tabpane","settings");
-				
-				model.addAttribute("smmmOfis", new SmmmOfis());
-				
-				model.addAttribute("currentUser", myUser);
-		   }
-		return "adminpanel/homepagesettings/user-profile";
-	}
-	
-	@GetMapping("/user-profile-changepwd")
-	public String getUserProfileChangepwd(Model model){
-		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
-		  if(smmmOfis.isPresent()) {
-			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
-			  model.addAttribute("smmmisim", smmmOfis.get().getFullName());
-			  model.addAttribute("fullusername", smmmOfis.get().getUserName());
-			  model.addAttribute("gorev", smmmOfis.get().getUnvan());
-			  
-			  model.addAttribute("tabpane","changepwd");
-			  model.addAttribute("smmmOfis", smmmOfis.get());
-			  
-			  model.addAttribute("currentUser", myUser);
-			  
-			  return "adminpanel/homepagesettings/user-profile";
-			  
-		   }else {
-				model.addAttribute("dashboardtitle","SMMM Muammer UZUN");
-				model.addAttribute("smmmisim","Muammer UZUN");
-				model.addAttribute("fullusername","Muammer UZUN");
-				model.addAttribute("gorev","SMMM");
-				model.addAttribute("tabpane","changepwd");
-				
-				model.addAttribute("smmmOfis", new SmmmOfis());
-				
-				model.addAttribute("currentUser", myUser);
-		   }
-		return "adminpanel/homepagesettings/user-profile";
-	}
-	
 
-	
-	
-	
+	@GetMapping("/user-profile")
+	public String getUserProfile(Model model, Principal principal) {
+		
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
+		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
+		UserProfileDto userProfileDto = new UserProfileDto();
+		
+		if (smmmOfis.isPresent()) {
+			
+			model.addAttribute("tabpane", "view");
+			model.addAttribute("smmmOfis", smmmOfis.get());
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("userProfileDto", userProfileDto);
+			
+			return "adminpanel/homepagesettings/user-profile";
+
+		} else {
+			
+			model.addAttribute("dashboardtitle", "SMMM İsim Soyisim");
+			model.addAttribute("smmmisim", "SMMM İsim Soyisim");
+			model.addAttribute("fullusername", "Kullanıcı İsim Soyisim");
+			model.addAttribute("tabpane", "view");
+
+			model.addAttribute("smmmOfis", new SmmmOfis());
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("userProfileDto", userProfileDto);
+			
+		}
+		return "adminpanel/homepagesettings/user-profile";
+	}
+
+	@GetMapping("/user-profile-view")
+	public String getUserProfileWiew(Model model, Principal principal) {
+		
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
+		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
+		UserProfileDto userProfileDto = new UserProfileDto();
+		
+		if (smmmOfis.isPresent()) {
+			model.addAttribute("tabpane", "view");
+			model.addAttribute("smmmOfis", smmmOfis.get());
+
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("userProfileDto", userProfileDto);
+			
+			return "adminpanel/homepagesettings/user-profile";
+
+		} else {
+			
+			model.addAttribute("dashboardtitle", "SMMM İsim Soyisim");
+			model.addAttribute("smmmisim", "SMMM İsim Soyisim");
+			model.addAttribute("fullusername", "Kullanıcı İsim Soyisim");
+
+			model.addAttribute("tabpane", "view");
+			model.addAttribute("smmmOfis", new SmmmOfis());
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("userProfileDto", userProfileDto);
+			
+		}
+		return "adminpanel/homepagesettings/user-profile";
+	}
+
+	@GetMapping("/user-profile-edit")
+	public String getUserProfileEdit(Model model, Principal principal) {
+		
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
+		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
+		UserProfileDto userProfileDto = new UserProfileDto();
+		
+		if (smmmOfis.isPresent()) {
+			model.addAttribute("tabpane", "edit");
+			model.addAttribute("smmmOfis", smmmOfis.get());
+
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("userProfileDto", new UserProfileDto());
+			model.addAttribute("userProfileDto", userProfileDto);
+
+			return "adminpanel/homepagesettings/user-profile";
+
+		} else {
+			
+			model.addAttribute("dashboardtitle", "SMMM İsim Soyisim");
+			model.addAttribute("smmmisim", "SMMM İsim Soyisim");
+			model.addAttribute("fullusername", "Kullanıcı İsim Soyisim");
+
+			model.addAttribute("tabpane", "edit");
+			model.addAttribute("smmmOfis", new SmmmOfis());
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("userProfileDto", userProfileDto);
+		}
+		return "adminpanel/homepagesettings/user-profile";
+	}
+
+	@GetMapping("/user-profile-settings")
+	public String getUserProfileSettings(Model model, Principal principal) {
+		
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
+		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
+		UserProfileDto userProfileDto = new UserProfileDto();
+		
+		if (smmmOfis.isPresent()) {
+			
+			model.addAttribute("tabpane", "settings");
+			model.addAttribute("smmmOfis", smmmOfis.get());
+
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("userProfileDto", userProfileDto);
+			
+			return "adminpanel/homepagesettings/user-profile";
+
+		} else {
+			
+			model.addAttribute("dashboardtitle", "SMMM İsim Soyisim");
+			model.addAttribute("smmmisim", "SMMM İsim Soyisim");
+			model.addAttribute("fullusername", "Kullanıcı İsim Soyisim");
+
+			model.addAttribute("tabpane", "settings");
+			model.addAttribute("smmmOfis", new SmmmOfis());
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("userProfileDto", userProfileDto);
+			
+		}
+		return "adminpanel/homepagesettings/user-profile";
+	}
+
+	@GetMapping("/user-profile-changepwd")
+	public String getUserProfileChangepwd(Model model, Principal principal) {
+		
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
+		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
+		UserProfileDto userProfileDto = new UserProfileDto();
+		
+		if (smmmOfis.isPresent()) {
+			
+			model.addAttribute("tabpane", "changepwd");
+			model.addAttribute("smmmOfis", smmmOfis.get());
+
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("userProfileDto", userProfileDto);
+			
+			return "adminpanel/homepagesettings/user-profile";
+
+		} else {
+			
+			model.addAttribute("dashboardtitle", "SMMM İsim Soyisim");
+			model.addAttribute("smmmisim", "SMMM İsim Soyisim");
+			model.addAttribute("fullusername", "Kullanıcı İsim Soyisim");
+
+			model.addAttribute("tabpane", "changepwd");
+			model.addAttribute("smmmOfis", new SmmmOfis());
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("userProfileDto", userProfileDto);
+			
+		}
+		return "adminpanel/homepagesettings/user-profile";
+	}
 
 }

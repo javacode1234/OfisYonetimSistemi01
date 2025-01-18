@@ -107,6 +107,105 @@
 
 										</div>
 										<div class="col-md-12 position-relative mb-2">
+											<label for="x" class="form-label">X</label> <input
+												type="text" class="form-control" name="x" placeholder="x"
+												autocomplete="chrome-off" th:field="*{x}"
+												th:classappend="${#fields.hasErrors('x')} == true ? 'is-invalid':'is-valid'"
+												id="x">
+											<div th:if="${#fields.hasErrors('x')}"
+												th:errors="*{x}" class=""
+												th:classappend="${#fields.hasErrors('x')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="f" class="form-label">facebook</label> <input
+												type="text" class="form-control" name="x" placeholder="facebook"
+												autocomplete="chrome-off" th:field="*{f}"
+												th:classappend="${#fields.hasErrors('f')} == true ? 'is-invalid':'is-valid'"
+												id="f">
+											<div th:if="${#fields.hasErrors('f')}"
+												th:errors="*{f}" class=""
+												th:classappend="${#fields.hasErrors('f')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="i" class="form-label">Instagram</label> <input
+												type="text" class="form-control" name="i" placeholder="instagram"
+												autocomplete="chrome-off" th:field="*{i}"
+												th:classappend="${#fields.hasErrors('i')} == true ? 'is-invalid':'is-valid'"
+												id="i">
+											<div th:if="${#fields.hasErrors('i')}"
+												th:errors="*{i}" class=""
+												th:classappend="${#fields.hasErrors('i')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="l" class="form-label">LinkedIn</label> <input
+												type="text" class="form-control" name="l" placeholder="linkedin"
+												autocomplete="chrome-off" th:field="*{l}"
+												th:classappend="${#fields.hasErrors('l')} == true ? 'is-invalid':'is-valid'"
+												id="l">
+											<div th:if="${#fields.hasErrors('l')}"
+												th:errors="*{l}" class=""
+												th:classappend="${#fields.hasErrors('l')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="company" class="form-label">Şirket</label> <input
+												type="text" class="form-control" name="company" placeholder="Şirket"
+												autocomplete="chrome-off" th:field="*{company}"
+												th:classappend="${#fields.hasErrors('company')} == true ? 'is-invalid':'is-valid'"
+												id="company">
+											<div th:if="${#fields.hasErrors('company')}"
+												th:errors="*{company}" class=""
+												th:classappend="${#fields.hasErrors('company')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="adres" class="form-label">Adres</label> <input
+												type="text" class="form-control" name="adres" placeholder="Adres"
+												autocomplete="chrome-off" th:field="*{adres}"
+												th:classappend="${#fields.hasErrors('adres')} == true ? 'is-invalid':'is-valid'"
+												id="adres">
+											<div th:if="${#fields.hasErrors('adres')}"
+												th:errors="*{company}" class=""
+												th:classappend="${#fields.hasErrors('adres')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="country" class="form-label">Ülke</label> <input
+												type="text" class="form-control" name="country" placeholder="Ülke"
+												autocomplete="chrome-off" th:field="*{country}"
+												th:classappend="${#fields.hasErrors('country')} == true ? 'is-invalid':'is-valid'"
+												id="country">
+											<div th:if="${#fields.hasErrors('country')}"
+												th:errors="*{company}" class=""
+												th:classappend="${#fields.hasErrors('country')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="job" class="form-label">İşi</label> <input
+												type="text" class="form-control" name="job" placeholder="Yaptığı iş"
+												autocomplete="chrome-off" th:field="*{job}"
+												th:classappend="${#fields.hasErrors('job')} == true ? 'is-invalid':'is-valid'"
+												id="job">
+											<div th:if="${#fields.hasErrors('job')}"
+												th:errors="*{job}" class=""
+												th:classappend="${#fields.hasErrors('job')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
+											<label for="telefon" class="form-label">Telefon</label> <input
+												type="text" class="form-control" name="job" placeholder="Telefon"
+												autocomplete="chrome-off" th:field="*{telefon}"
+												th:classappend="${#fields.hasErrors('telefon')} == true ? 'is-invalid':'is-valid'"
+												id="telefon">
+											<div th:if="${#fields.hasErrors('telefon')}"
+												th:errors="*{telefon}" class=""
+												th:classappend="${#fields.hasErrors('telefon')} == true ? 'invalid-tooltip':'valid-tooltip' "></div>
+
+										</div>
+										<div class="col-md-12 position-relative mb-2">
 											<label for="about" class="form-label">Hakkında</label>
 											<textarea type="text" class="form-control" name="about"
 												autocomplete="chrome-off" th:field="*{about}" placeholder="Hakkında"

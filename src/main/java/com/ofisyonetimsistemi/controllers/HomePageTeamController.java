@@ -45,11 +45,7 @@ public class HomePageTeamController {
 		myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		  if(!smmmOfis.isEmpty()) {
-			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
-			  model.addAttribute("smmmisim", smmmOfis.get().getFullName());
-			  model.addAttribute("fullusername", smmmOfis.get().getUserName());
-			  model.addAttribute("gorev", smmmOfis.get().getUnvan());
-			  
+			 			  
 			  model.addAttribute("smmmOfis", smmmOfis.get());
 			  model.addAttribute("hpTeam", new SmmmOfisTeam());
 			  model.addAttribute("hpTeams", hptService.getAllHomePageTeams());

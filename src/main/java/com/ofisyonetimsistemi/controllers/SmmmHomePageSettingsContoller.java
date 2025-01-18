@@ -40,10 +40,6 @@ public class SmmmHomePageSettingsContoller {
 		  Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		  
 		  if(!smmmOfis.isEmpty()) {
-			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
-			  model.addAttribute("smmmisim", smmmOfis.get().getFullName());
-			  model.addAttribute("fullusername", smmmOfis.get().getUserName());
-			  model.addAttribute("gorev", smmmOfis.get().getUnvan());
 			  
 			  model.addAttribute("updateBtnActive", true);
 			  model.addAttribute("smmmOfisId", smmmOfis.get().getId());
@@ -55,10 +51,9 @@ public class SmmmHomePageSettingsContoller {
 			  
 		   }else{
 		  
-			  model.addAttribute("dashboardtitle", "SMMM Muammer UZUN");
-			  model.addAttribute("smmmisim", "Muammer UZUN");
-			  model.addAttribute("fullusername", "Muammer UZUN");
-			  model.addAttribute("gorev", "SMMM");
+			  model.addAttribute("dashboardtitle", "SMMM İsim Soyisim");
+			  model.addAttribute("smmmisim", "SMMM İsim Soyisim");
+			  model.addAttribute("fullusername", "Kullanıcı İsim Soyisim");
 			  model.addAttribute("updateBtnActive", false);
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
