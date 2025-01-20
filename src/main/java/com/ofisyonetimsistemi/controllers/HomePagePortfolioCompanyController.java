@@ -45,11 +45,10 @@ public class HomePagePortfolioCompanyController {
 	@Autowired 
 	private MyUserService myUserService;
 	
-	private static MyUser myUser;
 	
 	@GetMapping("/smmm-homepage-portfoy-company-settings")
 	public String getHomePageSectorCompanySettingsPage(Model model, Principal principal) {
-		myUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		  if(!smmmOfis.isEmpty()) {
 			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
@@ -83,7 +82,7 @@ public class HomePagePortfolioCompanyController {
 
 	@GetMapping("/smmm-homepage-portfoy-company-setting")
 	public String getHomePageSectorCompanySettingPage(Model model, @RequestParam("id")Integer portfoyid, Principal principal) {
-		myUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		List<PortfolioCompany> companies = companyService.getByPortfoyId(portfoyid);
 		

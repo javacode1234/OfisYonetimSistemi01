@@ -38,11 +38,9 @@ public class HomePageReferansController {
 	@Autowired 
 	private MyUserService myUserService;
 	
-	private static MyUser myUser;
-	
 	@GetMapping("/smmm-homepage-referans-settings")
 	public String getHomePageReferanses(Model model, Principal principal) {
-		myUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		  if(!smmmOfis.isEmpty()) {
 			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
@@ -88,7 +86,6 @@ public class HomePageReferansController {
 										
 										) throws IOException {
 		
-		//Integer smmmOfisId = smmmOfisService.getFirstSmmmOfis().get().getId();
 		hpReferansService.save(file, name, meslek, star1, star2, star3, star4, star5, gorus, active, smmmofis_id);
 		
 		return "redirect:/api/v1/smmm-homepage-referans-settings";

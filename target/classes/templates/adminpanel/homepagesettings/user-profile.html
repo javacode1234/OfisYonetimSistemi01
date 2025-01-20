@@ -141,8 +141,8 @@
 <!--                     </div> -->
 					<div
 						class="alert alert-warning alert-dismissible fade text-danger mb-2"
-						th:if="${userExist==true}"
-						th:classappend="${userExist==true} ? 'show':''" role="alert">
+						th:if="${userNameExist==true}"
+						th:classappend="${userNameExist==true} ? 'show':''" role="alert">
 						<strong>Kullanıcı : [[${existUsername}]] !</strong> kullanıcı zaten kayıtlı !!!
 						<button type="button" class="btn-close"
 							data-bs-dismiss="alert" aria-label="Close"></button>

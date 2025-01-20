@@ -48,8 +48,8 @@
 
 										<div
 											class="alert alert-warning alert-dismissible fade text-danger mb-2"
-											th:if="${userExist==true}"
-											th:classappend="${userExist==true} ? 'show':''" role="alert">
+											th:if="${userNameExist==true}"
+											th:classappend="${userNameExist==true} ? 'show':''" role="alert">
 											<strong>Kullanıcı : [[${existUsername}]] !</strong> kullanıcı zaten kayıtlı !!!
 											<button type="button" class="btn-close"
 												data-bs-dismiss="alert" aria-label="Close"></button>
@@ -339,15 +339,18 @@
 											<tbody class="">
 												<tr th:each="user, i : ${dbUsers}">
 													<th th:text="${i.count}"></th>
-													<td><a id="userFormEditBtn" class="btn btn-primary"
-														th:href="@{'/api/v1/get/user/'+${user.id} }"> <i
-															class="bi bi-vector-pen"></i></a> <a id="userDeleteBtn"
-														class="btn btn-danger"
-														th:href="@{'/api/v1/delete/user/'+${user.id}}"
-														data-bs-toggle="modal" data-bs-target="#userDeleteModal">
-															<i class="bi bi-trash"></i>
-													</a></td>
-
+													<td>
+														<div class="btn-group">
+															<a id="userFormEditBtn" class="btn btn-primary"
+															th:href="@{'/api/v1/get/user/'+${user.id} }"> <i
+																class="bi bi-vector-pen"></i></a> <a id="userDeleteBtn"
+															class="btn btn-danger"
+															th:href="@{'/api/v1/delete/user/'+${user.id}}"
+															data-bs-toggle="modal" data-bs-target="#userDeleteModal">
+																<i class="bi bi-trash"></i>
+															</a>
+														</div>
+													</td>
 													<td th:text="${user.username}"></td>
 													<td>
 														<div class="input-group">

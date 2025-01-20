@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,7 @@ import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.security.dto.UserDto;
 import com.ofisyonetimsistemi.security.dto.UserProfileDto;
 import com.ofisyonetimsistemi.security.model.MyUser;
-
+import com.ofisyonetimsistemi.security.model.MyUserDetails;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
@@ -41,15 +42,14 @@ public class AdminController {
 	@Autowired private SmmmOfisService smmmOfisService;
 	@Autowired private MyUserService myUserService;
 	@Autowired private PasswordEncoder pwdEncoder;
-
+	
 	@GetMapping("/users")
-	public String getAddUserForm(Model model, Principal principal) {
-		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
+	public String getAddUserForm(Model model, Principal principal, @AuthenticationPrincipal MyUserDetails loggedUser) {
+		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		if (!smmmOfis.isEmpty()) {
 
 			model.addAttribute("updateBtnActive", true);
-			model.addAttribute("smmmOfisId", smmmOfis.get().getId());
 			model.addAttribute("smmmOfis", smmmOfis.get());
 
 			model.addAttribute("userDto", new UserDto());
@@ -58,7 +58,7 @@ public class AdminController {
 			List<String> roles = new ArrayList<>(Arrays.asList("ADMIN", "USER", "CUSTOMER"));
 			model.addAttribute("roles", roles);
 			
-			model.addAttribute("currentUser", myUser);
+			model.addAttribute("currentUser", currentUser);
 
 			return "adminpanel/homepagesettings/add-user";
 
@@ -73,22 +73,29 @@ public class AdminController {
 			List<String> roles = new ArrayList<>(Arrays.asList("ADMIN", "USER", "CUSTOMER"));
 			model.addAttribute("roles", roles);
 			
-			model.addAttribute("currentUser", myUser);
+			model.addAttribute("currentUser", currentUser);
 		}
 
 		return "adminpanel/homepagesettings/add-user";
 	}
 
 	@PostMapping("/users")
-	public String saveUserDto(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult result, Model model,
-			RedirectAttributes redirectAttr, @RequestParam("stringResim") MultipartFile file, Principal principal) throws IOException {
+	public String saveUserDto(
+								@Valid @ModelAttribute("userDto") UserDto userDto, 
+								BindingResult result, 
+								Model model,
+								RedirectAttributes redirectAttr, 
+								@RequestParam("stringResim") MultipartFile file, 
+								Principal principal, 
+								@AuthenticationPrincipal MyUserDetails loggedUser
+							) throws IOException {
 		
-		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		
-		boolean userExist = myUserService.userExistForNewUser(userDto.getUsername());
+		boolean userNameExist = myUserService.userExistForNewUser(userDto.getUsername());
 
-		if (userExist) {
+		if (userNameExist) {
 			
 			model.addAttribute("userDto", userDto);
 			List<MyUser> dbUsers = myUserService.findAllUsers();
@@ -97,9 +104,9 @@ public class AdminController {
 			model.addAttribute("roles", roles);
 
 			model.addAttribute("existUsername", userDto.getUsername());
-			model.addAttribute("userExist", userExist);
+			model.addAttribute("userNameExist", userNameExist);
 			
-			model.addAttribute("currentUser", myUser);
+			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("smmmOfis", smmmOfis.get());
 			
 			return "adminpanel/homepagesettings/add-user";
@@ -113,7 +120,7 @@ public class AdminController {
 			List<String> roles = new ArrayList<>(Arrays.asList("ADMIN", "USER", "CUSTOMER"));
 			model.addAttribute("roles", roles);
 			
-			model.addAttribute("currentUser", myUser);
+			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("smmmOfis", smmmOfis.get());
 
 			return "adminpanel/homepagesettings/add-user";
@@ -176,15 +183,23 @@ public class AdminController {
 	}
 
 	@PostMapping("/update/user")
-	public String updateUserDtoForModal(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult result,
-			Model model, RedirectAttributes redirectAttr, @RequestParam("stringResim") MultipartFile file, Principal principal) throws IOException {
+	public String updateUserDto(
+												@Valid @ModelAttribute("userDto") UserDto userDto, 
+												BindingResult result,
+												Model model, 
+												RedirectAttributes redirectAttr, 
+												@RequestParam("stringResim") MultipartFile file, 
+												Principal principal,
+												@AuthenticationPrincipal MyUserDetails loggedUser
+												
+										) throws IOException {
 
-		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		
-		boolean userExist = myUserService.userExistForUpdate(userDto.getUsername(), userDto.getId());
-		MyUser updateUser = myUserService.getMyUserById(userDto.getId()).get();
-		if (userExist) {
+		boolean userNameExist = myUserService.userExistForUpdate(userDto.getUsername(), userDto.getId());
+		MyUser updateThisUser = myUserService.getMyUserById(userDto.getId()).get();
+		if (userNameExist) {
 			
 			model.addAttribute("userDto", userDto);
 			List<MyUser> dbUsers = myUserService.findAllUsers();
@@ -193,9 +208,9 @@ public class AdminController {
 			model.addAttribute("roles", roles);
 
 			redirectAttr.addFlashAttribute("existUsername", userDto.getUsername());
-			redirectAttr.addFlashAttribute("userExist", true);
+			redirectAttr.addFlashAttribute("userNameExist", true);
 			
-			model.addAttribute("currentUser", myUser);
+			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("smmmOfis", smmmOfis.get());
 			
 			return "redirect:/api/v1/users";
@@ -208,7 +223,7 @@ public class AdminController {
 			model.addAttribute("dbUsers", dbUsers);
 			List<String> roles = new ArrayList<>(Arrays.asList("ADMIN", "USER", "CUSTOMER"));
 			model.addAttribute("roles", roles);
-			model.addAttribute("currentUser", myUser);
+			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("smmmOfis", smmmOfis.get());
 			
 			return "adminpanel/homepagesettings/add-user";
@@ -238,12 +253,13 @@ public class AdminController {
 					.accountNonExpired(userDto.isAccountNonExpired())
 					.accountNonLocked(userDto.isAccountNonLocked())
 					.credentialsNonExpired(userDto.isCredentialsNonExpired())
-					.enabled(userDto.isEnabled()).build();
+					.enabled(userDto.isEnabled())
+					.build();
 			myUserService.saveMyUser(user);
 		}else {
 			MyUser user = MyUser.builder()
 					.id(userDto.getId())
-					.image(updateUser.getImage())
+					.image(updateThisUser.getImage())
 					.firstname(userDto.getFirstname())
 					.lastname(userDto.getLastname())
 					.email(userDto.getEmail())
@@ -268,8 +284,7 @@ public class AdminController {
 			myUserService.saveMyUser(user);
 		}
 		
-
-		return "redirect:/api/v1/users";
+		return principal.getName() != userDto.getUsername() ? "redirect:/login" : "redirect:/api/v1/users";
 	}
 
 	@GetMapping("/get/user/{id}")
@@ -304,21 +319,22 @@ public class AdminController {
 										@RequestParam("i")String i,
 										@RequestParam("l")String l,
 										Model model, RedirectAttributes redirectAttr, 
-										Principal principal
+										Principal principal,
+										@AuthenticationPrincipal MyUserDetails loggedUser
 									
 									) throws IOException {
 		
-		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		
-		boolean userExist = myUserService.userExistForUpdate(username, myUser.getId());
-		MyUser updateUser = myUserService.getMyUserById(myUser.getId()).get();
-		if (userExist) {
+		boolean userNameExist = myUserService.userExistForUpdate(username, currentUser.getId());
+		MyUser updateThisUser = myUserService.getMyUserById(currentUser.getId()).get();
+		if (userNameExist) {
 			
 			model.addAttribute("userProfileDto", userProfileDto);
 			redirectAttr.addFlashAttribute("existUsername", userProfileDto.getUsername());
-			redirectAttr.addFlashAttribute("userExist", true);
-			model.addAttribute("currentUser", myUser);
+			redirectAttr.addFlashAttribute("userNameExist", true);
+			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("smmmOfis", smmmOfis.get());
 			
 			return "redirect:/api/v1/user-profile-edit";
@@ -326,16 +342,16 @@ public class AdminController {
 
 		if(file.getBytes()!=null && !file.getOriginalFilename().isEmpty()) {
 			MyUser myuser = MyUser.builder()
-					.id(updateUser.getId())
+					.id(updateThisUser.getId())
 					.image(Base64.getEncoder().encodeToString(file.getBytes()))
 					.username(username)
-					.password(updateUser.getPassword())
-					.openpassword(updateUser.getOpenpassword())
-					.roles(updateUser.getRoles())
-					.enabled(updateUser.isEnabled())
-					.accountNonExpired(updateUser.isAccountNonExpired())
-					.accountNonLocked(updateUser.isAccountNonLocked())
-					.credentialsNonExpired(updateUser.isCredentialsNonExpired())
+					.password(updateThisUser.getPassword())
+					.openpassword(updateThisUser.getOpenpassword())
+					.roles(updateThisUser.getRoles())
+					.enabled(updateThisUser.isEnabled())
+					.accountNonExpired(updateThisUser.isAccountNonExpired())
+					.accountNonLocked(updateThisUser.isAccountNonLocked())
+					.credentialsNonExpired(updateThisUser.isCredentialsNonExpired())
 					.firstname(firstname)
 					.lastname(lastname)
 					.email(email)
@@ -353,16 +369,16 @@ public class AdminController {
 			myUserService.saveMyUser(myuser);
 		}else {
 			MyUser myuser = MyUser.builder()
-					.id(updateUser.getId())
-					.image(updateUser.getImage())
+					.id(updateThisUser.getId())
+					.image(updateThisUser.getImage())
 					.username(username)
-					.password(updateUser.getPassword())
-					.openpassword(updateUser.getOpenpassword())
-					.roles(updateUser.getRoles())
-					.enabled(updateUser.isEnabled())
-					.accountNonExpired(updateUser.isAccountNonExpired())
-					.accountNonLocked(updateUser.isAccountNonLocked())
-					.credentialsNonExpired(updateUser.isCredentialsNonExpired())
+					.password(updateThisUser.getPassword())
+					.openpassword(updateThisUser.getOpenpassword())
+					.roles(updateThisUser.getRoles())
+					.enabled(updateThisUser.isEnabled())
+					.accountNonExpired(updateThisUser.isAccountNonExpired())
+					.accountNonLocked(updateThisUser.isAccountNonLocked())
+					.credentialsNonExpired(updateThisUser.isCredentialsNonExpired())
 					.firstname(firstname)
 					.lastname(lastname)
 					.email(email)
@@ -377,10 +393,12 @@ public class AdminController {
 					.telefon(telefon)
 					.job(job)
 					.build();
+			
 			myUserService.saveMyUser(myuser);
-		}		
+		}	
+		
+		return principal.getName() != username ?  "redirect:/login" : "redirect:/api/v1/user-profile-edit"; 
 
-		return "redirect:/api/v1/user-profile-edit";
 	}
 	
 	@PostMapping("update/user-profile-settings")
@@ -390,34 +408,35 @@ public class AdminController {
 									@RequestParam(value="accountNonLocked", required=false)boolean accountNonLocked,
 									@RequestParam(value="credentialsNonExpired", required=false)boolean credentialsNonExpired,
 									Model model, RedirectAttributes redirectAttr, 
-									Principal principal
+									Principal principal,
+									@AuthenticationPrincipal MyUserDetails loggedUser
 									) {
-		MyUser myDbUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		
 		MyUser myUser = MyUser.builder()
-				.id(myDbUser.getId())
-				.image(myDbUser.getImage())
-				.username(myDbUser.getUsername())
-				.password(myDbUser.getPassword())
-				.openpassword(myDbUser.getOpenpassword())
-				.roles(myDbUser.getRoles())
+				.id(currentUser.getId())
+				.image(currentUser.getImage())
+				.username(currentUser.getUsername())
+				.password(currentUser.getPassword())
+				.openpassword(currentUser.getOpenpassword())
+				.roles(currentUser.getRoles())
 				.enabled(enabled)
 				.accountNonExpired(accountNonExpired)
 				.accountNonLocked(accountNonLocked)
 				.credentialsNonExpired(credentialsNonExpired)
-				.firstname(myDbUser.getFirstname())
-				.lastname(myDbUser.getLastname())
-				.email(myDbUser.getEmail())
-				.about(myDbUser.getAbout())
-				.x(myDbUser.getX())
-				.f(myDbUser.getF())
-				.i(myDbUser.getI())
-				.l(myDbUser.getL())
-				.company(myDbUser.getCompany())
-				.country(myDbUser.getCountry())
-				.adres(myDbUser.getAdres())
-				.telefon(myDbUser.getTelefon())
-				.job(myDbUser.getJob())
+				.firstname(currentUser.getFirstname())
+				.lastname(currentUser.getLastname())
+				.email(currentUser.getEmail())
+				.about(currentUser.getAbout())
+				.x(currentUser.getX())
+				.f(currentUser.getF())
+				.i(currentUser.getI())
+				.l(currentUser.getL())
+				.company(currentUser.getCompany())
+				.country(currentUser.getCountry())
+				.adres(currentUser.getAdres())
+				.telefon(currentUser.getTelefon())
+				.job(currentUser.getJob())
 				.build();
 		myUserService.saveMyUser(myUser);			
 
@@ -426,34 +445,34 @@ public class AdminController {
 	}
 
 	@PostMapping("/update/user-password")
-	public String updateUserPassword(@RequestParam("password")String password, Principal principal) {
+	public String updateUserPassword(@RequestParam("password")String password, Principal principal, @AuthenticationPrincipal MyUserDetails loggedUser) {
 		
-		MyUser myDbUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		
 		MyUser myUser = MyUser.builder()
-				.id(myDbUser.getId())
-				.image(myDbUser.getImage())
-				.username(myDbUser.getUsername())
+				.id(currentUser.getId())
+				.image(currentUser.getImage())
+				.username(currentUser.getUsername())
 				.password(pwdEncoder.encode(password))
 				.openpassword(password)
-				.roles(myDbUser.getRoles())
-				.enabled(myDbUser.isEnabled())
-				.accountNonExpired(myDbUser.isAccountNonExpired())
-				.accountNonLocked(myDbUser.isAccountNonLocked())
-				.credentialsNonExpired(myDbUser.isCredentialsNonExpired())
-				.firstname(myDbUser.getFirstname())
-				.lastname(myDbUser.getLastname())
-				.email(myDbUser.getEmail())
-				.about(myDbUser.getAbout())
-				.x(myDbUser.getX())
-				.f(myDbUser.getF())
-				.i(myDbUser.getI())
-				.l(myDbUser.getL())
-				.company(myDbUser.getCompany())
-				.country(myDbUser.getCountry())
-				.adres(myDbUser.getAdres())
-				.telefon(myDbUser.getTelefon())
-				.job(myDbUser.getJob())
+				.roles(currentUser.getRoles())
+				.enabled(currentUser.isEnabled())
+				.accountNonExpired(currentUser.isAccountNonExpired())
+				.accountNonLocked(currentUser.isAccountNonLocked())
+				.credentialsNonExpired(currentUser.isCredentialsNonExpired())
+				.firstname(currentUser.getFirstname())
+				.lastname(currentUser.getLastname())
+				.email(currentUser.getEmail())
+				.about(currentUser.getAbout())
+				.x(currentUser.getX())
+				.f(currentUser.getF())
+				.i(currentUser.getI())
+				.l(currentUser.getL())
+				.company(currentUser.getCompany())
+				.country(currentUser.getCountry())
+				.adres(currentUser.getAdres())
+				.telefon(currentUser.getTelefon())
+				.job(currentUser.getJob())
 				.build();
 		myUserService.saveMyUser(myUser);
 		

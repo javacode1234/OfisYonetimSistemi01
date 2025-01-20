@@ -38,11 +38,9 @@ public class HomePageClientController {
 	@Autowired 
 	private MyUserService myUserService;
 	
-	private static MyUser myUser;
-	
 	@GetMapping("/smmm-homepage-clients-settings")
 	public String getHomePageClientsSettingsPage(Model model, Principal principal) {
-		myUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		  if(!smmmOfis.isEmpty()) {
 			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());

@@ -31,12 +31,10 @@ public class SmmmHomePageSettingsContoller {
 	@Autowired 
 	private MyUserService myUserService;
 	
-	private static MyUser myUser;
-
 	//@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/smmm-homepage-settings")
 	public String getHomePageSettingsPage( Model model, Principal principal) {
-		  myUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
 		  Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		  
 		  if(!smmmOfis.isEmpty()) {

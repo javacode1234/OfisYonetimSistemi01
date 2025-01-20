@@ -38,11 +38,9 @@ public class HomePagePricingItemController {
 	@Autowired 
 	private MyUserService myUserService;
 	
-	private static MyUser myUser;
-
 	@GetMapping("/smmm-homepage-pricing-item-settings")
 	public String get(Model model, Principal principal) {
-		myUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		if (!smmmOfis.isEmpty()) {
 			model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan() + " " + smmmOfis.get().getFullName());
@@ -78,7 +76,7 @@ public class HomePagePricingItemController {
 	
 	@GetMapping("/smmm-homepage-pricing-item-setting")
 	public String getByPricingId(@RequestParam("id")Integer pricingId, Model model, Principal principal) {
-		myUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		List<PricingItem> pricingItems = pricingItemService.getPricingItemByPricingId(pricingId);
 		

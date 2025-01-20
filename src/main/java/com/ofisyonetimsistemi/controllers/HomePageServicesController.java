@@ -36,11 +36,9 @@ public class HomePageServicesController {
 	@Autowired 
 	private MyUserService myUserService;
 	
-	private static MyUser myUser;
-
 	@GetMapping("/smmm-homepage-services-settings")
 	public String getMethodName(Model model, Principal principal) {
-		myUser = myUserService.getMyUserByUsername(principal.getName());
+		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
 		if (!smmmOfis.isEmpty()) {
 			model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan() + " " + smmmOfis.get().getFullName());
