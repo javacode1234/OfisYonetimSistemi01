@@ -45,8 +45,10 @@ public class AdminController {
 	
 	@GetMapping("/users")
 	public String getAddUserForm(Model model, Principal principal, @AuthenticationPrincipal MyUserDetails loggedUser) {
+		
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
+		
 		if (!smmmOfis.isEmpty()) {
 
 			model.addAttribute("updateBtnActive", true);
@@ -81,6 +83,7 @@ public class AdminController {
 
 	@PostMapping("/users")
 	public String saveUserDto(
+			
 								@Valid @ModelAttribute("userDto") UserDto userDto, 
 								BindingResult result, 
 								Model model,
@@ -88,6 +91,7 @@ public class AdminController {
 								@RequestParam("stringResim") MultipartFile file, 
 								Principal principal, 
 								@AuthenticationPrincipal MyUserDetails loggedUser
+								
 							) throws IOException {
 		
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
@@ -184,21 +188,23 @@ public class AdminController {
 
 	@PostMapping("/update/user")
 	public String updateUserDto(
-												@Valid @ModelAttribute("userDto") UserDto userDto, 
-												BindingResult result,
-												Model model, 
-												RedirectAttributes redirectAttr, 
-												@RequestParam("stringResim") MultipartFile file, 
-												Principal principal,
-												@AuthenticationPrincipal MyUserDetails loggedUser
+			
+									@Valid @ModelAttribute("userDto") UserDto userDto, 
+									BindingResult result,
+									Model model, 
+									RedirectAttributes redirectAttr, 
+									@RequestParam("stringResim") MultipartFile file, 
+									Principal principal,
+									@AuthenticationPrincipal MyUserDetails loggedUser
 												
-										) throws IOException {
+								) throws IOException {
 
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		
 		boolean userNameExist = myUserService.userExistForUpdate(userDto.getUsername(), userDto.getId());
 		MyUser updateThisUser = myUserService.getMyUserById(userDto.getId()).get();
+		
 		if (userNameExist) {
 			
 			model.addAttribute("userDto", userDto);
@@ -403,13 +409,15 @@ public class AdminController {
 	
 	@PostMapping("update/user-profile-settings")
 	public String updateUserSettings(
-									@RequestParam(value="enabled", required=false)boolean enabled,
-									@RequestParam(value="accountNonExpired", required=false)boolean accountNonExpired,
-									@RequestParam(value="accountNonLocked", required=false)boolean accountNonLocked,
-									@RequestParam(value="credentialsNonExpired", required=false)boolean credentialsNonExpired,
-									Model model, RedirectAttributes redirectAttr, 
-									Principal principal,
-									@AuthenticationPrincipal MyUserDetails loggedUser
+			
+										@RequestParam(value="enabled", required=false)boolean enabled,
+										@RequestParam(value="accountNonExpired", required=false)boolean accountNonExpired,
+										@RequestParam(value="accountNonLocked", required=false)boolean accountNonLocked,
+										@RequestParam(value="credentialsNonExpired", required=false)boolean credentialsNonExpired,
+										Model model, RedirectAttributes redirectAttr, 
+										Principal principal,
+										@AuthenticationPrincipal MyUserDetails loggedUser
+										
 									) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		
@@ -445,7 +453,13 @@ public class AdminController {
 	}
 
 	@PostMapping("/update/user-password")
-	public String updateUserPassword(@RequestParam("password")String password, Principal principal, @AuthenticationPrincipal MyUserDetails loggedUser) {
+	public String updateUserPassword(
+			
+										@RequestParam("password")String password, 
+										Principal principal, 
+										@AuthenticationPrincipal MyUserDetails loggedUser
+									
+									) {
 		
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		
