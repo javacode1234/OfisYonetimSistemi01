@@ -65,23 +65,23 @@
 								<table id="servicesTable" class="table table-hover table-sm">
 								<thead style="position:sticky;top:0;">
 									<tr>
-										<th>id</th>
+										<th>#</th>
 										<th><i class="bi bi-image-fill"></i></th>
 										<th>İsim</th>
 										<th>Başlık</th>
 										<th>Açıklama</th>
-										<th>Detay ana başlık</th>
-										<th>Detay ana paragraf</th>
-										<th>Detay alt başlık</th>
-										<th>Detay alt paragraf</th>
+										<th class=" d-none">Detay ana başlık</th>
+										<th class=" d-none">Detay ana paragraf</th>
+										<th class=" d-none">Detay alt başlık</th>
+										<th class=" d-none">Detay alt paragraf</th>
 										<th><i class="bi bi-check-circle-fill"></i></th>
-										<th>smmmofisId</th>
+										<th class="d-none">smmmofisId</th>
 										<th><i class="bi bi-tools"></i></th>
 									</tr>
 								</thead>
 								<tbody id="servicesTableBody">
 									<tr th:each="s,i :${homepageServices}">
-										<td th:text="${s.id}"></td>
+										<td th:text="${i.count}"></td>
 										<td>
 											<p style="display: none;">[[${s.icon}]]</p>
 											<i th:class="${s.icon}"></i>											
@@ -89,15 +89,15 @@
 										<td th:text="${s.name}"></td>
 										<td th:text="${s.header}"></td>
 										<td th:text="${s.description}"></td>
-										<td th:text="${s.detailsmainheader}"></td>
-										<td th:text="${s.detailsmainparagraf}"></td>
-										<td th:text="${s.detailssubheader}"></td>
-										<td th:text="${s.detailssubparagraf}"></td>
+										<td th:text="${s.detailsmainheader}" class=" d-none"></td>
+										<td th:text="${s.detailsmainparagraf}" class=" d-none"></td>
+										<td th:text="${s.detailssubheader}" class=" d-none"></td>
+										<td th:text="${s.detailssubparagraf}" class=" d-none"></td>
 										<td>
 											<span class="badge bg-primary" th:if="${s.active==true}">Aktif</span>
 											<span class="badge bg-danger" th:if="${s.active==false}">Pasif</span>
 										</td>
-										<td th:text="${s.smmmofis.id}"></td>
+										<td th:text="${s.smmmofis.id}" class="d-none"></td>
 										<td>
 											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
 								                <a id="viewBtn" type="button" class="btn btn-success" 
@@ -264,7 +264,7 @@
 						th:action="@{ /api/v1/save-homepage-service}"
 						th:object="${homePageService}" method="post">
 
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpServiceId" class="col-sm-2 col-form-label-sm">Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" disabled="disabled"
@@ -335,7 +335,7 @@
 																id="hpServiceActive">
 							</div>
 						</div>
-						<div class="row mb-2">
+						<div class="row mb-2 d-none">
 							<label for="hpServiceSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="smmmofis.id"
@@ -370,7 +370,7 @@
 						th:action="@{ /api/v1/update-homepage-services}"
 						th:object="${homePageService}" method="post">
 
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpServiceId" class="col-sm-2 col-form-label-sm">Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" readonly="readonly"
@@ -452,7 +452,7 @@
 																id="hpServiceActive">
 							</div>
 						</div>
-						<div class="row mb-2">
+						<div class="row mb-2 d-none">
 							<label for="hpServiceSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="smmmofis.id"
@@ -490,7 +490,7 @@
 				<!-- Horizontal Form -->
 						<form id="deleteServiceForm">				
 
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpServiceId" class="col-sm-2 col-form-label-sm">Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm"  disabled="disabled"
@@ -561,7 +561,7 @@
 																id="hpServiceActive">
 							</div>
 						</div>
-						<div class="row mb-2">
+						<div class="row mb-2 d-none">
 							<label for="hpServiceSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="smmmofis.id"

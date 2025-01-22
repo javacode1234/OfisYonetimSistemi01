@@ -70,14 +70,13 @@ public class SmmmHomePageSettingsContoller {
 										@RequestParam("firstName")String firstName,
 										@RequestParam("lastName")String lastName,
 										@RequestParam("fullName")String fullName,
-										@RequestParam("email")String email,
-										@RequestParam("userName")String userName,
-										@RequestParam("password")String password
+										@RequestParam("email")String email
+										
 										
 										) throws IOException {	
 		
 		
-		smmmOfisService.saveHomePageSettingsPersonalInfo( file, unvan, firstName, lastName,fullName, email, userName, password);
+		smmmOfisService.saveHomePageSettingsPersonalInfo( file, unvan, firstName, lastName,fullName, email);
 		return "redirect:/api/v1/smmm-homepage-settings";
 	}
 	
@@ -89,13 +88,12 @@ public class SmmmHomePageSettingsContoller {
 														@RequestParam("firstName")String firstName,
 														@RequestParam("lastName")String lastName,
 														@RequestParam("fullName")String fullName,
-														@RequestParam("email")String email,
-														@RequestParam("userName")String userName,
-														@RequestParam("password")String password
+														@RequestParam("email")String email
+														
 														
 													) throws IOException{
 		
-		smmmOfisService.updateHomePageSettingsPersonalInfo(id, file, unvan, firstName, lastName, fullName, email, userName, password);
+		smmmOfisService.updateHomePageSettingsPersonalInfo(id, file, unvan, firstName, lastName, fullName, email);
 		
 		return "redirect:/api/v1/smmm-homepage-settings";
 		

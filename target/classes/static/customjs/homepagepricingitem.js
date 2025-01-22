@@ -66,7 +66,7 @@ $("document").ready(function() {
 		var name = $(this).closest('tr').find('td:eq(1)').text();
 		$("#deletePricingItemModal .modal-body #hpPricingItemName").val(name);
 		
-		var description = $(this).closest('tr').find('td:eq(2)').text();
+		var description = $(this).closest('tr').find('td:eq(2) span').text();
 		$("#deletePricingItemModal .modal-body #hpPricingItemDescription").val(description);
 		
 		var active = $(this).closest('tr').find('td:eq(3) span').text();

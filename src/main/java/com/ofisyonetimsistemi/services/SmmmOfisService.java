@@ -27,7 +27,7 @@ public class SmmmOfisService {
 	
 	public SmmmOfis saveHomePageSettingsPersonalInfo(  
 															MultipartFile file, String unvan, String firstName, String lastName,
-															String fullName, String email, String userName, String password
+															String fullName, String email
 													) throws IOException {
 		
 			byte[] byteResim = file.getBytes();
@@ -43,8 +43,7 @@ public class SmmmOfisService {
 				smmmOfis.setLastName(lastName);
 				smmmOfis.setFullName(fullName);
 				smmmOfis.setEmail(email);
-				smmmOfis.setUserName(userName);
-				smmmOfis.setPassword(password);
+				
 			
 			return smmmOfisRepo.save(smmmOfis);
 			} catch (Exception e) {
@@ -59,7 +58,7 @@ public class SmmmOfisService {
 	public void updateHomePageSettingsPersonalInfo(
 													Integer id,MultipartFile file, String unvan, 
 													String firstName, String lastName, String fullName,
-													String email, String userName, String password
+													String email
 													) throws IOException {
 		SmmmOfis smmmOfis = smmmOfisRepo.findById(id).get();
 		if(file.getBytes()!=null && !file.getOriginalFilename().isEmpty()) {
@@ -71,8 +70,7 @@ public class SmmmOfisService {
 			smmmOfis.setLastName(lastName);
 			smmmOfis.setFullName(fullName);
 			smmmOfis.setEmail(email);
-			smmmOfis.setUserName(userName);
-			smmmOfis.setPassword(password);
+			
 			
 			smmmOfisRepo.save(smmmOfis);
 		}
@@ -82,8 +80,7 @@ public class SmmmOfisService {
 		smmmOfis.setLastName(lastName);
 		smmmOfis.setFullName(fullName);
 		smmmOfis.setEmail(email);
-		smmmOfis.setUserName(userName);
-		smmmOfis.setPassword(password);
+		
 
 		smmmOfisRepo.save(smmmOfis);
 	}

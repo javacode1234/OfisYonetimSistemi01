@@ -65,22 +65,22 @@
 								<table id="aboutUsTable" class="table table-hover table-sm">
 								<thead style="position:sticky;top:0;">
 									<tr>
-										<th>id</th>
+										<th>#</th>
 										<th>Metin</th>
 										<th><i class="bi bi-check-circle-fill"></i></th>
-										<th>smmmofisId</th>
+										<th class="d-none">smmmofisId</th>
 										<th><i class="bi bi-tools"></i></th>
 									</tr>
 								</thead>
 								<tbody id="aboutUsTableBody">
 									<tr th:each="a,i :${aboutUsColOneItems}">
-										<td th:text="${a.id}"></td>
+										<td th:text="${i.count}"></td>
 										<td th:text="${a.text}"></td>
 										<td>
 											<span class="badge bg-primary" th:if="${a.active==true}">Aktif</span>
 											<span class="badge bg-danger" th:if="${a.active==false}">Pasif</span>
 										</td>
-										<td th:text="${a.smmmofis.id}"></td>
+										<td th:text="${a.smmmofis.id}" class="d-none"></td>
 										<td>
 											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
 								                <a id="viewBtn" type="button" class="btn btn-success" 
@@ -130,7 +130,7 @@
 						th:action="@{ /api/v1/save-homepage-aboutus-col-one-item}"
 						th:object="${hpAboutUsColOneItem}" method="post">
 
-						<div class="row mb-2 mt-3" style="display: none;">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="inputEmail3" class="col-sm-2 col-form-label-sm">Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm"
@@ -184,7 +184,7 @@
 								th:action="@{ /api/v1/update-homepage-aboutus-col-one-item}"
 								th:object="${hpAboutUsColOneItem}" method="post">
 
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpAboutUsId" class="col-sm-2 col-form-label-sm">Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="id" disabled="disabled"
@@ -205,7 +205,7 @@
 									id="hpAboutUsActive">
 							</div>
 						</div>
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpAboutUsId" class="col-sm-2 col-form-label-sm">smmmofis_Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="smmmofis.id" disabled="disabled"
@@ -241,7 +241,7 @@
 								th:action="@{ /api/v1/update-homepage-aboutus-col-one-item}"
 								th:object="${hpAboutUsColOneItem}" method="post">
 
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpAboutUsId" class="col-sm-2 col-form-label-sm">Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="id" readonly="readonly"
@@ -262,7 +262,7 @@
 									id="hpAboutUsActive">
 							</div>
 						</div>
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpAboutUsId" class="col-sm-2 col-form-label-sm">smmmofis_Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="smmmofis.id" readonly="readonly"
@@ -301,7 +301,7 @@
 				<!-- Horizontal Form -->
 							<form id="deleteAboutUsForm">
 
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpAboutUsId" class="col-sm-2 col-form-label-sm">Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="id"  disabled="disabled"
@@ -322,7 +322,7 @@
 									id="hpAboutUsActive">
 							</div>
 						</div>
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpAboutUsId" class="col-sm-2 col-form-label-sm">smmmofis_Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="smmmofis.id" disabled="disabled"

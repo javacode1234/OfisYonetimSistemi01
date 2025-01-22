@@ -52,10 +52,10 @@ $("document").ready(function() {
 			var id = $(this).closest('tr').find('td').eq(0).text();
 			$("#deleteWhyUsModal #deleteWhyUsForm #hpWhyUsId").val(id);
 	
-			var header = $(this).closest('tr').find('td').eq(1).text();
+			var header = $(this).closest('tr').find('td:eq(1) span').text();
 			$("#deleteWhyUsModal #deleteWhyUsForm #hpWhyUsHeader").val(header);
 						
-			var text = $(this).closest('tr').find('td').eq(2).text();
+			var text = $(this).closest('tr').find('td:eq(2) span').text();
 			$("#deleteWhyUsModal #deleteWhyUsForm #hpWhyUsText").val(text);
 	
 			var active = $(this).closest('tr').find('td:eq(3) span').text();

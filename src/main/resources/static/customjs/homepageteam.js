@@ -111,11 +111,11 @@ $("document").ready(function() {
 		$('#deleteTeamModal #hptResim').attr('src', resimhref.toString());
 		var isim = $(this).closest('tr').find('td').eq(2).text();
 		$('#deleteTeamModal #hptName').val(isim);
-		var mainheader = $(this).closest('tr').find('td').eq(3).text();
+		var mainheader = $(this).closest('tr').find('td:eq(3) span').text();
 		$('#deleteTeamModal #hptMainHeader').val(mainheader);
-		var header = $(this).closest('tr').find('td').eq(4).text();
+		var header = $(this).closest('tr').find('td:eq(4) span').text();
 		$('#deleteTeamModal #hptHeader').val(header);
-		var text = $(this).closest('tr').find('td').eq(5).text();
+		var text = $(this).closest('tr').find('td:eq(5) span').text();
 		$('#deleteTeamModal #hptText').val(text);
 		var xlink = $(this).closest('tr').find('td').eq(6).text();
 		$('#deleteTeamModal #hptXLink').val(xlink);
@@ -125,7 +125,7 @@ $("document").ready(function() {
 		$('#deleteTeamModal #hptInslink').val(inslink);
 		var linklink = $(this).closest('tr').find('td').eq(9).text();
 		$('#deleteTeamModal #hptLinkLink').val(linklink);
-		var description = $(this).closest('tr').find('td').eq(10).text();
+		var description = $(this).closest('tr').find('td:eq(10) span').text();
 		$('#deleteTeamModal #hptDescription').val(description);
 		var active = $(this).closest('tr').find('td:eq(11) span').text();
 		if (active === "Aktif") {

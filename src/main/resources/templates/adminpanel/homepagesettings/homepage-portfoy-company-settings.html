@@ -67,23 +67,23 @@
 								<table  id="companyTable" class="table table-hover table-sm">
 									<thead style="position:sticky;top:0;">
 										<tr>
-											<th scope="col">#id</th>
+											<th scope="col">#</th>
 											<th scope="col"><i class="bi bi-image-fill"></i></th>
 											<th scope="col">Ad</th>
 											<th scope="col">Ünvan</th>
 											<th scope="col">Baş.Tar.</th>
 											<th scope="col"><i class="bi bi-link-45deg"></i></th>
-											<th scope="col">Ana Başlık</th>
-											<th scope="col">Alt Başlık</th>
-											<th scope="col">Açıklama</th>
+											<th scope="col" class="d-none">Ana Başlık</th>
+											<th scope="col" class="d-none">Alt Başlık</th>
+											<th scope="col" class="d-none">Açıklama</th>
 											<th scope="col"><i class="bi bi-check-circle-fill"></i></th>
-											<th scope="col">sectorId</th>
+											<th scope="col" class="d-none">sectorId</th>
 											<th scope="col"><i class="bi bi-tools"></i></th>
 										</tr>
 									</thead>									
 									<tbody id="companyTableBody">
-										<tr th:each="company : ${hpCompanies}">
-											<td scope="row" th:text="${company.id}">1</td>
+										<tr th:each="company, i : ${hpCompanies}">
+											<td scope="row" th:text="${i.count}">1</td>
 											<td>
 												<a id="companyTableResim">
 													<img class="rounded" th:src=" 'data:image/*;base64,' + ${company.stringResim}"
@@ -94,14 +94,14 @@
 											<td th:text="${company.unvan}"></td>
 											<td th:text="${company.startDate}"></td>
 											<td th:text="${company.webUrl}"></td>
-											<td th:text="${company.mainheader}"></td>
-											<td th:text="${company.header}"></td>
-											<td th:text="${company.description}"></td>
+											<td th:text="${company.mainheader}" class="d-none"></td>
+											<td th:text="${company.header}" class="d-none"></td>
+											<td th:text="${company.description}" class="d-none"></td>
 											<td>
 												<span class="badge bg-primary" th:if="${company.active==true}">Aktif</span>
 												<span class="badge bg-danger" th:if="${company.active==false}">Pasif</span>
 											</td>
-											<td th:text="${company.businessector_id}"></td>
+											<td th:text="${company.businessector_id}" class="d-none"></td>
 											<td>
 											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
 								                <a id="viewBtn" type="button" class="btn btn-success" 
@@ -293,15 +293,13 @@
 					<!-- Horizontal Form -->
 					<form id="viewCompanyForm">
 						<div class="row mb-3 mt-3" id="general-elements">
-							<div class="row d-flex-inline align-items-center"
-								style="padding-top: 10px;">
-								<label for="companyformImage"
-									class="col-sm-3 col-form-label-sm w-40">Resim</label>
-								<div class="col-sm-5">
+							<div class="row d-flex-inline align-items-center" style="padding-top: 10px;">
+								<label for="companyformImage" class="col-sm-3 col-form-label-sm w-40">Resim</label>
+								<div class="col-sm-5 d-none">
 									<input class="form-control form-control-sm" type="file" disabled="disabled"
 										name="resim" id="companyformImage" accept="image/*">
 								</div>
-								<div class="col-sm-4 text-center ">
+								<div class="col-sm-4 text-center">
 									<img th:if="${hpCompany.id==null}" class="" width="120"
 										height="120" id="companyResim"
 										th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
@@ -312,7 +310,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="companyId" class="col-sm-2 col-form-label-sm">Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm"
@@ -558,7 +556,7 @@
 								style="padding-top: 10px;">
 								<label for="companyformImage"
 									class="col-sm-3 col-form-label-sm w-40">Resim</label>
-								<div class="col-sm-5">
+								<div class="col-sm-5 d-none">
 									<input class="form-control form-control-sm" type="file" disabled="disabled"
 										name="resim" id="companyformImage" accept="image/*">
 								</div>
@@ -573,7 +571,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="companyId" class="col-sm-2 col-form-label-sm">Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm"

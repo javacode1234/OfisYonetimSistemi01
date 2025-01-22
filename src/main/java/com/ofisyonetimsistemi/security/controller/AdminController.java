@@ -290,7 +290,7 @@ public class AdminController {
 			myUserService.saveMyUser(user);
 		}
 		
-		return principal.getName() != userDto.getUsername() ? "redirect:/login" : "redirect:/api/v1/users";
+		return principal.getName().equals(userDto.getUsername()) ? "redirect:/api/v1/users" : "redirect:/login";
 	}
 
 	@GetMapping("/get/user/{id}")
@@ -403,7 +403,7 @@ public class AdminController {
 			myUserService.saveMyUser(myuser);
 		}	
 		
-		return principal.getName() != username ?  "redirect:/login" : "redirect:/api/v1/user-profile-edit"; 
+		return principal.getName().equals(username) ? "redirect:/api/v1/user-profile-edit" : "redirect:/login"; 
 
 	}
 	

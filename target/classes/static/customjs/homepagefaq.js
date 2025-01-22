@@ -68,11 +68,11 @@ $("document").ready(function() {
 				
 			var id = $(this).closest('tr').find('td:eq(0)').text();
 			$("#deleteFaqModal .modal-body #hpFaqId").val(id);
-			var question = $(this).closest('tr').find('td:eq(1)').text();
+			var question = $(this).closest('tr').find('td:eq(1) span').text();
 			$("#deleteFaqModal .modal-body #hpFaqQuestion").val(question);
-			var answer = $(this).closest('tr').find('td:eq(2)').text();
+			var answer = $(this).closest('tr').find('td:eq(2) span').text();
 			$("#deleteFaqModal .modal-body #hpFaqAnswer").val(answer);
-			var description = $(this).closest('tr').find('td:eq(3)').text();
+			var description = $(this).closest('tr').find('td:eq(3) span').text();
 			$("#deleteFaqModal .modal-body #hpFaqDescription").val(description);
 						
 			var active = $(this).closest('tr').find('td:eq(4) span').text();

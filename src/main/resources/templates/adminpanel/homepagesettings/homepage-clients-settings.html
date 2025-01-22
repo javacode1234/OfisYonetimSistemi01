@@ -64,19 +64,19 @@
 								<table  id="clientTable" class="table table-hover table-sm">
 									<thead style="position:sticky;top:0;">
 										<tr>
-											<th scope="col">#id</th>
+											<th scope="col">#</th>
 											<th scope="col"><i class="bi bi-card-image"></i></th>
 											<th scope="col">Kurum Adı</th>
 											<th scope="col"><i class="bi bi-link-45deg"></i></th>
 											<th scope="col">Açıklama</th>
 											<th scope="col"><i class="bi bi-check-circle-fill"></i></th>
-											<th scope="col">smmmOfisId</th>
+											<th scope="col" class="d-none">smmmOfisId</th>
 											<th scope="col"><i class="bi bi-tools"></i></th>
 										</tr>
 									</thead>									
 									<tbody id="clientTableBody">
-										<tr th:each="hpc : ${hpClients}">
-											<td scope="row" th:text="${hpc.id}">1</td>
+										<tr th:each="hpc, index : ${hpClients}">
+											<td scope="row" th:text="${index.count}">1</td>
 											<td>
 												<a id="hpcTableLogo">
 													<img class="rounded-circle" th:src=" 'data:image/*;base64,' + ${hpc.stringLogo}"/>
@@ -89,7 +89,7 @@
 												<span class="badge bg-primary" th:if="${hpc.active==true}">Aktif</span>
 												<span class="badge bg-danger" th:if="${hpc.active==false}">Pasif</span>
 											</td>
-											<td th:text="${hpc.smmmofis.id}"></td>
+											<td th:text="${hpc.smmmofis.id}" class="d-none"></td>
 											<td>
 											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
 								                <a id="viewBtn" type="button" class="btn btn-success" 
@@ -242,7 +242,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="row mb-2 mt-3">
+									<div class="row mb-2 mt-3 d-none">
 										<label for="hpcId" class="col-sm-2 col-form-label-sm">Id</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control form-control-sm" name="id" 
@@ -277,7 +277,7 @@
 														disabled="disabled"		id="hpcActive">
 										</div>
 									</div>															
-									<div class="row mb-2">
+									<div class="row mb-2 d-none">
 										<label for="hpcSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control form-control-sm" name="smmmofis_id"
@@ -330,7 +330,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="row mb-2 mt-3">
+									<div class="row mb-2 mt-3 d-none">
 										<label for="inputEmail3" class="col-sm-2 col-form-label-sm">Id</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control form-control-sm" name="id" 
@@ -365,7 +365,7 @@
 																id="hpcActive">
 										</div>
 									</div>
-									<div class="row mb-2">
+									<div class="row mb-2 d-none">
 										<label for="hpcSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control form-control-sm" name="smmmofis_id"
@@ -423,7 +423,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="row mb-2 mt-3">
+									<div class="row mb-2 mt-3 d-none">
 										<label for="hpcId" class="col-sm-2 col-form-label-sm">Id</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control form-control-sm" name="id" 
@@ -458,7 +458,7 @@
 														disabled="disabled"		id="hpcActive">
 										</div>
 									</div>															
-									<div class="row mb-2">
+									<div class="row mb-2 d-none">
 										<label for="hpcSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control form-control-sm" name="smmmofis_id"

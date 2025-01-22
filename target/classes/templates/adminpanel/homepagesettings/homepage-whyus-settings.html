@@ -63,24 +63,28 @@
 								<table id="whyUsTable" class="table table-hover table-sm">
 								<thead style="position:sticky;top:0;">
 									<tr>
-										<th>id</th>
+										<th>#</th>
 										<th>Başlık</th>
 										<th>Alt Yazı</th>
 										<th><i class="bi bi-check-circle-fill"></i></th>
-										<th>smmmofisId</th>
+										<th class="d-none">smmmofisId</th>
 										<th><i class="bi bi-tools"></i></th>
 									</tr>
 								</thead>
 								<tbody id="whyUsTableBody">
 									<tr th:each="w,i :${whyUsList}">
-										<td th:text="${w.id}"></td>
-										<td th:text="${w.header}"></td>
-										<td th:text="${w.text}"></td>
+										<td th:text="${i.count}"></td>
+										<td>
+											<span th:text="${w.header}" class="d-inline-block text-truncate" style="max-width: 150px;"></span>
+										</td>
+										<td>
+											<span th:text="${w.text}" class="d-inline-block text-truncate" style="max-width: 150px;"></span>
+										</td>
 										<td>
 											<span class="badge bg-primary" th:if="${w.active==true}">Aktif</span>
 											<span class="badge bg-danger" th:if="${w.active==false}">Pasif</span>
 										</td>
-										<td th:text="${w.smmmofis.id}"></td>
+										<td th:text="${w.smmmofis.id}" class="d-none"></td>
 										<td>
 											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
 								                <a id="viewBtn" type="button" class="btn btn-success" 
@@ -140,15 +144,15 @@
 						<div class="row mb-2">
 							<label for="hpWhyUsHeader" class="col-sm-2 col-form-label-sm">Başlık</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm"
-									name="header" id="hpWhyUsHeader" required="required">
+								<textarea class="form-control form-control-sm"
+									name="header" id="hpWhyUsHeader" required="required"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
 							<label for="hpWhyUsText" class="col-sm-2 col-form-label-sm">Parafraf</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm"
-									name="text" id="hpWhyUsText" required="required">
+								<textarea class="form-control form-control-sm"
+									name="text" id="hpWhyUsText" required="required"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
@@ -190,7 +194,7 @@
 				<!-- Horizontal Form -->
 						<form >
 
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpWhyUsId" class="col-sm-2 col-form-label-sm">Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" disabled="disabled"
@@ -200,15 +204,15 @@
 						<div class="row mb-2">
 							<label for="hpWhyUsHeader" class="col-sm-2 col-form-label-sm">Başlık</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm" disabled="disabled"
-									name="header" id="hpWhyUsHeader" required="required">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="header" id="hpWhyUsHeader" required="required"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
 							<label for="hpWhyUsText" class="col-sm-2 col-form-label-sm">Parafraf</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm" disabled="disabled"
-									name="text" id="hpWhyUsText" required="required">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="text" id="hpWhyUsText" required="required"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
@@ -218,7 +222,7 @@
 									id="hpWhyUsActive">
 							</div>
 						</div>
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpWhyUsSmmmOfisId" class="col-sm-2 col-form-label-sm">smmmofis_Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="smmmofis.id" disabled="disabled"
@@ -254,7 +258,7 @@
 								th:action="@{ /api/v1/update-homepage-whyus}"
 								th:object="${hpWhyUs}" method="post">
 
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpWhyUsId" class="col-sm-2 col-form-label-sm">Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="id" readonly="readonly"
@@ -264,15 +268,15 @@
 						<div class="row mb-2">
 							<label for="hpWhyUsHeader" class="col-sm-2 col-form-label-sm">Başlık</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm"
-									name="header" id="hpWhyUsHeader" required="required">
+								<textarea class="form-control form-control-sm"
+									name="header" id="hpWhyUsHeader" required="required"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
 							<label for="hpWhyUsText" class="col-sm-2 col-form-label-sm">Madde</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm" name="text"
-									 id="hpWhyUsText" required="required">
+								<textarea class="form-control form-control-sm" name="text"
+									 id="hpWhyUsText" required="required"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
@@ -282,7 +286,7 @@
 									id="hpWhyUsActive">
 							</div>
 						</div>
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpWhyUsId" class="col-sm-2 col-form-label-sm">smmmofis_Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="smmmofis.id" readonly="readonly"
@@ -320,7 +324,7 @@
 				<!-- Horizontal Form -->
 							<form id="deleteWhyUsForm">
 
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpWhyUsId" class="col-sm-2 col-form-label-sm">Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="id" disabled="disabled"
@@ -330,15 +334,15 @@
 						<div class="row mb-2">
 							<label for="hpWhyUsHeader" class="col-sm-2 col-form-label-sm">Başlık</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm" disabled="disabled"
-									name="header" id="hpWhyUsHeader" required="required">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="header" id="hpWhyUsHeader" required="required"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
 							<label for="hpWhyUsText" class="col-sm-2 col-form-label-sm">Madde</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control form-control-sm" name="text" disabled="disabled"
-									 id="hpWhyUsText" required="required">
+								<textarea class="form-control form-control-sm" name="text" disabled="disabled"
+									 id="hpWhyUsText" required="required"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
@@ -348,7 +352,7 @@
 									id="hpWhyUsActive">
 							</div>
 						</div>
-						<div class="row mb-2 mt-3">
+						<div class="row mb-2 mt-3 d-none">
 							<label for="hpWhyUsId" class="col-sm-2 col-form-label-sm">smmmofis_Id</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" name="smmmofis.id" disabled="disabled"
