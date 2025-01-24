@@ -304,13 +304,13 @@
 									
 									<div class="container section-title mb-5 text-primary"
 										data-aos="fade-up">
-										<h2>Başarılar</h2>
+										<h2>Portföy dağılımı</h2>
 									</div>
 									<form th:action="@{${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-skillspage-info' : '/api/v1/update-smmm-homepage-settings-skillspage-info/' + ${smmmOfis.id}}" id="skillsPageForm"
 															 method="post">
 									<div class="row mb-1">
 										<label for="skillsAnaBaslik"
-											class="col-sm-3 col-form-label-sm">Başarılar<br>Ana Başlık</label>
+											class="col-sm-3 col-form-label-sm">Portföy dağılımı<br>Ana Başlık</label>
 										<div class="col-sm-9">
 											<textarea id="skillsAnaBaslik" name="skillsMainHeader" th:text="${smmmOfis.skillsMainHeader}"
 												placeholder="Başarılar Kısmı Ana Başlık"
@@ -319,7 +319,7 @@
 									</div>
 									<div class="row mb-1">
 										<label for="skillsAltBaslik"
-											class="col-sm-3 col-form-label-sm">Başarılar<br>Alt Başlık</label>
+											class="col-sm-3 col-form-label-sm">Portföy dağılımı<br>Alt Başlık</label>
 										<div class="col-sm-9">
 											<textarea id="skillsAltBaslik" name="skillsHeader" th:text="${smmmOfis.skillsHeader}"
 												placeholder="Başarılar Kısmı Alt Başlık"
@@ -328,7 +328,7 @@
 									</div>
 									<div class="row mb-3">
 										<label for="skillsAltParagraf"
-											class="col-sm-3 col-form-label-sm">Başarılar<br>Alt Paragraf</label>
+											class="col-sm-3 col-form-label-sm">Portföy dağılımı<br>Alt Paragraf</label>
 										<div class="col-sm-9">
 											<textarea id="skillsAltParagraf" name="skillsParagraf" th:text="${smmmOfis.skillsParagraf}"
 												placeholder="Başarılar Kısmı Alt Paragraf"
@@ -342,7 +342,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-3">
-										<a class="btn btn-outline-warning btn-sm"> Başarılar kısmı için madde ekle. </a>
+										<a class="btn btn-outline-warning btn-sm"> Portföy dağılımı için madde ekle. </a>
 									</div>
 									</form>
 									
