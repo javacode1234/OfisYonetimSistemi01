@@ -378,11 +378,19 @@ public class SmmmHomePageSettingsContoller {
 												@RequestParam("contactHeader")String contactHeader,
 												@RequestParam("contactAddress")String contactAddress,
 												@RequestParam("contactTelephone")String contactTelephone,
+												@RequestParam("smmmOfisTwitter")String smmmOfisTwitter,
+												@RequestParam("smmmOfisFacebook")String smmmOfisFacebook,
+												@RequestParam("smmmOfisInstagram")String smmmOfisInstagram,
+												@RequestParam("smmmOfisLinkedIn")String smmmOfisLinkedIn,
 												@RequestParam("contactEmail")String contactEmail,
 												@RequestParam("googleHarita")String googleHarita
 												) {
 		
-		smmmOfisService.saveHomePageSettingContactPageInfo( contactMainHeader, contactHeader, contactAddress, contactTelephone, contactEmail, googleHarita);
+		smmmOfisService.saveHomePageSettingContactPageInfo( 
+															contactMainHeader, contactHeader, contactAddress, contactTelephone, 
+															smmmOfisTwitter, smmmOfisFacebook, smmmOfisInstagram, smmmOfisLinkedIn,
+															contactEmail, googleHarita
+														  );
 		
 		return "redirect:/api/v1/smmm-homepage-settings";
 	}
@@ -394,11 +402,19 @@ public class SmmmHomePageSettingsContoller {
 												@RequestParam("contactHeader")String contactHeader,
 												@RequestParam("contactAddress")String contactAddress,
 												@RequestParam("contactTelephone")String contactTelephone,
+												@RequestParam("smmmOfisTwitter")String smmmOfisTwitter,
+												@RequestParam("smmmOfisFacebook")String smmmOfisFacebook,
+												@RequestParam("smmmOfisInstagram")String smmmOfisInstagram,
+												@RequestParam("smmmOfisLinkedIn")String smmmOfisLinkedIn,
 												@RequestParam("contactEmail")String contactEmail,
 												@RequestParam("googleHarita")String googleHarita
 												) {
 		
-		smmmOfisService.updateHomePageSettingContactPageInfo(id, contactMainHeader, contactHeader, contactAddress, contactTelephone, contactEmail, googleHarita);
+		smmmOfisService.updateHomePageSettingContactPageInfo(	
+																id, contactMainHeader, contactHeader, contactAddress, contactTelephone,
+																smmmOfisTwitter, smmmOfisFacebook, smmmOfisInstagram, smmmOfisLinkedIn,
+																contactEmail, googleHarita
+															);
 		
 		return "redirect:/api/v1/smmm-homepage-settings";
 	}

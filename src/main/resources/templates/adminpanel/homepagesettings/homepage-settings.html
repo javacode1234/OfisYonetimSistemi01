@@ -637,7 +637,7 @@
 															 method="post">
 									<div class="row mb-1">
 										<label for="contactAnaBaslik"
-											class="col-sm-3 col-form-label-sm">İletişim kısmı<br>Ana Başlık</label>
+											class="col-sm-3 col-form-label-sm">Ana Başlık</label>
 										<div class="col-sm-9">
 											<textarea id="contactAnaBaslik" name="contactMainHeader" th:text="${smmmOfis.contactMainHeader}"
 												placeholder="İletişim Kısmı Ana Başlık"
@@ -646,7 +646,7 @@
 									</div>
 									<div class="row mb-1">
 										<label for="contactAltBaslik"
-											class="col-sm-3 col-form-label-sm">İletişim kısmı<br>Alt Başlık</label>
+											class="col-sm-3 col-form-label-sm">Alt Başlık</label>
 										<div class="col-sm-9">
 											<textarea id="contactAltBaslik" name="contactHeader" th:text="${smmmOfis.contactHeader}"
 												placeholder="İletişim Kısmı Alt Başlık"
@@ -654,7 +654,7 @@
 										</div>
 									</div>
 									<div class="row mb-1">
-										<label for="contactAdress" class="col-sm-3 col-form-label-sm">İletişim kısmı<br>Adres</label>
+										<label for="contactAdress" class="col-sm-3 col-form-label-sm">Adres</label>
 										<div class="col-sm-9">
 											<textarea id="contactAdress"
 												placeholder="İletişim Kısmı Adres" name="contactAddress" th:text="${smmmOfis.contactAddress}"
@@ -663,15 +663,52 @@
 									</div>
 									<div class="row mb-1">
 										<label for="contactTelephone"
-											class="col-sm-3 col-form-label-sm">İletişim kısmı<br>Telefon No</label>
+											class="col-sm-3 col-form-label-sm">Telefon No</label>
 										<div class="col-sm-9">
 											<input type="text" id="contactTelephone" name="contactTelephone" th:value="${smmmOfis.contactTelephone}"
 												placeholder="İletişim Kısmı için Telefon No"
 												class="form-control form-control-sm">
 										</div>
 									</div>
+									
 									<div class="row mb-1">
-										<label for="contactEmail" class="col-sm-3 col-form-label-sm">İletişim kısmı<br>E-mail</label>
+										<label for="smmmOfisTwitter"
+											class="col-sm-3 col-form-label-sm"><i class="bi bi-twitter-x"></i></label>
+										<div class="col-sm-9">
+											<input type="text" id="smmmOfisTwitter" name="smmmOfisTwitter" th:value="${smmmOfis.smmmOfisTwitter}"
+												placeholder="http://x.com"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="smmmOfisFacebook"
+											class="col-sm-3 col-form-label-sm"><i class="bi bi-facebook"></i></label>
+										<div class="col-sm-9">
+											<input type="text" id="smmmOfisFacebook" name="smmmOfisFacebook" th:value="${smmmOfis.smmmOfisFacebook}"
+												placeholder="http://facebook.com"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="smmmOfisInstagram"
+											class="col-sm-3 col-form-label-sm"><i class="bi bi-instagram"></i></label>
+										<div class="col-sm-9">
+											<input type="text" id="smmmOfisInstagram" name="smmmOfisInstagram" th:value="${smmmOfis.smmmOfisInstagram}"
+												placeholder="http://instagram.com"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="smmmOfisLinkedIn"
+											class="col-sm-3 col-form-label-sm"><i class="bi bi-linkedin"></i></label>
+										<div class="col-sm-9">
+											<input type="text" id="smmmOfisLinkedIn" name="smmmOfisLinkedIn" th:value="${smmmOfis.smmmOfisLinkedIn}"
+												placeholder="http://linkedin.com"
+												class="form-control form-control-sm">
+										</div>
+									</div>
+									<div class="row mb-1">
+										<label for="contactEmail" class="col-sm-3 col-form-label-sm">E-mail</label>
 										<div class="col-sm-9">
 											<input type="email" id="contactEmail" name="contactEmail" th:value="${smmmOfis.contactEmail}"
 												placeholder="İletişim kısmı için E-mail"

@@ -337,7 +337,13 @@ public class SmmmOfisService {
 		
 	}
 
-	public void saveHomePageSettingContactPageInfo(String contactMainHeader, String contactHeader, String contactAddress, String contactTelephone, String contactEmail, String googleHarita) {
+	public void saveHomePageSettingContactPageInfo(
+													String contactMainHeader, String contactHeader, 
+													String contactAddress, String contactTelephone, 
+													String smmmOfisTwitter, String smmmOfisFacebook, 
+													String smmmOfisInstagram, String smmmOfisLinkedIn,
+													String contactEmail, String googleHarita
+												   ) {
 			
 		SmmmOfis smmmOfis = new SmmmOfis();
 		
@@ -345,6 +351,10 @@ public class SmmmOfisService {
 		smmmOfis.setContactHeader(contactHeader);
 		smmmOfis.setContactAddress(contactAddress);
 		smmmOfis.setContactTelephone(contactTelephone);
+		smmmOfis.setSmmmOfisTwitter(smmmOfisTwitter);
+		smmmOfis.setSmmmOfisFacebook(smmmOfisFacebook);
+		smmmOfis.setSmmmOfisInstagram(smmmOfisInstagram);
+		smmmOfis.setSmmmOfisLinkedIn(smmmOfisLinkedIn);
 		smmmOfis.setContactEmail(contactEmail);
 		smmmOfis.setGoogleHarita(googleHarita);
 		
@@ -352,7 +362,13 @@ public class SmmmOfisService {
 		
 	}
 
-	public void updateHomePageSettingContactPageInfo(Integer id, String contactMainHeader, String contactHeader, String contactAddress, String contactTelephone, String contactEmail, String googleHarita) {
+	public void updateHomePageSettingContactPageInfo(
+														Integer id, String contactMainHeader, String contactHeader, 
+														String contactAddress, String contactTelephone, 
+														String smmmOfisTwitter, String smmmOfisFacebook, 
+														String smmmOfisInstagram, String smmmOfisLinkedIn,
+														String contactEmail, String googleHarita
+													) {
 			
 		SmmmOfis smmmOfis = smmmOfisRepo.findById(id).get();
 		
@@ -360,6 +376,10 @@ public class SmmmOfisService {
 		smmmOfis.setContactHeader(contactHeader);
 		smmmOfis.setContactAddress(contactAddress);
 		smmmOfis.setContactTelephone(contactTelephone);
+		smmmOfis.setSmmmOfisTwitter(smmmOfisTwitter);
+		smmmOfis.setSmmmOfisFacebook(smmmOfisFacebook);
+		smmmOfis.setSmmmOfisInstagram(smmmOfisInstagram);
+		smmmOfis.setSmmmOfisLinkedIn(smmmOfisLinkedIn);
 		smmmOfis.setContactEmail(contactEmail);
 		smmmOfis.setGoogleHarita(googleHarita);
 		
