@@ -41,7 +41,7 @@ public class SmmmOfisMessage {
 	@NotEmpty(message = "Bu alan boş olamaz !!!")
 	private String message;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	
 	private boolean okundu;

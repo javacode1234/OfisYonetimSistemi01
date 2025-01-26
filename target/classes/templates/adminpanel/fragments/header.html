@@ -106,7 +106,7 @@
             <span class="badge bg-success badge-number">3</span>
           </a><!-- End Messages Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages bg-warning">
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
             <li class="dropdown-header">
               Okunmamış mesajlar
               <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Hepsini gör</span></a>
@@ -114,7 +114,7 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <div class="overflow-scroll" style="height: 500px;background-color: aqua;">
+            <div class="overflow-scroll" style="max-height: 400px;background-color: transparent;">
 			<th:block th:each="message, i : ${smmmOfis.messages}">
             <li class="message-item">
               <a href="#">
@@ -123,11 +123,11 @@
 		            <span class="badge bg-success badge-number">[[${i.count}]]</span>
 		        </div>
                 <div>
-                  <h4 th:text="${message.name}">Maria Hudson</h4>
-                  <p th:text="${message.email}">Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p th:text="${message.subject}">Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p th:text="${message.message}">Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
+                  <h4 class="text-primary"><strong th:text="${message.name}">Maria Hudson</strong></h4>
+<!--                   <p th:text="${message.email}"></p> -->
+                  <p th:text="${message.subject}"></p>
+                  <p th:text="${#strings.substring(message.message, 0, 20)}"></p>
+                  <p th:text="${#dates.format(message.date, 'dd-MM-yyyy HH:mm')}"></p>
                 </div>
               </a>
             </li>
