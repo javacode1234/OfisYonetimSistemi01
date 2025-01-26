@@ -57,8 +57,9 @@ public class SecurityHomeController {
 	}
 	
 	@PostMapping("/login")
-	public String login(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult result ) {
+	public String login(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult result, Model model ) {
 		if(result.hasErrors()) {
+			model.addAttribute("userDto", userDto);
 			return "adminpanel/login";
 		}
 		return "redirect:/login?login";

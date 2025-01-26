@@ -186,8 +186,9 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")
 	private List<SmmmOfisTelelefon> telefons;//TELEFON
 	//*******************************************//
-		
-		
+	
+	@OneToMany(mappedBy = "smmmofis")	
+	private List<SmmmOfisMessage> messages;	
 		
 		
 	

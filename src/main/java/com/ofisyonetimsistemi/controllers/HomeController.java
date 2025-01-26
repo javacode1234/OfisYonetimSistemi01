@@ -1,19 +1,30 @@
 package com.ofisyonetimsistemi.controllers;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
+import com.ofisyonetimsistemi.models.SmmmOfisMessage;
 import com.ofisyonetimsistemi.services.HomePagePortfolioCompanyService;
 import com.ofisyonetimsistemi.services.SmmmOfisBusinesSectorService;
 import com.ofisyonetimsistemi.services.SmmmOfisHomePageServicesService;
+import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisPricingService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
+
+import jakarta.validation.Valid;
+
 
 
 
@@ -25,6 +36,7 @@ public class HomeController {
 	@Autowired private HomePagePortfolioCompanyService companyService;
 	@Autowired private SmmmOfisHomePageServicesService homepageServicesServis;
 	@Autowired private SmmmOfisPricingService pricingService;
+	@Autowired private SmmmOfisMessageService messageService;
 		
 	@GetMapping("/")
 	public String getHomePage(Model model) {		
@@ -36,8 +48,10 @@ public class HomeController {
 			model.addAttribute("sectors", businesSectorService.getAllSector());
 			model.addAttribute("companies", companyService.getAll());
 			model.addAttribute("pricingList", pricingService.getAll());
+			model.addAttribute("smmmOfisMessage", new SmmmOfisMessage());
 		}else if(!smmmOfis.isPresent()){
 			model.addAttribute("smmmOfisHomePage", new SmmmOfis());
+			model.addAttribute("smmmOfisMessage", new SmmmOfisMessage());
 		}		
 		
 		return "index";		
@@ -74,5 +88,29 @@ public class HomeController {
 		return "service-details";
 	}
 	
+	@PostMapping("/send-message")
+	public String sendMessage(
+									@RequestParam("name")String name,
+									@RequestParam("email")String email,
+									@RequestParam("subject")String subject,
+									@RequestParam("message")String message,
+									Model model
+							  ) {
+		
+		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
+		
+		SmmmOfisMessage newMessage = SmmmOfisMessage.builder()
+				.name(name)
+				.email(email)
+				.subject(subject)
+				.message(message)
+				.date(new Date())
+				.smmmofis_id(smmmOfis.get().getId())
+				.build();
+		
+		messageService.saveMessage(newMessage);	
+		
+		return "redirect:/#contact";
+	}
 	
 }

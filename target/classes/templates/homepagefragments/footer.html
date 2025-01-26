@@ -6,7 +6,7 @@
           <div class="col-lg-6">
             <h4>E-mail Listemize kayıt olun.</h4>
             <p>E-mail abonesi olarak yeniliklerden haberdar olun.</p>
-            <form action="forms/newsletter.php" method="post" class="php-email-form">
+            <form th:action="@{/add-to-mail-list}" method="post" class="php-email-form">
               <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Gönder"></div>
               <div class="loading">Loading</div>
               <div class="error-message"></div>
@@ -25,7 +25,7 @@
           </a>
           <div class="footer-contact pt-3">
             <p th:text="${#strings.defaultString(smmmOfisHomePage.contactAddress,'Adres')}">A108 Adam Street</p>
-            <p class="mt-3"><strong>Phone:</strong> <span  th:text="${#strings.defaultString(smmmOfisHomePage.contactTelephone,'Telefon no')}">+1 5589 55488 55</span></p>
+            <p class="mt-3"><strong>Telefon:</strong> <span  th:text="${#strings.defaultString(smmmOfisHomePage.contactTelephone,'Telefon no')}">+1 5589 55488 55</span></p>
             <p><strong>Email:</strong> <span th:text="${#strings.defaultString(smmmOfisHomePage.contactEmail,'e-mail')}">info@example.com</span></p>
           </div>
         </div>

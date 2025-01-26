@@ -46,9 +46,9 @@ public class SecurityConfig {
 		.csrf(AbstractHttpConfigurer::disable)
 		
 		.authorizeHttpRequests(req->{
+			req.requestMatchers("/arshahomepage/**", "/niceadminpanel/**", "/customjs/**", "/customcss/**").permitAll();//resources//static
 			req.requestMatchers("/", "/adminpanel/login", "/portfolio-details/**", "/service-details/**").permitAll();
-			req.requestMatchers("/arshahomepage/**", "/customjs/**", "/customcss/**", "/niceadminpanel/**").permitAll();//resources//static
-			req.requestMatchers("/register/**").permitAll();
+			req.requestMatchers("/user-register-request/**", "/send-message/**", "/add-to-mail-list/**").permitAll();
 			
 			req.requestMatchers("/api/v1/**").hasRole("ADMIN");
 			
@@ -63,6 +63,7 @@ public class SecurityConfig {
 			login
 			.loginPage("/login")
 			.loginProcessingUrl("/login")
+			.failureUrl("/login?error").permitAll()
 			//.defaultSuccessUrl("/admin/home")
 			.successHandler(authSuccessHandler)
 			
@@ -73,39 +74,12 @@ public class SecurityConfig {
 		//.formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
 		
 		.logout(logout->{
-			logout.logoutSuccessUrl("/");
+			logout.logoutUrl("/logout");
+			logout.logoutSuccessUrl("/login?logout").permitAll();
 		})
 		
 		.build();
-	}
-	
-//	@Bean
-//	public UserDetailsService userDetailsService() {
-//		
-//		UserDetails normalUser = User.builder()
-//					
-//				.username("user")
-//				.password(pwdEncoder().encode("1234"))
-//				.roles("USER")
-//				.build();
-//		
-//		UserDetails adminUser = User.builder()
-//				
-//				.username("admin")
-//				.password(pwdEncoder().encode("1234"))
-//				.roles("ADMIN","USER","CUSTOMER")
-//				.build();
-//		
-//		UserDetails customerUser = User.builder()
-//				
-//				.username("muammer")
-//				.password(pwdEncoder().encode("1234"))
-//				.roles("CUSTOMER")
-//				.build();
-//		
-//		return new InMemoryUserDetailsManager(normalUser, adminUser, customerUser);
-//	}
-	
+	}	
 	
 
 }

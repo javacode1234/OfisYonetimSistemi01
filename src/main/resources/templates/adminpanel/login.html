@@ -32,9 +32,12 @@
 												data-bs-dismiss="alert" aria-label="Close"></button>
 									</div>
 									
-									<div th:if="${param.logout}">
-								        <h3>You have been logged out.</h3>
-								    </div>
+									<div class="alert alert-warning alert-dismissible fade text-danger mb-2 mt-3" th:if="${param.logout}"
+										 th:classappend="${param.logout} ? 'show':''" role="alert">
+										<strong>Çıkış Yapıldı !!!</strong>
+										<button type="button" class="btn-close"
+												data-bs-dismiss="alert" aria-label="Close"></button>
+									</div>
 
 									<div class="pt-4 pb-2">
 										<h5 class="card-title text-center pb-0 fs-4">Giriş yap</h5>
@@ -45,20 +48,16 @@
 										method="post" th:object="${userDto}" novalidate>
 
 										<div class="col-12">
-											<label for="username" class="form-label">Kullanıcı
-												Adı</label>
+											<label for="username" class="form-label">Kullanıcı Adı</label>
 											<div class="input-group has-validation">
-												<!--                         <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-												<input type="text" name="username" class="form-control"
-													id="username" required>
+												<input type="text" name="username" class="form-control" id="username" required>
 												<div class="invalid-feedback">Kullanıcı adını gir.</div>
 											</div>
 										</div>
 
 										<div class="col-12">
-											<label for="password" class="form-label">Şifre</label> <input
-												type="password" name="password" class="form-control"
-												id="password" required>
+											<label for="password" class="form-label">Şifre</label>
+											<input type="password" name="password" class="form-control" id="password" required>
 											<div class="invalid-feedback">Şifeni gir</div>
 										</div>
 
