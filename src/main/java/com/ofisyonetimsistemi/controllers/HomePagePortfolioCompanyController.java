@@ -25,6 +25,7 @@ import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.HomePagePortfolioCompanyService;
 import com.ofisyonetimsistemi.services.SmmmOfisBusinesSectorService;
+import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 
@@ -33,23 +34,18 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 @RequestMapping("/api/v1/")
 public class HomePagePortfolioCompanyController {
 
-	@Autowired
-	private SmmmOfisService smmmOfisService;
-	
-	@Autowired
-	private HomePagePortfolioCompanyService companyService;
-	
-	@Autowired
-	private SmmmOfisBusinesSectorService sectorService;
-	
-	@Autowired 
-	private MyUserService myUserService;
+	@Autowired private SmmmOfisService smmmOfisService;
+	@Autowired private HomePagePortfolioCompanyService companyService;
+	@Autowired private SmmmOfisBusinesSectorService sectorService;
+	@Autowired private MyUserService myUserService;
+	@Autowired private SmmmOfisMessageService messageService;
 	
 	
 	@GetMapping("/smmm-homepage-portfoy-company-settings")
 	public String getHomePageSectorCompanySettingsPage(Model model, Principal principal) {
 		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
+		
 		  if(!smmmOfis.isEmpty()) {
 			  model.addAttribute("dashboardtitle", smmmOfis.get().getUnvan()+" "+smmmOfis.get().getFullName());
 			  model.addAttribute("smmmisim", smmmOfis.get().getFullName());
@@ -63,6 +59,8 @@ public class HomePagePortfolioCompanyController {
 			  model.addAttribute("sectorList", sectorService.getAllSector());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			  
 			  return "adminpanel/homepagesettings/homepage-portfoy-company-settings";
 			  
@@ -75,6 +73,8 @@ public class HomePagePortfolioCompanyController {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		   }
 		  
 		return "adminpanel/homepagesettings/homepage-portfoy-company-settings";
@@ -99,6 +99,8 @@ public class HomePagePortfolioCompanyController {
 			  model.addAttribute("sectorList", sectorService.getAllSector());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			  
 			  return "adminpanel/homepagesettings/homepage-portfoy-company-settings";
 			  
@@ -115,6 +117,8 @@ public class HomePagePortfolioCompanyController {
 			  model.addAttribute("sectorList", sectorService.getAllSector());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		   }
 		  
 		return "adminpanel/homepagesettings/homepage-portfoy-company-settings";

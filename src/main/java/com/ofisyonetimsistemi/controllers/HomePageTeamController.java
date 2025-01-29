@@ -21,6 +21,7 @@ import com.ofisyonetimsistemi.models.SmmmOfisTeam;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisHomePageTeamService;
+import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 
@@ -29,14 +30,10 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 @RequestMapping("/api/v1/")
 public class HomePageTeamController {
 
-	@Autowired
-	private SmmmOfisService smmmOfisService;
-	
-	@Autowired
-	private SmmmOfisHomePageTeamService hptService;
-	
-	@Autowired 
-	private MyUserService myUserService;
+	@Autowired private SmmmOfisService smmmOfisService;
+	@Autowired private SmmmOfisHomePageTeamService hptService;
+	@Autowired private MyUserService myUserService;
+	@Autowired private SmmmOfisMessageService messageService;
 	
 	@GetMapping("/smmm-homepage-team-settings")
 	public String getHomePageTeamsSettingsPage(Model model, Principal principal) {
@@ -49,6 +46,8 @@ public class HomePageTeamController {
 			  model.addAttribute("hpTeams", hptService.getAllHomePageTeams());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			  
 			  return "adminpanel/homepagesettings/homepage-team-settings";
 			  
@@ -61,6 +60,8 @@ public class HomePageTeamController {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		   }
 		  
 		return "adminpanel/homepagesettings/homepage-team-settings";

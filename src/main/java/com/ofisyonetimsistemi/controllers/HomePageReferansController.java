@@ -19,6 +19,7 @@ import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisReferanses;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
+import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisReferansesService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,14 +30,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/api/v1/")
 public class HomePageReferansController {
 
-	@Autowired
-	private SmmmOfisService smmmOfisService;
-	
-	@Autowired
-	private SmmmOfisReferansesService hpReferansService;
-	
-	@Autowired 
-	private MyUserService myUserService;
+	@Autowired private SmmmOfisService smmmOfisService;
+	@Autowired private SmmmOfisReferansesService hpReferansService;
+	@Autowired private MyUserService myUserService;
+	@Autowired private SmmmOfisMessageService messageService;
 	
 	@GetMapping("/smmm-homepage-referans-settings")
 	public String getHomePageReferanses(Model model, Principal principal) {
@@ -53,6 +50,8 @@ public class HomePageReferansController {
 			  model.addAttribute("hpReferanses", hpReferansService.getAllHomePageReferanses());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			  
 			  return "adminpanel/homepagesettings/homepage-referans-settings";
 			  
@@ -65,6 +64,9 @@ public class HomePageReferansController {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			  
 		   }
 		  
 		return "adminpanel/homepagesettings/homepage-referans-settings";

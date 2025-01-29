@@ -19,6 +19,7 @@ import com.ofisyonetimsistemi.models.SmmmOfisAboutUsColumnOne;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisAboutUsColumnOneService;
+import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
@@ -27,9 +28,8 @@ public class HomePageAboutUsController {
 	
 	@Autowired SmmmOfisService smmmOfisHomePageService;
 	@Autowired SmmmOfisAboutUsColumnOneService smmmOfisHomePageAboutUsColOneService;
-	
 	@Autowired private MyUserService myUserService;
-	
+	@Autowired private SmmmOfisMessageService messageService;
 
 	@GetMapping("/smmm-homepage-aboutus-settings")
 	public String getMethodName(Model model, Principal principal) {
@@ -46,6 +46,8 @@ public class HomePageAboutUsController {
 			  model.addAttribute("aboutUsColOneItems", smmmOfisHomePageAboutUsColOneService.getAllAboutUscolOneItems());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			  
 			  return "adminpanel/homepagesettings/homepage-aboutus-settings";
 			  
@@ -58,7 +60,8 @@ public class HomePageAboutUsController {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		   }
 		  
 		return "adminpanel/homepagesettings/homepage-aboutus-settings";

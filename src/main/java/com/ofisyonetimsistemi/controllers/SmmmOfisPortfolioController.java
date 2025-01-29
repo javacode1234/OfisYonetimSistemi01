@@ -23,21 +23,18 @@ import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.HomePagePortfolioCompanyService;
 import com.ofisyonetimsistemi.services.SmmmOfisBusinesSectorService;
+import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
 @RequestMapping("/api/v1/")
 public class SmmmOfisPortfolioController {
 	
-	@Autowired
-	SmmmOfisService smmmOfisHomePageService ;
-	@Autowired 
-	private SmmmOfisBusinesSectorService sectorService;
-	@Autowired 
-	private HomePagePortfolioCompanyService portCompService;
-	
-	@Autowired 
-	private MyUserService myUserService;
+	@Autowired private SmmmOfisService smmmOfisHomePageService ;
+	@Autowired private SmmmOfisBusinesSectorService sectorService;
+	@Autowired private HomePagePortfolioCompanyService portCompService;
+	@Autowired private MyUserService myUserService;
+	@Autowired private SmmmOfisMessageService messageService;
 	
 	@GetMapping("/smmm-homepage-sector-settings")
 	public String getMethodName(Model model, Principal principal) {
@@ -53,7 +50,9 @@ public class SmmmOfisPortfolioController {
 			model.addAttribute("hpSector", new SmmmOfisBusinesSector());
 			model.addAttribute("sectorList", sectorService.getAllSector());
 			
-			 model.addAttribute("currentUser", myUser);
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 
 			return "adminpanel/homepagesettings/homepage-sector-settings";
 
@@ -65,7 +64,9 @@ public class SmmmOfisPortfolioController {
 			model.addAttribute("gorev", "SMMM");
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			
-			 model.addAttribute("currentUser", myUser);
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		}
 
 		return "adminpanel/homepagesettings/homepage-sector-settings";

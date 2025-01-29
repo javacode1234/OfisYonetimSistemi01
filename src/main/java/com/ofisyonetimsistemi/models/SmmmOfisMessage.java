@@ -1,6 +1,9 @@
 package com.ofisyonetimsistemi.models;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,12 +45,18 @@ public class SmmmOfisMessage {
 	private String message;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date date;
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	private LocalDateTime date;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	private LocalDateTime dateofread;
 	
 	private boolean okundu;
 	
 	@ManyToOne
 	@JoinColumn(name="smmmofis_id",insertable = false,updatable = false)
+	@JsonIgnore
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
 

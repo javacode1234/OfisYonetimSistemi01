@@ -63,9 +63,9 @@
 							<div class="card-body">
 								<h5 class="card-title">Kayıtlı Şirketler listesi</h5>
 								<!-- Table with hoverable rows -->
-								<div style="height: 260px; overflow: auto">
+								<div class="overflow-scroll" style="height: 260px; scrollbar-width: thin;">
 								<table  id="companyTable" class="table table-hover table-sm">
-									<thead style="position:sticky;top:0;">
+									<thead class="position-sticky fixed-top z-1">
 										<tr>
 											<th scope="col">#</th>
 											<th scope="col"><i class="bi bi-image-fill"></i></th>
@@ -92,7 +92,7 @@
 											</td>
 											<td th:text="${company.name}"></td>
 											<td th:text="${company.unvan}"></td>
-											<td th:text="${company.startDate}"></td>
+											<td th:text="${#temporals.format(company.startDate, 'dd-MM-yyyy')}"></td>
 											<td th:text="${company.webUrl}"></td>
 											<td th:text="${company.mainheader}" class="d-none"></td>
 											<td th:text="${company.header}" class="d-none"></td>

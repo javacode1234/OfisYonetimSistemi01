@@ -19,19 +19,17 @@ import com.ofisyonetimsistemi.models.SmmmOfisAskedQuestions;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisAskedQuestionsService;
+import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
 @RequestMapping("/api/v1/")
 public class HomePageAskedQuestionsController {
 
-	@Autowired
-	private SmmmOfisService smmmOfisHomePageService;
-	@Autowired
-	private SmmmOfisAskedQuestionsService hpFaqService;
-	
-	@Autowired 
-	private MyUserService myUserService;
+	@Autowired private SmmmOfisService smmmOfisHomePageService;
+	@Autowired private SmmmOfisAskedQuestionsService hpFaqService;
+	@Autowired private MyUserService myUserService;
+	@Autowired private SmmmOfisMessageService messageService;
 	
 
 	@GetMapping("/smmm-homepage-faq-settings")
@@ -49,7 +47,9 @@ public class HomePageAskedQuestionsController {
 			model.addAttribute("hpFaqList", hpFaqService.getAll());
 			
 			model.addAttribute("currentUser", myUser);
-
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			
 			return "adminpanel/homepagesettings/homepage-faq-settings";
 
 		} else {
@@ -61,6 +61,8 @@ public class HomePageAskedQuestionsController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			
 			model.addAttribute("currentUser", myUser);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		}
 
 		return "adminpanel/homepagesettings/homepage-faq-settings";

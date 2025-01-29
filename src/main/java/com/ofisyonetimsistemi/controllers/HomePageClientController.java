@@ -20,6 +20,7 @@ import com.ofisyonetimsistemi.models.SmmmOfisHomePageClient;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisHomePageClientService;
+import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -29,14 +30,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/api/v1/")
 public class HomePageClientController {
 
-	@Autowired
-	private SmmmOfisService smmmOfisService;
-	
-	@Autowired
-	private SmmmOfisHomePageClientService hpcService;
-	
-	@Autowired 
-	private MyUserService myUserService;
+	@Autowired private SmmmOfisService smmmOfisService;
+	@Autowired private SmmmOfisHomePageClientService hpcService;
+	@Autowired private MyUserService myUserService;
+	@Autowired private SmmmOfisMessageService messageService;
 	
 	@GetMapping("/smmm-homepage-clients-settings")
 	public String getHomePageClientsSettingsPage(Model model, Principal principal) {
@@ -53,6 +50,8 @@ public class HomePageClientController {
 			  model.addAttribute("hpClients", hpcService.getAllHomePageClients());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			  
 			  return "adminpanel/homepagesettings/homepage-clients-settings";
 			  
@@ -65,6 +64,8 @@ public class HomePageClientController {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		   }
 		  
 		return "adminpanel/homepagesettings/homepage-clients-settings";

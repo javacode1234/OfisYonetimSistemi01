@@ -29,4 +29,28 @@ public class SmmmOfisMessageService {
 	public List<SmmmOfisMessage> getAll(){
 		return repo.findAll();
 	}
+
+	public void updateSelectedMessage(SmmmOfisMessage selectedMessage) {
+		repo.save(selectedMessage);
+	}
+	
+	public Long countOfRecord() {
+		return repo.count();
+	}
+	
+	public Long countOfRecordReaded(boolean okundu) {
+		return repo.countOfNonReadMessage(okundu);
+	}
+
+	public List<SmmmOfisMessage> getAllUnReadMessages() {
+		return repo.getAllUnReadMessages(false);
+	}
+
+	public List<SmmmOfisMessage> getAllReadMessages() {
+		return repo.getAllReadMessages(true);
+	}
+
+	public List<SmmmOfisMessage> getAllMessages() {
+		return repo.findAll();
+	}
 }

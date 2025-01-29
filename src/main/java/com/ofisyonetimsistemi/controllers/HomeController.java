@@ -1,19 +1,14 @@
 package com.ofisyonetimsistemi.controllers;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisMessage;
 import com.ofisyonetimsistemi.services.HomePagePortfolioCompanyService;
@@ -22,11 +17,6 @@ import com.ofisyonetimsistemi.services.SmmmOfisHomePageServicesService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisPricingService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
-
-import jakarta.validation.Valid;
-
-
-
 
 @Controller
 public class HomeController {
@@ -98,13 +88,13 @@ public class HomeController {
 							  ) {
 		
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
-		
+		LocalDateTime localDateTime =LocalDateTime.now();
 		SmmmOfisMessage newMessage = SmmmOfisMessage.builder()
 				.name(name)
 				.email(email)
 				.subject(subject)
 				.message(message)
-				.date(new Date())
+				.date(localDateTime)
 				.smmmofis_id(smmmOfis.get().getId())
 				.build();
 		

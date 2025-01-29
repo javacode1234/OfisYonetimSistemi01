@@ -18,6 +18,7 @@ import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisWhyUs;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
+import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 import com.ofisyonetimsistemi.services.SmmmOfisWhyUsService;
 
@@ -25,11 +26,10 @@ import com.ofisyonetimsistemi.services.SmmmOfisWhyUsService;
 @RequestMapping("/api/v1/")
 public class HomePageWhyUsController {
 	
-	@Autowired SmmmOfisService smmmOfisHomePageService;
-	@Autowired SmmmOfisWhyUsService whyUsService;
-	
-	@Autowired 
-	private MyUserService myUserService;
+	@Autowired private SmmmOfisService smmmOfisHomePageService;
+	@Autowired private SmmmOfisWhyUsService whyUsService;
+	@Autowired private MyUserService myUserService;
+	@Autowired private SmmmOfisMessageService messageService;
 	
 	@GetMapping("/smmm-homepage-whyus-settings")
 	public String getWhyUsSettingPage(Model model, Principal principal) {
@@ -46,6 +46,8 @@ public class HomePageWhyUsController {
 			  model.addAttribute("whyUsList", whyUsService.getAllWhyUs());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			  
 			  return "adminpanel/homepagesettings/homepage-whyus-settings";
 			  
@@ -58,6 +60,8 @@ public class HomePageWhyUsController {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		   }
 		  
 		return "adminpanel/homepagesettings/homepage-whyus-settings";

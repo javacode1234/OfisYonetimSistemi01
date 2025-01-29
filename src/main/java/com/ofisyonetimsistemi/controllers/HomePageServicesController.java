@@ -20,18 +20,17 @@ import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.BoxIconsService;
 import com.ofisyonetimsistemi.services.SmmmOfisHomePageServicesService;
+import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
 @RequestMapping("/api/v1/")
 public class HomePageServicesController {
 
-	@Autowired
-	SmmmOfisService smmmOfisHomePageService;
-	@Autowired
-	SmmmOfisHomePageServicesService homePageServices;
-	@Autowired
-	private BoxIconsService boxiconService;
+	@Autowired private SmmmOfisService smmmOfisHomePageService;
+	@Autowired private SmmmOfisHomePageServicesService homePageServices;
+	@Autowired private BoxIconsService boxiconService;
+	@Autowired private SmmmOfisMessageService messageService;
 	
 	@Autowired 
 	private MyUserService myUserService;
@@ -51,7 +50,9 @@ public class HomePageServicesController {
 			model.addAttribute("homepageServices", homePageServices.getAllServices());
 			model.addAttribute("boxicons", boxiconService.getAllBoxIcons());
 			
-			 model.addAttribute("currentUser", myUser);
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 
 			return "adminpanel/homepagesettings/homepage-services-settings";
 
@@ -63,7 +64,9 @@ public class HomePageServicesController {
 			model.addAttribute("gorev", "SMMM");
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			
-			 model.addAttribute("currentUser", myUser);
+			model.addAttribute("currentUser", myUser);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		}
 
 		return "adminpanel/homepagesettings/homepage-services-settings";

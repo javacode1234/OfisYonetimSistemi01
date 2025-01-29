@@ -11,20 +11,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
+import com.ofisyonetimsistemi.models.SmmmOfisMessage;
 import com.ofisyonetimsistemi.security.dto.UserProfileDto;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.model.MyUserDetails;
 import com.ofisyonetimsistemi.security.service.MyUserService;
+import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
 @RequestMapping("/api/v1/")
 public class AdminPanelController {
 
-	@Autowired
-	private SmmmOfisService smmmOfisService;
-	@Autowired
-	private MyUserService myUserService;
+	@Autowired private SmmmOfisService smmmOfisService;
+	@Autowired private MyUserService myUserService;
+	@Autowired private SmmmOfisMessageService messageService;
 	
 	@GetMapping("/admin-panel")
 	public String getAdminPanel(Model model, Principal principal, @AuthenticationPrincipal MyUserDetails loggedUser) {
@@ -33,8 +34,10 @@ public class AdminPanelController {
 		if (!smmmOfis.isEmpty()) {
 			model.addAttribute("updateBtnActive", true);
 			model.addAttribute("smmmOfis", smmmOfis.get());
-
+			
 			model.addAttribute("currentUser", currentUser);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 
 			return "adminpanel/index";
 
@@ -48,6 +51,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 
 			model.addAttribute("currentUser", currentUser);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		}
 
 		return "adminpanel/index";
@@ -66,6 +71,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", smmmOfis.get());
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -79,6 +86,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			
 		}
 		return "adminpanel/homepagesettings/user-profile";
@@ -97,6 +106,8 @@ public class AdminPanelController {
 
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -110,6 +121,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			
 		}
 		return "adminpanel/homepagesettings/user-profile";
@@ -129,6 +142,8 @@ public class AdminPanelController {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", new UserProfileDto());
 			model.addAttribute("userProfileDto", userProfileDto);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -142,6 +157,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		}
 		return "adminpanel/homepagesettings/user-profile";
 	}
@@ -160,6 +177,8 @@ public class AdminPanelController {
 
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -173,6 +192,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			
 		}
 		return "adminpanel/homepagesettings/user-profile";
@@ -192,6 +213,8 @@ public class AdminPanelController {
 
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -205,6 +228,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			
 		}
 		return "adminpanel/homepagesettings/user-profile";

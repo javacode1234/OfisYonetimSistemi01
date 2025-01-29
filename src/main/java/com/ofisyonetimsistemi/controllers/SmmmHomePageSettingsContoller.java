@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
+import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 
@@ -25,11 +26,9 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 @RequestMapping("/api/v1/")
 public class SmmmHomePageSettingsContoller {
 
-	@Autowired
-	private SmmmOfisService smmmOfisService;
-	
-	@Autowired 
-	private MyUserService myUserService;
+	@Autowired private SmmmOfisService smmmOfisService;
+	@Autowired private MyUserService myUserService;
+	@Autowired private SmmmOfisMessageService messageService;
 	
 	//@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/smmm-homepage-settings")
@@ -44,6 +43,8 @@ public class SmmmHomePageSettingsContoller {
 			  model.addAttribute("smmmOfis", smmmOfis.get());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 			  
 			  return "adminpanel/homepagesettings/homepage-settings";
 			  
@@ -56,6 +57,8 @@ public class SmmmHomePageSettingsContoller {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
+			  model.addAttribute("messageCount", messageService.countOfRecord());
+			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		  }
 		  
 		  return "adminpanel/homepagesettings/homepage-settings";			
