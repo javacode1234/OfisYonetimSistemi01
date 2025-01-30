@@ -13,25 +13,24 @@ import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.security.dto.UserDto;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
+import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 import jakarta.validation.Valid;
 
 @Controller
 public class SecurityHomeController {
 	
-	@Autowired
-	private MyUserService userService;
-	
-	@Autowired
-	private PasswordEncoder pwdEncoder;
+	@Autowired private MyUserService userService;
+	@Autowired private PasswordEncoder pwdEncoder;
+	@Autowired private SmmmOfisService smmmOfisService;
 
 	@GetMapping("/login")
 	public String getLoginPage(Model model) {
-		
+		SmmmOfis smmmOfis = smmmOfisService.getFirstSmmmOfis().get();
 		boolean thereAreAnyUser = userService.thereAreAnyUser();
 		
 		if(thereAreAnyUser) {
-			model.addAttribute("smmmOfis", new SmmmOfis());
+			model.addAttribute("smmmOfis", smmmOfis);
 			model.addAttribute("userDto", new UserDto());
 			return "adminpanel/login";
 		}
@@ -39,6 +38,7 @@ public class SecurityHomeController {
 			String roles = "ADMIN,USER,CUSTOMER";
 			
 			MyUser defaultUser = MyUser.builder()
+					.smmmofis_id(smmmOfis.getId())
 					.username("admin")
 					.password(pwdEncoder.encode("1234"))
 					.openpassword("1234")
