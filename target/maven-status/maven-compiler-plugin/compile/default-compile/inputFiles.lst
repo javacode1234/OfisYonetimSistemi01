@@ -1,4 +1,5 @@
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\controllers\AdminPanelController.java
+D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\controllers\AdminPanelMessagesController.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\controllers\HomeController.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\controllers\HomePageAboutUsController.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\controllers\HomePageAskedQuestionsController.java
@@ -33,6 +34,7 @@ D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\m
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\models\SmmmOfisCustomer.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\models\SmmmOfisEmail.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\models\SmmmOfisHomePageClient.java
+D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\models\SmmmOfisMessage.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\models\SmmmOfisPricing.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\models\SmmmOfisReferanses.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\models\SmmmOfisServices.java
@@ -51,6 +53,7 @@ D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\r
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\repositories\SmmmOfisBusinesSectorRepository.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\repositories\SmmmOfisHomePageClientRepo.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\repositories\SmmmOfisHomePageTeamRepo.java
+D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\repositories\SmmmOfisMessageRepository.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\repositories\SmmmOfisPricingRepository.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\repositories\SmmmOfisRepository.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\repositories\SmmmOfisServicesRepository.java
@@ -79,6 +82,7 @@ D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\s
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\services\SmmmOfisHomePageClientService.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\services\SmmmOfisHomePageServicesService.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\services\SmmmOfisHomePageTeamService.java
+D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\services\SmmmOfisMessageService.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\services\SmmmOfisPricingService.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\services\SmmmOfisReferansesService.java
 D:\java\stsWorkspace\OfisYonetimSistemi01\src\main\java\com\ofisyonetimsistemi\services\SmmmOfisService.java

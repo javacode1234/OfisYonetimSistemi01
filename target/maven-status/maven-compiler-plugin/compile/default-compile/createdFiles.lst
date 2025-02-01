@@ -5,6 +5,7 @@ com\ofisyonetimsistemi\models\commonmodels\BoxIcons.class
 com\ofisyonetimsistemi\security\controller\CustomerController.class
 com\ofisyonetimsistemi\repositories\PricingItemRepository.class
 com\ofisyonetimsistemi\services\SmmmOfisService.class
+com\ofisyonetimsistemi\models\SmmmOfisMessage.class
 com\ofisyonetimsistemi\controllers\HomePageServicesController.class
 com\ofisyonetimsistemi\models\SmmmOfisWhyUs.class
 com\ofisyonetimsistemi\models\PortfolioCompany.class
@@ -16,12 +17,14 @@ com\ofisyonetimsistemi\repositories\SmmmOfisAskedQuestionsRepository.class
 com\ofisyonetimsistemi\security\securityconfig\SecurityConfig.class
 com\ofisyonetimsistemi\models\commonmodels\Sehir.class
 com\ofisyonetimsistemi\models\commonmodels\NaceKodu.class
+com\ofisyonetimsistemi\models\SmmmOfisMessage$SmmmOfisMessageBuilder.class
 com\ofisyonetimsistemi\repositories\BoxIconsRepository.class
 com\ofisyonetimsistemi\models\CustomerDonem.class
 com\ofisyonetimsistemi\repositories\SmmmHomePageReferansesRepository.class
 com\ofisyonetimsistemi\controllers\HomePagePricingItemController.class
 com\ofisyonetimsistemi\repositories\SmmmOfisWhyUsRepository.class
 com\ofisyonetimsistemi\services\SmmmOfisAskedQuestionsService.class
+com\ofisyonetimsistemi\repositories\SmmmOfisMessageRepository.class
 com\ofisyonetimsistemi\models\SmmmOfisPricing.class
 com\ofisyonetimsistemi\security\controller\UserController.class
 com\ofisyonetimsistemi\services\SmmmOfisWhyUsService.class
@@ -31,6 +34,8 @@ com\ofisyonetimsistemi\controllers\HomePageReferansController.class
 com\ofisyonetimsistemi\models\commonmodels\Ilce.class
 com\ofisyonetimsistemi\security\controller\SecurityHomeController.class
 com\ofisyonetimsistemi\controllers\SmmmOfisPortfolioController.class
+com\ofisyonetimsistemi\services\SmmmOfisMessageService.class
+com\ofisyonetimsistemi\controllers\AdminPanelMessagesController.class
 com\ofisyonetimsistemi\models\SmmmOfisAskedQuestions.class
 com\ofisyonetimsistemi\repositories\SmmmOfisHomePageTeamRepo.class
 com\ofisyonetimsistemi\services\BoxIconsService.class
