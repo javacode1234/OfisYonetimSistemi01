@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.ofisyonetimsistemi</groupId>
 	<artifactId>OfisYonetimSistemi</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>V01</version>
 	<packaging>jar</packaging>
 	<name>OfisYonetimSistemi</name>
 	<description>Ofis Yönetim Sistemi</description>
