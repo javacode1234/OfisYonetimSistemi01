@@ -6,6 +6,6 @@ RUN mvn clean package -DskipTests
 # Run stage
 FROM openjdk:17-jdk-slim
 WORKDIR /app
-COPY --from=build /app/target/OfisYonetimSistemi-0.0.1-SNAPSHOT.jar OfisYonetimSistemi-0.0.1-SNAPSHOT.jar
+COPY --from=build /app/target/OfisYonetimSistemiV01.jar OfisYonetimSistemiV01.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "OfisYonetimSistemi-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "OfisYonetimSistemiV01.jar"]
