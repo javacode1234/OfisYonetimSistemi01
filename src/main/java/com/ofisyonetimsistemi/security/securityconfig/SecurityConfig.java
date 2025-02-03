@@ -47,7 +47,7 @@ public class SecurityConfig {
 		
 		.authorizeHttpRequests(req->{
 			req.requestMatchers("/arshahomepage/**", "/niceadminpanel/**", "/customjs/**", "/customcss/**", "/loginimages/**").permitAll();//resources//static
-			req.requestMatchers("/", "/adminpanel/login", "/portfolio-details/**", "/service-details/**").permitAll();
+			req.requestMatchers("/", "/login", "/portfolio-details/**", "/service-details/**").permitAll();
 			req.requestMatchers("/user-register-request/**", "/send-message/**", "/add-to-mail-list/**").permitAll();
 			
 			req.requestMatchers("/api/v1/**").hasRole("ADMIN");
