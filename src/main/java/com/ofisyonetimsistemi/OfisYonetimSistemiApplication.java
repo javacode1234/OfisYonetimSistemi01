@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan(basePackages = "com.ofisyonetimsistemi")
+@ComponentScan(basePackages = {"com.ofisyonetimsistemi"})
 public class OfisYonetimSistemiApplication {
 
 	public static void main(String[] args) {
