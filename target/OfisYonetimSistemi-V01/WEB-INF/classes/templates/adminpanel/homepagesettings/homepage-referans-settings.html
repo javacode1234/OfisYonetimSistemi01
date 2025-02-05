@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+				xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		 		xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head th:replace="~{adminpanel/fragments/head}"></head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<header th:replace="~{adminpanel/fragments/header}"></header>
+	<!-- End Header -->
+
+	<!-- ======= Sidebar ======= -->
+	<aside th:replace="~{adminpanel/fragments/sidebar}"></aside>
+	<!-- End Sidebar-->
+
+	<!-- ======== main ========== -->
+
+	<div layout:fragment="content">
+
+		<main id="main" class="main">
+
+			<div class="pagetitle">
+				<h1>Anasayfa Referanslar</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
+						<li class="breadcrumb-item active"><a
+							th:href="@{/api/v1/smmm-homepage-settings}">Ayarlar</a></li>
+						<li class="breadcrumb-item active"><a
+							th:href="@{/api/v1/smmm-homepage-referans-settings}">Referanslar</a>
+						</li>
+
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<section class="section dashboard">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<!-- 								<h5 class="card-title">İşlemler</h5> -->
+								<div class="mt-3">
+									<button type="button" class="btn btn-primary"
+										data-bs-toggle="modal" data-bs-target="#addReferansModal" id="addReferansModalBtn">
+										<i class="bi bi-plus-circle-fill"></i> Referans Ekle
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Kayıtlı Referans listesi</h5>
+								<!-- Table with hoverable rows -->
+								<div class="overflow-scroll" style="height: 260px; scrollbar-width: thin;">
+									<table id="referansTable" class="table table-hover table-sm">
+										<thead class="position-sticky fixed-top z-1">
+											<tr>
+												<th scope="col">#</th>
+												<th scope="col"><i class="bi bi-image-fill"></i></th>
+												<th scope="col">İsim</th>
+												<th scope="col">Meslek</th>												
+												<th scope="col"><i class="bi bi-star-fill"></i></th>
+												<th scope="col"><i class="bi bi-star-fill"></i></th>
+												<th scope="col"><i class="bi bi-star-fill"></i></th>
+												<th scope="col"><i class="bi bi-star-fill"></i></th>
+												<th scope="col"><i class="bi bi-star-fill"></i></th>
+												<th scope="col">Görüş</th>
+												<th scope="col"><i class="bi bi-check-circle-fill"></i></th>
+												<th scope="col" class="d-none">smmmOfisId</th>
+												<th scope="col"><i class="bi bi-tools"></i></th>
+											</tr>
+										</thead>
+										<tbody id="referansTableBody">
+											<tr th:each="referans, i : ${hpReferanses}">
+												<td scope="row" th:text="${i.count}"></td>
+												<td><a id="referansTableResim"> <img
+														class="rounded"
+														th:src=" 'data:image/*;base64,' + ${referans.stringResim}"
+														style="width: 50px; height: 50px;" />
+												</a></td>
+												<td th:text="${referans.name}"></td>
+												<td th:text="${referans.meslek}"></td>
+												<td><i
+													th:classAppend="${referans.star1==true} ? 'bi bi-star-fill':'bi bi-star' "
+													class=""></i></td>
+												<td><i
+													th:classAppend="${referans.star2==true} ? 'bi bi-star-fill':'bi bi-star' "
+													class=""></i></td>
+												<td><i
+													th:classAppend="${referans.star3==true} ? 'bi bi-star-fill':'bi bi-star' "
+													class=""></i></td>
+												<td><i
+													th:classAppend="${referans.star4==true} ? 'bi bi-star-fill':'bi bi-star' "
+													class=""></i></td>
+												<td><i
+													th:classAppend="${referans.star5==true} ? 'bi bi-star-fill':'bi bi-star' "
+													class=""></i></td>
+												<td>
+													<span th:text="${referans.gorus}" class="d-inline-block text-truncate" 
+																style="max-width: 200px;">
+													  This text is quite long, and will be truncated once displayed.
+													</span>												
+												</td>
+
+												<td><span class="badge bg-primary"
+													th:if="${referans.active==true}">Aktif</span> <span
+													class="badge bg-danger" th:if="${referans.active==false}">Pasif</span>
+												</td>
+												<td th:text="${referans.smmmofis_id}" class="d-none"></td>
+												<td>
+													<div class="btn-group" role="group"
+														aria-label="Basic mixed styles example">
+														<a id="viewBtn" type="button" class="btn btn-success"
+															data-bs-toggle="modal"
+															data-bs-target="#viewReferansModal"
+															th:href="@{/api/v1/get-homepage-referans-settings/{id}(id=${referans.id})}">
+															<i class="bi bi-eye"></i>
+														</a> <a id="editBtn" type="button" class="btn btn-warning"
+															data-bs-toggle="modal"
+															data-bs-target="#editReferansModal"
+															th:href="@{/api/v1/get-homepage-referans-settings/{id}(id=${referans.id})}">
+															<i class="bi bi-pencil"></i>
+														</a> <a id="deleteBtn" type="button" class="btn btn-danger"
+															th:href="@{/api/v1/get-homepage-referans-settings/{id}(id=${referans.id})}"
+															data-bs-toggle="modal"
+															data-bs-target="#deleteReferansModal"> <i
+															class="bi bi-trash"></i>
+														</a>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- End Table with hoverable rows -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<!-- End #main -->
+
+	</div>
+
+	<!-- add client modal sart -->
+	<div class="modal fade" id="addReferansModal" tabindex="-1"
+		style="display: none; padding-right: 1px;" aria-hidden="true"
+		role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h5 class="modal-title text-white">Referans Ekle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form id="addReferansForm"
+						th:action="@{ /api/v1/save-homepage-referans-settings}"
+						th:object="${hpRefrans}" method="post"
+						enctype="multipart/form-data">
+						<div class="row mb-3 mt-3" id="general-elements">
+							<div class="row d-flex-inline align-items-center"
+								style="padding-top: 10px;">
+								<label for="refaransFormImage"
+									class="col-sm-3 col-form-label-sm w-40">Resim</label>
+								<div class="col-sm-5">
+									<input class="form-control form-control-sm" type="file"
+										name="resim" id="refaransFormImage" accept="image/*">
+								</div>
+								<div class="col-sm-4 text-center ">
+									<img th:if="${hpReferans.id==null}" class="" width="80"
+										height="80" id="referansResim"
+										th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
+									<img th:if="${hpReferans.id!=null}" class="" width="80"
+										height="80" id="referansResim"
+										th:src=" 'data:image/*;base64,' + ${hpReferans.stringResim} "
+										alt="">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2 mt-3" style="display: none;">
+							<label for="referansId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="id" id="referansId">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansName" class="col-sm-2 col-form-label-sm">İsim</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="name" id="referansName" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansMeslek" class="col-sm-2 col-form-label-sm">Meslek</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="meslek" id="referansMeslek" required="required">
+							</div>
+						</div>
+						
+						<div class="row mb-2">
+							<label for="referansStar1" class="col-sm-2 col-form-label-sm">Yıldız
+								</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="star1" 
+									id="referansStar1">
+								<i class="" id="referansStar1icon"></i>
+								<input type="checkbox" class="form-check-input" name="star2" disabled="disabled"
+									id="referansStar2">
+								<i class="" id="referansStar2icon"></i>
+								<input type="checkbox" class="form-check-input" name="star3" disabled="disabled"
+									id="referansStar3">
+								<i class="" id="referansStar3icon"></i>
+								<input type="checkbox" class="form-check-input" name="star4" disabled="disabled"
+									id="referansStar4">
+								<i class="" id="referansStar4icon"></i>
+								<input type="checkbox" class="form-check-input" name="star5" disabled="disabled"
+									id="referansStar5">
+								<i class="" id="referansStar5icon"></i>
+<!-- 								<a class="btn btn-warning btn-sm" id="clearStarsBtn">Temizle</a> -->
+							</div>
+						</div>
+						
+						
+						<div class="row mb-2">
+							<label for="referansGorus" class="col-sm-2 col-form-label-sm">Görüş</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" name="gorus"
+									id="referansGorus"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active"
+									id="referansActive">
+							</div>
+						</div>
+						<div class="row mb-2 d-none">
+							<label for="smmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="smmmofis_id" th:value="${smmmOfis.id}" id="smmmOfisId" readonly="readonly">
+							</div>
+						</div>
+
+						<div class="grid gap-2 text-center float-end">
+							<button type="submit" class="btn btn-primary">
+								<i class="bi bi-music-player-fill"></i> Kaydet
+							</button>
+							<button type="reset" class="btn btn-secondary" id="addReferansFormClearBtn">
+								<i class="bi bi-eraser"></i> Formu Temizle
+							</button>
+
+						</div>
+					</form>
+					<!-- End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">
+						<i class="bi bi-x-circle-fill"></i> Kapat
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- add client modal end -->
+
+	<!-- view sector-referans modal sart -->
+	<div class="modal fade" id="viewReferansModal" tabindex="-1"
+		style="display: none; padding-right: 1px;" aria-hidden="true"
+		role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-success">
+					<h5 class="modal-title text-white"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form id="viewReferansForm">
+						<div class="row mb-3 mt-3" id="general-elements">
+							<div class="row d-flex-inline align-items-center"
+								style="padding-top: 10px;">
+								<label for="refaransFormImage"
+									class="col-sm-3 col-form-label-sm w-40">Resim</label>
+								<div class="col-sm-5 d-none">
+									<input class="form-control form-control-sm" type="file" disabled="disabled"
+										name="resim" id="refaransFormImage" accept="image/*">
+								</div>
+								<div class="col-sm-4 text-center ">
+									<img th:if="${hpReferans.id==null}" class="" width="80"
+										height="80" id="referansResim"
+										th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
+									<img th:if="${hpReferans.id!=null}" class="" width="80"
+										height="80" id="referansResim"
+										th:src=" 'data:image/*;base64,' + ${hpReferans.stringResim} "
+										alt="">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2 mt-3 d-none" style="display: none;">
+							<label for="referansId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="id" id="referansId">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansName" class="col-sm-2 col-form-label-sm">İsim</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="name" id="referansName" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansMeslek" class="col-sm-2 col-form-label-sm">Meslek</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="meslek" id="referansMeslek" required="required">
+							</div>
+						</div>
+												
+						<div class="row mb-2">
+							<label for="referansStar5" class="col-sm-2 col-form-label-sm">Yıldız
+								</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="star1" disabled="disabled"
+									id="referansStar1">
+								<i class="bi bi-star" id="referansStar1icon"></i>
+								<input type="checkbox" class="form-check-input" name="star2" disabled="disabled"
+									id="referansStar2">
+								<i class="bi bi-star" id="referansStar2icon"></i>
+								<input type="checkbox" class="form-check-input" name="star3" disabled="disabled"
+									id="referansStar3">
+								<i class="bi bi-star" id="referansStar3icon"></i>
+								<input type="checkbox" class="form-check-input" name="star4" disabled="disabled"
+									id="referansStar4">
+								<i class="bi bi-star" id="referansStar4icon"></i>
+								<input type="checkbox" class="form-check-input" name="star5" disabled="disabled"
+									id="referansStar5">
+								<i class="bi bi-star" id="referansStar5icon"></i>
+							</div>
+						</div>
+						
+						<div class="row mb-2">
+							<label for="referansGorus" class="col-sm-2 col-form-label-sm">Görüş</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" name="gorus" disabled="disabled"
+									id="referansGorus"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active" disabled="disabled"
+									id="referansActive">
+							</div>
+						</div>
+
+
+					</form>
+					<!-- End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">
+						<i class="bi bi-x-circle-fill"></i> Kapat
+					</button>
+					<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- view sector-referans modal end -->
+
+	<!-- edit sector-referans modal start -->
+	<div class="modal fade" id="editReferansModal" tabindex="-1"
+		style="display: none; padding-right: 1px;" aria-hidden="true"
+		role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+					<h5 class="modal-title text-success"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form id="editReferansForm" action="" method="post"
+						enctype="multipart/form-data">
+
+						<div class="row mb-3 mt-3" id="general-elements">
+							<div class="row d-flex-inline align-items-center"
+								style="padding-top: 10px;">
+								<label for="refaransFormImage"
+									class="col-sm-3 col-form-label-sm w-40">Resim</label>
+								<div class="col-sm-5">
+									<input class="form-control form-control-sm" type="file"
+										name="resim" id="refaransFormImage" accept="image/*">
+								</div>
+								<div class="col-sm-4 text-center ">
+									<img th:if="${hpReferans.id==null}" class="" width="80"
+										height="80" id="referansResim"
+										th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
+									<img th:if="${hpReferans.id!=null}" class="" width="80"
+										height="80" id="referansResim"
+										th:src=" 'data:image/*;base64,' + ${hpReferans.stringResim} "
+										alt="">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2 mt-3 d-none">
+							<label for="referansId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" readonly="readonly"
+									name="id" id="referansId">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansName" class="col-sm-2 col-form-label-sm">İsim</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="name" id="referansName" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansMeslek" class="col-sm-2 col-form-label-sm">Meslek</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="meslek" id="referansMeslek" required="required">
+							</div>
+						</div>
+						
+						<div class="row mb-2">
+							<label for="referansStar1" class="col-sm-2 col-form-label-sm">Yıldız
+								</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="star1" 
+									id="referansStar1">
+								<i class="bi bi-star" id="referansStar1icon"></i>
+								<input type="checkbox" class="form-check-input" name="star2" disabled="disabled"
+									id="referansStar2">
+								<i class="bi bi-star" id="referansStar2icon"></i>
+								<input type="checkbox" class="form-check-input" name="star3" disabled="disabled"
+									id="referansStar3">
+								<i class="bi bi-star" id="referansStar3icon"></i>
+								<input type="checkbox" class="form-check-input" name="star4" disabled="disabled"
+									id="referansStar4">
+								<i class="bi bi-star" id="referansStar4icon"></i>
+								<input type="checkbox" class="form-check-input" name="star5" disabled="disabled"
+									id="referansStar5">
+								<i class="bi bi-star" id="referansStar5icon"></i>
+							</div>
+						</div>
+						
+						
+						<div class="row mb-2">
+							<label for="referansGorus" class="col-sm-2 col-form-label-sm">Görüş</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" name="gorus"
+									id="referansGorus"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active"
+									id="referansActive">
+							</div>
+						</div>
+						<div class="row mb-2 d-none">
+							<label for="smmmOfisId" class="col-sm-2 col-form-label-sm">smmmOfisId</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="smmmofis_id" th:value="${smmmOfis.id}" id="smmmOfisId" readonly="readonly">
+							</div>
+						</div>
+
+						<div class="grid gap-2 text-center float-end">
+							<button type="submit" class="btn btn-primary">
+								<i class="bi bi-music-player-fill"></i> Güncelle
+							</button>
+							<button type="button" id="editReferansFormClearBtn"
+								class="btn btn-secondary">
+								<i class="bi bi-eraser"></i> Formu Temizle
+							</button>
+						</div>
+					</form>
+					<!-- End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">
+						<i class="bi bi-x-circle-fill"></i> Kapat
+					</button>
+					<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- edit sector-referans modal end -->
+
+	<!-- delete sector-referans modal sart -->
+	<div class="modal fade" id="deleteReferansModal" tabindex="-1"
+		style="display: none; padding-right: 1px;" aria-hidden="true"
+		role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-danger">
+					<h5 class="modal-title text-white"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form>
+						<div class="row mb-3 mt-3" id="general-elements">
+							<div class="row d-flex-inline align-items-center"
+								style="padding-top: 10px;">
+								<label for="refaransFormImage"
+									class="col-sm-3 col-form-label-sm w-40">Resim</label>
+								<div class="col-sm-5 d-none">
+									<input class="form-control form-control-sm" type="file" disabled="disabled"
+										name="resim" id="refaransFormImage" accept="image/*">
+								</div>
+								<div class="col-sm-4 text-center ">
+									<img th:if="${hpReferans.id==null}" class="" width="80"
+										height="80" id="referansResim"
+										th:src="@{../../niceadminpanel/assets/img/smmm.png}" alt="">
+									<img th:if="${hpReferans.id!=null}" class="" width="80"
+										height="80" id="referansResim"
+										th:src=" 'data:image/*;base64,' + ${hpReferans.stringResim} "
+										alt="">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2 mt-3" style="display: none;">
+							<label for="referansId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="id" id="referansId">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansName" class="col-sm-2 col-form-label-sm">İsim</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="name" id="referansName" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansMeslek" class="col-sm-2 col-form-label-sm">Meslek</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="meslek" id="referansMeslek" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansStar1" class="col-sm-2 col-form-label-sm">Yıldız
+								</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="star1"  disabled="disabled"
+									id="referansStar1">
+								<i class="bi bi-star" id="referansStar1icon"></i>
+								<input type="checkbox" class="form-check-input" name="star2" disabled="disabled"
+									id="referansStar2">
+								<i class="bi bi-star" id="referansStar2icon"></i>
+								<input type="checkbox" class="form-check-input" name="star3" disabled="disabled"
+									id="referansStar3">
+								<i class="bi bi-star" id="referansStar3icon"></i>
+								<input type="checkbox" class="form-check-input" name="star4" disabled="disabled"
+									id="referansStar4">
+								<i class="bi bi-star" id="referansStar4icon"></i>
+								<input type="checkbox" class="form-check-input" name="star5" disabled="disabled"
+									id="referansStar5">
+								<i class="bi bi-star" id="referansStar5icon"></i>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansGorus" class="col-sm-2 col-form-label-sm">Görüş</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" name="gorus" disabled="disabled"
+									id="referansGorus"></textarea>
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="referansActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active" disabled="disabled"
+									id="referansActive">
+							</div>
+						</div>
+
+
+					</form>
+					<!-- End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">
+						<i class="bi bi-x-circle-fill"></i> Kapat
+					</button>
+					<a type="button" id="deleteConfirmBtn" href=""
+						class="btn btn-danger"><i class="bi bi-trash-fill"></i> Evet
+						Sil</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- delete sector-referans modal end -->
+
+	<div th:replace="~{adminpanel/fragments/footer}"></div>
+	<div th:replace="~{adminpanel/fragments/js}"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+				xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		 		xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+
+<head th:replace="~{adminpanel/fragments/head}"></head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<header th:replace="~{adminpanel/fragments/header}"></header>
+	<!-- End Header -->
+
+	<!-- ======= Sidebar ======= -->
+	<aside th:replace="~{adminpanel/fragments/sidebar}"></aside>
+	<!-- End Sidebar-->
+
+	<!-- ======== main ========== -->
+
+	<div layout:fragment="content">
+
+		<main id="main" class="main">
+
+			<div class="pagetitle">
+				<h1>Anasayfa Hakkımızda Kısmı</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
+						<li class="breadcrumb-item active">
+							<a th:href="@{/api/v1/smmm-homepage-settings}">Ayarlar</a>
+						</li>
+						<li class="breadcrumb-item active">
+							<a th:href="@{/api/v1/smmm-homepage-aboutus-settings}">Anasayfa Hakkımızda Kısmı</a>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<section class="section dashboard">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+<!-- 								<h5 class="card-title">Anasayfa hakkımızda kısmına madde ekle</h5> -->
+								<div class="mt-3">
+									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAboutUsModal">
+						                <i class="bi bi-plus-circle-fill"></i> Anasayfa Hakkımızda kısmı 1. sütun altına madde ekle
+						            </button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">					
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Hakkımızda Kısmı Alt Başlıklar Listesi</h5>
+								<!-- Table with hoverable rows -->
+								<div class="overflow-scroll" style="height: 260px; scrollbar-width: thin;">
+								<table id="aboutUsTable" class="table table-hover table-sm">
+								<thead class="position-sticky fixed-top z-1">
+									<tr>
+										<th>#</th>
+										<th>Metin</th>
+										<th><i class="bi bi-check-circle-fill"></i></th>
+										<th class="d-none">smmmofisId</th>
+										<th><i class="bi bi-tools"></i></th>
+									</tr>
+								</thead>
+								<tbody id="aboutUsTableBody">
+									<tr th:each="a,i :${aboutUsColOneItems}">
+										<td th:text="${i.count}"></td>
+										<td th:text="${a.text}"></td>
+										<td>
+											<span class="badge bg-primary" th:if="${a.active==true}">Aktif</span>
+											<span class="badge bg-danger" th:if="${a.active==false}">Pasif</span>
+										</td>
+										<td th:text="${a.smmmofis.id}" class="d-none"></td>
+										<td>
+											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+								                <a id="viewBtn" type="button" class="btn btn-success" 
+								                	 data-bs-toggle="modal" data-bs-target="#viewAboutUsModal"
+								                	th:href="@{/api/v1/get-homepage-aboutus-col-one-item/{id}(id=${a.id})}">
+								                	<i class="bi bi-eye"></i>
+								                </a>
+								                <a id="editBtn" type="button" class="btn btn-warning"  
+								                	data-bs-toggle="modal" data-bs-target="#editAboutUsModal"
+								                	th:href="@{/api/v1/get-homepage-aboutus-col-one-item/{id}(id=${a.id})}">
+								                	<i class="bi bi-pencil"></i>
+								                </a>
+								                <a id="deleteBtn" type="button" class="btn btn-danger" 
+								                	th:href="@{/api/v1/delete-homepage-aboutus-col-one-item/{id}(id=${a.id})}"
+								                	data-bs-toggle="modal" data-bs-target="#deleteAboutUsModal">
+								                	<i class="bi bi-trash"></i>
+								                </a>
+								            </div>
+										</td>
+									</tr>
+								</tbody>
+								</table>
+								</div>
+								<!-- End Table with hoverable rows -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<!-- End #main -->
+
+	</div>
+	
+	<!-- add aboutus modal sart -->
+	<div class="modal fade" id="addAboutUsModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h5 class="modal-title text-white">Hakkımızda Kısmı Madde Ekle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<!-- Horizontal Form -->
+					<form id="addAboutUsForm"
+						th:action="@{ /api/v1/save-homepage-aboutus-col-one-item}"
+						th:object="${hpAboutUsColOneItem}" method="post">
+
+						<div class="row mb-2 mt-3 d-none">
+							<label for="inputEmail3" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="id" id="hpAboutUsId">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="inputEmail3" class="col-sm-2 col-form-label-sm">Madde</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="text" id="hpAboutUsText" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="active" class="col-sm-2 col-form-label-sm">Aktif-Pasif</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active"
+									id="hpAboutUsActive">
+							</div>
+						</div>
+
+						<div class="grid gap-2 text-center float-end">
+							<button type="submit" class="btn btn-primary"><i class="bi bi-music-player-fill"></i> Kaydet</button>
+							<button type="reset" class="btn btn-secondary"><i class="bi bi-eraser"></i> Formu Temizle</button>								
+						</div>
+					</form>
+					<!-- / Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
+<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- add aboutus modal end -->
+	
+	<!-- view aboutus modal sart -->
+	<div class="modal fade" id="viewAboutUsModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-success">
+					<h5 class="modal-title text-white"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<!-- Horizontal Form -->
+						<form id="addAboutUsForm"
+								th:action="@{ /api/v1/update-homepage-aboutus-col-one-item}"
+								th:object="${hpAboutUsColOneItem}" method="post">
+
+						<div class="row mb-2 mt-3 d-none">
+							<label for="hpAboutUsId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="id" disabled="disabled"
+									 id="hpAboutUsId">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpAboutUsText" class="col-sm-2 col-form-label-sm">Madde</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="text" disabled="disabled"
+									 id="hpAboutUsText" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpAboutUsActive" class="col-sm-2 col-form-label-sm">Aktif-Pasif</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active" disabled="disabled"
+									id="hpAboutUsActive">
+							</div>
+						</div>
+						<div class="row mb-2 mt-3 d-none">
+							<label for="hpAboutUsId" class="col-sm-2 col-form-label-sm">smmmofis_Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="smmmofis.id" disabled="disabled"
+									 id="hpAboutUsSmmmOfisId">
+							</div>
+						</div>
+						
+					</form>		
+				<!-- /End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
+<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- view aboutus modal end -->
+	
+	<!-- edit aboutus modal start -->
+	<div class="modal fade" id="editAboutUsModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+					<h5 class="modal-title text-success"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<!-- Horizontal Form -->
+						<form id="editAboutUsForm"
+								th:action="@{ /api/v1/update-homepage-aboutus-col-one-item}"
+								th:object="${hpAboutUsColOneItem}" method="post">
+
+						<div class="row mb-2 mt-3 d-none">
+							<label for="hpAboutUsId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="id" readonly="readonly"
+									 id="hpAboutUsId">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpAboutUsText" class="col-sm-2 col-form-label-sm">Madde</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="text"
+									 id="hpAboutUsText" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpAboutUsActive" class="col-sm-2 col-form-label-sm">Aktif-Pasif</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active"
+									id="hpAboutUsActive">
+							</div>
+						</div>
+						<div class="row mb-2 mt-3 d-none">
+							<label for="hpAboutUsId" class="col-sm-2 col-form-label-sm">smmmofis_Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="smmmofis.id" readonly="readonly"
+									 id="hpAboutUsSmmmOfisId">
+							</div>
+						</div>
+						<div class="grid gap-2 text-center float-end">
+							<button type="submit" class="btn btn-primary"><i class="bi bi-music-player-fill"></i> Güncelle</button>
+							<button type="button" id="editAboutUsFormClearBtn" class="btn btn-secondary">
+							<i class="bi bi-eraser"></i> Formu Temizle</button>
+								
+						</div>
+					</form>			
+				<!-- / Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
+<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- edit aboutus modal end -->
+	
+	<!-- delete aboutus modal sart -->
+	<div class="modal fade" id="deleteAboutUsModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-danger">
+					<h5 class="modal-title text-white"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<!-- Horizontal Form -->
+							<form id="deleteAboutUsForm">
+
+						<div class="row mb-2 mt-3 d-none">
+							<label for="hpAboutUsId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="id"  disabled="disabled"
+									 id="hpAboutUsId">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpAboutUsText" class="col-sm-2 col-form-label-sm">Madde</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="text" disabled="disabled"
+									 id="hpAboutUsText" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpAboutUsActive" class="col-sm-2 col-form-label-sm">Aktif-Pasif</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active" disabled="disabled"
+									id="hpAboutUsActive">
+							</div>
+						</div>
+						<div class="row mb-2 mt-3 d-none">
+							<label for="hpAboutUsId" class="col-sm-2 col-form-label-sm">smmmofis_Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" name="smmmofis.id" disabled="disabled"
+									 id="hpAboutUsSmmmOfisId">
+							</div>
+						</div>
+						
+					</form>				
+				<!-- /Horizontal Form --> 
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
+					<a type="button" id="deleteAboutUsConfirmBtn" href="" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Evet Sil</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- delete aboutus modal end -->
+
+	<div th:replace="~{adminpanel/fragments/footer}"></div>
+	<div th:replace="~{adminpanel/fragments/js}"></div>
+
+</body>
+
+</html>

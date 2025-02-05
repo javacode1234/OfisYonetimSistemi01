@@ -1,0 +1,185 @@
+<aside th:fragments="sidebar" id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " th:href="@{/api/v1/admin-panel}">
+          <i class="bi bi-grid"></i>
+          <span>SMMM OFİS</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-people-fill"></i><span>Kullanıcılar</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/api/v1/user-profile}">
+              <i class="bi bi-circle"></i><span>Kullanıcı Profili</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/api/v1/users}">
+              <i class="bi bi-circle"></i><span>Kullanıcı Listesi</span>
+            </a>
+          </li>
+         
+        </ul>
+      </li><!-- End Components Nav -->
+
+<!--       <li class="nav-item"> -->
+<!--         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#"> -->
+<!--           <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i> -->
+<!--         </a> -->
+<!--         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav"> -->
+<!--           <li> -->
+<!--             <a href="forms-elements.html"> -->
+<!--               <i class="bi bi-circle"></i><span>Form Elements</span> -->
+<!--             </a> -->
+<!--           </li> -->
+<!--           <li> -->
+<!--             <a href="forms-layouts.html"> -->
+<!--               <i class="bi bi-circle"></i><span>Form Layouts</span> -->
+<!--             </a> -->
+<!--           </li> -->
+         
+<!--         </ul> -->
+<!--       </li>End Forms Nav -->
+
+<!--       <li class="nav-item"> -->
+<!--         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#"> -->
+<!--           <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i> -->
+<!--         </a> -->
+<!--         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav"> -->
+<!--           <li> -->
+<!--             <a href="tables-general.html"> -->
+<!--               <i class="bi bi-circle"></i><span>General Tables</span> -->
+<!--             </a> -->
+<!--           </li> -->
+<!--           <li> -->
+<!--             <a href="tables-data.html"> -->
+<!--               <i class="bi bi-circle"></i><span>Data Tables</span> -->
+<!--             </a> -->
+<!--           </li> -->
+<!--         </ul> -->
+<!--       </li>End Tables Nav -->
+
+<!--       <li class="nav-item"> -->
+<!--         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#"> -->
+<!--           <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i> -->
+<!--         </a> -->
+<!--         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav"> -->
+<!--           <li> -->
+<!--             <a href="charts-chartjs.html"> -->
+<!--               <i class="bi bi-circle"></i><span>Chart.js</span> -->
+<!--             </a> -->
+<!--           </li> -->
+<!--           <li> -->
+<!--             <a href="charts-apexcharts.html"> -->
+<!--               <i class="bi bi-circle"></i><span>ApexCharts</span> -->
+<!--             </a> -->
+<!--           </li> -->
+         
+<!--         </ul> -->
+<!--       </li>End Charts Nav -->
+
+<!--       <li class="nav-item"> -->
+<!--         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#"> -->
+<!--           <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i> -->
+<!--         </a> -->
+<!--         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav"> -->
+<!--           <li> -->
+<!--             <a href="icons-bootstrap.html"> -->
+<!--               <i class="bi bi-circle"></i><span>Bootstrap Icons</span> -->
+<!--             </a> -->
+<!--           </li> -->
+<!--           <li> -->
+<!--             <a href="icons-remix.html"> -->
+<!--               <i class="bi bi-circle"></i><span>Remix Icons</span> -->
+<!--             </a> -->
+<!--           </li> -->
+          
+<!--         </ul> -->
+<!--       </li>End Icons Nav -->
+
+     <li class="nav-heading">Anasayfa İçerİk Ayarları</li>
+      <li class="nav-item">
+		  <a class="nav-link">
+			  <i class="bi bi-grid"></i>
+			  <span class="">AYARLAR </span>
+		  </a>
+	  </li>     
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/api/v1/smmm-homepage-settings}">
+          <i class="bi bi-display"></i>
+          <span>Anasayfa Ayarları</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/api/v1/smmm-homepage-clients-settings}">
+          <i class="bi bi-link-45deg"></i>
+          <span>Kurumlar</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/api/v1/smmm-homepage-aboutus-settings}">
+          <i class="bi bi-newspaper"></i>
+          <span>Hakkımızda</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/api/v1/smmm-homepage-whyus-settings}">
+          <i class="bi bi-patch-question"></i>
+          <span>Neden Biz</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/api/v1/smmm-homepage-services-settings}">
+          <i class="bi bi-wrench"></i>
+          <span>Hizmetler</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/api/v1/smmm-homepage-sector-settings}">
+          <i class="bi bi-shop"></i>
+          <span>Portföy & Şirketler</span>
+        </a>
+      </li>   
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/api/v1/smmm-homepage-referans-settings}">
+          <i class="bi bi-trophy-fill"></i>
+          <span>Referanslar</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/api/v1/smmm-homepage-team-settings}">
+          <i class="bi bi-people-fill"></i>
+          <span>Çalışma Ekibimiz</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/api/v1/smmm-homepage-pricing-settings}">
+          <i class="bi bi-cash-stack"></i>
+          <span>Ücretlendirme</span>
+        </a>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/api/v1/smmm-homepage-faq-settings}">
+          <i class="bi bi-question-square-fill"></i>
+          <span>Sık sorulan sorular</span>
+        </a>
+      </li>   
+<!-- 	  <li class="nav-item"> -->
+<!--         <a class="nav-link collapsed" th:href="@{/api/v1/user-profile}"> -->
+<!--           <i class="bi bi-person"></i> -->
+<!--           <span>Kullanıcı Profili</span> -->
+<!--         </a> -->
+<!--       </li> -->
+      
+
+     
+
+    </ul>
+
+  </aside>
