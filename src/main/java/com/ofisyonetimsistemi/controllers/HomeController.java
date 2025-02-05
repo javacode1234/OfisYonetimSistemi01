@@ -61,9 +61,7 @@ public class HomeController {
 		}		
 		return "portfolio-details";
 	}
-	
-	
-	
+		
 	@GetMapping("/service-details")
 	public String serviceDetails(@RequestParam("id")Integer id, Model model) {
 		
