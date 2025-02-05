@@ -22,11 +22,6 @@ import com.ofisyonetimsistemi.security.model.MyUserDetails;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-
-
-
 
 @Controller
 @RequestMapping("/api/v1/")

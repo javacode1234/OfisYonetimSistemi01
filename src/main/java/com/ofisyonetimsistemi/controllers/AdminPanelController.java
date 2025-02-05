@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
-import com.ofisyonetimsistemi.models.SmmmOfisMessage;
 import com.ofisyonetimsistemi.security.dto.UserProfileDto;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.model.MyUserDetails;
