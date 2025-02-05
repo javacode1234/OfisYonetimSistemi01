@@ -51,6 +51,7 @@ public class SecurityConfig {
 			req.requestMatchers("/user-register-request/**", "/send-message/**", "/add-to-mail-list/**","/login/**").permitAll();
 			
 			req.requestMatchers("/api/v1/**").hasRole("ADMIN");
+			req.requestMatchers("/api/v1/admin-panel").hasRole("ADMIN");
 			
 			req.requestMatchers("/api/v1/admin/**").hasRole("ADMIN");
 			req.requestMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER");

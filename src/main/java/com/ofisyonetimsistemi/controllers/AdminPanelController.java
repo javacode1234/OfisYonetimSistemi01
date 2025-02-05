@@ -55,7 +55,7 @@ public class AdminPanelController {
 			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		}
 
-		return "/adminpanel/index";
+		return "adminpanel/index";
 	}
 
 	@GetMapping("/user-profile")
