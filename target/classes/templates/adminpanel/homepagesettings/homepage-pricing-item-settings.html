@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+				xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		 		xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head th:replace="~{adminpanel/fragments/head}"></head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<header th:replace="~{adminpanel/fragments/header}"></header>
+	<!-- End Header -->
+
+	<!-- ======= Sidebar ======= -->
+	<aside th:replace="~{adminpanel/fragments/sidebar}"></aside>
+	<!-- End Sidebar-->
+
+	<!-- ======== main ========== -->
+
+	<div layout:fragment="content">
+
+		<main id="main" class="main">
+
+			<div class="pagetitle">
+				<h1>Ücretlendirme Kısmı</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
+						<li class="breadcrumb-item active">
+							<a th:href="@{/api/v1/smmm-homepage-settings}">Ayarlar</a>
+						</li>
+						<li class="breadcrumb-item active">
+							<a th:href="@{/api/v1/smmm-homepage-pricing-settings}">Ücretlendirme</a>
+						</li>
+						<li class="breadcrumb-item active">
+							<a >Ücretlendirme Madde Ekle</a>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<section class="section dashboard">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+<!-- 								<h5 class="card-title">Anasayfa hakkımızda kısmına madde ekle</h5> -->
+								<div class="mt-3">
+									<button id="addPricingItemBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" 
+															data-bs-target="#addPricingItemModal">
+						                <i class="bi bi-plus-circle-fill"></i> Ücretlendirme kısmı madde ekle
+						            </button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">					
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Ücretlendirme kısmı madde listesi</h5>
+								<!-- Table with hoverable rows -->
+								<div class="overflow-scroll" style="height: 260px; scrollbar-width: thin;">
+								<table id="pricingItemTable" class="table table-hover table-sm">
+								<thead class="position-sticky fixed-top z-1">
+									<tr>
+										<th>#</th>
+										<th>İsim</th>
+										<th>Açıklama</th>
+										<th><i class="bi bi-check-circle-fill"></i></th>
+										<th class="d-none">pricingId</th>
+										<th><i class="bi bi-tools"></i></th>
+									</tr>
+								</thead>
+								<tbody id="pricingItemTableBody">
+									<tr th:each="pitem, i :${listOfPricingItem}">
+										<td th:text="${i.count}"></td>
+										<td th:text="${pitem.name}"></td>
+										<td>
+											<span th:text="${pitem.description}" class="d-inline-block text-truncate" style="max-width: 150px;"></span>
+										</td>
+										<td>
+											<span class="badge bg-primary" th:if="${pitem.active==true}">Aktif</span>
+											<span class="badge bg-danger" th:if="${pitem.active==false}">Pasif</span>
+										</td>
+										<td th:text="${pitem.smmmofispricing_id}" class="d-none"></td>
+										<td>
+											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+								                <a id="viewBtn" type="button" class="btn btn-success" 
+								                	 data-bs-toggle="modal" data-bs-target="#viewPricingItemModal"
+								                	th:href="@{/api/v1/get-homepage-pricing-item/{id}(id=${pitem.id})}">
+								                	<i class="bi bi-eye"></i>
+								                </a>
+								                <a id="editBtn" type="button" class="btn btn-warning"  
+								                	data-bs-toggle="modal" data-bs-target="#editPricingItemModal"
+								                	th:href="@{/api/v1/get-homepage-pricing-item/{id}(id=${pitem.id})}">
+								                	<i class="bi bi-pencil"></i>
+								                </a>
+								                <a id="deleteBtn" type="button" class="btn btn-danger" 
+								                	th:href="@{/api/v1/delete-homepage-pricing-item/{id}(id=${pitem.id})}"
+								                	data-bs-toggle="modal" data-bs-target="#deletePricingItemModal">
+								                	<i class="bi bi-trash"></i>
+								                </a>
+								               
+								            </div>
+										</td>
+									</tr>
+								</tbody>
+								</table>
+								</div>
+								<!-- End Table with hoverable rows -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<!-- End #main -->
+
+	</div>
+	
+	<!-- add service modal sart -->
+	<div class="modal fade" id="addPricingItemModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h5 class="modal-title text-white">Ücretlendirme kısmı kart Ekle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<!-- Horizontal Form -->
+					<form id="addPricingItemForm"
+						th:action="@{ /api/v1/save-homepage-pricing-item}"
+						th:object="${pricingitem}" method="post">
+
+						<div class="row mb-2 mt-3" style="display: none;">
+							<label for="hpPricingItemId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="id" id="hpPricingItemId">
+							</div>
+						</div>						
+						<div class="row mb-2">
+							<label for="hpPricingItemName" class="col-sm-2 col-form-label-sm">Hizmet adı</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="name" id="hpPricingItemName" required="required">
+							</div>
+						</div>
+						
+						<div class="row mb-2">
+							<label for="hpPricingItemDescription" class="col-sm-2 col-form-label-sm">Açıklama</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="description" id="hpPricingItemDescription" required="required"></textarea>
+							</div>
+						</div>						
+						<div class="row mb-2">
+							<label for="hpPricingItemActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active"
+									id="hpPricingItemActive">
+							</div>
+						</div>
+						<div class="row mb-2 mt-3 d-none">
+							<label for="hpPricingId" class="col-sm-2 col-form-label-sm">hpPricingId</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" readonly="readonly"
+									name="smmmofispricing_id" id="hpPricingId" th:value="${pricing_id}">
+							</div>
+						</div>
+			 
+						<div class="grid gap-2 text-center float-end">
+							<button type="submit" class="btn btn-primary"><i class="bi bi-music-player-fill"></i> Kaydet</button>
+							<button type="reset" id="addPricingItemFormClearBtn" class="btn btn-secondary">
+							<i class="bi bi-eraser"></i> Formu Temizle</button>								
+						</div>
+					</form>
+					<!-- / Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- add service modal end -->
+	
+	<!-- view service modal sart -->
+	<div class="modal fade" id="viewPricingItemModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-success">
+					<h5 class="modal-title text-white"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<!-- Horizontal Form -->
+				<form id="viewPricingItemForm">
+
+						<div class="row mb-2 mt-3 d-none">
+							<label for="hpPricingItemId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"  disabled="disabled"
+									name="id" id="hpPricingItemId">
+							</div>
+						</div>						
+						<div class="row mb-2">
+							<label for="hpPricingItemName" class="col-sm-2 col-form-label-sm">Madde adı</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="name" id="hpPricingItemName" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpPricingItemDescription" class="col-sm-2 col-form-label-sm">Açıklama</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="description" id="hpPricingItemDescription" required="required"></textarea>
+							</div>
+						</div>												
+						<div class="row mb-2">
+							<label for="hpPricingItemActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active" disabled="disabled"
+									id="hpPricingItemActive">
+							</div>
+						</div>
+						<div class="row mb-2 mt-3 d-none">
+							<label for="smmmOfisId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="smmmofispricing_id" id="pricingItemId">
+							</div>
+						</div>
+
+					</form>
+				<!-- /End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- view service modal end -->
+	
+	<!-- edit service modal start -->
+	<div class="modal fade" id="editPricingItemModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+					<h5 class="modal-title text-success"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<!-- Horizontal Form -->
+						<form id="editPricingItemForm"
+						th:action="@{ /api/v1/update-homepage-pricing-item}"
+						th:object="${pricingitem}" method="post">
+
+						<div class="row mb-2 mt-3 d-none">
+							<label for="hpPricingItemId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" readonly="readonly"
+									name="id" id="hpPricingItemId">
+							</div>
+						</div>						
+						<div class="row mb-2">
+							<label for="hpPricingItemName" class="col-sm-2 col-form-label-sm">Madde adı</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"
+									name="name" id="hpPricingItemName" required="required">
+							</div>
+						</div>
+						
+						<div class="row mb-2">
+							<label for="hpPricingItemDescription" class="col-sm-2 col-form-label-sm">Açıklama</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm"
+									name="description" id="hpPricingItemDescription" required="required"></textarea>
+							</div>
+						</div>						
+						<div class="row mb-2">
+							<label for="hpPricingItemActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active"
+									id="hpPricingItemActive">
+							</div>
+						</div>
+						<div class="row mb-2 mt-3 d-none">
+							<label for="pricingItemId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" readonly="readonly"
+									name="smmmofispricing_id" id="pricingItemId">
+							</div>
+						</div>
+
+						<div class="grid gap-2 text-center float-end">
+							<button type="submit" class="btn btn-primary"><i class="bi bi-music-player-fill"></i> Güncelle</button>
+							<button id="editPricingFormClearBtn" class="btn btn-secondary">
+							<i class="bi bi-eraser-fill"></i> Formu Temizle</button>								
+						</div>
+						
+							
+					</form>
+				<!-- / Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- edit service modal end -->
+	
+	<!-- delete service modal sart -->
+	<div class="modal fade" id="deletePricingItemModal" tabindex="-1" style="display: none; padding-right: 1px;" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-danger">
+					<h5 class="modal-title text-white"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<!-- Horizontal Form -->
+						<form id="deletePricingItemForm">				
+
+						<div class="row mb-2 mt-3 d-none">
+							<label for="hpPricingItemId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm"  disabled="disabled"
+									name="id" id="hpPricingItemId">
+							</div>
+						</div>						
+						<div class="row mb-2">
+							<label for="hpPricingItemName" class="col-sm-2 col-form-label-sm">Madde adı</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="name" id="hpPricingItemName" required="required">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="hpPricingItemDescription" class="col-sm-2 col-form-label-sm">Açıklama</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" disabled="disabled"
+									name="description" id="hpPricingItemDescription" required="required"></textarea>
+							</div>
+						</div>												
+						<div class="row mb-2">
+							<label for="hpPricingItemActive" class="col-sm-2 col-form-label-sm">Durum</label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-check-input" name="active" disabled="disabled"
+									id="hpPricingItemActive">
+							</div>
+						</div>
+						<div class="row mb-2 mt-3 d-none">
+							<label for="smmmOfisId" class="col-sm-2 col-form-label-sm">Id</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									name="smmmofispricing_id" id="pricingItemId">
+							</div>
+						</div>
+
+					</form>
+				<!-- /Horizontal Form --> 
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Kapat</button>
+					<a type="button" id="deletePricingItemConfirmBtn" href="" class="btn btn-danger"><i class="bi bi-trash"></i> Evet Sil </a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- delete service modal end -->
+
+	<div th:replace="~{adminpanel/fragments/footer}"></div>
+	<div th:replace="~{adminpanel/fragments/js}"></div>
+
+</body>
+
+</html>
