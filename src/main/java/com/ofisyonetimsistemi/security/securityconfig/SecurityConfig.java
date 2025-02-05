@@ -49,6 +49,7 @@ public class SecurityConfig {
 			req.requestMatchers("/arshahomepage/**", "/niceadminpanel/**", "/customjs/**", "/customcss/**", "/loginimages/**").permitAll();//resources//static
 			req.requestMatchers("/", "/error/**","/adminpanel/login/**", "/portfolio-details/**", "/service-details/**").permitAll();
 			req.requestMatchers("/user-register-request/**", "/send-message/**", "/add-to-mail-list/**","/login/**").permitAll();
+			req.requestMatchers("/signin/**").permitAll();
 			
 			req.requestMatchers("/api/v1/**").hasRole("ADMIN");
 			req.requestMatchers("/api/v1/admin-panel").hasRole("ADMIN");
