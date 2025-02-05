@@ -62,8 +62,8 @@ public class SecurityHomeController {
 			model.addAttribute("userDto", userDto);
 			return "adminpanel/login";
 		}
-		return "redirect:/login?login";
-		
+		//return "redirect:/login?login";
+		return "redirect:/api/v1/admin-panel";
 	}
 	
 	
