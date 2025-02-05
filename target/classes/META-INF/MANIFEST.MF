@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Build-Jdk-Spec: 22
+Implementation-Title: OfisYonetimSistemi
+Implementation-Version: V01
+Created-By: Maven Integration for Eclipse
+
