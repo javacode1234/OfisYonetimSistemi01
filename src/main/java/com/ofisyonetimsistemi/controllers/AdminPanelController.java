@@ -20,8 +20,7 @@ import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
-//@Controller
-@RestController
+@Controller
 @RequestMapping("/api/v1/")
 public class AdminPanelController {
 
