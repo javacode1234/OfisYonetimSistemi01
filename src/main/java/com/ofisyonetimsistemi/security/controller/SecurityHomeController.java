@@ -24,7 +24,7 @@ public class SecurityHomeController {
 	@Autowired private PasswordEncoder pwdEncoder;
 	@Autowired private SmmmOfisService smmmOfisService;
 
-	@GetMapping("/login")
+	@GetMapping("/loginpage")
 	public String getLoginPage(Model model) {
 		SmmmOfis smmmOfis = smmmOfisService.getFirstSmmmOfis().get();
 		boolean thereAreAnyUser = userService.thereAreAnyUser();
@@ -32,7 +32,7 @@ public class SecurityHomeController {
 		if(thereAreAnyUser) {
 			model.addAttribute("smmmOfis", smmmOfis);
 			model.addAttribute("userDto", new UserDto());
-			return "adminpanel/login";
+			return "adminpanel/loginpage";
 		}
 			
 			String roles = "ADMIN,USER,CUSTOMER";
@@ -52,7 +52,7 @@ public class SecurityHomeController {
 			
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			model.addAttribute("userDto", new UserDto());
-			return "adminpanel/login";
+			return "adminpanel/loginpage";
 		
 	}
 	
@@ -60,12 +60,12 @@ public class SecurityHomeController {
 	public String login(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult result, Model model ) {
 		if(result.hasErrors()) {
 			model.addAttribute("userDto", userDto);
-			return "adminpanel/login";
+			return "adminpanel/loginpage";
 		}
 		
-		//return "adminpanel/index";
+		return "adminpanel/index";
 		
-		return "redirect:/login?login";
+		//return "redirect:/login?login";
 		//return "redirect:/api/v1/admin-panel";
 	}
 	
