@@ -9,9 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.security.dto.UserProfileDto;
 import com.ofisyonetimsistemi.security.model.MyUser;
@@ -21,7 +18,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class AdminPanelController {
 
 	@Autowired private SmmmOfisService smmmOfisService;
