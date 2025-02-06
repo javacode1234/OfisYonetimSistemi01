@@ -22,14 +22,14 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("api/v1")
 public class AdminPanelController {
 
 	@Autowired private SmmmOfisService smmmOfisService;
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
 	
-	@GetMapping(value = "/admin-panel")
+	@GetMapping("/admin-panel")
 	public String getAdminPanel(Model model, Principal principal, @AuthenticationPrincipal MyUserDetails loggedUser) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
