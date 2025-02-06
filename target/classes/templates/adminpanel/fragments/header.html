@@ -127,7 +127,7 @@
 <!--                   <p th:text="${message.email}"></p> -->
                   <p th:text="${message.subject}"></p>
                   <p th:text="${#strings.substring(message.message, 0, 20)}"></p>
-                  <p th:text="${#temporals.format(message.date, 'dd-MM-yyyy HH:mm')}"></p>
+                  <p th:text="${#temporals.format(message.date, 'dd-MM-yyyy HH:mm:ss')}"></p>
 <!--                   <p th:text="${#dates.format(message.date, 'dd-MM-yyyy HH:mm')}"></p> -->
                 </div>
               </a>

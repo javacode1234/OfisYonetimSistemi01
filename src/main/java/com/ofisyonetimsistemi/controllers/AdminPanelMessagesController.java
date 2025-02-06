@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -42,16 +43,15 @@ public class AdminPanelMessagesController {
 		model.addAttribute("selectedMessage", selectedMessage);
 		model.addAttribute("messageCount", messageService.countOfRecord());
 		model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
-		model.addAttribute("allMessages", messageService.getAll());
+		model.addAttribute("allMessages", messageService.getAllUnReadMessages());
 		
 		return "adminpanel/messages";
 	}
 	
 	@PostMapping("/update-selected-message")
 	public String updateSelectedMessage(@ModelAttribute("selectedMessage")SmmmOfisMessage selectedMessage, Model model) {
-		LocalDateTime localDateTime = LocalDateTime.now();
 		if(selectedMessage.isOkundu()==true) {
-			selectedMessage.setDateofread(localDateTime);
+			selectedMessage.setDateofread(LocalDateTime.now().withNano(0));
 		}
 		messageService.updateSelectedMessage(selectedMessage);
 		
@@ -105,8 +105,14 @@ public class AdminPanelMessagesController {
 	
 	@GetMapping("/view-selected-message/{id}")
 	@ResponseBody
-	public Optional<SmmmOfisMessage> requestMethodName(@PathVariable("id") Integer id) {
+	public Optional<SmmmOfisMessage> viewSelectedMessage(@PathVariable("id") Integer id) {
 		return messageService.getById(id);
+	}
+	
+	@RequestMapping(value="/delete-selected-message", method = {RequestMethod.DELETE, RequestMethod.GET})
+	public String delById(@RequestParam("id") Integer id) {
+		messageService.deleteById(id);
+		return "redirect:/api/v1/get-read-messages";
 	}
 	
 

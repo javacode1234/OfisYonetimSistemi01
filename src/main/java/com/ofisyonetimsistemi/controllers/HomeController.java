@@ -1,6 +1,7 @@
 package com.ofisyonetimsistemi.controllers;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,18 +82,19 @@ public class HomeController {
 									@RequestParam("name")String name,
 									@RequestParam("email")String email,
 									@RequestParam("subject")String subject,
-									@RequestParam("message")String message,
-									Model model
+									@RequestParam("message")String message
+									
 							  ) {
 		
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
-		LocalDateTime localDateTime =LocalDateTime.now();
+		
+			    
 		SmmmOfisMessage newMessage = SmmmOfisMessage.builder()
 				.name(name)
 				.email(email)
 				.subject(subject)
 				.message(message)
-				.date(localDateTime)
+				.date(LocalDateTime.now().withNano(0))
 				.smmmofis_id(smmmOfis.get().getId())
 				.build();
 		
