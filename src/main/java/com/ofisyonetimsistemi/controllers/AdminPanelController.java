@@ -22,7 +22,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("/api/v1")
 public class AdminPanelController {
 
 	@Autowired private SmmmOfisService smmmOfisService;
