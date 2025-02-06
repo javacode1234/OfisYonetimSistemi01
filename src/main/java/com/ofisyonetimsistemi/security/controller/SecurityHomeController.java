@@ -56,7 +56,7 @@ public class SecurityHomeController {
 		
 	}
 	
-	@PostMapping("/signin")
+	@PostMapping("/login")
 	public String login(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult result, Model model ) {
 		if(result.hasErrors()) {
 			model.addAttribute("userDto", userDto);
