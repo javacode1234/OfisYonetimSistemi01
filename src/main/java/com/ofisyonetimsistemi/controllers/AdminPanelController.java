@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.security.dto.UserProfileDto;
@@ -20,6 +21,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
+@RestController
 @RequestMapping("/api/v1")
 public class AdminPanelController {
 
@@ -28,7 +30,6 @@ public class AdminPanelController {
 	@Autowired private SmmmOfisMessageService messageService;
 	
 	@GetMapping(value = "/admin-panel")
-	@ResponseBody
 	public String getAdminPanel(Model model, Principal principal, @AuthenticationPrincipal MyUserDetails loggedUser) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
