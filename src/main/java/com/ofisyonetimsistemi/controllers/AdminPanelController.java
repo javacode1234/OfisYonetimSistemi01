@@ -30,6 +30,7 @@ public class AdminPanelController {
 	@Autowired private SmmmOfisMessageService messageService;
 	
 	@GetMapping("/admin-panel")
+	@ResponseBody
 	public String getAdminPanel(Model model, Principal principal, @AuthenticationPrincipal MyUserDetails loggedUser) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
