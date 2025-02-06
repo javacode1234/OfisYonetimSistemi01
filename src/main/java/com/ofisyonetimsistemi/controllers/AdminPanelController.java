@@ -9,9 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.security.dto.UserProfileDto;
 import com.ofisyonetimsistemi.security.model.MyUser;
@@ -21,7 +18,6 @@ import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
-@RestController
 @RequestMapping("/api/v1")
 public class AdminPanelController {
 
@@ -30,7 +26,6 @@ public class AdminPanelController {
 	@Autowired private SmmmOfisMessageService messageService;
 	
 	@GetMapping("/admin-panel")
-	@ResponseBody
 	public String getAdminPanel(Model model, Principal principal, @AuthenticationPrincipal MyUserDetails loggedUser) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
@@ -42,7 +37,7 @@ public class AdminPanelController {
 			model.addAttribute("messageCount", messageService.countOfRecord());
 			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 
-			return "adminpanel/index";
+			return "/adminpanel/index";
 
 		} else {
 
@@ -58,7 +53,7 @@ public class AdminPanelController {
 			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		}
 
-		return "adminpanel/index";
+		return "/adminpanel/index";
 	}
 
 	@GetMapping("/user-profile")
