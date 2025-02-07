@@ -27,7 +27,7 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
 		//System.err.println(isCustomer);
 		
 		if(isAdmin) {
-			setDefaultTargetUrl("http://localhost:8080/api/v1/admin-panel");
+			setDefaultTargetUrl("/api/v1/admin-panel");
 			//response.sendRedirect("/api/v1/admin-panel");			
 		}else if(isUser) {
 			setDefaultTargetUrl("/user/home");
