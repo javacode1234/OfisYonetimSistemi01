@@ -64,10 +64,10 @@ public class SecurityConfig {
 		.formLogin(login->{
 			login
 			.loginPage("/loginpage")
-			.loginProcessingUrl("/login").permitAll()
-			.failureUrl("/login?error").permitAll()
-			//.defaultSuccessUrl("/admin/home")
-			.successHandler(authSuccessHandler)
+			.loginProcessingUrl("/login")
+			.failureUrl("/login?error")
+			.defaultSuccessUrl("/api/v1/admin-panel")
+			//.successHandler(authSuccessHandler)
 			
 			.permitAll();
 					
