@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "myuser")
-@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
@@ -79,6 +78,10 @@ public class MyUser {
 	@JsonIgnore
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
+	
+	public MyUser() {
+		
+	}
 	
 	
 	
