@@ -52,8 +52,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 
 			model.addAttribute("currentUser", currentUser);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+//			model.addAttribute("messageCount", messageService.countOfRecord());
+//			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
 		}
 
 		return "/adminpanel/index";
