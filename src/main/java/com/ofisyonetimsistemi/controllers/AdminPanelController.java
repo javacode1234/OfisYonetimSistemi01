@@ -24,9 +24,9 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 @RequestMapping("/api/v1")
 public class AdminPanelController {
 
-	@Autowired private SmmmOfisService smmmOfisService;
-	@Autowired private MyUserService myUserService;
-	@Autowired private SmmmOfisMessageService messageService;
+	private SmmmOfisService smmmOfisService;
+	private MyUserService myUserService;
+	private SmmmOfisMessageService messageService;
 	
 	public AdminPanelController() {
 		
