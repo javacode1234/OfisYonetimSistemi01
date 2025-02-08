@@ -13,7 +13,7 @@ import com.ofisyonetimsistemi.models.SmmmOfisMessage;
 public interface SmmmOfisMessageRepository extends JpaRepository<SmmmOfisMessage, Integer> {
 
 	@Query(value="select count(*) from Messages m where m.okundu= :okundu ", nativeQuery=true)
-	Long countOfNonReadMessage(@Param("okundu")boolean okundu);
+	Long countOfUnReadMessage(@Param("okundu")boolean okundu);
 	
 	@Query(value="select * from Messages m where m.okundu= :okundu ", nativeQuery=true)
 	List<SmmmOfisMessage> getAllUnReadMessages(@Param("okundu")boolean okundu);

@@ -38,7 +38,7 @@ public class AdminPanelController {
 			
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 
 			return "/adminpanel/index";
 
@@ -52,8 +52,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 
 			model.addAttribute("currentUser", currentUser);
-//			model.addAttribute("messageCount", messageService.countOfRecord());
-//			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 		}
 
 		return "/adminpanel/index";
@@ -73,7 +73,7 @@ public class AdminPanelController {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -88,7 +88,7 @@ public class AdminPanelController {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 		}
 		return "adminpanel/homepagesettings/user-profile";
@@ -108,7 +108,7 @@ public class AdminPanelController {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -123,7 +123,7 @@ public class AdminPanelController {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 		}
 		return "adminpanel/homepagesettings/user-profile";
@@ -144,7 +144,7 @@ public class AdminPanelController {
 			model.addAttribute("userProfileDto", new UserProfileDto());
 			model.addAttribute("userProfileDto", userProfileDto);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -159,7 +159,7 @@ public class AdminPanelController {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 		}
 		return "adminpanel/homepagesettings/user-profile";
 	}
@@ -179,7 +179,7 @@ public class AdminPanelController {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -194,7 +194,7 @@ public class AdminPanelController {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 		}
 		return "adminpanel/homepagesettings/user-profile";
@@ -215,7 +215,7 @@ public class AdminPanelController {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -230,7 +230,7 @@ public class AdminPanelController {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 		}
 		return "adminpanel/homepagesettings/user-profile";

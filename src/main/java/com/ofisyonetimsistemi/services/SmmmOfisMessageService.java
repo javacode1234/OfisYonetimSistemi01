@@ -38,8 +38,8 @@ public class SmmmOfisMessageService {
 		return repo.count();
 	}
 	
-	public Long countOfRecordReaded(boolean okundu) {
-		return repo.countOfNonReadMessage(okundu);
+	public Long countOfUnReadMessages(boolean okundu) {
+		return repo.countOfUnReadMessage(okundu);
 	}
 
 	public List<SmmmOfisMessage> getAllUnReadMessages() {
