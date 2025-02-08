@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
@@ -30,8 +29,10 @@ public class AdminPanelController {
 	
 	@GetMapping(value="/admin-panel")
 	public String getAdminPanel(Model model, @AuthenticationPrincipal MyUserDetails loggedUser) {
+		
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
+		
 		if (!smmmOfis.isEmpty()) {
 			model.addAttribute("updateBtnActive", true);
 			model.addAttribute("smmmOfis", smmmOfis.get());

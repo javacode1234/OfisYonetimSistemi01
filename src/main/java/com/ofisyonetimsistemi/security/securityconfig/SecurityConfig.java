@@ -23,17 +23,17 @@ public class SecurityConfig {
 	@Autowired private MyAuthenticationSuccessHandler authSuccessHandler;
 	
 	@Bean
-	public UserDetailsService userDetailsService() {
+	protected UserDetailsService userDetailsService() {
 		return userDetailsService;
 	}
 	
 	@Bean
-	public PasswordEncoder pwdEncoder() {
+	protected PasswordEncoder pwdEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
 	@Bean
-	public AuthenticationProvider authProvider() {
+	protected AuthenticationProvider authProvider() {
 		DaoAuthenticationProvider outhProvider = new DaoAuthenticationProvider();
 		outhProvider.setUserDetailsService(userDetailsService);
 		outhProvider.setPasswordEncoder(pwdEncoder());
@@ -41,7 +41,7 @@ public class SecurityConfig {
 	}
 	
 	@Bean
-	public SecurityFilterChain customSecurityFilterChain(HttpSecurity sec) throws Exception {
+	protected SecurityFilterChain customSecurityFilterChain(HttpSecurity sec) throws Exception {
 		return sec
 		.csrf(AbstractHttpConfigurer::disable)
 		
