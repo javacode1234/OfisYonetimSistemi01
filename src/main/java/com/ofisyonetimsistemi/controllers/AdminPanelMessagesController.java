@@ -42,7 +42,7 @@ public class AdminPanelMessagesController {
 		model.addAttribute("currentUser", currentUser);
 		model.addAttribute("selectedMessage", selectedMessage);
 		model.addAttribute("messageCount", messageService.countOfRecord());
-		model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 		model.addAttribute("allMessages", messageService.getAllUnReadMessages());
 		
 		return "adminpanel/messages";
@@ -67,7 +67,7 @@ public class AdminPanelMessagesController {
 		model.addAttribute("currentUser", currentUser);
 		model.addAttribute("selectedMessage", new SmmmOfisMessage());
 		model.addAttribute("messageCount", messageService.countOfRecord());
-		model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 		model.addAttribute("allMessages", messageService.getAllUnReadMessages());
 		
 		return "adminpanel/messages";
@@ -82,7 +82,7 @@ public class AdminPanelMessagesController {
 		model.addAttribute("currentUser", currentUser);
 		model.addAttribute("selectedMessage", new SmmmOfisMessage());
 		model.addAttribute("messageCount", messageService.countOfRecord());
-		model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 		model.addAttribute("allMessages", messageService.getAllReadMessages());
 		
 		return "adminpanel/messages";
@@ -97,7 +97,7 @@ public class AdminPanelMessagesController {
 		model.addAttribute("currentUser", currentUser);
 		model.addAttribute("selectedMessage", new SmmmOfisMessage());
 		model.addAttribute("messageCount", messageService.countOfRecord());
-		model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 		model.addAttribute("allMessages", messageService.getAllMessages());
 		
 		return "adminpanel/messages";
