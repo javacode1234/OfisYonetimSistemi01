@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisMessage;
@@ -20,6 +21,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisPricingService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
+@RequestMapping("/")
 public class HomeController {
 	
 	@Autowired private SmmmOfisService smmmOfisHomePageService;
@@ -29,7 +31,7 @@ public class HomeController {
 	@Autowired private SmmmOfisPricingService pricingService;
 	@Autowired private SmmmOfisMessageService messageService;
 		
-	@GetMapping("/")
+	@GetMapping
 	public String getHomePage(Model model) {		
 		
 		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();

@@ -24,24 +24,10 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 @RequestMapping("/api/v1")
 public class AdminPanelController {
 
-	private SmmmOfisService smmmOfisService;
-	private MyUserService myUserService;
-	private SmmmOfisMessageService messageService;
+	@Autowired private SmmmOfisService smmmOfisService;
+	@Autowired private MyUserService myUserService;
+	@Autowired private SmmmOfisMessageService messageService;
 	
-	public AdminPanelController() {
-		
-	}
-	
-	
-	public AdminPanelController(SmmmOfisService smmmOfisService, MyUserService myUserService,
-			SmmmOfisMessageService messageService) {
-		super();
-		this.smmmOfisService = smmmOfisService;
-		this.myUserService = myUserService;
-		this.messageService = messageService;
-	}
-
-
 	@GetMapping("/admin-panel")
 	public String getAdminPanel(Model model, Principal principal, @AuthenticationPrincipal MyUserDetails loggedUser) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());

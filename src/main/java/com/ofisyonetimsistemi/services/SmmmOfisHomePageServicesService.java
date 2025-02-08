@@ -12,7 +12,7 @@ import com.ofisyonetimsistemi.repositories.SmmmOfisServicesRepository;
 @Service
 public class SmmmOfisHomePageServicesService {
 
-	@Autowired SmmmOfisServicesRepository repo;
+	@Autowired private SmmmOfisServicesRepository repo;
 	
 	public void saveService(SmmmOfisServices service) {
 		repo.save(service);

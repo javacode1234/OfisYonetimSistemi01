@@ -15,7 +15,7 @@ import com.ofisyonetimsistemi.repositories.SmmmOfisRepository;
 public class SmmmOfisService {
 
 	@Autowired
-	SmmmOfisRepository smmmOfisRepo;
+	private SmmmOfisRepository smmmOfisRepo;
 	
 	public Optional<SmmmOfis> getFirstSmmmOfis() {
 		return smmmOfisRepo.findAll().stream().findFirst();
