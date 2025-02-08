@@ -44,7 +44,7 @@ public class SmmmHomePageSettingsContoller {
 			  
 			  model.addAttribute("currentUser", myUser);
 			  model.addAttribute("messageCount", messageService.countOfRecord());
-			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  
 			  return "adminpanel/homepagesettings/homepage-settings";
 			  
@@ -58,7 +58,7 @@ public class SmmmHomePageSettingsContoller {
 			  
 			  model.addAttribute("currentUser", myUser);
 			  model.addAttribute("messageCount", messageService.countOfRecord());
-			  model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 		  }
 		  
 		  return "adminpanel/homepagesettings/homepage-settings";			

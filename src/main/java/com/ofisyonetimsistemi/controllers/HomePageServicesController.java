@@ -52,7 +52,7 @@ public class HomePageServicesController {
 			
 			model.addAttribute("currentUser", myUser);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 
 			return "adminpanel/homepagesettings/homepage-services-settings";
 
@@ -66,7 +66,7 @@ public class HomePageServicesController {
 			
 			model.addAttribute("currentUser", myUser);
 			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfNonReadMessages", messageService.countOfRecordReaded(false));
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 		}
 
 		return "adminpanel/homepagesettings/homepage-services-settings";
