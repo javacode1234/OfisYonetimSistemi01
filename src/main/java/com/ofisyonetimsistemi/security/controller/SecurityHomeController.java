@@ -63,10 +63,8 @@ public class SecurityHomeController {
 			return "adminpanel/loginpage";
 		}
 		
-		//return "adminpanel/index";
-		
 		return "redirect:/login?login";
-		//return "redirect:/api/v1/admin-panel";
+		
 	}
 	
 	

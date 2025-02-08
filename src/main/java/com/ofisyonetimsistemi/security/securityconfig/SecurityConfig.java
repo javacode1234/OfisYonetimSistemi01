@@ -66,8 +66,8 @@ public class SecurityConfig {
 			.loginPage("/loginpage")
 			.loginProcessingUrl("/login")
 			.failureUrl("/login?error")
-			.defaultSuccessUrl("/api/v1/admin-panel")
-			//.successHandler(authSuccessHandler)
+			//.defaultSuccessUrl("/api/v1/admin-panel")
+			.successHandler(authSuccessHandler)
 			
 			.permitAll();
 					
