@@ -26,12 +26,12 @@
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a
-							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
+							th:href="@{/cp/admin-panel}">Anasayfa</a></li>
 						<li class="breadcrumb-item active">
-							<a th:href="@{/api/v1/smmm-homepage-settings}">Ayarlar</a>
+							<a th:href="@{/cp/smmm-homepage-settings}">Ayarlar</a>
 						</li>
 						<li class="breadcrumb-item active">
-							<a th:href="@{/api/v1/smmm-homepage-sector-settings}">Portföy (Sektör & Şirket)</a>
+							<a th:href="@{/cp/smmm-homepage-sector-settings}">Portföy (Sektör & Şirket)</a>
 						</li>
 						<li class="breadcrumb-item active">
 							<a>Şirketler</a>
@@ -106,16 +106,16 @@
 											<div class="btn-group" role="group" aria-label="Basic mixed styles example">
 								                <a id="viewBtn" type="button" class="btn btn-success" 
 								                	 data-bs-toggle="modal" data-bs-target="#viewCompanyModal"
-								                	th:href="@{/api/v1/get-homepage-portfoy-company-settings/{id}(id=${company.id})}">
+								                	th:href="@{/cp/get-homepage-portfoy-company-settings/{id}(id=${company.id})}">
 								                	<i class="bi bi-eye"></i>
 								                </a>
 								                <a id="editBtn" type="button" class="btn btn-warning"  
 								                	data-bs-toggle="modal" data-bs-target="#editCompanyModal"
-								                	th:href="@{/api/v1/get-homepage-portfoy-company-settings/{id}(id=${company.id})}">
+								                	th:href="@{/cp/get-homepage-portfoy-company-settings/{id}(id=${company.id})}">
 								                	<i class="bi bi-pencil"></i>
 								                </a>
 								                <a id="deleteBtn" type="button" class="btn btn-danger" 
-								                	th:href="@{/api/v1/delete-homepage-portfoy-company-settings/{id}(id=${company.id})}"
+								                	th:href="@{/cp/delete-homepage-portfoy-company-settings/{id}(id=${company.id})}"
 								                	data-bs-toggle="modal" data-bs-target="#deleteCompanyModal">
 								                	<i class="bi bi-trash"></i>
 								                </a>
@@ -150,7 +150,7 @@
 				<div class="modal-body">
 					<!-- Horizontal Form -->
 					<form id="addCompanyForm"
-						th:action="@{ /api/v1/save-homepage-portfoy-company-settings}"
+						th:action="@{ /cp/save-homepage-portfoy-company-settings}"
 						th:object="${hpCompany}" method="post"
 						enctype="multipart/form-data">
 						<div class="row mb-3 mt-3" id="general-elements">

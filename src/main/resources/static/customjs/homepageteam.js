@@ -80,7 +80,7 @@ $("document").ready(function() {
 		$("#editTeamModal .modal-title").text("Personel Bilgilerini Güncelle");
 		var href = $(this).attr('href');
 		$.get(href, function(hpt, status) {
-			$("#editTeamModal .modal-body #editTeamForm").attr('action', '/api/v1/update-homepage-team-settings/' + hpt.id);
+			$("#editTeamModal .modal-body #editTeamForm").attr('action', '/cp/update-homepage-team-settings/' + hpt.id);
 			$("#editTeamModal .modal-body #hptResim").attr('src', 'data:image/*;base64,' + hpt.stringResim);
 			$("#editTeamModal .modal-body #hptId").val(hpt.id);
 			$("#editTeamModal .modal-body #hptName").val(hpt.name);

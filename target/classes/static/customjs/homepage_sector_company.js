@@ -27,7 +27,7 @@ $("document").ready(function(){
 					$("#editCompanyModal .modal-title").text("Şirket Bilgilerini Güncelle");
 					var href = $(this).attr('href');		
 					$.get(href, function(company, status){
-						$("#editCompanyModal .modal-body #editCompanyForm").attr('action', '/api/v1/update-homepage-portfoy-company-settings/'+company.id);
+						$("#editCompanyModal .modal-body #editCompanyForm").attr('action', '/cp/update-homepage-portfoy-company-settings/'+company.id);
 						$("#editCompanyModal .modal-body #companyId").val(company.id);
 						$("#editCompanyModal .modal-body #companyName").val(company.name);
 						$("#editCompanyModal .modal-body #companyUnvan").val(company.unvan);

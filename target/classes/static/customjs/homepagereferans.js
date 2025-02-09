@@ -102,7 +102,7 @@ $("document").ready(function() {
 		$("#editReferansModal .modal-title").text("Referans Bilgilerini Güncelle");
 		var href = $(this).attr('href');
 		$.get(href, function(hpref, status) {
-			$('#editReferansModal .modal-body form').attr('action', '/api/v1/update-homepage-referans-settings/' + hpref.id);
+			$('#editReferansModal .modal-body form').attr('action', '/cp/update-homepage-referans-settings/' + hpref.id);
 			$("#editReferansModal .modal-body #refaransFormImage").val('');
 			$("#editReferansModal .modal-body #referansResim").attr('src', 'data:image/*;base64,' + hpref.stringResim);
 			$("#editReferansModal .modal-body #referansId").val(hpref.id);
@@ -174,7 +174,7 @@ $("document").ready(function() {
 		var href = $(this).attr('href');
 		//$('#deleteReferansModal #deleteConfirmBtn').attr('href', href);
 		$.get(href, function(hpref, status) {
-			$('#deleteReferansModal .modal-footer #deleteConfirmBtn').attr('href', '/api/v1/delete-homepage-referans-settings/' + hpref.id);
+			$('#deleteReferansModal .modal-footer #deleteConfirmBtn').attr('href', '/cp/delete-homepage-referans-settings/' + hpref.id);
 			$("#deleteReferansModal .modal-body #refaransFormImage").val('');
 			$("#deleteReferansModal .modal-body #referansResim").attr('src', 'data:image/*;base64,' + hpref.stringResim);
 			$("#deleteReferansModal .modal-body #referansId").val(hpref.id);

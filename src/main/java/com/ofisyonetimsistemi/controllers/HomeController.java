@@ -87,8 +87,7 @@ public class HomeController {
 									
 							  ) {
 		
-		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();
-		
+		Optional<SmmmOfis> smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis();		
 			    
 		SmmmOfisMessage newMessage = SmmmOfisMessage.builder()
 				.name(name)

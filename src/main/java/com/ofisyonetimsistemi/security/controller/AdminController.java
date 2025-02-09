@@ -37,7 +37,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class AdminController {
 
 	@Autowired private SmmmOfisService smmmOfisService;
@@ -189,7 +189,7 @@ public class AdminController {
 			myUserService.saveMyUser(user);
 		}
 
-		return "redirect:/api/v1/users";
+		return "redirect:/cp/users";
 	}
 
 	@PostMapping("/update/user")
@@ -225,7 +225,7 @@ public class AdminController {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("smmmOfis", smmmOfis.get());
 			
-			return "redirect:/api/v1/users";
+			return "redirect:/cp/users";
 		}
 
 		if (result.hasErrors()) {
@@ -297,7 +297,7 @@ public class AdminController {
 			myUserService.saveMyUser(user);
 		}
 		
-		return principal.getName().equals(userDto.getUsername()) ? "redirect:/api/v1/users" : "redirect:/login";
+		return principal.getName().equals(userDto.getUsername()) ? "redirect:/cp/users" : "redirect:/login";
 	}
 
 	@GetMapping("/get/user/{id}")
@@ -309,7 +309,7 @@ public class AdminController {
 	@RequestMapping(value = "/delete/user/{id}", method = { RequestMethod.DELETE, RequestMethod.GET })
 	public String deleteUserById(@PathVariable("id") Integer id) {
 		myUserService.deleteMyUserById(id);
-		return "redirect:/api/v1/users";
+		return "redirect:/cp/users";
 	}
 	
 	@PostMapping("/update/user-profile")
@@ -350,7 +350,7 @@ public class AdminController {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("smmmOfis", smmmOfis.get());
 			
-			return "redirect:/api/v1/user-profile-edit";
+			return "redirect:/cp/user-profile-edit";
 		}
 
 		if(file.getBytes()!=null && !file.getOriginalFilename().isEmpty()) {
@@ -410,7 +410,7 @@ public class AdminController {
 			myUserService.saveMyUser(myuser);
 		}	
 		
-		return principal.getName().equals(username) ? "redirect:/api/v1/user-profile-edit" : "redirect:/login"; 
+		return principal.getName().equals(username) ? "redirect:/cp/user-profile-edit" : "redirect:/login"; 
 
 	}
 	
@@ -455,7 +455,7 @@ public class AdminController {
 				.build();
 		myUserService.saveMyUser(myUser);			
 
-	return "redirect:/api/v1/user-profile-settings";		
+	return "redirect:/cp/user-profile-settings";		
 		
 	}
 
@@ -497,7 +497,7 @@ public class AdminController {
 				.build();
 		myUserService.saveMyUser(myUser);
 		
-		return "redirect:/api/v1/user-profile-changepwd";
+		return "redirect:/cp/user-profile-changepwd";
 	}
 	
 }

@@ -22,8 +22,8 @@
       <h1>Kullanıcı Profili</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
-          <li class="breadcrumb-item"><a th:href="@{/api/v1/users}">Kullanıcılar</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/cp/admin-panel}">Anasayfa</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/cp/users}">Kullanıcılar</a></li>
           <li class="breadcrumb-item active">Kullanıcı Profili</li>
         </ol>
       </nav>
@@ -131,7 +131,7 @@
                 <div class="tab-pane fade profile-edit pt-3" th:classappend="${tabpane == 'edit'} ? 'active show' " id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form th:action="@{/api/v1/update/user-profile}" method="post" enctype="multipart/form-data"
+                  <form th:action="@{/cp/update/user-profile}" method="post" enctype="multipart/form-data"
 										id="updateProfileForm">
 <!-- 					<div class="row mb-3 d-none"> -->
 <!--                       <label for="id" class="col-md-4 col-lg-3 col-form-label">id</label> -->
@@ -274,7 +274,7 @@
                 <div class="tab-pane fade pt-3" th:classappend="${tabpane == 'settings'} ? 'active show' " id="profile-settings">
 
                   <!-- Settings Form -->
-                  <form th:action="@{/api/v1/update/user-profile-settings}" method="post">
+                  <form th:action="@{/cp/update/user-profile-settings}" method="post">
 
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Hesap Ayarları</label>
@@ -318,7 +318,7 @@
 
                 <div class="tab-pane fade pt-3" th:classappend="${tabpane == 'changepwd'} ? 'active show' " id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form th:action="@{/api/v1/update/user-password}" method="post" id="chanchePwdForm">
+                  <form th:action="@{/cp/update/user-password}" method="post" id="chanchePwdForm">
 
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Mevcut Şifre</label>

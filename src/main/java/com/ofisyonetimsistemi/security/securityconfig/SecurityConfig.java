@@ -46,12 +46,12 @@ public class SecurityConfig {
 		.csrf(AbstractHttpConfigurer::disable)
 		
 		.authorizeHttpRequests(req->{
-			req.requestMatchers("/arshahomepage/**", "/niceadminpanel/**", "/customjs/**", "/customcss/**", "/loginimages/**").permitAll();//resources//static
+			req.requestMatchers("/arshahomepage/**", "/niceadminpanel/**", "/customjs/**", "/customcss/**", "/loginimages/**").permitAll();
 			req.requestMatchers("/", "/error/**","/adminpanel/login/**", "/portfolio-details/**", "/service-details/**").permitAll();
 			req.requestMatchers("/user-register-request/**", "/send-message/**", "/add-to-mail-list/**","/login/**").permitAll();
 			req.requestMatchers("/signin/**").permitAll();
 			
-			req.requestMatchers("/cp/**").hasRole("ADMIN");
+			//req.requestMatchers("/cp/**").hasRole("ADMIN");
 			req.requestMatchers("/cp/admin-panel").hasRole("ADMIN");
 			
 			req.requestMatchers("/cp/admin/**").hasRole("ADMIN");

@@ -29,10 +29,10 @@
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a
-							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
+							th:href="@{/cp/admin-panel}">Anasayfa</a></li>
 <!-- 						<li class="breadcrumb-item">Ayarlar</li> -->
 						<li class="breadcrumb-item active">
-							<a th:href="@{/api/v1/smmm-homepage-settings}">Ayarlar</a>
+							<a th:href="@{/cp/smmm-homepage-settings}">Ayarlar</a>
 						</li>
 					</ol>
 				</nav>
@@ -43,7 +43,7 @@
 					
 										
 					<div class="row">
-<!-- 					<form class="row" th:action="@{/api/v1/save-smmm-homepage-settings}" id="homePageSettingsForm" -->
+<!-- 					<form class="row" th:action="@{/cp/save-smmm-homepage-settings}" id="homePageSettingsForm" -->
 <!-- 								th:object="${smmmOfis}" method="post" enctype="multipart/form-data"> -->
 						<div class="col-lg-6" id="col1">
 							
@@ -55,7 +55,7 @@
 										<h2>Kişisel bilgiler</h2>
 									</div>
 									<!-- General Form Elements -->	
-									<form th:action="@{ ${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-personal-info' : '/api/v1/update-smmm-homepage-settings-personal-info/' + ${smmmOfis.id} } " 
+									<form th:action="@{ ${smmmOfis.id==null} ? '/cp/save-smmm-homepage-settings-personal-info' : '/cp/update-smmm-homepage-settings-personal-info/' + ${smmmOfis.id} } " 
 											id="homePageSettingsPersonalInfoForm" method="post" enctype="multipart/form-data">
 																			
 								    <div class="row mb-3 mt-3" id="general-elements">
@@ -156,7 +156,7 @@
 										<h2>Anasayfa</h2>
 									</div>
 									<!-- End Section Title -->
-									<form th:action="@{ ${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-homepage-info' : '/api/v1/update-smmm-homepage-settings-homepage-info/' + ${smmmOfis.id} }" 
+									<form th:action="@{ ${smmmOfis.id==null} ? '/cp/save-smmm-homepage-settings-homepage-info' : '/cp/update-smmm-homepage-settings-homepage-info/' + ${smmmOfis.id} }" 
 																id="homePageForm" method="post">
 									<div class="row mb-1">
 										<label for="sekmeBaslik" class="col-sm-3 col-form-label-sm">Sekme Başlık</label>
@@ -207,7 +207,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-clients-settings}"> Anasayfada kurumlar için resim ve link ekle. </a>
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/cp/smmm-homepage-clients-settings}"> Anasayfada kurumlar için resim ve link ekle. </a>
 									</div>
 									</form>
 									
@@ -216,7 +216,7 @@
 									<div class="container section-title mb-5" data-aos="fade-up">
 										<h2 class="text-primary">Hakkımızda</h2>
 									</div>
-									<form th:action="@{${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-aboutus-info' : '/api/v1/update-smmm-homepage-settings-aboutus-info/' + ${smmmOfis.id} }" 
+									<form th:action="@{${smmmOfis.id==null} ? '/cp/save-smmm-homepage-settings-aboutus-info' : '/cp/update-smmm-homepage-settings-aboutus-info/' + ${smmmOfis.id} }" 
 															id="aboutusPageForm" method="post">
 									<div class="row mb-1">
 										<label for="aboutUsAnaBaslik"
@@ -252,7 +252,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-3">
-										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-aboutus-settings}"> Hakkımızda kısmı 1. sütun için madde ekle. </a>
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/cp/smmm-homepage-aboutus-settings}"> Hakkımızda kısmı 1. sütun için madde ekle. </a>
 									</div>
 									</form>
 									
@@ -262,7 +262,7 @@
 										data-aos="fade-up">
 										<h2>Neden Biz ?</h2>
 									</div>
-									<form th:action="@{${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-whyus-info' : '/api/v1/update-smmm-homepage-settings-whyus-info/' + ${smmmOfis.id} }" 
+									<form th:action="@{${smmmOfis.id==null} ? '/cp/save-smmm-homepage-settings-whyus-info' : '/cp/update-smmm-homepage-settings-whyus-info/' + ${smmmOfis.id} }" 
 															id="whyusPageForm"  method="post">
 									<div class="row mb-1">
 										<label for="whyUsAnaBaslik" class="col-sm-3 col-form-label-sm">Neden Biz<br>Ana Başlık</label>
@@ -296,7 +296,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-3">
-										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-whyus-settings}"> Neden biz kısmı için madde ekle. </a>
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/cp/smmm-homepage-whyus-settings}"> Neden biz kısmı için madde ekle. </a>
 									</div>
 									</form>
 									
@@ -306,7 +306,7 @@
 										data-aos="fade-up">
 										<h2>Portföy dağılımı</h2>
 									</div>
-									<form th:action="@{${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-skillspage-info' : '/api/v1/update-smmm-homepage-settings-skillspage-info/' + ${smmmOfis.id}}" id="skillsPageForm"
+									<form th:action="@{${smmmOfis.id==null} ? '/cp/save-smmm-homepage-settings-skillspage-info' : '/cp/update-smmm-homepage-settings-skillspage-info/' + ${smmmOfis.id}}" id="skillsPageForm"
 															 method="post">
 									<div class="row mb-1">
 										<label for="skillsAnaBaslik"
@@ -352,7 +352,7 @@
 										data-aos="fade-up">
 										<h2>Hizmetler</h2>
 									</div>
-									<form th:action="@{ ${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-services-info' : '/api/v1/update-smmm-homepage-settings-services-info/'+${smmmOfis.id}}" id="servicesPageForm"
+									<form th:action="@{ ${smmmOfis.id==null} ? '/cp/save-smmm-homepage-settings-services-info' : '/cp/update-smmm-homepage-settings-services-info/'+${smmmOfis.id}}" id="servicesPageForm"
 															 method="post">
 									<div class="row mb-1">
 										<label for="servicesAnaBaslik"
@@ -379,7 +379,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-4">
-										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-services-settings}">
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/cp/smmm-homepage-services-settings}">
 															 Hizmetler kısmı için madde ekle. </a>
 									</div>
 
@@ -404,7 +404,7 @@
 										<h2>Mevzuat</h2>
 									</div>
 									<!-- End Section Title -->
-									<form th:action="@{${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-mevzuat-info' : '/api/v1/update-smmm-homepage-settings-mevzuat-info/' + ${smmmOfis.id}}" id="mevzuatPageForm"
+									<form th:action="@{${smmmOfis.id==null} ? '/cp/save-smmm-homepage-settings-mevzuat-info' : '/cp/update-smmm-homepage-settings-mevzuat-info/' + ${smmmOfis.id}}" id="mevzuatPageForm"
 															 method="post">
 									<div class="row mb-1">
 										<label for="calltoactionsAnaBaslik"
@@ -442,7 +442,7 @@
 										data-aos="fade-up">
 										<h2>Portföy</h2>
 									</div>
-									<form th:action="@{ ${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-portfoy-info' : '/api/v1/update-smmm-homepage-settings-portfoy-info/' + ${smmmOfis.id} }" id="portfoyPageForm"
+									<form th:action="@{ ${smmmOfis.id==null} ? '/cp/save-smmm-homepage-settings-portfoy-info' : '/cp/update-smmm-homepage-settings-portfoy-info/' + ${smmmOfis.id} }" id="portfoyPageForm"
 															 method="post">
 									<div class="row mb-1">
 										<label for="portfolioAnaBaslik"
@@ -469,10 +469,10 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-sector-settings}"> Portföy kısmı için sektör ekle. </a>
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/cp/smmm-homepage-sector-settings}"> Portföy kısmı için sektör ekle. </a>
 									</div>
 <!-- 									<div class="d-grid gap-2 mb-1"> -->
-<!-- 										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-portfoy-company-settings}"> Sektörler için şirket ekle. </a> -->
+<!-- 										<a class="btn btn-outline-warning btn-sm" th:href="@{/cp/smmm-homepage-portfoy-company-settings}"> Sektörler için şirket ekle. </a> -->
 <!-- 									</div> -->
 									</form>
 									
@@ -483,7 +483,7 @@
 										data-aos="fade-up">
 										<h2>Çalışma arkadaşlarımız</h2>
 									</div>
-									<form th:action="@{ ${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-team-info':'/api/v1/update-smmm-homepage-settings-team-info/' + ${smmmOfis.id} }" id="teamPageForm"
+									<form th:action="@{ ${smmmOfis.id==null} ? '/cp/save-smmm-homepage-settings-team-info':'/cp/update-smmm-homepage-settings-team-info/' + ${smmmOfis.id} }" id="teamPageForm"
 											 method="post">
 									<div class="row mb-1">
 										<label for="teamAnaBaslik" class="col-sm-3 col-form-label-sm">Çalışma ekibi kısmı<br>Ana Başlık</label>
@@ -508,7 +508,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<a th:href="@{/api/v1/smmm-homepage-team-settings}" class="btn btn-outline-warning btn-sm"> 
+										<a th:href="@{/cp/smmm-homepage-team-settings}" class="btn btn-outline-warning btn-sm"> 
 											Çalışma Ekibi kısmı için personel ekle. </a>
 									</div>
 									</form>
@@ -520,7 +520,7 @@
 										data-aos="fade-up">
 										<h2>Ücretlendirme</h2>
 									</div>
-									<form th:action="@{ ${smmmOfis.id==null} ? '/api/v1/save-smmm-homepage-settings-pricing-info':'/api/v1/update-smmm-homepage-settings-pricing-info/'+${smmmOfis.id}}" id="pricingPageForm"
+									<form th:action="@{ ${smmmOfis.id==null} ? '/cp/save-smmm-homepage-settings-pricing-info':'/cp/update-smmm-homepage-settings-pricing-info/'+${smmmOfis.id}}" id="pricingPageForm"
 																 method="post">
 									<div class="row mb-1">
 										<label for="pricingAnaBaslik"
@@ -547,7 +547,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<a th:href="@{/api/v1/smmm-homepage-pricing-settings}" 
+										<a th:href="@{/cp/smmm-homepage-pricing-settings}" 
 												class="btn btn-outline-warning btn-sm"> Ücretlendirme kısmı için kart ekle. </a>
 									</div>
 									</form>
@@ -559,7 +559,7 @@
 										data-aos="fade-up">
 										<h2>Referanslarımız</h2>
 									</div>
-									<form th:action="@{${smmmOfis.id==null}?'/api/v1/save-smmm-homepage-settings-referans-info':'/api/v1/update-smmm-homepage-settings-referans-info/'+${smmmOfis.id}}" id="referansPageForm"
+									<form th:action="@{${smmmOfis.id==null}?'/cp/save-smmm-homepage-settings-referans-info':'/cp/update-smmm-homepage-settings-referans-info/'+${smmmOfis.id}}" id="referansPageForm"
 																 method="post">
 									<div class="row mb-1">
 										<label for="testimonialsAnaBaslik"
@@ -586,7 +586,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-referans-settings}"> Referanslar kısmı için kart ekle. </a>
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/cp/smmm-homepage-referans-settings}"> Referanslar kısmı için kart ekle. </a>
 									</div>
 									</form>
 									
@@ -596,7 +596,7 @@
 										data-aos="fade-up">
 										<h2>Sık sorulan sorular</h2>
 									</div>
-									<form th:action="@{${smmmOfis.id==null}?'/api/v1/save-smmm-homepage-settings-questions-info':'/api/v1/update-smmm-homepage-settings-questions-info/'+${smmmOfis.id}}" id="questionsPageForm"
+									<form th:action="@{${smmmOfis.id==null}?'/cp/save-smmm-homepage-settings-questions-info':'/cp/update-smmm-homepage-settings-questions-info/'+${smmmOfis.id}}" id="questionsPageForm"
 															 method="post">
 									<div class="row mb-1">
 										<label for="askedquestionsAnaBaslik"
@@ -623,7 +623,7 @@
 										<button type="submit" th:if="${updateBtnActive == true}" class="btn btn-primary btn-sm">Güncelle </button>
 									</div>
 									<div class="d-grid gap-2 mb-1">
-										<a class="btn btn-outline-warning btn-sm" th:href="@{/api/v1/smmm-homepage-faq-settings}"> Sık sorulan sorular kısmı için madde ekle. </a>
+										<a class="btn btn-outline-warning btn-sm" th:href="@{/cp/smmm-homepage-faq-settings}"> Sık sorulan sorular kısmı için madde ekle. </a>
 									</div>
 									</form>
 									
@@ -633,7 +633,7 @@
 										data-aos="fade-up">
 										<h2>İletişim</h2>
 									</div>
-									<form th:action="@{${smmmOfis.id==null}?'/api/v1/save-smmm-homepage-settings-contact-info':'/api/v1/update-smmm-homepage-settings-contact-info/'+${smmmOfis.id}}" id="contactPageForm"
+									<form th:action="@{${smmmOfis.id==null}?'/cp/save-smmm-homepage-settings-contact-info':'/cp/update-smmm-homepage-settings-contact-info/'+${smmmOfis.id}}" id="contactPageForm"
 															 method="post">
 									<div class="row mb-1">
 										<label for="contactAnaBaslik"

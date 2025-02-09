@@ -47,7 +47,7 @@ $("document").ready(function() {
 		$("#editClientModal .modal-title").text("Kurum Bilgilerini Güncelle");
 		var href = $(this).attr('href');
 		$.get(href, function(hpc, status) {
-			$("#editClientModal .modal-body #editClientForm").attr('action', '/api/v1/update-homepage-client-settings/' + hpc.id);
+			$("#editClientModal .modal-body #editClientForm").attr('action', '/cp/update-homepage-client-settings/' + hpc.id);
 			$("#editClientModal .modal-body #hpcLogo").attr('src', 'data:image/*;base64,' + hpc.stringLogo);
 			$("#editClientModal .modal-body #hpcId").val(hpc.id);
 			$("#editClientModal .modal-body #hpcName").val(hpc.name);

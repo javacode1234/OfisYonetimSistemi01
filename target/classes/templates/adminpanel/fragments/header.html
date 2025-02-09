@@ -1,7 +1,7 @@
 <header th:fragment="header" id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a th:href="@{/api/v1/admin-panel}" class="logo d-flex align-items-center">
+      <a th:href="@{/cp/admin-panel}" class="logo d-flex align-items-center">
         <img th:src="${smmmOfis.stringLogo==null}?'../../arshahomepage/assets/img/smmm.png':'data:image/*;base64,' + ${smmmOfis.stringLogo}" alt="">
         <span class="d-none d-lg-block" th:text="${smmmOfis.fullName}">NiceAdmin</span>
       </a>
@@ -109,7 +109,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages fixed-top z-1" th:if="${messageCount!=null}">
             <li class="dropdown-header">
               Okunmamış mesajlar
-              <a th:href="@{/api/v1/get-un-read-messages}"><span class="badge rounded-pill bg-primary p-2 ms-2">Hepsini gör</span></a>
+              <a th:href="@{/cp/get-un-read-messages}"><span class="badge rounded-pill bg-primary p-2 ms-2">Hepsini gör</span></a>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -117,7 +117,7 @@
             <div class="overflow-y-scroll" style="max-height: 400px;background-color: transparent;scrollbar-width: thin;">
 			<th:block th:each="message, i : ${smmmOfis.messages}" th:if="${smmmOfis.messages!=null && message.okundu!=true}">
             <li class="message-item">
-              <a id="viewMessageBtn" th:href="@{/api/v1/get-selected-message(id=${message.id})}">
+              <a id="viewMessageBtn" th:href="@{/cp/get-selected-message(id=${message.id})}">
                 <div class="nav-icon">
 		            <i class="bi bi-chat-right-text"></i>
 		            <span class="badge bg-success badge-number">[[${i.count}]]</span>
@@ -138,7 +138,7 @@
 			</th:block>
 			</div>
             <li class="dropdown-footer">
-              <a th:href="@{/api/v1/get-all-messages}">Bütün Mesajları göster</a>
+              <a th:href="@{/cp/get-all-messages}">Bütün Mesajları göster</a>
             </li>
 
           </ul><!-- End Messages Dropdown Items -->
@@ -165,7 +165,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" th:href="@{/api/v1/user-profile}">
+              <a class="dropdown-item d-flex align-items-center" th:href="@{/cp/user-profile}">
                 <i class="bi bi-person"></i>
                 <span>Kullanıcı Profili</span>
               </a>
@@ -175,7 +175,7 @@
             </li>
 			
 			<li>
-				<a class="dropdown-item d-flex align-items-center" th:href="@{/api/v1/user-profile-edit}">
+				<a class="dropdown-item d-flex align-items-center" th:href="@{/cp/user-profile-edit}">
 					<i class="bi bi-person"></i>
 					<span>Kullanıcı Profilini Güncelle</span>
 				</a>
@@ -185,7 +185,7 @@
 			</li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" th:href="@{/api/v1/user-profile-settings}">
+              <a class="dropdown-item d-flex align-items-center" th:href="@{/cp/user-profile-settings}">
                 <i class="bi bi-gear"></i>
                 <span>Hesap Ayarları</span>
               </a>
@@ -195,7 +195,7 @@
             </li>
 			
 			<li>
-				<a class="dropdown-item d-flex align-items-center" th:href="@{/api/v1/user-profile-changepwd}">
+				<a class="dropdown-item d-flex align-items-center" th:href="@{/cp/user-profile-changepwd}">
 					<i class="bi bi-person"></i>
 					<span>Şifre Değiştir</span>
 				</a>

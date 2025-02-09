@@ -26,11 +26,11 @@
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a
-							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
+							th:href="@{/cp/admin-panel}">Anasayfa</a></li>
 						<li class="breadcrumb-item active"><a
-							th:href="@{/api/v1/smmm-homepage-settings}">Ayarlar</a></li>
+							th:href="@{/cp/smmm-homepage-settings}">Ayarlar</a></li>
 						<li class="breadcrumb-item active"><a
-							th:href="@{/api/v1/smmm-homepage-referans-settings}">Referanslar</a>
+							th:href="@{/cp/smmm-homepage-referans-settings}">Referanslar</a>
 						</li>
 
 					</ol>
@@ -123,15 +123,15 @@
 														<a id="viewBtn" type="button" class="btn btn-success"
 															data-bs-toggle="modal"
 															data-bs-target="#viewReferansModal"
-															th:href="@{/api/v1/get-homepage-referans-settings/{id}(id=${referans.id})}">
+															th:href="@{/cp/get-homepage-referans-settings/{id}(id=${referans.id})}">
 															<i class="bi bi-eye"></i>
 														</a> <a id="editBtn" type="button" class="btn btn-warning"
 															data-bs-toggle="modal"
 															data-bs-target="#editReferansModal"
-															th:href="@{/api/v1/get-homepage-referans-settings/{id}(id=${referans.id})}">
+															th:href="@{/cp/get-homepage-referans-settings/{id}(id=${referans.id})}">
 															<i class="bi bi-pencil"></i>
 														</a> <a id="deleteBtn" type="button" class="btn btn-danger"
-															th:href="@{/api/v1/get-homepage-referans-settings/{id}(id=${referans.id})}"
+															th:href="@{/cp/get-homepage-referans-settings/{id}(id=${referans.id})}"
 															data-bs-toggle="modal"
 															data-bs-target="#deleteReferansModal"> <i
 															class="bi bi-trash"></i>
@@ -167,7 +167,7 @@
 				<div class="modal-body">
 					<!-- Horizontal Form -->
 					<form id="addReferansForm"
-						th:action="@{ /api/v1/save-homepage-referans-settings}"
+						th:action="@{ /cp/save-homepage-referans-settings}"
 						th:object="${hpRefrans}" method="post"
 						enctype="multipart/form-data">
 						<div class="row mb-3 mt-3" id="general-elements">

@@ -21,7 +21,7 @@ $("document").ready(function() {
 			$("#editAboutUsModal .modal-title").text("Hakkımızda kısmı madde bilgileri güncelle");
 			var href = $(this).attr('href');
 			$.get(href, function(about, status) {
-				//$("#editAboutUsModal .modal-body #editAboutUsForm").attr('action','/api/v1/update-homepage-aboutus-col-one-item/'+about.id);
+				//$("#editAboutUsModal .modal-body #editAboutUsForm").attr('action','/cp/update-homepage-aboutus-col-one-item/'+about.id);
 				$("#editAboutUsModal .modal-body #hpAboutUsId").val(about.id);
 				$("#editAboutUsModal .modal-body #hpAboutUsText").val(about.text);
 				$("#editAboutUsModal .modal-body #hpAboutUsSmmmOfisId").val(about.smmmofis_id);

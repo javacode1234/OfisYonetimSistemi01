@@ -24,11 +24,11 @@
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a
-							th:href="@{/api/v1/admin-panel}">Anasayfa</a></li>
+							th:href="@{/cp/admin-panel}">Anasayfa</a></li>
 						<li class="breadcrumb-item active"><a
-							th:href="@{/api/v1/smmm-homepage-settings}">Ayarlar</a></li>
+							th:href="@{/cp/smmm-homepage-settings}">Ayarlar</a></li>
 						<li class="breadcrumb-item active"><a
-							th:href="@{/api/v1/users}">Kullanıcı Ekle</a></li>
+							th:href="@{/cp/users}">Kullanıcı Ekle</a></li>
 					</ol>
 				</nav>
 			</div>
@@ -42,7 +42,7 @@
 							<div class="card">
 								<h1 class="card-title" style="margin-left:15px;">Kullanıcı Ekle</h1>
 								<div class="card-body">
-									<form th:action="@{/api/v1/users}" method="post"
+									<form th:action="@{/cp/users}" method="post"
 										id="addUserForm" th:object="${userDto}"
 										enctype="multipart/form-data">
 
@@ -305,7 +305,7 @@
 
 										<div class="d-flex justify-content-end gap-2">
 											<a class="btn btn-primary" id="newUserBtn"
-												th:href="@{/api/v1/users}">Yeni Kullanıcı Ekle</a>
+												th:href="@{/cp/users}">Yeni Kullanıcı Ekle</a>
 											<button class="btn btn-primary" type="submit">
 												<i class="bi bi-floppy"></i>
 											</button>
@@ -342,10 +342,10 @@
 													<td>
 														<div class="btn-group">
 															<a id="userFormEditBtn" class="btn btn-primary"
-															th:href="@{'/api/v1/get/user/'+${user.id} }"> <i
+															th:href="@{'/cp/get/user/'+${user.id} }"> <i
 																class="bi bi-vector-pen"></i></a> <a id="userDeleteBtn"
 															class="btn btn-danger"
-															th:href="@{'/api/v1/delete/user/'+${user.id}}"
+															th:href="@{'/cp/delete/user/'+${user.id}}"
 															data-bs-toggle="modal" data-bs-target="#userDeleteModal">
 																<i class="bi bi-trash"></i>
 															</a>

@@ -58,7 +58,7 @@ $(document).ready(function() {
 	$("table tbody #userFormEditBtn").on("click", function(e) {
 		e.preventDefault();
 		//$("#addUserForm #userFormId").removeAttr("style");
-		$("#addUserForm").attr("action", "/api/v1/update/user");
+		$("#addUserForm").attr("action", "/cp/update/user");
 
 		var sourceSelect = $('#addUserForm #sourceRoleSelect');
 		var targetSelect = $('#addUserForm #targetRoleSelect');
