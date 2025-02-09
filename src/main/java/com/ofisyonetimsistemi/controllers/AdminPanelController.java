@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.security.dto.UserProfileDto;
 import com.ofisyonetimsistemi.security.model.MyUser;
@@ -17,7 +19,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
-@RequestMapping(value="/api/v1")
+@RequestMapping(value="/")
 public class AdminPanelController {
 
 	@Autowired private SmmmOfisService smmmOfisService;
@@ -35,8 +37,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", smmmOfis.get());
 			
 			model.addAttribute("currentUser", currentUser);
-//			model.addAttribute("messageCount", messageService.countOfRecord());
-//			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 
 			return "adminpanel/index";
 
@@ -50,8 +52,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 
 			model.addAttribute("currentUser", currentUser);
-//			model.addAttribute("messageCount", messageService.countOfRecord());
-//			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			model.addAttribute("messageCount", messageService.countOfRecord());
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 		}
 
 		return "adminpanel/index";
@@ -89,7 +91,6 @@ public class AdminPanelController {
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 		}
-		
 		return "adminpanel/homepagesettings/user-profile";
 	}
 
@@ -125,7 +126,6 @@ public class AdminPanelController {
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 		}
-		
 		return "adminpanel/homepagesettings/user-profile";
 	}
 
@@ -161,7 +161,6 @@ public class AdminPanelController {
 			model.addAttribute("messageCount", messageService.countOfRecord());
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 		}
-		
 		return "adminpanel/homepagesettings/user-profile";
 	}
 
@@ -198,7 +197,6 @@ public class AdminPanelController {
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 		}
-		
 		return "adminpanel/homepagesettings/user-profile";
 	}
 
@@ -235,7 +233,6 @@ public class AdminPanelController {
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 		}
-		
 		return "adminpanel/homepagesettings/user-profile";
 	}
 
