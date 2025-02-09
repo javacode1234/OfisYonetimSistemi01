@@ -27,7 +27,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisPricingService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class HomePagePricingController {
 
 	@Autowired private SmmmOfisService smmmOfisHomePageService;
@@ -84,7 +84,7 @@ public class HomePagePricingController {
 		pricing.setSmmmofis_id(smmmOfisHomePageService.getFirstSmmmOfis().get().getId());
 		pricingService.save(pricing);
 
-		return "redirect:/api/v1/smmm-homepage-pricing-settings";
+		return "redirect:/cp/smmm-homepage-pricing-settings";
 	}
 
 	@PostMapping("/update-homepage-pricing")
@@ -93,7 +93,7 @@ public class HomePagePricingController {
 		pricing.setSmmmofis_id(smmmOfisHomePageService.getFirstSmmmOfis().get().getId());
 		pricingService.save(pricing);
 
-		return "redirect:/api/v1/smmm-homepage-pricing-settings";
+		return "redirect:/cp/smmm-homepage-pricing-settings";
 	}
 
 	@RequestMapping(value = "/delete-homepage-pricing/{id}", method = { RequestMethod.DELETE, RequestMethod.GET })
@@ -101,10 +101,10 @@ public class HomePagePricingController {
 		List<PricingItem> pricingItems = prItemSercise.getPricingItemByPricingId(id);
 		if(!pricingItems.isEmpty()) {
 			redirectAttr.addFlashAttribute("msg", "Silmek istediğin kaydın alt kayıtları var. Önce alt kayıtları sil." );
-			return "redirect:/api/v1/smmm-homepage-pricing-settings";
+			return "redirect:/cp/smmm-homepage-pricing-settings";
 		}
 		pricingService.deleteById(id);
-		return "redirect:/api/v1/smmm-homepage-pricing-settings";
+		return "redirect:/cp/smmm-homepage-pricing-settings";
 	}
 
 }

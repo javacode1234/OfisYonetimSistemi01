@@ -31,7 +31,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class HomePagePortfolioCompanyController {
 
 	@Autowired private SmmmOfisService smmmOfisService;
@@ -141,7 +141,7 @@ public class HomePagePortfolioCompanyController {
 		
 		PortfolioCompany savedCompany = companyService.saveHomePageCompany(file, name, unvan, startDate, webUrl, mainheader, header, description, active, sector_id);
 		
-		return "redirect:/api/v1/smmm-homepage-portfoy-company-setting?id="+savedCompany.getBusinessector_id();
+		return "redirect:/cp/smmm-homepage-portfoy-company-setting?id="+savedCompany.getBusinessector_id();
 	}
 	
 	@PostMapping("/update-homepage-portfoy-company-settings/{id}")
@@ -161,7 +161,7 @@ public class HomePagePortfolioCompanyController {
 		
 		PortfolioCompany updatedCompany = companyService.updateHomePageCompany(id, file, name, unvan, startDate, webUrl, mainheader, header, description, active, sector_id);
 		
-		return "redirect:/api/v1/smmm-homepage-portfoy-company-setting?id="+updatedCompany.getBusinessector_id();
+		return "redirect:/cp/smmm-homepage-portfoy-company-setting?id="+updatedCompany.getBusinessector_id();
 	}
 
 	@GetMapping("/get-homepage-portfoy-company-settings/{id}")
@@ -174,7 +174,7 @@ public class HomePagePortfolioCompanyController {
 	public String delSectorCompanyById(@PathVariable("id") Integer id) {
 		PortfolioCompany deleteCompany = companyService.getById(id).get();
 		companyService.deleteById(id);
-		return "redirect:/api/v1/smmm-homepage-portfoy-company-setting?id="+deleteCompany.getBusinessector_id();
+		return "redirect:/cp/smmm-homepage-portfoy-company-setting?id="+deleteCompany.getBusinessector_id();
 	}
 	
 	

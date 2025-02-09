@@ -23,7 +23,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class HomePageAskedQuestionsController {
 
 	@Autowired private SmmmOfisService smmmOfisHomePageService;
@@ -79,7 +79,7 @@ public class HomePageAskedQuestionsController {
 
 		hpFaqService.save(askedQuestion);
 
-		return "redirect:/api/v1/smmm-homepage-faq-settings";
+		return "redirect:/cp/smmm-homepage-faq-settings";
 	}
 
 	@PostMapping("/update-homepage-faq")
@@ -87,13 +87,13 @@ public class HomePageAskedQuestionsController {
 
 		hpFaqService.save(askedQuestion);
 
-		return "redirect:/api/v1/smmm-homepage-faq-settings";
+		return "redirect:/cp/smmm-homepage-faq-settings";
 	}
 
 	@RequestMapping(value = "/delete-homepage-faq/{id}", method = { RequestMethod.DELETE, RequestMethod.GET })
 	public String delHpFaqById(@PathVariable("id") Integer id) {
 		hpFaqService.deleteById(id);
-		return "redirect:/api/v1/smmm-homepage-faq-settings";
+		return "redirect:/cp/smmm-homepage-faq-settings";
 	}
 
 }

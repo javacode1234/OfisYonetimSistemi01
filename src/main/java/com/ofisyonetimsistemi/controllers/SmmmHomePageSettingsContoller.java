@@ -23,7 +23,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class SmmmHomePageSettingsContoller {
 
 	@Autowired private SmmmOfisService smmmOfisService;
@@ -80,7 +80,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		
 		smmmOfisService.saveHomePageSettingsPersonalInfo( file, unvan, firstName, lastName,fullName, email);
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 	
 	@PostMapping("/update-smmm-homepage-settings-personal-info/{id}")
@@ -98,7 +98,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.updateHomePageSettingsPersonalInfo(id, file, unvan, firstName, lastName, fullName, email);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 		
 	}	
 	
@@ -114,7 +114,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.saveHomePageSettingsHomeInfo( mainpageTitle, headerTitle, heroTitle, heroParagraf, videoLink);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 	
 	@PostMapping("/update-smmm-homepage-settings-homepage-info/{id}")
@@ -130,7 +130,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.updateHomePageSettingsHomeInfo(id, mainpageTitle, headerTitle, heroTitle, heroParagraf, videoLink);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 	
 	@PostMapping("/save-smmm-homepage-settings-aboutus-info")
@@ -143,7 +143,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.saveHomePageSettingsAboutUsInfo( aboutusmainheader, aboutUsColumnOneHeader, aboutUsColumnTwoParagraf);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 	
 	@PostMapping("/update-smmm-homepage-settings-aboutus-info/{id}")
@@ -157,7 +157,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.updateHomePageSettingsAboutUsInfo(id, aboutusmainheader, aboutUsColumnOneHeader, aboutUsColumnTwoParagraf);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 		
 	@PostMapping("/save-smmm-homepage-settings-whyus-info")
@@ -170,7 +170,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.saveHomePageSettingsWhyUsInfo( whyusMainHeader, whyusHeader, whyusParagraf);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/update-smmm-homepage-settings-whyus-info/{id}")
@@ -184,7 +184,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.updateHomePageSettingsWhyUsInfo(id, whyusMainHeader, whyusHeader, whyusParagraf);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 	
 	@PostMapping("/save-smmm-homepage-settings-skillspage-info")
@@ -197,7 +197,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.saveHomePageSettingsskillsPageInfo( skillsMainHeader, skillsHeader, skillsParagraf);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/update-smmm-homepage-settings-skillspage-info/{id}")
@@ -211,7 +211,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.updateHomePageSettingsSkillsPageInfo(id, skillsMainHeader, skillsHeader, skillsParagraf);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 	
 	@PostMapping("/save-smmm-homepage-settings-services-info")
@@ -222,7 +222,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.saveHomePageSettingServicesPageInfo( serviceMainHeader, serviceHeader);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/update-smmm-homepage-settings-services-info/{id}")
@@ -234,7 +234,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.updateHomePageSettingServicesPageInfo(id, serviceMainHeader, serviceHeader);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/save-smmm-homepage-settings-mevzuat-info")
@@ -245,7 +245,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.saveHomePageSettingMevzuatPageInfo( callToActionHeader, callToActionText);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/update-smmm-homepage-settings-mevzuat-info/{id}")
@@ -257,7 +257,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.updateHomePageSettingMevzuatPageInfo(id, callToActionHeader, callToActionText);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 	
 	@PostMapping("/save-smmm-homepage-settings-portfoy-info")
@@ -268,7 +268,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.saveHomePageSettingPortfoyPageInfo( portfolioHeader, portfolioText);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/update-smmm-homepage-settings-portfoy-info/{id}")
@@ -280,7 +280,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.updateHomePageSettingPortfoyPageInfo(id, portfolioHeader, portfolioText);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 	
 	@PostMapping("/save-smmm-homepage-settings-team-info")
@@ -291,7 +291,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.saveHomePageSettingTeamPageInfo( teammainheader, teamheader);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/update-smmm-homepage-settings-team-info/{id}")
@@ -303,7 +303,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.updateHomePageSettingTeamPageInfo(id, teammainheader, teamheader);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/save-smmm-homepage-settings-pricing-info")
@@ -314,7 +314,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.saveHomePageSettingPricingPageInfo( pricingMainHeader, pricingHeader);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/update-smmm-homepage-settings-pricing-info/{id}")
@@ -326,7 +326,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.updateHomePageSettingPricingPageInfo(id, pricingMainHeader, pricingHeader);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 	
 	@PostMapping("/save-smmm-homepage-settings-referans-info")
@@ -337,7 +337,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.saveHomePageSettingReferansPageInfo( testimonialsMainHeader, testimonialsHeader);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/update-smmm-homepage-settings-referans-info/{id}")
@@ -349,7 +349,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.updateHomePageSettingReferansPageInfo(id, testimonialsMainHeader, testimonialsHeader);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 	
 	@PostMapping("/save-smmm-homepage-settings-questions-info")
@@ -360,7 +360,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.saveHomePageSettingQuestionsPageInfo( smmmofisFrequantlyAskedQuestionsMainHeader, smmmofisFrequantlyAskedQuestionsHeader);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/update-smmm-homepage-settings-questions-info/{id}")
@@ -372,7 +372,7 @@ public class SmmmHomePageSettingsContoller {
 		
 		smmmOfisService.updateHomePageSettingQuestionsPageInfo(id, smmmofisFrequantlyAskedQuestionsMainHeader, smmmofisFrequantlyAskedQuestionsHeader);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/save-smmm-homepage-settings-contact-info")
@@ -395,7 +395,7 @@ public class SmmmHomePageSettingsContoller {
 															contactEmail, googleHarita
 														  );
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 	@PostMapping("/update-smmm-homepage-settings-contact-info/{id}")
@@ -419,7 +419,7 @@ public class SmmmHomePageSettingsContoller {
 																contactEmail, googleHarita
 															);
 		
-		return "redirect:/api/v1/smmm-homepage-settings";
+		return "redirect:/cp/smmm-homepage-settings";
 	}
 
 

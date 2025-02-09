@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class HomePageReferansController {
 
 	@Autowired private SmmmOfisService smmmOfisService;
@@ -90,7 +90,7 @@ public class HomePageReferansController {
 		
 		hpReferansService.save(file, name, meslek, star1, star2, star3, star4, star5, gorus, active, smmmofis_id);
 		
-		return "redirect:/api/v1/smmm-homepage-referans-settings";
+		return "redirect:/cp/smmm-homepage-referans-settings";
 	}
 	
 	@PostMapping("/update-homepage-referans-settings/{id}")
@@ -115,7 +115,7 @@ public class HomePageReferansController {
 		
 		hpReferansService.update(id, file, name, meslek, star1, star2, star3, star4, star5, gorus, active, smmmofis_id);
 		
-		return "redirect:/api/v1/smmm-homepage-referans-settings";
+		return "redirect:/cp/smmm-homepage-referans-settings";
 	}
 
 	@GetMapping("/get-homepage-referans-settings/{id}")
@@ -127,7 +127,7 @@ public class HomePageReferansController {
 	@RequestMapping(value="/delete-homepage-referans-settings/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
 	public String delById(@PathVariable("id") Integer id) {
 		hpReferansService.deleteById(id);
-		return "redirect:/api/v1/smmm-homepage-referans-settings";
+		return "redirect:/cp/smmm-homepage-referans-settings";
 	}
 	
 	

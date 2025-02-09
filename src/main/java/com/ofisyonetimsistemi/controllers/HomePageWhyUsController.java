@@ -23,7 +23,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 import com.ofisyonetimsistemi.services.SmmmOfisWhyUsService;
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class HomePageWhyUsController {
 	
 	@Autowired private SmmmOfisService smmmOfisHomePageService;
@@ -80,7 +80,7 @@ public class HomePageWhyUsController {
 		whyus.setSmmmofis_id(smmmOfisHomePageService.getFirstSmmmOfis().get().getId());
 		whyUsService.saveWhyUs(whyus);
 		
-		return "redirect:/api/v1/smmm-homepage-whyus-settings";
+		return "redirect:/cp/smmm-homepage-whyus-settings";
 	}
 	
 	@PostMapping("/update-homepage-whyus")
@@ -89,13 +89,13 @@ public class HomePageWhyUsController {
 		hpWhyUs.setSmmmofis_id(smmmOfisHomePageService.getFirstSmmmOfis().get().getId());
 		whyUsService.saveWhyUs(hpWhyUs);
 		
-		return "redirect:/api/v1/smmm-homepage-whyus-settings";
+		return "redirect:/cp/smmm-homepage-whyus-settings";
 	}
 	
 	@RequestMapping(value="/delete-homepage-whyus/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
 	public String delWhyUsById(@PathVariable("id") Integer id) {
 		whyUsService.deleteWhyUsById(id);
-		return "redirect:/api/v1/smmm-homepage-whyus-settings";
+		return "redirect:/cp/smmm-homepage-whyus-settings";
 	}
 	
 	

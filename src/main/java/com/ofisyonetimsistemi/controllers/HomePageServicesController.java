@@ -24,7 +24,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class HomePageServicesController {
 
 	@Autowired private SmmmOfisService smmmOfisHomePageService;
@@ -84,7 +84,7 @@ public class HomePageServicesController {
 		homepageService.setSmmmofis_id(smmmOfisHomePageService.getFirstSmmmOfis().get().getId());
 		homePageServices.saveService(homepageService);
 
-		return "redirect:/api/v1/smmm-homepage-services-settings";
+		return "redirect:/cp/smmm-homepage-services-settings";
 	}
 
 	@PostMapping("/update-homepage-services")
@@ -93,13 +93,13 @@ public class HomePageServicesController {
 		homepageService.setSmmmofis_id(smmmOfisHomePageService.getFirstSmmmOfis().get().getId());
 		homePageServices.saveService(homepageService);
 
-		return "redirect:/api/v1/smmm-homepage-services-settings";
+		return "redirect:/cp/smmm-homepage-services-settings";
 	}
 
 	@RequestMapping(value = "/delete-homepage-services/{id}", method = { RequestMethod.DELETE, RequestMethod.GET })
 	public String delWhyUsById(@PathVariable("id") Integer id) {
 		homePageServices.deleteServiceById(id);
-		return "redirect:/api/v1/smmm-homepage-services-settings";
+		return "redirect:/cp/smmm-homepage-services-settings";
 	}
 
 }

@@ -25,7 +25,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class AdminPanelMessagesController {
 	
 	@Autowired private SmmmOfisService smmmOfisService;
@@ -55,7 +55,7 @@ public class AdminPanelMessagesController {
 		}
 		messageService.updateSelectedMessage(selectedMessage);
 		
-		return "redirect:/api/v1/get-selected-message?id="+selectedMessage.getId();
+		return "redirect:/cp/get-selected-message?id="+selectedMessage.getId();
 	}
 	
 	@GetMapping("/get-un-read-messages")
@@ -112,7 +112,7 @@ public class AdminPanelMessagesController {
 	@RequestMapping(value="/delete-selected-message", method = {RequestMethod.DELETE, RequestMethod.GET})
 	public String delById(@RequestParam("id") Integer id) {
 		messageService.deleteById(id);
-		return "redirect:/api/v1/get-read-messages";
+		return "redirect:/cp/get-read-messages";
 	}
 	
 

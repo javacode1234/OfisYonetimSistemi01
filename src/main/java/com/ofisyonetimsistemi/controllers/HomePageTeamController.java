@@ -27,7 +27,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class HomePageTeamController {
 
 	@Autowired private SmmmOfisService smmmOfisService;
@@ -86,7 +86,7 @@ public class HomePageTeamController {
 		Integer smmmOfisId = smmmOfisService.getFirstSmmmOfis().get().getId();
 		hptService.saveHomePageTeam(file, name, mainheader, header, text, xlink, facelink, inslink, linklink, description, active, smmmOfisId);
 		
-		return "redirect:/api/v1/smmm-homepage-team-settings";
+		return "redirect:/cp/smmm-homepage-team-settings";
 	}
 	
 	@PostMapping("/update-homepage-team-settings/{id}")
@@ -110,7 +110,7 @@ public class HomePageTeamController {
 		
 		hptService.updateHomePageTeam(id, file, name, mainheader, header, text, xlink, facelink, inslink, linklink, description, active, smmmOfisId);
 		
-		return "redirect:/api/v1/smmm-homepage-team-settings";
+		return "redirect:/cp/smmm-homepage-team-settings";
 	}
 
 	@GetMapping("/get-homepage-team-settings/{id}")
@@ -122,7 +122,7 @@ public class HomePageTeamController {
 	@RequestMapping(value="/delete-homepage-team-settings/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
 	public String delById(@PathVariable("id") Integer id) {
 		hptService.deleteById(id);
-		return "redirect:/api/v1/smmm-homepage-team-settings";
+		return "redirect:/cp/smmm-homepage-team-settings";
 	}
 	
 	

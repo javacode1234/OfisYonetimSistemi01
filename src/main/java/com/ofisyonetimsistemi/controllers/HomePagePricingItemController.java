@@ -27,7 +27,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class HomePagePricingItemController {
 
 	@Autowired private SmmmOfisService smmmOfisHomePageService;
@@ -132,7 +132,7 @@ public class HomePagePricingItemController {
 		PricingItem savedPricingItem = pricingItemService.save(pricingitem);
 		Integer id=savedPricingItem.getSmmmofispricing_id();
 
-		return "redirect:/api/v1/smmm-homepage-pricing-item-setting?id="+id;
+		return "redirect:/cp/smmm-homepage-pricing-item-setting?id="+id;
 	}
 
 	@PostMapping("/update-homepage-pricing-item")
@@ -141,7 +141,7 @@ public class HomePagePricingItemController {
 		PricingItem updatedPricingItem = pricingItemService.save(pricingitem);
 		Integer id=updatedPricingItem.getSmmmofispricing_id();
 		
-		return "redirect:/api/v1/smmm-homepage-pricing-item-setting?id="+id;
+		return "redirect:/cp/smmm-homepage-pricing-item-setting?id="+id;
 	}
 
 	@RequestMapping(value = "/delete-homepage-pricing-item/{id}", method = { RequestMethod.DELETE, RequestMethod.GET })
@@ -151,7 +151,7 @@ public class HomePagePricingItemController {
 		pricingItemService.deleteById(id);
 		
 		
-		return "redirect:/api/v1/smmm-homepage-pricing-item-setting?id="+deletedItemPricingId;
+		return "redirect:/cp/smmm-homepage-pricing-item-setting?id="+deletedItemPricingId;
 	}
 	
 	

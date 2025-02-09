@@ -19,7 +19,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
-@RequestMapping(value="/")
+@RequestMapping(value="/cp/")
 public class AdminPanelController {
 
 	@Autowired private SmmmOfisService smmmOfisService;

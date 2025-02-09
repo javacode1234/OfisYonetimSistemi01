@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class HomePageClientController {
 
 	@Autowired private SmmmOfisService smmmOfisService;
@@ -84,7 +84,7 @@ public class HomePageClientController {
 		Integer smmmOfisId = smmmOfisService.getFirstSmmmOfis().get().getId();
 		hpcService.saveHomePageClient(file, name, url, description, active, smmmOfisId );
 		
-		return "redirect:/api/v1/smmm-homepage-clients-settings";
+		return "redirect:/cp/smmm-homepage-clients-settings";
 	}
 	
 	@PostMapping("/update-homepage-client-settings/{id}")
@@ -102,7 +102,7 @@ public class HomePageClientController {
 		
 		hpcService.updateHomePageClient(id, file, name, url, description, active, smmmOfisId);
 		
-		return "redirect:/api/v1/smmm-homepage-clients-settings";
+		return "redirect:/cp/smmm-homepage-clients-settings";
 	}
 
 	@GetMapping("/get-homepage-client-settings/{id}")
@@ -114,7 +114,7 @@ public class HomePageClientController {
 	@RequestMapping(value="/delete-homepage-client-settings/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
 	public String delById(@PathVariable("id") Integer id) {
 		hpcService.deleteById(id);
-		return "redirect:/api/v1/smmm-homepage-clients-settings";
+		return "redirect:/cp/smmm-homepage-clients-settings";
 	}
 	
 	

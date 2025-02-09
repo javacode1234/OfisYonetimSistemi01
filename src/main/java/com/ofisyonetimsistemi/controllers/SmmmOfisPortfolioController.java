@@ -27,7 +27,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class SmmmOfisPortfolioController {
 	
 	@Autowired private SmmmOfisService smmmOfisHomePageService ;
@@ -84,7 +84,7 @@ public class SmmmOfisPortfolioController {
 		homepageSector.setSmmmofis_id(smmmOfisHomePageService.getFirstSmmmOfis().get().getId());
 		sectorService.saveSector(homepageSector);
 
-		return "redirect:/api/v1/smmm-homepage-sector-settings";
+		return "redirect:/cp/smmm-homepage-sector-settings";
 	}
 
 	@PostMapping("/update-homepage-sector")
@@ -93,7 +93,7 @@ public class SmmmOfisPortfolioController {
 		homePageSector.setSmmmofis_id(smmmOfisHomePageService.getFirstSmmmOfis().get().getId());
 		sectorService.saveSector(homePageSector);
 
-		return "redirect:/api/v1/smmm-homepage-sector-settings";
+		return "redirect:/cp/smmm-homepage-sector-settings";
 	}
 
 	@RequestMapping(value = "/delete-homepage-sector/{id}", method = { RequestMethod.DELETE, RequestMethod.GET })
@@ -104,7 +104,7 @@ public class SmmmOfisPortfolioController {
 			return "redirect:/api/v1/smmm-homepage-sector-settings";
 		}
 		sectorService.deleteSectorById(id);
-		return "redirect:/api/v1/smmm-homepage-sector-settings";
+		return "redirect:/cp/smmm-homepage-sector-settings";
 	}
 
 

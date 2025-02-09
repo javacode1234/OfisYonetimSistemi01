@@ -23,7 +23,7 @@ import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
-@RequestMapping("/api/v1/")
+@RequestMapping("/cp/")
 public class HomePageAboutUsController {
 	
 	@Autowired SmmmOfisService smmmOfisHomePageService;
@@ -80,7 +80,7 @@ public class HomePageAboutUsController {
 		aboutUsColOne.setSmmmofis_id(smmmOfisHomePageService.getFirstSmmmOfis().get().getId());
 		smmmOfisHomePageAboutUsColOneService.saveAboutUsColOneItem(aboutUsColOne);
 		
-		return "redirect:/api/v1/smmm-homepage-aboutus-settings";
+		return "redirect:/cp/smmm-homepage-aboutus-settings";
 	}
 	
 	@PostMapping("/update-homepage-aboutus-col-one-item")
@@ -89,13 +89,13 @@ public class HomePageAboutUsController {
 		aboutUsColOne.setSmmmofis_id(smmmOfisHomePageService.getFirstSmmmOfis().get().getId());
 		smmmOfisHomePageAboutUsColOneService.saveAboutUsColOneItem(aboutUsColOne);
 		
-		return "redirect:/api/v1/smmm-homepage-aboutus-settings";
+		return "redirect:/cp/smmm-homepage-aboutus-settings";
 	}
 	
 	@RequestMapping(value="/delete-homepage-aboutus-col-one-item/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
 	public String delSmmmOfisHomePageAboutUsColOneById(@PathVariable("id") Integer id) {
 		smmmOfisHomePageAboutUsColOneService.deleteAboutUsById(id);
-		return "redirect:/api/v1/smmm-homepage-aboutus-settings";
+		return "redirect:/cp/smmm-homepage-aboutus-settings";
 	}
 	
 	

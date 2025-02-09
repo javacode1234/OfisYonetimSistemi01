@@ -27,13 +27,13 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
 		//System.err.println(isCustomer);
 		
 		if(isAdmin) {
-			setDefaultTargetUrl("/api/v1/admin-panel");
+			setDefaultTargetUrl("/cp/admin-panel");
 			//response.sendRedirect("/api/v1/admin-panel");			
 		}else if(isUser) {
-			setDefaultTargetUrl("/user/home");
+			setDefaultTargetUrl("/cp/user/home");
 			//response.sendRedirect("/user/home");
 		}else if(isCustomer) {
-			setDefaultTargetUrl("/customer/home");
+			setDefaultTargetUrl("/cp/customer/home");
 			//response.sendRedirect("/customer/home");
 		}
 
