@@ -19,7 +19,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @ToString
 @Data
@@ -188,7 +187,11 @@ public class SmmmOfis {
 	//*******************************************//
 	
 	@OneToMany(mappedBy = "smmmofis")	
-	private List<SmmmOfisMessage> messages;	
+	private List<SmmmOfisMessage> messages;
+	
+	public SmmmOfis() {
+		super();
+	}	
 		
 		
 	

@@ -91,6 +91,7 @@ public class AdminPanelController {
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 		}
+		
 		return "adminpanel/homepagesettings/user-profile";
 	}
 
@@ -126,6 +127,7 @@ public class AdminPanelController {
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 		}
+		
 		return "adminpanel/homepagesettings/user-profile";
 	}
 
@@ -161,6 +163,7 @@ public class AdminPanelController {
 			model.addAttribute("messageCount", messageService.countOfRecord());
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 		}
+		
 		return "adminpanel/homepagesettings/user-profile";
 	}
 
@@ -197,6 +200,7 @@ public class AdminPanelController {
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 		}
+		
 		return "adminpanel/homepagesettings/user-profile";
 	}
 
@@ -233,6 +237,7 @@ public class AdminPanelController {
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
 		}
+		
 		return "adminpanel/homepagesettings/user-profile";
 	}
 
