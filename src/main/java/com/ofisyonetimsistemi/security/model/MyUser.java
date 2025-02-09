@@ -20,6 +20,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "myuser")
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -80,11 +81,6 @@ public class MyUser {
 	@JsonIgnore
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;
-	
-	
-	public MyUser() {
-		super();
-	}
 	
 	
 	
