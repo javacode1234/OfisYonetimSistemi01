@@ -35,8 +35,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", smmmOfis.get());
 			
 			model.addAttribute("currentUser", currentUser);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+//			model.addAttribute("messageCount", messageService.countOfRecord());
+//			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 
 			return "adminpanel/index";
 
@@ -50,8 +50,8 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 
 			model.addAttribute("currentUser", currentUser);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+//			model.addAttribute("messageCount", messageService.countOfRecord());
+//			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 		}
 
 		return "adminpanel/index";
