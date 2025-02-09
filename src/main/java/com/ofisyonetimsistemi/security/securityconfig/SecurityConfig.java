@@ -51,12 +51,12 @@ public class SecurityConfig {
 			req.requestMatchers("/user-register-request/**", "/send-message/**", "/add-to-mail-list/**","/login/**").permitAll();
 			req.requestMatchers("/signin/**").permitAll();
 			
-			req.requestMatchers("/api/v1/**").hasRole("ADMIN");
-			req.requestMatchers("/api/v1/admin-panel").permitAll();
+			req.requestMatchers("/api/v1/**").permitAll();
+//			req.requestMatchers("/api/v1/admin-panel").permitAll();
 			
-			req.requestMatchers("/api/v1/admin/**").hasRole("ADMIN");
-			req.requestMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER");
-			req.requestMatchers("/api/v1/customer/**").hasAnyRole("ADMIN", "USER", "CUSTOMER");
+//			req.requestMatchers("/api/v1/admin/**").hasRole("ADMIN");
+//			req.requestMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER");
+//			req.requestMatchers("/api/v1/customer/**").hasAnyRole("ADMIN", "USER", "CUSTOMER");
 			req.anyRequest().authenticated();
 			
 		})
