@@ -52,7 +52,7 @@ public class SecurityConfig {
 			req.requestMatchers("/signin/**").permitAll();
 			
 			req.requestMatchers("/api/v1/**").permitAll();
-//			req.requestMatchers("/api/v1/admin-panel").permitAll();
+			req.requestMatchers("/api/v1/admin-panel").permitAll();
 			
 //			req.requestMatchers("/api/v1/admin/**").hasRole("ADMIN");
 //			req.requestMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER");
