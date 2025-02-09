@@ -19,7 +19,6 @@ import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
-@RestController
 @RequestMapping(value="/api/v1")
 public class AdminPanelController {
 
