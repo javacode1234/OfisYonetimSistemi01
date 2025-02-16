@@ -8,7 +8,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +21,7 @@ import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.model.MyUserDetails;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
+import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
@@ -31,33 +31,8 @@ public class AdminPanelMessagesController {
 	@Autowired private SmmmOfisService smmmOfisService;
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
-	
-	@GetMapping("/get-selected-message")
-	public String getSelectedMessage(@AuthenticationPrincipal MyUserDetails loggedUser, Model model,
-										@RequestParam("id")Integer id) {
-		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
-		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
-		SmmmOfisMessage selectedMessage = messageService.getById(id).get();
-		model.addAttribute("smmmOfis", smmmOfis.get());
-		model.addAttribute("currentUser", currentUser);
-		model.addAttribute("selectedMessage", selectedMessage);
-		model.addAttribute("messageCount", messageService.countOfRecord());
-		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
-		model.addAttribute("allMessages", messageService.getAllUnReadMessages());
+	@Autowired private SmmmOfisNotificationService notificationService;
 		
-		return "adminpanel/messages";
-	}
-	
-	@PostMapping("/update-selected-message")
-	public String updateSelectedMessage(@ModelAttribute("selectedMessage")SmmmOfisMessage selectedMessage, Model model) {
-		if(selectedMessage.isOkundu()==true) {
-			selectedMessage.setDateofread(LocalDateTime.now().withNano(0));
-		}
-		messageService.updateSelectedMessage(selectedMessage);
-		
-		return "redirect:/cp/get-selected-message?id="+selectedMessage.getId();
-	}
-	
 	@GetMapping("/get-un-read-messages")
 	public String getUnReadMessages(@AuthenticationPrincipal MyUserDetails loggedUser, Model model) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
@@ -66,9 +41,10 @@ public class AdminPanelMessagesController {
 		model.addAttribute("smmmOfis", smmmOfis.get());
 		model.addAttribute("currentUser", currentUser);
 		model.addAttribute("selectedMessage", new SmmmOfisMessage());
-		model.addAttribute("messageCount", messageService.countOfRecord());
-		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+		
 		model.addAttribute("allMessages", messageService.getAllUnReadMessages());
+		
+		loadRequaredCommenItems(model);
 		
 		return "adminpanel/messages";
 	}
@@ -80,10 +56,10 @@ public class AdminPanelMessagesController {
 		
 		model.addAttribute("smmmOfis", smmmOfis.get());
 		model.addAttribute("currentUser", currentUser);
-		model.addAttribute("selectedMessage", new SmmmOfisMessage());
-		model.addAttribute("messageCount", messageService.countOfRecord());
-		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+		
 		model.addAttribute("allMessages", messageService.getAllReadMessages());
+		
+		loadRequaredCommenItems(model);
 		
 		return "adminpanel/messages";
 	}
@@ -95,25 +71,102 @@ public class AdminPanelMessagesController {
 		
 		model.addAttribute("smmmOfis", smmmOfis.get());
 		model.addAttribute("currentUser", currentUser);
-		model.addAttribute("selectedMessage", new SmmmOfisMessage());
-		model.addAttribute("messageCount", messageService.countOfRecord());
-		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
-		model.addAttribute("allMessages", messageService.getAllMessages());
+		
+		model.addAttribute("allMessages", messageService.getAll());
+		
+		loadRequaredCommenItems(model);
 		
 		return "adminpanel/messages";
 	}
 	
-	@GetMapping("/view-selected-message/{id}")
+	@GetMapping("/get-message/{id}")
 	@ResponseBody
 	public Optional<SmmmOfisMessage> viewSelectedMessage(@PathVariable("id") Integer id) {
 		return messageService.getById(id);
 	}
 	
-	@RequestMapping(value="/delete-selected-message", method = {RequestMethod.DELETE, RequestMethod.GET})
+	@RequestMapping(value="/delete-message", method = {RequestMethod.DELETE, RequestMethod.GET})
 	public String delById(@RequestParam("id") Integer id) {
 		messageService.deleteById(id);
-		return "redirect:/cp/get-read-messages";
+		return "redirect:/cp/get-un-read-messages";
 	}
 	
+	@PostMapping("/add-message")
+	public String addMessage(
+			
+									 @RequestParam("name")String name,
+						             @RequestParam("email")String email,
+						             @RequestParam("subject")String subject,
+						             @RequestParam("message")String message
+			                        
+									) {
+		SmmmOfis smmmOfis = smmmOfisService.getFirstSmmmOfis().get();
+		
+		SmmmOfisMessage newMessage = SmmmOfisMessage.builder()
+				.name(name)
+				.email(email)
+				.subject(subject)
+				.message(message)
+				.date(LocalDateTime.now().withNano(0))
+				.smmmofis_id(smmmOfis.getId())
+				.build();
+
+		messageService.saveMessage(newMessage);
+		return "redirect:/cp/get-un-read-messages";
+	}
+	
+	@PostMapping("/update-message")
+	public String updateMessage(
+									@RequestParam("id")Integer id,
+			                        @RequestParam("name")String name,
+			                        @RequestParam("email")String email,
+			                        @RequestParam("subject")String subject,
+			                        @RequestParam("message")String message,
+			                        @RequestParam(value="okundu", required = false)boolean okundu,
+			                        @RequestParam("smmmofis_id")Integer smmmofis_id
+			                        
+									) {
+		SmmmOfisMessage selectedMessage = messageService.getById(id).get();
+		SmmmOfisMessage newMessage = new SmmmOfisMessage();
+		if(okundu==false) {
+			newMessage = SmmmOfisMessage.builder()
+					.id(id)
+					.name(name)
+					.email(email)
+					.subject(subject)
+					.message(message)
+					.date(selectedMessage.getDate().withNano(0))
+					.smmmofis_id(smmmofis_id)
+					.build();
+		}else if(okundu==true) {
+			newMessage = SmmmOfisMessage.builder()
+					.id(id)
+					.name(name)
+					.email(email)
+					.subject(subject)
+					.message(message)
+					.date(selectedMessage.getDate().withNano(0))
+					.dateofread(LocalDateTime.now().withNano(0))
+					.okundu(okundu)
+					.smmmofis_id(smmmofis_id)
+					.build();
+		}
+		
+		
+		messageService.saveMessage(newMessage);
+		
+		return "redirect:/cp/get-un-read-messages";
+		
+	}
+	
+	public void loadRequaredCommenItems(Model model) {
+		
+		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+		model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+		
+		model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+		model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+		
+}
 
 }

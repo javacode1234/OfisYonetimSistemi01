@@ -1,6 +1,7 @@
 package com.ofisyonetimsistemi.models;
 
 import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -13,7 +14,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,33 +23,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "messages")
+@Table(name = "notifications")
 @Builder
-public class SmmmOfisMessage {
+public class SmmmOfisNotification {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	@NotEmpty(message = "Bu alan boş olamaz !!!")
-	private String name;
 	
-	@NotEmpty(message = "Bu alan boş olamaz !!!")
-	private String email;
+	private String header;
 	
-	@NotEmpty(message = "Bu alan boş olamaz !!!")
-	private String subject;
-	
-	@NotEmpty(message = "Bu alan boş olamaz !!!")
 	@Column(length = 2000)
-	private String message;
+	private String notification;
+	
+	@Column(length = 2000)
+	private String information;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	//@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime date;
+	private LocalDateTime dateofpublish;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	//@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateofread;
 	
 	private boolean okundu;

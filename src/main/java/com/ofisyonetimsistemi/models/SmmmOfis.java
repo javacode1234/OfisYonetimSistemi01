@@ -190,7 +190,8 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")	
 	private List<SmmmOfisMessage> messages;	
 		
-		
+	@OneToMany(mappedBy = "smmmofis")	
+	private List<SmmmOfisNotification> notifications;	
 	
 
 }

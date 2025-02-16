@@ -17,11 +17,11 @@
 		<main id="main" class="main">
 
 			<div class="pagetitle">
-				<h1>Mesajlar</h1>
+				<h1>Uyarılar</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="index.html">Ayarlar</a></li>
-						<li class="breadcrumb-item">Gelen mesajlar</li>
+						<li class="breadcrumb-item">Uyarılar && Hatırlatmalar</li>
 					</ol>
 				</nav>
 			</div>
@@ -35,14 +35,14 @@
 							<div class="card-body">
 
 								<div class="d-flex mt-3  btn-group">
-<!-- 									<a class="btn btn-primary py-4" data-bs-toggle="modal" -->
-<!-- 										data-bs-target="#addMessageModal">Mesaj Ekle</a> -->
-									<a th:href="@{/cp/get-un-read-messages}"
-										class="btn btn-danger py-4">Okunmamış Mesajlar</a>
-									<a th:href="@{/cp/get-read-messages}"
-										class="btn btn-success py-4">Okunmuş Mesajlar</a>
-									<a th:href="@{/cp/get-all-messages}"
-										class="btn btn-info py-4">Bütün Mesajlar</a>
+									<a class="btn btn-primary py-4" data-bs-toggle="modal"
+										data-bs-target="#addNotificationModal">Uyarı Ekle</a> <a
+										th:href="@{/cp/get-un-read-notifications}"
+										class="btn btn-danger py-4">Okunmamış Uyarılar</a> <a
+										th:href="@{/cp/get-read-notifications}"
+										class="btn btn-success py-4">Okunmuş Uyarılar</a> <a
+										th:href="@{/cp/get-all-notifications}"
+										class="btn btn-info py-4">Bütün Uyarılar</a>
 								</div>
 							</div>
 						</div>
@@ -60,66 +60,56 @@
 								<!-- Table with hoverable rows -->
 								<div class="overflow-scroll"
 									style="height: 300px; scrollbar-width: thin;">
-									<table id="messageTable" class="table table-hover table-sm">
+									<table id="notificationTable" class="table table-hover table-sm">
 										<thead class="position-sticky fixed-top z-1">
 											<tr>
 												<th>#</th>
-												<th>Gönderen</th>
-												<th class="">Email</th>
-												<th class="">Konu</th>
-												<th class="">Mesaj</th>
-												<th class="d-none">Gönderi Tarihi</th>
-												<th class="d-none">Okunma Tarihi</th>
+												<th>Başlık</th>
+												<th class="">Uyarı</th>
+												<th class="d-none">Uyarı Tarihi</th>
 												<th><i class="bi bi-check-circle-fill"></i></th>
+												<th class="d-none">Okunma Tarihi</th>
 												<th class="d-none">smmmofisId</th>
 												<th><i class="bi bi-tools"></i></th>
 											</tr>
 										</thead>
-										<tbody id="messageTableBody">
-											<tr th:each="m,i :${allMessages}">
+										<tbody id="notificationTableBody">
+											<tr th:each="n,i :${allNotifications}">
 												<td th:text="${i.count}"></td>
-												<td><span th:text="${m.name}"
+												<td><span th:text="${n.header}"
 													class="d-inline-block text-truncate"
 													style="max-width: 150px;"></span></td>
-												<td class=""><span th:text="${m.email}"
-													class="d-inline-block text-truncate"
-													style="max-width: 150px;"></span></td>
-												<td class=""><span
-													th:text="${m.subject}"
-													class="d-inline-block text-truncate"
-													style="max-width: 150px;"></span></td>
-												<td class=""><span
-													th:text="${m.message}"
+												<td class=""><span th:text="${n.notification}"
 													class="d-inline-block text-truncate"
 													style="max-width: 150px;"></span></td>
 												<td class="d-none"><span
-													th:text="${#temporals.format(m.date, 'dd-MM-yyyy HH:mm:ss')}"
-													class="d-inline-block" style="max-width: 150px;"></span></td>
-												<td class="d-none"><span
-													th:text="${#temporals.format(m.dateofread, 'dd-MM-yyyy HH:mm:ss')}"
-													class="d-inline-block" style="max-width: 150px;"></span></td>
-												<td><span class="badge"
-													th:classappend="${m.okundu==true}? 'bg-success':'bg-danger'"
-													th:text="${m.okundu==true}? 'Okundu':'Okunmadı'"></span>
+													th:text="${#temporals.format(n.dateofpublish, 'dd-MM-yyyy HH:mm:ss')}"
+													class="d-inline-block text-truncate"
+													style="max-width: 150px;"></span></td>
+												<td><span class="badge bg-success"
+													th:if="${n.okundu==true}">Okundu</span> <span
+													class="badge bg-danger" th:if="${n.okundu==false}">Okunmadı</span>
 												</td>
-												
-												<td class="d-none" th:text="${m.smmmofis_id}"></td>
+												<td class="d-none"><span
+													th:text="${#temporals.format(n.dateofread, 'dd-MM-yyyy HH:mm:ss')}"
+													class="d-inline-block" style="max-width: 150px;"></span></td>
+												<td class="d-none" th:text="${n.smmmofis_id}"></td>
 												<td>
 													<div class="btn-group" role="group">
-														<a id="viewMessageBtn" class="btn btn-info"
-															th:href="@{/cp/get-message/{id}(id=${m.id})}"
+														<a id="viewNotificationBtn" class="btn btn-info"
+															th:href="@{/cp/get-notification/{id}(id=${n.id})}"
 															data-bs-toggle="modal"
-															data-bs-target="#viewMessageModal"> <i
+															data-bs-target="#viewNotificationModal"> <i
 															class="bi bi-eye"></i>
-														</a> <a id="editMessageBtn" class="btn btn-warning"
-															th:href="@{/cp/get-message/{id}(id=${m.id})}"
+														</a> <a id="editNotificationBtn" class="btn btn-warning"
+															th:href="@{/cp/get-notification/{id}(id=${n.id})}"
 															data-bs-toggle="modal"
-															data-bs-target="#editMessageModal"> <i
+															data-bs-target="#editNotificationModal"> <i
 															class="bi bi-pencil"></i>
-														</a> <a id="deleteMessageBtn" class="btn btn-danger"
-															th:href="@{/cp/delete-message(id=${m.id})}"
+														</a> <a id="deleteNotificationBtn" class="btn btn-danger"
+															th:href="@{/cp/delete-notification(id=${n.id})}"
 															data-bs-toggle="modal"
-															data-bs-target="#deleteMessageModal"> <i
+															data-bs-target="#deleteNotificationModal"> <i
 															class="bi bi-trash"></i>
 														</a>
 													</div>
@@ -143,52 +133,47 @@
 
 	</div>
 
-	<!-- add message modal sart -->
-	<div class="modal fade" id="addMessageModal" tabindex="-1"
+	<!-- add notifications modal sart -->
+	<div class="modal fade" id="addNotificationModal" tabindex="-1"
 		style="display: none; padding-right: 1px;" aria-hidden="true"
 		role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header bg-primary">
-					<h5 class="modal-title text-white">Mesaj Ekle</h5>
+					<h5 class="modal-title text-white">Uyarı Ekle</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<!-- Horizontal Form -->
-					<form class="mt-3" id="addMessageForm"
-						th:action="@{/cp/add-message}" method="post">
+					<form class="mt-3" id="addNotificationForm"
+						th:action="@{/cp/add-notification}" method="post">
 
 						<div class="row mb-1">
-							<label for="name" class="col-sm-2 col-form-label">İsim</label>
+							<label for="header" class="col-sm-2 col-form-label">Uyarı
+								Başlık</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control form-control-sm" required="required"
-									id="name" name="name">
+									id="header" name="header">
 
 							</div>
 						</div>
 						<div class="row mb-2">
-							<label for="email" class="col-sm-2 col-form-label">E-mail</label>
+							<label for="notification" class="col-sm-2 col-form-label">Uyarı</label>
 							<div class="col-sm-10">
-								<input class="form-control form-control-sm" id="name" required="required"
-									name="name">
+								<textarea class="form-control form-control-sm" id="notification" required="required"
+									name="notification" style="height: 150px;"></textarea>
 							</div>
 						</div>
 						<div class="row mb-2">
-							<label for="subject" class="col-sm-2 col-form-label">Konu</label>
+							<label for="information" class="col-sm-2 col-form-label">Ek
+								bilgi</label>
 							<div class="col-sm-10">
-								<input class="form-control form-control-sm" id="subject"
-									name="subject">
-							</div>
-						</div>
-						<div class="row mb-2">
-							<label for="message" class="col-sm-2 col-form-label">Mesaj</label>
-							<div class="col-sm-10">
-								<textarea class="form-control form-control-sm" id="message"
-									name="message"
+								<textarea class="form-control form-control-sm" id="information"
+									name="information"
 									style="height: 150px;"></textarea>
 							</div>
-						</div>							
+						</div>						
 						
 						<div class="d-grid">
 							<button type="submit" class="btn btn-primary">Kaydet</button>
@@ -207,16 +192,16 @@
 			</div>
 		</div>
 	</div>
-	<!-- add message modal end -->
+	<!-- add notifications modal end -->
 
-	<!-- view message modal sart -->
-	<div class="modal fade" id="viewMessageModal" tabindex="-1"
+	<!-- view notification modal sart -->
+	<div class="modal fade" id="viewNotificationModal" tabindex="-1"
 		style="display: none; padding-right: 1px;" aria-hidden="true"
 		role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header bg-info">
-					<h5 class="modal-title text-white">Mesaj Bilgileri</h5>
+					<h5 class="modal-title text-white">Uyarı Mesajı Bilgileri</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
@@ -227,48 +212,46 @@
 							<label for="messageid" class="col-sm-3 col-form-label">#</label>
 							<div class="col-sm-9">
 								<input type="text"
-									class="form-control-plaintext form-control-sm" id="messageid" disabled="disabled"
+									class="form-control-plaintext form-control-sm" id="notificationid" disabled="disabled"
 									readonly="readonly">
 							</div>
 						</div>
 
 						<div class="row mb-1">
-							<label for="name" class="col-sm-3 col-form-label">İsim</label>
+							<label for="header" class="col-sm-3 col-form-label">Uyarı
+								Başlık</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control form-control-sm" disabled="disabled"
-									id="name">
+									id="notificationheader">
 							</div>
 						</div>
 						<div class="row mb-1">
-							<label for="email" class="col-sm-3 col-form-label">E-mail</label>
+							<label for="notification" class="col-sm-3 col-form-label">Uyarı</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control form-control-sm" disabled="disabled"
-									id="email">
-							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="subject" class="col-sm-3 col-form-label">Konu</label>
-							<div class="col-sm-9">
-								<input class="form-control form-control-sm" id="subject" disabled="disabled">
-							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="message" class="col-sm-3 col-form-label">Mesaj</label>
-							<div class="col-sm-9">
-								<textarea class="form-control form-control-sm" id="message" disabled="disabled"
+								<textarea class="form-control form-control-sm" id="notification" disabled="disabled"
 									style="height: 200px;"></textarea>
 							</div>
 						</div>
 						<div class="row mb-1">
-							<label for="date" class="col-sm-3 col-form-label">Gönderim Tarihi</label>
+							<label for="information" class="col-sm-3 col-form-label">Ek
+								bilgi</label>
+							<div class="col-sm-9">
+								<textarea class="form-control form-control-sm" id="information" disabled="disabled"
+									style="height: 200px;"></textarea>
+							</div>
+						</div>
+						<div class="row mb-1">
+							<label for="dateofpublish" class="col-sm-3 col-form-label">Gönderim
+								Tarihi</label>
 							<div class="col-sm-9">
 								<input type="datetime-local"
-									id="sendDate" disabled="disabled"
+									id="dateofpublish" disabled="disabled"
 									class="form-control form-control-sm">
 							</div>
 						</div>
 						<div class="row mb-1">
-							<label for="dateofread" class="col-sm-3 col-form-label">Okuma Tarihi</label>
+							<label for="readDate" class="col-sm-3 col-form-label">Okuma
+								Tarihi</label>
 							<div class="col-sm-9">
 								<input type="datetime-local" id="dateofread" disabled="disabled"
 									class="form-control form-control-sm">
@@ -307,78 +290,77 @@
 			</div>
 		</div>
 	</div>
-	<!-- view message modal end -->
+	<!-- view notification modal end -->
 
-	<!-- edit message modal sart -->
-	<div class="modal fade" id="editMessageModal" tabindex="-1"
+	<!-- edit notification modal sart -->
+	<div class="modal fade" id="editNotificationModal" tabindex="-1"
 		style="display: none; padding-right: 1px;" aria-hidden="true"
 		role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header bg-warning">
-					<h5 class="modal-title text-white">Mesajı Oku</h5>
+					<h5 class="modal-title text-white">Uyarı Güncelle</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<!-- Horizontal Form -->
-					<form class="mt-3" id="messageEditForm"
-						th:action="@{/cp/update-message}" method="post">
+					<form class="mt-3" id="notificationEditForm"
+						th:action="@{/cp/update-notification}" method="post">
 						
 						<div class="row mb-1 d-none">
-							<label for="messageid" class="col-sm-3 col-form-label">#</label>
+							<label for="notificationid" class="col-sm-3 col-form-label">#</label>
 							<div class="col-sm-9">
 								<input type="text"
-									class="form-control form-control-sm" id="messageid"
-									name="id" disabled="disabled">
+									class="form-control-plaintext form-control-sm" id="notificationid"
+									name="id" readonly="readonly">
 							</div>
 						</div>
 
 						<div class="row mb-1">
-							<label for="name" class="col-sm-3 col-form-label">İsim</label>
+							<label for="header" class="col-sm-3 col-form-label">Uyarı
+								Başlık</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control form-control-sm" disabled="disabled"
-									id="name" name="name">
+								<input type="text" class="form-control form-control-sm"
+									id="notificationheader" name="header">
 							</div>
 						</div>
 						<div class="row mb-1">
-							<label for="email" class="col-sm-3 col-form-label">E-mail</label>
+							<label for="notification" class="col-sm-3 col-form-label">Uyarı</label>
 							<div class="col-sm-9">
-								<textarea class="form-control form-control-sm" id="email"
-									name="email" disabled="disabled"
+								<textarea class="form-control form-control-sm" id="notification"
+									name="notification"
 									style="height: 200px;"></textarea>
 							</div>
 						</div>
 						<div class="row mb-1">
-							<label for="subject" class="col-sm-3 col-form-label">Konu</label>
+							<label for="information" class="col-sm-3 col-form-label">Ek
+								bilgi</label>
 							<div class="col-sm-9">
-								<input class="form-control form-control-sm" id="subject"
-									name="subject" disabled="disabled">
-							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="message" class="col-sm-3 col-form-label">Mesaj</label>
-							<div class="col-sm-9">
-								<textarea class="form-control form-control-sm" id="message"
-									name="message" disabled="disabled"
+								<textarea class="form-control form-control-sm" id="information"
+									name="information"
 									style="height: 200px;"></textarea>
 							</div>
 						</div>
 						<div class="row mb-1">
-							<label for="dateofpublish" class="col-sm-3 col-form-label">Gönderim Tarihi</label>
+							<label for="dateofpublish" class="col-sm-3 col-form-label">Gönderim
+								Tarihi</label>
 							<div class="col-sm-9">
-								<input type="datetime-local" disabled="disabled"
-									id="sendDate"
+								<input type="datetime-local" name="dateofpublish" disabled="disabled"
+									id="dateofpublish"
 									class="form-control form-control-sm">
 							</div>
 						</div>
 						<div class="row mb-1">
-							<label for="readDate" class="col-sm-3 col-form-label">Okuma Tarihi</label>
+							<label for="readDate" class="col-sm-3 col-form-label">Okuma
+								Tarihi</label>
 							<div class="col-sm-9">
-								<input type="datetime-local" id="dateofread" disabled="disabled"
+								<input type="datetime-local" name="readDate" id="dateofread" disabled="disabled"
 									class="form-control form-control-sm">
 							</div>
 						</div>
+
+
 						<div class="row mb-3">
 							<div class="col-sm-10 offset-sm-3">
 								<div class="form-check">
@@ -393,7 +375,7 @@
 							<div class="col-sm-9">
 								<input type="text" class="form-control form-control-sm"
 									id="smmmofis_id" name="smmmofis_id"
-									disabled="disabled">
+									readonly="readonly">
 							</div>
 						</div>
 						<div class="d-grid">
@@ -413,10 +395,10 @@
 			</div>
 		</div>
 	</div>
-	<!-- edit message modal end -->
+	<!-- edit notification modal end -->
 
-	<!-- delete message modal sart -->
-	<div class="modal fade" id="deleteMessageModal" tabindex="-1"
+	<!-- delete client modal sart -->
+	<div class="modal fade" id="deleteNotificationModal" tabindex="-1"
 		style="display: none; padding-right: 1px;" aria-hidden="true"
 		role="dialog">
 		<div class="modal-dialog modal-lg">
@@ -428,62 +410,60 @@
 				</div>
 				<div class="modal-body">
 					<!-- Horizontal Form -->
-					<form class="mt-3" id="messageDeleteForm">
+					<form class="mt-3" id="notificationDeleteForm">
 						<div class="row mb-1 d-none">
 							<label for="messageid" class="col-sm-3 col-form-label">#</label>
 							<div class="col-sm-9">
 								<input type="text"
-									class="form-control form-control-sm" id="messageid"
-									disabled="disabled">
+									class="form-control-plaintext form-control-sm" id="notificationid" disabled="disabled"
+									readonly="readonly">
 							</div>
 						</div>
 
 						<div class="row mb-1">
-							<label for="name" class="col-sm-3 col-form-label">İsim</label>
+							<label for="header" class="col-sm-3 col-form-label">Uyarı
+								Başlık</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control form-control-sm" readonly="readonly"
-									id="name" disabled="disabled">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									id="header">
 							</div>
 						</div>
 						<div class="row mb-1">
-							<label for="email" class="col-sm-3 col-form-label">E-mail</label>
+							<label for="notification" class="col-sm-3 col-form-label">Uyarı</label>
 							<div class="col-sm-9">
-								<input class="form-control form-control-sm" id="email"
-									disabled="disabled">
-							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="subject" class="col-sm-3 col-form-label">Konu</label>
-							<div class="col-sm-9">
-								<input class="form-control form-control-sm" id="subject"
-									disabled="disabled">
-							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="message" class="col-sm-3 col-form-label">Mesaj</label>
-							<div class="col-sm-9">
-								<textarea class="form-control form-control-sm" id="message"
-									disabled="disabled"
+								<textarea class="form-control form-control-sm" id="notification" disabled="disabled"
 									style="height: 200px;"></textarea>
 							</div>
 						</div>
 						<div class="row mb-1">
-							<label for="dateofpublish" class="col-sm-3 col-form-label">Gönderim Tarihi</label>
+							<label for="information" class="col-sm-3 col-form-label">Ek
+								bilgi</label>
+							<div class="col-sm-9">
+								<textarea class="form-control form-control-sm" id="information" disabled="disabled"
+									style="height: 200px;"></textarea>
+							</div>
+						</div>
+						<div class="row mb-1">
+							<label for="dateofpublish" class="col-sm-3 col-form-label">Gönderim
+								Tarihi</label>
 							<div class="col-sm-9">
 								<input type="datetime-local" disabled="disabled"
-									id="sendDate"
+									id="dateofpublish"
 									class="form-control form-control-sm">
 							</div>
 						</div>
 						<div class="row mb-1">
-							<label for="readDate" class="col-sm-3 col-form-label">Okuma Tarihi</label>
+							<label for="readDate" class="col-sm-3 col-form-label">Okuma
+								Tarihi</label>
 							<div class="col-sm-9">
-								<input type="datetime-local" id="readDate" disabled="disabled"
+								<input type="datetime-local" id="dateofread" disabled="disabled"
 									class="form-control form-control-sm">
 							</div>
 						</div>
+
+
 						<div class="row mb-3">
-							<div class="col-sm-10 offset-sm-3">
+							<div class="col-sm-9 offset-sm-3">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" id="okundu" disabled="disabled">
 									<label class="form-check-label"
@@ -496,7 +476,7 @@
 							<div class="col-sm-9">
 								<input type="text" class="form-control form-control-sm"
 									id="smmmofis_id"
-									disabled="disabled">
+									readonly="readonly">
 							</div>
 						</div>
 						
@@ -508,18 +488,18 @@
 						data-bs-dismiss="modal">
 						<i class="bi bi-x-circle-fill"></i> Kapat
 					</button>
-					<a type="button" id="deleteMessageConfirmBtn" href=""
+					<a type="button" id="deleteNotificationConfirmBtn" href=""
 						class="btn btn-danger"><i class="bi bi-trash-fill"></i> Evet
 						Sil</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- delete message modal end -->
+	<!-- delete client modal end -->
 
 	<div th:replace="~{adminpanel/fragments/footer}"></div>
 	<div th:replace="~{adminpanel/fragments/js}"></div>
-	<script th:src="@{../../customjs/messages.js}"
+	<script th:src="@{../../customjs/notifications.js}"
 		type="text/javascript"></script>
 
 </body>

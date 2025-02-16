@@ -19,6 +19,7 @@ import com.ofisyonetimsistemi.models.SmmmOfisWhyUs;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
+import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 import com.ofisyonetimsistemi.services.SmmmOfisWhyUsService;
 
@@ -30,6 +31,7 @@ public class HomePageWhyUsController {
 	@Autowired private SmmmOfisWhyUsService whyUsService;
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
+	@Autowired private SmmmOfisNotificationService notificationService;
 	
 	@GetMapping("/smmm-homepage-whyus-settings")
 	public String getWhyUsSettingPage(Model model, Principal principal) {
@@ -49,6 +51,13 @@ public class HomePageWhyUsController {
 			  model.addAttribute("messageCount", messageService.countOfRecord());
 			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  
+			  model.addAttribute("notificationCount", notificationService.countOfRecord());
+			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
+			  
+			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+				model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			  
 			  return "adminpanel/homepagesettings/homepage-whyus-settings";
 			  
 		   }else {
@@ -62,6 +71,13 @@ public class HomePageWhyUsController {
 			  model.addAttribute("currentUser", myUser);
 			  model.addAttribute("messageCount", messageService.countOfRecord());
 			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			  
+			  model.addAttribute("notificationCount", notificationService.countOfRecord());
+			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
+			  
+			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+				model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
 		   }
 		  
 		return "adminpanel/homepagesettings/homepage-whyus-settings";

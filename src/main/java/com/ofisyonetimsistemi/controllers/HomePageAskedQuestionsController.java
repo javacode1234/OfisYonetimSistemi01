@@ -20,6 +20,7 @@ import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisAskedQuestionsService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
+import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
@@ -30,6 +31,7 @@ public class HomePageAskedQuestionsController {
 	@Autowired private SmmmOfisAskedQuestionsService hpFaqService;
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
+	@Autowired private SmmmOfisNotificationService notificationService;
 	
 
 	@GetMapping("/smmm-homepage-faq-settings")
@@ -50,6 +52,13 @@ public class HomePageAskedQuestionsController {
 			model.addAttribute("messageCount", messageService.countOfRecord());
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			
+			model.addAttribute("notificationCount", notificationService.countOfRecord());
+			model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+			model.addAttribute("allNotifications", notificationService.getAllNotifications());
+			
+			model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+			model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			
 			return "adminpanel/homepagesettings/homepage-faq-settings";
 
 		} else {
@@ -63,6 +72,13 @@ public class HomePageAskedQuestionsController {
 			model.addAttribute("currentUser", myUser);
 			model.addAttribute("messageCount", messageService.countOfRecord());
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			model.addAttribute("notificationCount", notificationService.countOfRecord());
+			model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+			model.addAttribute("allNotifications", notificationService.getAllNotifications());
+			
+			model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+			model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
 		}
 
 		return "adminpanel/homepagesettings/homepage-faq-settings";

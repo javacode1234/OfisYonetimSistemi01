@@ -1,5 +1,6 @@
 package com.ofisyonetimsistemi.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +44,14 @@ public class SmmmOfisMessageService {
 	}
 
 	public List<SmmmOfisMessage> getAllUnReadMessages() {
-		return repo.getAllUnReadMessages(false);
+		List<SmmmOfisMessage> listOfUnreadMessages = repo.findAll();
+		List<SmmmOfisMessage> newListOfUnreadMessages = new ArrayList<>();
+		for(SmmmOfisMessage notification : listOfUnreadMessages) {
+			if(notification.isOkundu()==false) {
+				newListOfUnreadMessages.add(notification);
+			}
+		}
+		return newListOfUnreadMessages;
 	}
 
 	public List<SmmmOfisMessage> getAllReadMessages() {

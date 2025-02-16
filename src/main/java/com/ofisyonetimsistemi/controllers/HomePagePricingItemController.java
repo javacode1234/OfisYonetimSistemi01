@@ -22,6 +22,7 @@ import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.PricingItemService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
+import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisPricingService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
@@ -35,6 +36,7 @@ public class HomePagePricingItemController {
 	@Autowired private SmmmOfisPricingService hpPricingService;
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
+	@Autowired private SmmmOfisNotificationService notificationService;
 	
 	@GetMapping("/smmm-homepage-pricing-item-settings")
 	public String get(Model model, Principal principal) {
@@ -54,6 +56,13 @@ public class HomePagePricingItemController {
 			model.addAttribute("currentUser", myUser);
 			model.addAttribute("messageCount", messageService.countOfRecord());
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			model.addAttribute("notificationCount", notificationService.countOfRecord());
+			model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+			model.addAttribute("allNotifications", notificationService.getAllNotifications());
+			
+			model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+			model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
 
 			return "adminpanel/homepagesettings/homepage-pricing-item-settings";
 
@@ -71,6 +80,13 @@ public class HomePagePricingItemController {
 			model.addAttribute("currentUser", myUser);
 			model.addAttribute("messageCount", messageService.countOfRecord());
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			model.addAttribute("notificationCount", notificationService.countOfRecord());
+			model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+			model.addAttribute("allNotifications", notificationService.getAllNotifications());
+			
+			model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+			model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
 		}
 
 		return "adminpanel/homepagesettings/homepage-pricing-item-settings";
@@ -97,6 +113,13 @@ public class HomePagePricingItemController {
 			model.addAttribute("currentUser", myUser);
 			model.addAttribute("messageCount", messageService.countOfRecord());
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			model.addAttribute("notificationCount", notificationService.countOfRecord());
+			model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+			model.addAttribute("allNotifications", notificationService.getAllNotifications());
+			
+			model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+			model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
 
 			return "adminpanel/homepagesettings/homepage-pricing-item-settings";
 
@@ -115,6 +138,13 @@ public class HomePagePricingItemController {
 			model.addAttribute("currentUser", myUser);
 			model.addAttribute("messageCount", messageService.countOfRecord());
 			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			model.addAttribute("notificationCount", notificationService.countOfRecord());
+			model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+			model.addAttribute("allNotifications", notificationService.getAllNotifications());
+			
+			model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+			model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
 		}
 		
 		return "adminpanel/homepagesettings/homepage-pricing-item-settings";

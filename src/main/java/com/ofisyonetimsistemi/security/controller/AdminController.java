@@ -32,6 +32,7 @@ import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.model.MyUserDetails;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
+import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 import jakarta.validation.Valid;
@@ -44,6 +45,7 @@ public class AdminController {
 	@Autowired private MyUserService myUserService;
 	@Autowired private PasswordEncoder pwdEncoder;
 	@Autowired private SmmmOfisMessageService messageService;
+	@Autowired private SmmmOfisNotificationService notificationService;
 	
 	@GetMapping("/users")
 	public String getAddUserForm(Model model, Principal principal, @AuthenticationPrincipal MyUserDetails loggedUser) {
@@ -63,7 +65,8 @@ public class AdminController {
 			model.addAttribute("roles", roles);
 			
 			model.addAttribute("currentUser", currentUser);
-			model.addAttribute("messageCount", messageService.countOfRecord());
+			
+			loadRequaredCommenItems(model);
 
 			return "adminpanel/homepagesettings/add-user";
 
@@ -79,7 +82,8 @@ public class AdminController {
 			model.addAttribute("roles", roles);
 			
 			model.addAttribute("currentUser", currentUser);
-			model.addAttribute("messageCount", messageService.countOfRecord());
+			
+			loadRequaredCommenItems(model);
 		}
 
 		return "adminpanel/homepagesettings/add-user";
@@ -115,8 +119,10 @@ public class AdminController {
 			model.addAttribute("userNameExist", userNameExist);
 			
 			model.addAttribute("currentUser", currentUser);
+			
 			model.addAttribute("smmmOfis", smmmOfis.get());
-			model.addAttribute("messageCount", messageService.countOfRecord());
+			
+			loadRequaredCommenItems(model);
 			
 			return "adminpanel/homepagesettings/add-user";
 		}
@@ -131,7 +137,8 @@ public class AdminController {
 			
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("smmmOfis", smmmOfis.get());
-			model.addAttribute("messageCount", messageService.countOfRecord());
+			
+			loadRequaredCommenItems(model);
 
 			return "adminpanel/homepagesettings/add-user";
 		}
@@ -237,7 +244,8 @@ public class AdminController {
 			model.addAttribute("roles", roles);
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("smmmOfis", smmmOfis.get());
-			model.addAttribute("messageCount", messageService.countOfRecord());
+			
+			loadRequaredCommenItems(model);
 			
 			return "adminpanel/homepagesettings/add-user";
 		}
@@ -426,6 +434,7 @@ public class AdminController {
 										@AuthenticationPrincipal MyUserDetails loggedUser
 										
 									) {
+		
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		
 		MyUser myUser = MyUser.builder()
@@ -498,6 +507,16 @@ public class AdminController {
 		myUserService.saveMyUser(myUser);
 		
 		return "redirect:/cp/user-profile-changepwd";
+	}
+	
+	public void loadRequaredCommenItems(Model model) {
+			
+			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+			
+			model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+			model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			
 	}
 	
 }

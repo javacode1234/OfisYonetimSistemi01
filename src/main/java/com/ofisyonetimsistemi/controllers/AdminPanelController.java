@@ -14,6 +14,7 @@ import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.model.MyUserDetails;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
+import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
@@ -23,6 +24,7 @@ public class AdminPanelController {
 	@Autowired private SmmmOfisService smmmOfisService;
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
+	@Autowired private SmmmOfisNotificationService notificationService;
 	
 	@GetMapping(value="/admin-panel")
 	public String getAdminPanel(Model model, @AuthenticationPrincipal MyUserDetails loggedUser) {
@@ -31,13 +33,13 @@ public class AdminPanelController {
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		
 		if (!smmmOfis.isEmpty()) {
-			model.addAttribute("updateBtnActive", true);
-			model.addAttribute("smmmOfis", smmmOfis.get());
 			
+			model.addAttribute("updateBtnActive", true);
+			model.addAttribute("smmmOfis", smmmOfis.get());			
 			model.addAttribute("currentUser", currentUser);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
-
+			
+			loadRequaredCommenItems(model);
+			
 			return "adminpanel/index";
 
 		} else {
@@ -48,10 +50,10 @@ public class AdminPanelController {
 
 			model.addAttribute("updateBtnActive", false);
 			model.addAttribute("smmmOfis", new SmmmOfis());
-
 			model.addAttribute("currentUser", currentUser);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			loadRequaredCommenItems(model);
+			
 		}
 
 		return "adminpanel/index";
@@ -66,12 +68,12 @@ public class AdminPanelController {
 		
 		if (smmmOfis.isPresent()) {
 			
-			model.addAttribute("tabpane", "view");
-			model.addAttribute("smmmOfis", smmmOfis.get());
-			model.addAttribute("currentUser", currentUser);
+			model.addAttribute("tabpane", "view");			
 			model.addAttribute("userProfileDto", userProfileDto);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			model.addAttribute("smmmOfis", smmmOfis.get());			
+			model.addAttribute("currentUser", currentUser);
+			
+			loadRequaredCommenItems(model);
 			
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -83,13 +85,16 @@ public class AdminPanelController {
 			model.addAttribute("tabpane", "view");
 
 			model.addAttribute("smmmOfis", new SmmmOfis());
+			
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			loadRequaredCommenItems(model);
 			
 		}
+		
 		return "adminpanel/homepagesettings/user-profile";
+		
 	}
 
 	@GetMapping("/user-profile-view")
@@ -100,13 +105,14 @@ public class AdminPanelController {
 		UserProfileDto userProfileDto = new UserProfileDto();
 		
 		if (smmmOfis.isPresent()) {
+			
 			model.addAttribute("tabpane", "view");
 			model.addAttribute("smmmOfis", smmmOfis.get());
 
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			loadRequaredCommenItems(model);
 			
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -120,11 +126,13 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			loadRequaredCommenItems(model);
 			
 		}
+		
 		return "adminpanel/homepagesettings/user-profile";
+		
 	}
 
 	@GetMapping("/user-profile-edit")
@@ -135,14 +143,15 @@ public class AdminPanelController {
 		UserProfileDto userProfileDto = new UserProfileDto();
 		
 		if (smmmOfis.isPresent()) {
+			
 			model.addAttribute("tabpane", "edit");
 			model.addAttribute("smmmOfis", smmmOfis.get());
 
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", new UserProfileDto());
 			model.addAttribute("userProfileDto", userProfileDto);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			loadRequaredCommenItems(model);
 
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -156,10 +165,13 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			loadRequaredCommenItems(model);
+			
 		}
+		
 		return "adminpanel/homepagesettings/user-profile";
+		
 	}
 
 	@GetMapping("/user-profile-settings")
@@ -176,8 +188,8 @@ public class AdminPanelController {
 
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			loadRequaredCommenItems(model);
 			
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -191,11 +203,13 @@ public class AdminPanelController {
 			model.addAttribute("smmmOfis", new SmmmOfis());
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			loadRequaredCommenItems(model);
 			
 		}
+		
 		return "adminpanel/homepagesettings/user-profile";
+		
 	}
 
 	@GetMapping("/user-profile-changepwd")
@@ -212,8 +226,8 @@ public class AdminPanelController {
 
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			
+			loadRequaredCommenItems(model);
 			
 			return "adminpanel/homepagesettings/user-profile";
 
@@ -224,14 +238,26 @@ public class AdminPanelController {
 			model.addAttribute("fullusername", "Kullanıcı İsim Soyisim");
 
 			model.addAttribute("tabpane", "changepwd");
-			model.addAttribute("smmmOfis", new SmmmOfis());
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("userProfileDto", userProfileDto);
-			model.addAttribute("messageCount", messageService.countOfRecord());
-			model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			model.addAttribute("smmmOfis", new SmmmOfis());
+			
+			loadRequaredCommenItems(model);
 			
 		}
+		
 		return "adminpanel/homepagesettings/user-profile";
+		
+	}
+	
+	public void loadRequaredCommenItems(Model model) {
+		
+		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+		model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+		
+		model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+		model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+		
 	}
 
 }
