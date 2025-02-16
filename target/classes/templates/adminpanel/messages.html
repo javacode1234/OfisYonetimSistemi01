@@ -98,9 +98,12 @@
 												<td class="d-none"><span
 													th:text="${#temporals.format(m.dateofread, 'dd-MM-yyyy HH:mm:ss')}"
 													class="d-inline-block" style="max-width: 150px;"></span></td>
-												<td><span class="badge"
+												<td><i class=""
+													th:classappend="${m.okundu==true}? 'bi bi-envelope-open text-success':'bi bi-envelope text-danger'"
+													></i>
+													<span class="badge"
 													th:classappend="${m.okundu==true}? 'bg-success':'bg-danger'"
-													th:text="${m.okundu==true}? 'Okundu':'Okunmadı'"></span>
+													th:text="${m.okundu==true}? ' Okundu':' Okunmadı'"></span>
 												</td>
 												
 												<td class="d-none" th:text="${m.smmmofis_id}"></td>
@@ -276,7 +279,7 @@
 						</div>
 
 
-						<div class="row mb-3">
+						<div class="row mb-3 d-none">
 							<div class="col-sm-9 offset-sm-3">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" id="okundu" disabled="disabled">
@@ -482,7 +485,7 @@
 									class="form-control form-control-sm">
 							</div>
 						</div>
-						<div class="row mb-3">
+						<div class="row mb-3 d-none">
 							<div class="col-sm-10 offset-sm-3">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" id="okundu" disabled="disabled">
