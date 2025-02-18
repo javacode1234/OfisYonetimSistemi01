@@ -32,17 +32,17 @@
 				<div class="row">
 					<div class="col">
 						<div class="card">
-							<div class="card-body">
+							<div class="card-body p-1">
 
-								<div class="d-flex mt-3  btn-group">
-<!-- 									<a class="btn btn-primary py-4" data-bs-toggle="modal" -->
+								<div class="d-flex mt-1 btn-group overflow-scroll" style="height: 75px; scrollbar-width: thin;">
+<!-- 									<a class="btn btn-primary py-3" data-bs-toggle="modal" -->
 <!-- 										data-bs-target="#addMessageModal">Mesaj Ekle</a> -->
 									<a th:href="@{/cp/get-un-read-messages}"
-										class="btn btn-danger py-4">Okunmamış Mesajlar</a>
+										class="btn btn-danger py-3">Okunmamış Mesajlar</a>
 									<a th:href="@{/cp/get-read-messages}"
-										class="btn btn-success py-4">Okunmuş Mesajlar</a>
+										class="btn btn-success py-3">Okunmuş Mesajlar</a>
 									<a th:href="@{/cp/get-all-messages}"
-										class="btn btn-info py-4">Bütün Mesajlar</a>
+										class="btn btn-info py-3">Bütün Mesajlar</a>
 								</div>
 							</div>
 						</div>
@@ -55,7 +55,7 @@
 
 						<div class="card h-100">
 							<div class="card-body">
-								<h5 class="card-title">Uyarı Listesi</h5>
+								<h5 class="card-title">Mesaj Listesi</h5>
 
 								<!-- Table with hoverable rows -->
 								<div class="overflow-scroll"
@@ -64,20 +64,54 @@
 										<thead class="position-sticky fixed-top z-1">
 											<tr>
 												<th>#</th>
+												<th><i class="bi bi-tools"></i></th>
+												<th class="d-none"><i class="bi bi-check-circle-fill"></i></th>
 												<th>Gönderen</th>
 												<th class="">Email</th>
 												<th class="">Konu</th>
 												<th class="">Mesaj</th>
 												<th class="d-none">Gönderi Tarihi</th>
 												<th class="d-none">Okunma Tarihi</th>
-												<th><i class="bi bi-check-circle-fill"></i></th>
 												<th class="d-none">smmmofisId</th>
-												<th><i class="bi bi-tools"></i></th>
 											</tr>
 										</thead>
 										<tbody id="messageTableBody">
 											<tr th:each="m,i :${allMessages}">
 												<td th:text="${i.count}"></td>
+												<td>
+													<div class="btn-group" role="group">
+														<a id="viewMessageBtn" class="btn btn-info"
+															th:href="@{/cp/get-message/{id}(id=${m.id})}"
+															data-bs-toggle="modal"
+															data-bs-target="#viewMessageModal"> <i
+															class="bi bi-eye"></i>
+														</a> <a id="editMessageBtn" class="btn btn-warning"
+															th:href="@{/cp/get-message/{id}(id=${m.id})}"
+															data-bs-toggle="modal"
+															data-bs-target="#editMessageModal"> <i
+															class="bi bi-pencil"></i>
+														</a> <a id="deleteMessageBtn" class="btn btn-danger"
+															th:href="@{/cp/delete-message(id=${m.id})}"
+															data-bs-toggle="modal"
+															data-bs-target="#deleteMessageModal"> <i
+															class="bi bi-trash"></i>
+														</a>
+														<i class="btn btn-light"
+													th:classappend="${m.okundu==true}? 'bi bi-envelope-open text-success':'bi bi-envelope text-danger'"
+													></i>
+													<span class="btn d-none"
+													th:classappend="${m.okundu==true}? 'bg-success':'bg-danger'"
+													th:text="${m.okundu==true}? ' Okundu':' Okunmadı'"></span>
+													</div>
+													
+												</td>
+												<td class="d-none"><i class=""
+													th:classappend="${m.okundu==true}? 'bi bi-envelope-open text-success':'bi bi-envelope text-danger'"
+													></i>
+													<span class="badge"
+													th:classappend="${m.okundu==true}? 'bg-success':'bg-danger'"
+													th:text="${m.okundu==true}? ' Okundu':' Okunmadı'"></span>
+												</td>
 												<td><span th:text="${m.name}"
 													class="d-inline-block text-truncate"
 													style="max-width: 150px;"></span></td>
@@ -98,35 +132,7 @@
 												<td class="d-none"><span
 													th:text="${#temporals.format(m.dateofread, 'dd-MM-yyyy HH:mm:ss')}"
 													class="d-inline-block" style="max-width: 150px;"></span></td>
-												<td><i class=""
-													th:classappend="${m.okundu==true}? 'bi bi-envelope-open text-success':'bi bi-envelope text-danger'"
-													></i>
-													<span class="badge"
-													th:classappend="${m.okundu==true}? 'bg-success':'bg-danger'"
-													th:text="${m.okundu==true}? ' Okundu':' Okunmadı'"></span>
-												</td>
-												
 												<td class="d-none" th:text="${m.smmmofis_id}"></td>
-												<td>
-													<div class="btn-group" role="group">
-														<a id="viewMessageBtn" class="btn btn-info"
-															th:href="@{/cp/get-message/{id}(id=${m.id})}"
-															data-bs-toggle="modal"
-															data-bs-target="#viewMessageModal"> <i
-															class="bi bi-eye"></i>
-														</a> <a id="editMessageBtn" class="btn btn-warning"
-															th:href="@{/cp/get-message/{id}(id=${m.id})}"
-															data-bs-toggle="modal"
-															data-bs-target="#editMessageModal"> <i
-															class="bi bi-pencil"></i>
-														</a> <a id="deleteMessageBtn" class="btn btn-danger"
-															th:href="@{/cp/delete-message(id=${m.id})}"
-															data-bs-toggle="modal"
-															data-bs-target="#deleteMessageModal"> <i
-															class="bi bi-trash"></i>
-														</a>
-													</div>
-												</td>
 											</tr>
 										</tbody>
 									</table>

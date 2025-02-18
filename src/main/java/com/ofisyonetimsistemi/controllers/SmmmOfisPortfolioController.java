@@ -106,7 +106,7 @@ public class SmmmOfisPortfolioController {
 		List<PortfolioCompany> companyList = portCompService.getByPortfoyId(id);
 		if(!companyList.isEmpty()) {
 			redirectAttr.addFlashAttribute("msg", "Silmek istediğin kaydın alt kayıtları var. Önce alt kayıtları sil." );
-			return "redirect:/api/v1/smmm-homepage-sector-settings";
+			return "redirect:/cp/smmm-homepage-sector-settings";
 		}
 		sectorService.deleteSectorById(id);
 		return "redirect:/cp/smmm-homepage-sector-settings";

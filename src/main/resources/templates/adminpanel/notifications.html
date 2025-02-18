@@ -32,17 +32,17 @@
 				<div class="row">
 					<div class="col">
 						<div class="card">
-							<div class="card-body">
+							<div class="card-body p-1">
 
-								<div class="d-flex mt-3  btn-group">
-									<a class="btn btn-primary py-4" data-bs-toggle="modal"
+								<div class="d-flex mt-1 btn-group overflow-scroll" style="height: 75px; scrollbar-width: thin;">
+									<a class="btn btn-primary py-3" data-bs-toggle="modal"
 										data-bs-target="#addNotificationModal">Uyarı Ekle</a> <a
 										th:href="@{/cp/get-un-read-notifications}"
-										class="btn btn-danger py-4">Okunmamış Uyarılar</a> <a
+										class="btn btn-danger py-3">Okunmamış Uyarılar</a> <a
 										th:href="@{/cp/get-read-notifications}"
-										class="btn btn-success py-4">Okunmuş Uyarılar</a> <a
+										class="btn btn-success py-3">Okunmuş Uyarılar</a> <a
 										th:href="@{/cp/get-all-notifications}"
-										class="btn btn-info py-4">Bütün Uyarılar</a>
+										class="btn btn-info py-3">Bütün Uyarılar</a>
 								</div>
 							</div>
 						</div>
@@ -64,40 +64,18 @@
 										<thead class="position-sticky fixed-top z-1">
 											<tr>
 												<th>#</th>
+												<th><i class="bi bi-tools"></i></th>
+												<th><i class="bi bi-check-circle-fill"></i></th>
 												<th>Başlık</th>
 												<th class="">Uyarı</th>
 												<th class="d-none">Uyarı Tarihi</th>
-												<th><i class="bi bi-check-circle-fill"></i></th>
 												<th class="d-none">Okunma Tarihi</th>
 												<th class="d-none">smmmofisId</th>
-												<th><i class="bi bi-tools"></i></th>
 											</tr>
 										</thead>
 										<tbody id="notificationTableBody">
 											<tr th:each="n,i :${allNotifications}">
 												<td th:text="${i.count}"></td>
-												<td><span th:text="${n.header}"
-													class="d-inline-block text-truncate"
-													style="max-width: 150px;"></span></td>
-												<td class=""><span th:text="${n.notification}"
-													class="d-inline-block text-truncate"
-													style="max-width: 150px;"></span></td>
-												<td class="d-none"><span
-													th:text="${#temporals.format(n.dateofpublish, 'dd-MM-yyyy HH:mm:ss')}"
-													class="d-inline-block text-truncate"
-													style="max-width: 150px;"></span></td>
-												<td>
-													<i class=""
-													th:classappend="${n.okundu==true}? 'bi bi-envelope-open text-success':'bi bi-envelope text-danger'"
-													></i>
-													<span class="badge bg-success"
-													th:if="${n.okundu==true}">Okundu</span> <span
-													class="badge bg-danger" th:if="${n.okundu==false}">Okunmadı</span>
-												</td>
-												<td class="d-none"><span
-													th:text="${#temporals.format(n.dateofread, 'dd-MM-yyyy HH:mm:ss')}"
-													class="d-inline-block" style="max-width: 150px;"></span></td>
-												<td class="d-none" th:text="${n.smmmofis_id}"></td>
 												<td>
 													<div class="btn-group" role="group">
 														<a id="viewNotificationBtn" class="btn btn-info"
@@ -118,6 +96,30 @@
 														</a>
 													</div>
 												</td>
+												<td>
+													<i class=""
+													th:classappend="${n.okundu==true}? 'bi bi-envelope-open text-success':'bi bi-envelope text-danger'"
+													></i>
+													<span class="badge bg-success"
+													th:if="${n.okundu==true}">Okundu</span> <span
+													class="badge bg-danger" th:if="${n.okundu==false}">Okunmadı</span>
+												</td>
+												<td><span th:text="${n.header}"
+													class="d-inline-block text-truncate"
+													style="max-width: 150px;"></span></td>
+												<td class=""><span th:text="${n.notification}"
+													class="d-inline-block text-truncate"
+													style="max-width: 150px;"></span></td>
+												<td class="d-none"><span
+													th:text="${#temporals.format(n.dateofpublish, 'dd-MM-yyyy HH:mm:ss')}"
+													class="d-inline-block text-truncate"
+													style="max-width: 150px;"></span></td>
+												
+												<td class="d-none"><span
+													th:text="${#temporals.format(n.dateofread, 'dd-MM-yyyy HH:mm:ss')}"
+													class="d-inline-block" style="max-width: 150px;"></span></td>
+												<td class="d-none" th:text="${n.smmmofis_id}"></td>
+												
 											</tr>
 										</tbody>
 									</table>
