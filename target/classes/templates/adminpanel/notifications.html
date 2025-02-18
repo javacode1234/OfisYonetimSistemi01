@@ -86,7 +86,11 @@
 													th:text="${#temporals.format(n.dateofpublish, 'dd-MM-yyyy HH:mm:ss')}"
 													class="d-inline-block text-truncate"
 													style="max-width: 150px;"></span></td>
-												<td><span class="badge bg-success"
+												<td>
+													<i class=""
+													th:classappend="${n.okundu==true}? 'bi bi-envelope-open text-success':'bi bi-envelope text-danger'"
+													></i>
+													<span class="badge bg-success"
 													th:if="${n.okundu==true}">Okundu</span> <span
 													class="badge bg-danger" th:if="${n.okundu==false}">Okunmadı</span>
 												</td>
