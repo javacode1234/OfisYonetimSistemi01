@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="~{adminpanel/fragments/head}"></head>
+<body>
+	<!-- ======= Header ======= -->
+	<header th:replace="~{adminpanel/fragments/header}"></header>
+	<!-- End Header -->
+
+	<!-- ======= Sidebar ======= -->
+	<aside th:replace="~{adminpanel/fragments/sidebar}"></aside>
+	<!-- End Sidebar-->
+
+	<div layout:fragment="content">
+
+		<main id="main" class="main">
+
+			<div class="pagetitle">
+				<h1>Notlar</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="index.html">Ayarlar</a></li>
+						<li class="breadcrumb-item">Alınan notlar</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<section class="section">
+
+				<div class="row">
+					<div class="col">
+						<div class="card">
+							<div class="card-body">
+
+								<div class="d-flex mt-3  btn-group">
+									<a class="btn btn-primary py-4" data-bs-toggle="modal"
+										data-bs-target="#addNoteModal">Not Ekle</a>
+									<a th:href="@{/cp/get-un-read-notes}"
+										class="btn btn-danger py-4">Okunmamış Notlar</a>
+									<a th:href="@{/cp/get-read-notes}"
+										class="btn btn-success py-4">Okunmuş Notlar</a>
+									<a th:href="@{/cp/get-all-notes}"
+										class="btn btn-info py-4">Bütün Notlar</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div class="col">
+
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title">Not Listesi</h5>
+
+								<!-- Table with hoverable rows -->
+								<div class="overflow-scroll"
+									style="height: 300px; scrollbar-width: thin;">
+									<table id="noteTable" class="table table-hover table-sm">
+										<thead class="position-sticky fixed-top z-1">
+											<tr>
+												<th>#</th>
+												<th class="">Başlık</th>
+												<th class="">Note</th>
+												<th class="d-none">Gönderi Tarihi</th>
+												<th class="d-none">Okunma Tarihi</th>
+												<th><i class="bi bi-check-circle-fill"></i></th>
+												<th class="d-none">smmmofisId</th>
+												<th><i class="bi bi-tools"></i></th>
+											</tr>
+										</thead>
+										<tbody id="noteTableBody">
+											<tr th:each="n,i :${allNotes}">
+												<td th:text="${i.count}"></td>
+												<td class=""><span th:text="${n.subject}"
+													class="d-inline-block text-truncate"
+													style="max-width: 150px;"></span></td>
+												<td class=""><span
+													th:text="${n.noteText}"
+													class="d-inline-block text-truncate"
+													style="max-width: 150px;"></span></td>
+												<td class="d-none"><span
+													th:text="${#temporals.format(n.createDate, 'dd-MM-yyyy HH:mm:ss')}"
+													class="d-inline-block" style="max-width: 150px;"></span></td>
+												<td class="d-none"><span
+													th:text="${#temporals.format(n.readDate, 'dd-MM-yyyy HH:mm:ss')}"
+													class="d-inline-block" style="max-width: 150px;"></span></td>
+												<td><i class=""
+													th:classappend="${n.okundu==true}? 'bi bi-check text-success':'bi bi-x text-danger'"
+													></i>
+													<span class="badge"
+													th:classappend="${n.okundu==true}? 'bg-success':'bg-danger'"
+													th:text="${n.okundu==true}? ' Okundu':' Okunmadı'"></span>
+												</td>
+												
+												<td class="d-none" th:text="${n.smmmofis_id}"></td>
+												<td>
+													<div class="btn-group" role="group">
+														<a id="viewNoteBtn" class="btn btn-info"
+															th:href="@{/cp/get-note/{id}(id=${n.id})}"
+															data-bs-toggle="modal"
+															data-bs-target="#viewNoteModal"> <i
+															class="bi bi-eye"></i>
+														</a> <a id="editNoteBtn" class="btn btn-warning"
+															th:href="@{/cp/get-note/{id}(id=${n.id})}"
+															data-bs-toggle="modal"
+															data-bs-target="#editNoteModal"> <i
+															class="bi bi-pencil"></i>
+														</a> <a id="deleteNoteBtn" class="btn btn-danger"
+															th:href="@{/cp/delete-note(id=${n.id})}"
+															data-bs-toggle="modal"
+															data-bs-target="#deleteNoteModal"> <i
+															class="bi bi-trash"></i>
+														</a>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- End Table with hoverable rows -->
+							</div>
+						</div>
+
+					</div>
+
+
+				</div>
+			</section>
+
+		</main>
+		<!-- End #main -->
+
+	</div>
+
+	<!-- add note modal sart -->
+	<div class="modal fade" id="addNoteModal" tabindex="-1"
+		style="display: none; padding-right: 1px;" aria-hidden="true"
+		role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h5 class="modal-title text-white">Not Ekle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form class="mt-3" id="addNoteForm"
+						th:action="@{/cp/add-note}" method="post">
+
+						<div class="row mb-1">
+							<label for="subject" class="col-sm-2 col-form-label">Başlık</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control form-control-sm" required="required"
+									id="subject" name="subject">
+							</div>
+						</div>
+						<div class="row mb-2">
+							<label for="text" class="col-sm-2 col-form-label">Not</label>
+							<div class="col-sm-10">
+								<textarea class="form-control form-control-sm" required="required"
+									style="height: 150px;" name="noteText"></textarea>
+							</div>
+						</div>
+						<div class="d-grid">
+							<button type="submit" class="btn btn-primary">Kaydet</button>
+						</div>
+
+					</form>
+					<!-- End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">
+						<i class="bi bi-x-circle-fill"></i> Kapat
+					</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- add note modal end -->
+
+	<!-- view note modal sart -->
+	<div class="modal fade" id="viewNoteModal" tabindex="-1"
+		style="display: none; padding-right: 1px;" aria-hidden="true"
+		role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-info">
+					<h5 class="modal-title text-white">Not Bilgileri</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form class="mt-3" id="noteInfoForm">
+						<div class="row mb-1 d-none">
+							<label for="noteid" class="col-sm-3 col-form-label">#</label>
+							<div class="col-sm-9">
+								<input type="text"
+									class="form-control-plaintext form-control-sm" id="noteid" disabled="disabled"
+									readonly="readonly">
+							</div>
+						</div>
+
+						<div class="row mb-1">
+							<label for="name" class="col-sm-3 col-form-label">Başlık</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									id="subject">
+							</div>
+						</div>
+						
+						<div class="row mb-1">
+							<label for="noteText" class="col-sm-3 col-form-label">Not</label>
+							<div class="col-sm-9">
+								<textarea class="form-control form-control-sm" id="noteText" disabled="disabled"
+									style="height: 200px;"></textarea>
+							</div>
+						</div>
+						<div class="row mb-1">
+							<label for="createDate" class="col-sm-3 col-form-label">Kayıt Tarihi</label>
+							<div class="col-sm-9">
+								<input type="datetime-local"
+									id="createDate" disabled="disabled"
+									class="form-control form-control-sm">
+							</div>
+						</div>
+						<div class="row mb-1">
+							<label for="readDate" class="col-sm-3 col-form-label">Okuma Tarihi</label>
+							<div class="col-sm-9">
+								<input type="datetime-local" id="readDate" disabled="disabled"
+									class="form-control form-control-sm">
+							</div>
+						</div>
+
+						<div class="row mb-3 d-none">
+							<div class="col-sm-9 offset-sm-3">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="okundu" disabled="disabled">
+									<label class="form-check-label"
+										for="read"> Okundu olarak işaretle </label>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-1 d-none">
+							<label for="smmmofis_id" class="col-sm-3 col-form-label">#</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control form-control-sm"
+									id="smmmofis_id" disabled="disabled"
+									readonly="readonly">
+							</div>
+						</div>
+
+					</form>
+					<!-- End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">
+						<i class="bi bi-x-circle-fill"></i> Kapat
+					</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- view note modal end -->
+
+	<!-- edit note modal sart -->
+	<div class="modal fade" id="editNoteModal" tabindex="-1"
+		style="display: none; padding-right: 1px;" aria-hidden="true"
+		role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+					<h5 class="modal-title text-white">Not günclle</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form class="mt-3" id="noteEditForm"
+						th:action="@{/cp/update-note}" method="post">
+						
+						<div class="row mb-1 d-none">
+							<label for="noteid" class="col-sm-3 col-form-label">#</label>
+							<div class="col-sm-9">
+								<input type="text"
+									class="form-control form-control-sm" id="noteid"
+									name="id" readonly="readonly">
+							</div>
+						</div>
+
+						<div class="row mb-1">
+							<label for="subject" class="col-sm-3 col-form-label">Başlık</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control form-control-sm"
+									id="subject" name="subject">
+							</div>
+						</div>
+						
+						<div class="row mb-1">
+							<label for="noteText" class="col-sm-3 col-form-label">Not</label>
+							<div class="col-sm-9">
+								<textarea class="form-control form-control-sm" id="noteText"
+									name="noteText"
+									style="height: 200px;"></textarea>
+							</div>
+						</div>
+						<div class="row mb-1">
+							<label for="createDate" class="col-sm-3 col-form-label">Kayıt Tarihi</label>
+							<div class="col-sm-9">
+								<input type="datetime-local" disabled="disabled"
+									id="createDate"
+									class="form-control form-control-sm">
+							</div>
+						</div>
+						<div class="row mb-1">
+							<label for="readDate" class="col-sm-3 col-form-label">Okuma Tarihi</label>
+							<div class="col-sm-9">
+								<input type="datetime-local" id="readDate" disabled="disabled"
+									class="form-control form-control-sm">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-sm-10 offset-sm-3">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="okundu" id="okundu">
+									<label class="form-check-label"
+										for="okundu"> Okundu olarak işaretle </label>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-1 d-none">
+							<label for="smmmofis_id" class="col-sm-3 col-form-label">#</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control form-control-sm"
+									id="smmmofis_id" name="smmmofis_id">
+							</div>
+						</div>
+						<div class="d-grid">
+							<button type="submit" class="btn btn-primary">Kaydet</button>
+						</div>
+
+					</form>
+					<!-- End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">
+						<i class="bi bi-x-circle-fill"></i> Kapat
+					</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- edit note modal end -->
+
+	<!-- delete note modal sart -->
+	<div class="modal fade" id="deleteNoteModal" tabindex="-1"
+		style="display: none; padding-right: 1px;" aria-hidden="true"
+		role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-danger">
+					<h5 class="modal-title text-white">Kayıt silinecek! Emin misin ?</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Horizontal Form -->
+					<form class="mt-3" id="noteDeleteForm">
+						<div class="row mb-1 d-none">
+							<label for="noteid" class="col-sm-3 col-form-label">#</label>
+							<div class="col-sm-9">
+								<input type="text"
+									class="form-control form-control-sm" id="noteid"
+									disabled="disabled">
+							</div>
+						</div>
+
+						<div class="row mb-1">
+							<label for="subject" class="col-sm-3 col-form-label">Başlık</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control form-control-sm" readonly="readonly"
+									id="subject" disabled="disabled">
+							</div>
+						</div>
+						
+						<div class="row mb-1">
+							<label for="noteText" class="col-sm-3 col-form-label">Not</label>
+							<div class="col-sm-9">
+								<textarea class="form-control form-control-sm" id="noteText"
+									disabled="disabled"
+									style="height: 200px;"></textarea>
+							</div>
+						</div>
+						<div class="row mb-1">
+							<label for="createDate" class="col-sm-3 col-form-label">Kayıt Tarihi</label>
+							<div class="col-sm-9">
+								<input type="datetime-local" disabled="disabled"
+									id="createDate"
+									class="form-control form-control-sm">
+							</div>
+						</div>
+						<div class="row mb-1">
+							<label for="readDate" class="col-sm-3 col-form-label">Okuma Tarihi</label>
+							<div class="col-sm-9">
+								<input type="datetime-local" id="readDate" disabled="disabled"
+									class="form-control form-control-sm">
+							</div>
+						</div>
+						<div class="row mb-3 d-none">
+							<div class="col-sm-10 offset-sm-3">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="okundu" disabled="disabled">
+									<label class="form-check-label"
+										for="read"> Okundu olarak işaretle </label>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-1 d-none">
+							<label for="smmmofis_id" class="col-sm-3 col-form-label">#</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control form-control-sm"
+									id="smmmofis_id"
+									disabled="disabled">
+							</div>
+						</div>
+						
+					</form>
+					<!-- End Horizontal Form -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-bs-dismiss="modal">
+						<i class="bi bi-x-circle-fill"></i> Kapat
+					</button>
+					<a type="button" id="deleteNoteConfirmBtn" href=""
+						class="btn btn-danger"><i class="bi bi-trash-fill"></i> Evet
+						Sil</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- delete note modal end -->
+
+	<div th:replace="~{adminpanel/fragments/footer}"></div>
+	<div th:replace="~{adminpanel/fragments/js}"></div>
+	<script th:src="@{../../customjs/notes.js}" type="text/javascript"></script>
+		
+
+</body>
+
+</html>

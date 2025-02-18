@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisMessage;
+import com.ofisyonetimsistemi.models.SmmmOfisNotes;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.model.MyUserDetails;
 import com.ofisyonetimsistemi.security.service.MyUserService;
@@ -27,16 +28,16 @@ import com.ofisyonetimsistemi.services.SmmmOfisService;
 
 @Controller
 @RequestMapping("/cp/")
-public class AdminPanelMessagesController {
+public class AdminPanelNoteController {
 	
 	@Autowired private SmmmOfisService smmmOfisService;
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
 	@Autowired private SmmmOfisNotificationService notificationService;
 	@Autowired private SmmmOfisNoteService noteService;
-		
-	@GetMapping("/get-un-read-messages")
-	public String getUnReadMessages(@AuthenticationPrincipal MyUserDetails loggedUser, Model model) {
+	
+	@GetMapping("/get-un-read-notes")
+	public String getUnReadNotes(@AuthenticationPrincipal MyUserDetails loggedUser, Model model) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		
@@ -44,14 +45,14 @@ public class AdminPanelMessagesController {
 		model.addAttribute("currentUser", currentUser);
 		model.addAttribute("selectedMessage", new SmmmOfisMessage());
 		
-		model.addAttribute("allMessages", messageService.getAllUnReadMessages());
+		model.addAttribute("allNotes", noteService.getAllUnreadNotes());
 		
 		loadRequaredCommenItems(model);
 		
-		return "adminpanel/messages";
+		return "adminpanel/notes";
 	}
 	
-	@GetMapping("/get-read-messages")
+	@GetMapping("/get-read-notes")
 	public String getReadMessages(@AuthenticationPrincipal MyUserDetails loggedUser, Model model) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
@@ -59,14 +60,14 @@ public class AdminPanelMessagesController {
 		model.addAttribute("smmmOfis", smmmOfis.get());
 		model.addAttribute("currentUser", currentUser);
 		
-		model.addAttribute("allMessages", messageService.getAllReadMessages());
+		model.addAttribute("allNotes", noteService.getAllReadNotes());
 		
 		loadRequaredCommenItems(model);
 		
-		return "adminpanel/messages";
+		return "adminpanel/notes";
 	}
 	
-	@GetMapping("/get-all-messages")
+	@GetMapping("/get-all-notes")
 	public String getAllMessages(@AuthenticationPrincipal MyUserDetails loggedUser, Model model) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
@@ -74,90 +75,82 @@ public class AdminPanelMessagesController {
 		model.addAttribute("smmmOfis", smmmOfis.get());
 		model.addAttribute("currentUser", currentUser);
 		
-		model.addAttribute("allMessages", messageService.getAllMessages());
+		model.addAttribute("allNotes", noteService.getAllNotes());
 		
 		loadRequaredCommenItems(model);
 		
-		return "adminpanel/messages";
+		return "adminpanel/notes";
 	}
 	
-	@GetMapping("/get-message/{id}")
+	@GetMapping("/get-note/{id}")
 	@ResponseBody
-	public Optional<SmmmOfisMessage> viewSelectedMessage(@PathVariable("id") Integer id) {
-		return messageService.getById(id);
+	public Optional<SmmmOfisNotes> viewSelectedMessage(@PathVariable("id") Integer id) {
+		return noteService.getNoteById(id);
 	}
 	
-	@RequestMapping(value="/delete-message", method = {RequestMethod.DELETE, RequestMethod.GET})
+	@RequestMapping(value="/delete-note", method = {RequestMethod.DELETE, RequestMethod.GET})
 	public String delById(@RequestParam("id") Integer id) {
-		messageService.deleteById(id);
-		return "redirect:/cp/get-un-read-messages";
+		noteService.deleteNoteById(id);
+		return "redirect:/cp/get-un-read-notes";
 	}
 	
-	@PostMapping("/add-message")
+	@PostMapping("/add-note")
 	public String addMessage(
 			
-									 @RequestParam("name")String name,
-						             @RequestParam("email")String email,
-						             @RequestParam("subject")String subject,
-						             @RequestParam("message")String message
+									 @RequestParam("subject")String subject,
+						             @RequestParam("noteText")String noteText
 			                        
 									) {
 		SmmmOfis smmmOfis = smmmOfisService.getFirstSmmmOfis().get();
 		
-		SmmmOfisMessage newMessage = SmmmOfisMessage.builder()
-				.name(name)
-				.email(email)
+		SmmmOfisNotes newNote = SmmmOfisNotes.builder()
 				.subject(subject)
-				.message(message)
-				.date(LocalDateTime.now().withNano(0))
+				.noteText(noteText)
+				.createDate(LocalDateTime.now().withNano(0))
 				.smmmofis_id(smmmOfis.getId())
 				.build();
 
-		messageService.saveMessage(newMessage);
-		return "redirect:/cp/get-un-read-messages";
+		noteService.saveNote(newNote);
+		
+		return "redirect:/cp/get-un-read-notes";
 	}
 	
-	@PostMapping("/update-message")
+	@PostMapping("/update-note")
 	public String updateMessage(
 									@RequestParam("id")Integer id,
-			                        @RequestParam("name")String name,
-			                        @RequestParam("email")String email,
-			                        @RequestParam("subject")String subject,
-			                        @RequestParam("message")String message,
+									@RequestParam("subject")String subject,
+						            @RequestParam("noteText")String noteText,
 			                        @RequestParam(value="okundu", required = false)boolean okundu,
 			                        @RequestParam("smmmofis_id")Integer smmmofis_id
 			                        
 									) {
-		SmmmOfisMessage selectedMessage = messageService.getById(id).get();
-		SmmmOfisMessage newMessage = new SmmmOfisMessage();
+		SmmmOfisNotes selectedNote = noteService.getNoteById(id).get();
+		SmmmOfisNotes newNote = new SmmmOfisNotes();
 		if(okundu==false) {
-			newMessage = SmmmOfisMessage.builder()
+			newNote = SmmmOfisNotes.builder()
 					.id(id)
-					.name(name)
-					.email(email)
 					.subject(subject)
-					.message(message)
-					.date(selectedMessage.getDate().withNano(0))
+					.noteText(noteText)
+					.createDate(selectedNote.getCreateDate().withNano(0))
+					.okundu(okundu)
 					.smmmofis_id(smmmofis_id)
 					.build();
 		}else if(okundu==true) {
-			newMessage = SmmmOfisMessage.builder()
+			newNote = SmmmOfisNotes.builder()
 					.id(id)
-					.name(name)
-					.email(email)
 					.subject(subject)
-					.message(message)
-					.date(selectedMessage.getDate().withNano(0))
-					.dateofread(LocalDateTime.now().withNano(0))
+					.noteText(noteText)
+					.createDate(selectedNote.getCreateDate().withNano(0))
+					.readDate(LocalDateTime.now().withNano(0))
 					.okundu(okundu)
 					.smmmofis_id(smmmofis_id)
 					.build();
 		}
 		
 		
-		messageService.saveMessage(newMessage);
+		noteService.saveNote(newNote);
 		
-		return "redirect:/cp/get-un-read-messages";
+		return "redirect:/cp/get-un-read-notes";
 		
 	}
 	

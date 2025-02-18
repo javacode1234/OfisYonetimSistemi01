@@ -26,6 +26,7 @@ import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.HomePagePortfolioCompanyService;
 import com.ofisyonetimsistemi.services.SmmmOfisBusinesSectorService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
+import com.ofisyonetimsistemi.services.SmmmOfisNoteService;
 import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
@@ -41,6 +42,7 @@ public class HomePagePortfolioCompanyController {
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
 	@Autowired private SmmmOfisNotificationService notificationService;
+	@Autowired private SmmmOfisNoteService noteService;
 	
 	
 	@GetMapping("/smmm-homepage-portfoy-company-settings")
@@ -61,15 +63,8 @@ public class HomePagePortfolioCompanyController {
 			  model.addAttribute("sectorList", sectorService.getAllSector());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("messageCount", messageService.countOfRecord());
-			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  
-			  model.addAttribute("notificationCount", notificationService.countOfRecord());
-			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
-			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
-			  
-			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
-			  model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			  loadRequaredCommenItems(model);
 			  
 			  return "adminpanel/homepagesettings/homepage-portfoy-company-settings";
 			  
@@ -82,15 +77,8 @@ public class HomePagePortfolioCompanyController {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("messageCount", messageService.countOfRecord());
-			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  
-			  model.addAttribute("notificationCount", notificationService.countOfRecord());
-			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
-			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
-			  
-			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
-			  model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			  loadRequaredCommenItems(model);
 		   }
 		  
 		return "adminpanel/homepagesettings/homepage-portfoy-company-settings";
@@ -115,15 +103,8 @@ public class HomePagePortfolioCompanyController {
 			  model.addAttribute("sectorList", sectorService.getAllSector());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("messageCount", messageService.countOfRecord());
-			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  
-			  model.addAttribute("notificationCount", notificationService.countOfRecord());
-			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
-			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
-			  
-			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
-			  model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			  loadRequaredCommenItems(model);
 			  
 			  return "adminpanel/homepagesettings/homepage-portfoy-company-settings";
 			  
@@ -140,15 +121,8 @@ public class HomePagePortfolioCompanyController {
 			  model.addAttribute("sectorList", sectorService.getAllSector());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("messageCount", messageService.countOfRecord());
-			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  
-			  model.addAttribute("notificationCount", notificationService.countOfRecord());
-			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
-			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
-			  
-			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
-			  model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			  loadRequaredCommenItems(model);
 		   }
 		  
 		return "adminpanel/homepagesettings/homepage-portfoy-company-settings";
@@ -207,6 +181,17 @@ public class HomePagePortfolioCompanyController {
 		return "redirect:/cp/smmm-homepage-portfoy-company-setting?id="+deleteCompany.getBusinessector_id();
 	}
 	
-	
+	public void loadRequaredCommenItems(Model model) {
+		
+		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+		model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+		
+		model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+		model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+		
+		model.addAttribute("countOfUnReadNotes", noteService.countOfUnReadNotes());
+		model.addAttribute("listOfUnReadNotes", noteService.getAllUnreadNotes());
+		
+}
 	
 }

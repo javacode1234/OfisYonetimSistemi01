@@ -19,6 +19,7 @@ import com.ofisyonetimsistemi.models.SmmmOfisWhyUs;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
+import com.ofisyonetimsistemi.services.SmmmOfisNoteService;
 import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 import com.ofisyonetimsistemi.services.SmmmOfisWhyUsService;
@@ -32,6 +33,7 @@ public class HomePageWhyUsController {
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
 	@Autowired private SmmmOfisNotificationService notificationService;
+	@Autowired private SmmmOfisNoteService noteService;
 	
 	@GetMapping("/smmm-homepage-whyus-settings")
 	public String getWhyUsSettingPage(Model model, Principal principal) {
@@ -48,15 +50,8 @@ public class HomePageWhyUsController {
 			  model.addAttribute("whyUsList", whyUsService.getAllWhyUs());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("messageCount", messageService.countOfRecord());
-			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  
-			  model.addAttribute("notificationCount", notificationService.countOfRecord());
-			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
-			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
-			  
-			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
-				model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			  loadRequaredCommenItems(model);
 			  
 			  return "adminpanel/homepagesettings/homepage-whyus-settings";
 			  
@@ -69,15 +64,8 @@ public class HomePageWhyUsController {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("messageCount", messageService.countOfRecord());
-			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  
-			  model.addAttribute("notificationCount", notificationService.countOfRecord());
-			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
-			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
-			  
-			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
-				model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			  loadRequaredCommenItems(model);
 		   }
 		  
 		return "adminpanel/homepagesettings/homepage-whyus-settings";
@@ -114,7 +102,18 @@ public class HomePageWhyUsController {
 		return "redirect:/cp/smmm-homepage-whyus-settings";
 	}
 	
-	
+	public void loadRequaredCommenItems(Model model) {
+		
+		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+		model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+		
+		model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+		model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+		
+		model.addAttribute("countOfUnReadNotes", noteService.countOfUnReadNotes());
+		model.addAttribute("listOfUnReadNotes", noteService.getAllUnreadNotes());
+		
+}
 
 }
 

@@ -25,20 +25,8 @@ public class SmmmOfisMessageService {
 	
 	public void deleteById(Integer id) {
 		repo.deleteById(id);
-	}
-	
-	public List<SmmmOfisMessage> getAll(){
-		return repo.findAll();
-	}
-
-	public void updateSelectedMessage(SmmmOfisMessage selectedMessage) {
-		repo.save(selectedMessage);
-	}
-	
-	public Long countOfRecord() {
-		return repo.count();
-	}
-	
+	}	
+		
 	public Long countOfUnReadMessages(boolean okundu) {
 		return repo.countOfUnReadMessage(okundu);
 	}

@@ -14,6 +14,7 @@ import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.model.MyUserDetails;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
+import com.ofisyonetimsistemi.services.SmmmOfisNoteService;
 import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
@@ -25,6 +26,7 @@ public class AdminPanelController {
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
 	@Autowired private SmmmOfisNotificationService notificationService;
+	@Autowired private SmmmOfisNoteService noteService;
 	
 	@GetMapping(value="/admin-panel")
 	public String getAdminPanel(Model model, @AuthenticationPrincipal MyUserDetails loggedUser) {
@@ -257,6 +259,9 @@ public class AdminPanelController {
 		
 		model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
 		model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+		
+		model.addAttribute("countOfUnReadNotes", noteService.countOfUnReadNotes());
+		model.addAttribute("listOfUnReadNotes", noteService.getAllUnreadNotes());
 		
 	}
 

@@ -28,39 +28,40 @@
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-pencil-square"></i>
-            <span class="badge bg-primary badge-number">[[ ${countOfUnReadNotifications==null}? '0':${countOfUnReadNotifications}]]</span>
+            <i class="bi bi-card-text"></i>
+            <span class="badge bg-primary badge-number">[[ ${countOfUnReadNotes==null}? '0':${countOfUnReadNotes}]]</span>
           </a><!-- End Notification Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
-              [[ ${countOfUnReadNotifications==null}? '0':${countOfUnReadNotifications}]] Yeni uyarı var.
-              <a th:href="@{/cp/get-un-read-notifications}"><span class="badge rounded-pill bg-primary p-2 ms-2">Hepsini gör</span></a>
+              [[ ${countOfUnReadNotes==null}? '0':${countOfUnReadNotes}]] Yeni note var.
+              <a th:href="@{/cp/get-un-read-notes}"><span class="badge rounded-pill bg-primary p-2 ms-2">Hepsini gör</span></a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
 			<div class="overflow-y-scroll" style="max-height: 400px;background-color: transparent;scrollbar-width: thin;">
-			<th:block th:each="notification, i : ${listOfUnreadNotifications}">
-			<a th:href="@{/cp/get-un-read-notifications}">
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4 th:text="${notification.header}">Lorem Ipsum</h4>
-                <p class="text-truncate" th:text="${notification.notification}">Quae dolorem earum veritatis oditseno</p>
-                <p th:text="${#temporals.format(notification.dateofpublish, 'dd-MM-yyyy HH:mm:ss')}"></p>
-              </div>
-            </li>
-			</a>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-			</th:block>
+				<th:block th:each="note, i : ${listOfUnReadNotes}">
+				<a th:href="@{/cp/get-un-read-notes}">
+	            <li class="notification-item">
+	              <i class="bi bi-exclamation-circle text-warning"></i>
+	              <div>
+	                <h4 th:text="${note.subject}"></h4>
+	                <p class="text-truncate" th:text="${#strings.substring(note.noteText, 0, 20)}"></p>
+	                <p th:text="${#temporals.format(note.createDate, 'dd-MM-yyyy HH:mm:ss')}"></p>
+	                
+	              </div>
+	            </li>
+				</a>
+	            <li>
+	              <hr class="dropdown-divider">
+	            </li>
+				</th:block>
 			</div>
            
             <li class="dropdown-footer">
-              <a th:href="@{/cp/get-all-notifications}">Bütün uyarıları göster.</a>
+              <a th:href="@{/cp/get-all-notes}">Bütün notları göster.</a>
             </li>
 
           </ul><!-- End Notification Dropdown Items -->
@@ -119,7 +120,7 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages fixed-top z-1" th:if="${countOfUnReadMessages!=null}">
             <li class="dropdown-header">
-              Okunmamış mesajlar
+              [[${countOfUnReadMessages}]] Okunmamış mesaj var
               <a th:href="@{/cp/get-un-read-messages}"><span class="badge rounded-pill bg-primary p-2 ms-2">Hepsini gör</span></a>
             </li>
             <li>

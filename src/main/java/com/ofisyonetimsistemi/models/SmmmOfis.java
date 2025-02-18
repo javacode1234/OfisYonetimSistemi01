@@ -191,7 +191,10 @@ public class SmmmOfis {
 	private List<SmmmOfisMessage> messages;	
 		
 	@OneToMany(mappedBy = "smmmofis")	
-	private List<SmmmOfisNotification> notifications;	
+	private List<SmmmOfisNotification> notifications;
+	
+	@OneToMany(mappedBy = "smmmofis")	
+	private List<SmmmOfisNotes> notes;	
 	
 
 }

@@ -22,6 +22,7 @@ import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisHomePageTeamService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
+import com.ofisyonetimsistemi.services.SmmmOfisNoteService;
 import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
@@ -36,6 +37,7 @@ public class HomePageTeamController {
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
 	@Autowired private SmmmOfisNotificationService notificationService;
+	@Autowired private SmmmOfisNoteService noteService;
 	
 	@GetMapping("/smmm-homepage-team-settings")
 	public String getHomePageTeamsSettingsPage(Model model, Principal principal) {
@@ -48,15 +50,8 @@ public class HomePageTeamController {
 			  model.addAttribute("hpTeams", hptService.getAllHomePageTeams());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("messageCount", messageService.countOfRecord());
-			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  
-			  model.addAttribute("notificationCount", notificationService.countOfRecord());
-			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
-			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
-			  
-			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
-				model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			  loadRequaredCommenItems(model);
 			  
 			  return "adminpanel/homepagesettings/homepage-team-settings";
 			  
@@ -69,15 +64,9 @@ public class HomePageTeamController {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("messageCount", messageService.countOfRecord());
-			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  
-			  model.addAttribute("notificationCount", notificationService.countOfRecord());
-			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
-			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
-			  
-			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
-				model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			 loadRequaredCommenItems(model);
+			 
 		   }
 		  
 		return "adminpanel/homepagesettings/homepage-team-settings";
@@ -141,6 +130,17 @@ public class HomePageTeamController {
 		return "redirect:/cp/smmm-homepage-team-settings";
 	}
 	
-	
+	public void loadRequaredCommenItems(Model model) {
+		
+		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+		model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+		
+		model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+		model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+		
+		model.addAttribute("countOfUnReadNotes", noteService.countOfUnReadNotes());
+		model.addAttribute("listOfUnReadNotes", noteService.getAllUnreadNotes());
+		
+	}
 	
 }

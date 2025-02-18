@@ -18,6 +18,7 @@ import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
+import com.ofisyonetimsistemi.services.SmmmOfisNoteService;
 import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
@@ -31,8 +32,8 @@ public class SmmmHomePageSettingsContoller {
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
 	@Autowired private SmmmOfisNotificationService notificationService;
+	@Autowired private SmmmOfisNoteService noteService;
 	
-	//@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/smmm-homepage-settings")
 	public String getHomePageSettingsPage( Model model, Principal principal) {
 		MyUser myUser = myUserService.getMyUserByUsername(principal.getName());
@@ -45,15 +46,8 @@ public class SmmmHomePageSettingsContoller {
 			  model.addAttribute("smmmOfis", smmmOfis.get());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("messageCount", messageService.countOfRecord());
-			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  
-			  model.addAttribute("notificationCount", notificationService.countOfRecord());
-			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
-			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
-			  
-			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
-				model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			  loadRequaredCommenItems(model);
 			  
 			  return "adminpanel/homepagesettings/homepage-settings";
 			  
@@ -66,15 +60,9 @@ public class SmmmHomePageSettingsContoller {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("messageCount", messageService.countOfRecord());
-			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  
-			  model.addAttribute("notificationCount", notificationService.countOfRecord());
-			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
-			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
+			  loadRequaredCommenItems(model);
 			  
-			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
-				model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
 		  }
 		  
 		  return "adminpanel/homepagesettings/homepage-settings";			
@@ -438,7 +426,18 @@ public class SmmmHomePageSettingsContoller {
 		return "redirect:/cp/smmm-homepage-settings";
 	}
 
-
+	public void loadRequaredCommenItems(Model model) {
+		
+		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+		model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
+		
+		model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+		model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+		
+		model.addAttribute("countOfUnReadNotes", noteService.countOfUnReadNotes());
+		model.addAttribute("listOfUnReadNotes", noteService.getAllUnreadNotes());
+		
+	}
 	
 
 

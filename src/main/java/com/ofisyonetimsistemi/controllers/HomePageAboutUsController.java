@@ -20,6 +20,7 @@ import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.service.MyUserService;
 import com.ofisyonetimsistemi.services.SmmmOfisAboutUsColumnOneService;
 import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
+import com.ofisyonetimsistemi.services.SmmmOfisNoteService;
 import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
 
@@ -32,6 +33,7 @@ public class HomePageAboutUsController {
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
 	@Autowired private SmmmOfisNotificationService notificationService;
+	@Autowired private SmmmOfisNoteService noteService;
 
 	@GetMapping("/smmm-homepage-aboutus-settings")
 	public String getMethodName(Model model, Principal principal) {
@@ -48,7 +50,6 @@ public class HomePageAboutUsController {
 			  model.addAttribute("aboutUsColOneItems", smmmOfisHomePageAboutUsColOneService.getAllAboutUscolOneItems());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("messageCount", messageService.countOfRecord());
 			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
 			  
@@ -57,6 +58,9 @@ public class HomePageAboutUsController {
 			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
 			  
 			  model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			  
+			  model.addAttribute("countOfUnReadNotes", noteService.countOfUnReadNotes());
+			  model.addAttribute("listOfUnReadNotes", noteService.getAllUnreadNotes());
 			  
 			  return "adminpanel/homepagesettings/homepage-aboutus-settings";
 			  
@@ -69,7 +73,6 @@ public class HomePageAboutUsController {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("messageCount", messageService.countOfRecord());
 			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
 			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
 			  
@@ -77,6 +80,9 @@ public class HomePageAboutUsController {
 			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
 			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
 			  model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
+			  
+			  model.addAttribute("countOfUnReadNotes", noteService.countOfUnReadNotes());
+			  model.addAttribute("listOfUnReadNotes", noteService.getAllUnreadNotes());
 			  
 		   }
 		  
