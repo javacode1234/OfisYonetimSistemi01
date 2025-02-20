@@ -6,11 +6,23 @@
           <div class="col-lg-6">
             <h4>E-mail Listemize kayıt olun.</h4>
             <p>E-mail abonesi olarak yeniliklerden haberdar olun.</p>
-            <form th:action="@{/add-to-mail-list}" method="post" class="php-email-form">
-              <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Gönder"></div>
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+            <form th:action="@{/add-subscribed-email}" method="post" th:object="${subscribedEmail}" class=""><!-- class="php-email-form" -->
+              <div class="newsletter-form">
+              	<input type="email" name="email" th:field="*{email}" id="email">
+              	<input type="submit" value="Gönder">
+              </div>
+              
+			  <div th:if="${emailExistMessage!=null}" class="alert alert-warning alert-dismissible fade show mt-3" style="border-radius: 25px;" role="alert">
+				  <strong th:text="${emailExistMessage}">E-mail adresi zaten kayıtlı!!!</strong>
+				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			  </div>
+			  <div th:if="${successMessage!=null}" class="alert alert-success alert-dismissible fade show mt-3" style="border-radius: 25px;" role="alert">
+				  <strong th:text="${successMessage}">E-mail listemize kayıt oldunuz. Teşekkür ederiz.</strong>
+				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			  </div>
+<!--               <div class="loading">yükleniyor...</div> -->
+<!--               <div class="error-message"></div> -->
+<!--               <div class="sent-message">Abonelik isteğiniz iletildi. Teşekkürler!</div> -->
             </form>
           </div>
         </div>
@@ -21,12 +33,12 @@
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
           <a th:href="@{/}" class="d-flex align-items-center">
-            <span class="sitename"  th:text="${#strings.defaultString(smmmOfisHomePage.unvan +' '+smmmOfisHomePage.fullName,'Ünvan')}">Arsha</span>
+            <span class="sitename"  th:text="${#strings.defaultString(smmmOfisHomePage.unvan +' '+smmmOfisHomePage.fullName,'Ünvan')}"></span>
           </a>
           <div class="footer-contact pt-3">
-            <p th:text="${#strings.defaultString(smmmOfisHomePage.contactAddress,'Adres')}">A108 Adam Street</p>
+            <p th:text="${#strings.defaultString(smmmOfisHomePage.contactAddress,'Adres')}"></p>
             <p class="mt-3"><strong>Telefon:</strong> <span  th:text="${#strings.defaultString(smmmOfisHomePage.contactTelephone,'Telefon no')}">+1 5589 55488 55</span></p>
-            <p><strong>Email:</strong> <span th:text="${#strings.defaultString(smmmOfisHomePage.contactEmail,'e-mail')}">info@example.com</span></p>
+            <p><strong>Email:</strong> <span th:text="${#strings.defaultString(smmmOfisHomePage.contactEmail,'e-mail')}"></span></p>
           </div>
         </div>
 

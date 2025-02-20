@@ -428,10 +428,10 @@ public class SmmmHomePageSettingsContoller {
 
 	public void loadRequaredCommenItems(Model model) {
 		
-		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+		model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages());
 		model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
 		
-		model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+		model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications());
 		model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
 		
 		model.addAttribute("countOfUnReadNotes", noteService.countOfUnReadNotes());

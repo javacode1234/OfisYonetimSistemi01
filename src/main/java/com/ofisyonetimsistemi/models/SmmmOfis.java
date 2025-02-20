@@ -196,5 +196,8 @@ public class SmmmOfis {
 	@OneToMany(mappedBy = "smmmofis")	
 	private List<SmmmOfisNotes> notes;	
 	
+	@OneToMany(mappedBy = "smmmofis")	
+	private List<SmmmOfisSubscribedEmail> subscribedEmails;
+	
 
 }

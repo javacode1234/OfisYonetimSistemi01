@@ -27,8 +27,8 @@ public class SmmmOfisMessageService {
 		repo.deleteById(id);
 	}	
 		
-	public Long countOfUnReadMessages(boolean okundu) {
-		return repo.countOfUnReadMessage(okundu);
+	public Long countOfUnReadMessages() {
+		return repo.countOfUnReadOrReadMessage(false);
 	}
 
 	public List<SmmmOfisMessage> getAllUnReadMessages() {

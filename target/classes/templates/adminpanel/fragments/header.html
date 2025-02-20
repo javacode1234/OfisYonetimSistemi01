@@ -22,19 +22,15 @@
           <a class="nav-link nav-icon search-bar-toggle " href="#">
             <i class="bi bi-search"></i>
           </a>
-        </li><!-- End Search Icon-->
-        
-        
-        
+        </li><!-- End Search Icon-->       
 
-        </li><!-- End Notification Nav -->
 
         <!-- notlar -->
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-card-text"></i>
-            <span class="badge badge-number bg-primary" th:text="${countOfUnReadNotes==null}? '0':${countOfUnReadNotes}">3</span>
+            <span class="badge badge-number bg-primary" th:text="${countOfUnReadNotes==null}? '0':${countOfUnReadNotes}"></span>
           </a><!-- End Messages Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages fixed-top z-1" th:if="${countOfUnReadNotes!=null}">

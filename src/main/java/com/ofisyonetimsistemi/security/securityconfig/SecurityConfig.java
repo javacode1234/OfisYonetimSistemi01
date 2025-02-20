@@ -50,6 +50,7 @@ public class SecurityConfig {
 			req.requestMatchers("/", "/error/**","/adminpanel/login/**", "/portfolio-details/**", "/service-details/**").permitAll();
 			req.requestMatchers("/user-register-request/**", "/send-message/**", "/add-to-mail-list/**","/login/**").permitAll();
 			req.requestMatchers("/signin/**").permitAll();
+			req.requestMatchers("/add-subscribed-email").permitAll();
 			
 			//req.requestMatchers("/cp/**").hasRole("ADMIN");
 			req.requestMatchers("/cp/admin-panel").hasRole("ADMIN");

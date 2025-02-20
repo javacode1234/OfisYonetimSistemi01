@@ -50,11 +50,11 @@ public class HomePageAboutUsController {
 			  model.addAttribute("aboutUsColOneItems", smmmOfisHomePageAboutUsColOneService.getAllAboutUscolOneItems());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages());
 			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
 			  
 			  model.addAttribute("notificationCount", notificationService.countOfRecord());
-			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications());
 			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
 			  
 			  model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
@@ -73,11 +73,11 @@ public class HomePageAboutUsController {
 			  model.addAttribute("smmmOfis", new SmmmOfis());
 			  
 			  model.addAttribute("currentUser", myUser);
-			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages(false));
+			  model.addAttribute("countOfUnReadMessages", messageService.countOfUnReadMessages());
 			  model.addAttribute("listOfUnreadMessages", messageService.getAllUnReadMessages());
 			  
 			  model.addAttribute("notificationCount", notificationService.countOfRecord());
-			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications(false));
+			  model.addAttribute("countOfUnReadNotifications", notificationService.countOfUnReadNotifications());
 			  model.addAttribute("allNotifications", notificationService.getAllNotifications());
 			  model.addAttribute("listOfUnreadNotifications", notificationService.getAllUnReadNotifications());
 			  

@@ -39,8 +39,8 @@ public class SmmmOfisNotificationService {
 		return repo.count();
 	}
 	
-	public Long countOfUnReadNotifications(boolean okundu) {
-		return repo.countOfUnReadNotifications(okundu);
+	public Long countOfUnReadNotifications() {
+		return repo.countOfUnReadOrReadNotifications(false);
 	}
 
 	public List<SmmmOfisNotification> getAllUnReadNotifications() {

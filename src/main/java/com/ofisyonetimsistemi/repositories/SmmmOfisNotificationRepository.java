@@ -13,7 +13,7 @@ import com.ofisyonetimsistemi.models.SmmmOfisNotification;
 public interface SmmmOfisNotificationRepository extends JpaRepository<SmmmOfisNotification, Integer> {
 
 	@Query(value="select count(*) from notifications n where n.okundu= :okundu ", nativeQuery=true)
-	Long countOfUnReadNotifications(@Param("okundu")boolean okundu);
+	Long countOfUnReadOrReadNotifications(@Param("okundu")boolean okundu);
 	
 	@Query(value="select * from notifications n where n.okundu= :okundu ", nativeQuery=true)
 	List<SmmmOfisNotification> getAllUnReadNotifications(@Param("okundu")boolean okundu);

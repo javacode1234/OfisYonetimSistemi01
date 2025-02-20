@@ -17,11 +17,11 @@
 		<main id="main" class="main">
 
 			<div class="pagetitle">
-				<h1>Mesajlar</h1>
+				<h1>Abone e-mail listesi</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="index.html">Ayarlar</a></li>
-						<li class="breadcrumb-item">Gelen mesajlar</li>
+						<li class="breadcrumb-item">E-mail aboneleri</li>
 					</ol>
 				</nav>
 			</div>
@@ -35,14 +35,14 @@
 							<div class="card-body p-1">
 
 								<div class="d-flex mt-1 btn-group overflow-scroll" style="height: 75px; scrollbar-width: thin;">
-<!-- 									<a class="btn btn-primary py-3" data-bs-toggle="modal" -->
-<!-- 										data-bs-target="#addMessageModal">Mesaj Ekle</a> -->
-									<a th:href="@{/cp/get-un-read-messages}"
-										class="btn btn-danger py-3">Okunmamış Mesajlar</a>
-									<a th:href="@{/cp/get-read-messages}"
-										class="btn btn-success py-3">Okunmuş Mesajlar</a>
-									<a th:href="@{/cp/get-all-messages}"
-										class="btn btn-info py-3">Bütün Mesajlar</a>
+									<a class="btn btn-primary py-3" data-bs-toggle="modal"
+										data-bs-target="#addSubscribedEmailModal">E-mail Ekle</a>
+									<a th:href="@{/cp/get-in-active-subscribed-emails}"
+										class="btn btn-danger py-3">Aktif olmayan e-mailler</a>
+									<a th:href="@{/cp/get-active-subscribed-emails}"
+										class="btn btn-success py-3">Aktif olan e-mailler</a>
+									<a th:href="@{/cp/get-all-subscribed-emails}"
+										class="btn btn-info py-3">Bütün e-mail listesi</a>
 								</div>
 							</div>
 						</div>
@@ -55,7 +55,7 @@
 
 						<div class="card h-100">
 							<div class="card-body">
-								<h5 class="card-title">Mesaj Listesi</h5>
+								<h5 class="card-title">E-mail Listesi</h5>
 
 								<!-- Table with hoverable rows -->
 								<div class="overflow-scroll"
@@ -65,74 +65,49 @@
 											<tr>
 												<th>#</th>
 												<th><i class="bi bi-tools"></i></th>
-												<th class="d-none"><i class="bi bi-check-circle-fill"></i></th>
-												<th>Gönderen</th>
 												<th class="">Email</th>
-												<th class="">Konu</th>
-												<th class="">Mesaj</th>
-												<th class="d-none">Gönderi Tarihi</th>
-												<th class="d-none">Okunma Tarihi</th>
+												<th class="">Abonelik isteme Tarihi</th>
 												<th class="d-none">smmmofisId</th>
 											</tr>
 										</thead>
 										<tbody id="messageTableBody">
-											<tr th:each="m,i :${allMessages}">
+											<tr th:each="e,i :${emailList}">
 												<td th:text="${i.count}"></td>
 												<td>
 													<div class="btn-group" role="group">
-														<a id="viewMessageBtn" class="btn btn-info"
-															th:href="@{/cp/get-message/{id}(id=${m.id})}"
+														<a id="viewSubscribedEmailBtn" class="btn btn-info"
+															th:href="@{/cp/get-subscribed-email/{id}(id=${e.id})}"
 															data-bs-toggle="modal"
-															data-bs-target="#viewMessageModal"> <i
+															data-bs-target="#viewSubscribedEmailModal"> <i
 															class="bi bi-eye"></i>
-														</a> <a id="editMessageBtn" class="btn btn-warning"
-															th:href="@{/cp/get-message/{id}(id=${m.id})}"
+														</a> <a id="editSubscribedEmailBtn" class="btn btn-warning"
+															th:href="@{/cp/get-subscribed-email/{id}(id=${e.id})}"
 															data-bs-toggle="modal"
-															data-bs-target="#editMessageModal"> <i
+															data-bs-target="#editSubscribedEmailModal"> <i
 															class="bi bi-pencil"></i>
-														</a> <a id="deleteMessageBtn" class="btn btn-danger"
-															th:href="@{/cp/delete-message(id=${m.id})}"
+														</a> <a id="deleteSubscribedEmailBtn" class="btn btn-danger"
+															th:href="@{/cp/delete-subscribed-email(id=${e.id})}"
 															data-bs-toggle="modal"
-															data-bs-target="#deleteMessageModal"> <i
+															data-bs-target="#deleteSubscribedEmailModal"> <i
 															class="bi bi-trash"></i>
 														</a>
 														<i class="btn btn-light"
-														th:classappend="${m.okundu==true}? 'bi bi-envelope-open text-success':'bi bi-envelope text-danger'"
+														th:classappend="${e.active==true}? 'bi bi-check-lg text-success':'bi bi-x-lg text-danger'"
 														></i>
 														<span class="btn d-none"
-														th:classappend="${m.okundu==true}? 'bg-success':'bg-danger'"
-														th:text="${m.okundu==true}? ' Okundu':' Okunmadı'"></span>
+														th:classappend="${e.active==true}? 'bg-success':'bg-danger'"
+														th:text="${e.active==true}? ' Aktif':' Pasif'"></span>
 													</div>
 													
 												</td>
-												<td class="d-none"><i class=""
-													th:classappend="${m.okundu==true}? 'bi bi-envelope-open text-success':'bi bi-envelope text-danger'"
-													></i>
-													<span class="badge"
-													th:classappend="${m.okundu==true}? 'bg-success':'bg-danger'"
-													th:text="${m.okundu==true}? ' Okundu':' Okunmadı'"></span>
-												</td>
-												<td><span th:text="${m.name}"
-													class="d-inline-block text-truncate"
-													style="max-width: 150px;"></span></td>
-												<td class=""><span th:text="${m.email}"
-													class="d-inline-block text-truncate"
-													style="max-width: 150px;"></span></td>
+												
+												<td><span th:text="${e.email}"
+													class="d-inline"
+													style="max-width: 150px;"></span></td>												
 												<td class=""><span
-													th:text="${m.subject}"
-													class="d-inline-block text-truncate"
-													style="max-width: 150px;"></span></td>
-												<td class=""><span
-													th:text="${m.message}"
-													class="d-inline-block text-truncate"
-													style="max-width: 150px;"></span></td>
-												<td class="d-none"><span
-													th:text="${#temporals.format(m.date, 'dd-MM-yyyy HH:mm:ss')}"
-													class="d-inline-block" style="max-width: 150px;"></span></td>
-												<td class="d-none"><span
-													th:text="${#temporals.format(m.dateofread, 'dd-MM-yyyy HH:mm:ss')}"
-													class="d-inline-block" style="max-width: 150px;"></span></td>
-												<td class="d-none" th:text="${m.smmmofis_id}"></td>
+													th:text="${#temporals.format(e.date, 'dd-MM-yyyy HH:mm:ss')}"
+													class="d-inline" style="max-width: 150px;"></span></td>
+												<td class="d-none" th:text="${e.smmmofis_id}"></td>
 											</tr>
 										</tbody>
 									</table>
@@ -152,8 +127,8 @@
 
 	</div>
 
-	<!-- add message modal sart -->
-	<div class="modal fade" id="addMessageModal" tabindex="-1"
+	<!-- add subscribe e-mail modal sart -->
+	<div class="modal fade" id="addSubscribedEmailModal" tabindex="-1"
 		style="display: none; padding-right: 1px;" aria-hidden="true"
 		role="dialog">
 		<div class="modal-dialog modal-lg">
@@ -165,7 +140,7 @@
 				</div>
 				<div class="modal-body">
 					<!-- Horizontal Form -->
-					<form class="mt-3" id="addMessageForm"
+					<form class="mt-3" id="addSubscribedEmailForm"
 						th:action="@{/cp/add-message}" method="post">
 
 						<div class="row mb-1">
@@ -216,10 +191,10 @@
 			</div>
 		</div>
 	</div>
-	<!-- add message modal end -->
+	<!-- add subscribe e-mail modal end -->
 
-	<!-- view message modal sart -->
-	<div class="modal fade" id="viewMessageModal" tabindex="-1"
+	<!-- view subscribe e-mail modal sart -->
+	<div class="modal fade" id="viewSubscribedEmailModal" tabindex="-1"
 		style="display: none; padding-right: 1px;" aria-hidden="true"
 		role="dialog">
 		<div class="modal-dialog modal-lg">
@@ -316,10 +291,10 @@
 			</div>
 		</div>
 	</div>
-	<!-- view message modal end -->
+	<!-- view subscribe e-mail modal end -->
 
-	<!-- edit message modal sart -->
-	<div class="modal fade" id="editMessageModal" tabindex="-1"
+	<!-- edit subscribe e-mail modal sart -->
+	<div class="modal fade" id="editSubscribedEmailModal" tabindex="-1"
 		style="display: none; padding-right: 1px;" aria-hidden="true"
 		role="dialog">
 		<div class="modal-dialog modal-lg">
@@ -422,10 +397,10 @@
 			</div>
 		</div>
 	</div>
-	<!-- edit message modal end -->
+	<!-- edit subscribe e-mail modal end -->
 
-	<!-- delete message modal sart -->
-	<div class="modal fade" id="deleteMessageModal" tabindex="-1"
+	<!-- delete subscribe e-mail modal sart -->
+	<div class="modal fade" id="deleteSubscribedEmailModal" tabindex="-1"
 		style="display: none; padding-right: 1px;" aria-hidden="true"
 		role="dialog">
 		<div class="modal-dialog modal-lg">
@@ -517,14 +492,14 @@
 						data-bs-dismiss="modal">
 						<i class="bi bi-x-circle-fill"></i> Kapat
 					</button>
-					<a type="button" id="deleteMessageConfirmBtn" href=""
+					<a type="button" id="deleteSubscribedEmailConfirmBtn" href=""
 						class="btn btn-danger"><i class="bi bi-trash-fill"></i> Evet
 						Sil</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- delete message modal end -->
+	<!-- delete subscribe e-mail modal end -->
 
 	<div th:replace="~{adminpanel/fragments/footer}"></div>
 	<div th:replace="~{adminpanel/fragments/js}"></div>

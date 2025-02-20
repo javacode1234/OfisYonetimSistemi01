@@ -1,8 +1,10 @@
 package com.ofisyonetimsistemi.models;
 
 import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import groovy.transform.ToString;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,39 +24,29 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@ToString
 @Data
 @Entity
-@Table(name = "messages")
-@Builder
-public class SmmmOfisMessage {
+@Table(name = "subscribedemails")
+public class SmmmOfisSubscribedEmail {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	@NotEmpty(message = "Bu alan boş olamaz !!!")
-	private String name;
 	
-	@NotEmpty(message = "Bu alan boş olamaz !!!")
+	@NotEmpty(message = "Bir e-mail adresi giriniz!!!")
+	@Email
+	@Column(name = "email", unique=true)
 	private String email;
-	
-	@NotEmpty(message = "Bu alan boş olamaz !!!")
-	private String subject;
-	
-	@NotEmpty(message = "Bu alan boş olamaz !!!")
-	@Column(length = 2000)
-	private String message;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime date;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private LocalDateTime dateofread;
-	
-	private boolean okundu;
-	
+	private boolean active;
+		
 	@ManyToOne
-	@JoinColumn(name="smmmofis_id",insertable = false,updatable = false)
+	@JoinColumn(name = "smmmofis_id",insertable = false,updatable = false)
 	@JsonIgnore
 	private SmmmOfis smmmofis;
 	private Integer smmmofis_id;

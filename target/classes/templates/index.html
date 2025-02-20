@@ -610,6 +610,10 @@
 						<div class="col-lg-7">
 							<form th:action="@{/send-message}" method="post" class="info-wrap" data-aos="fade-up"
 								data-aos-delay="100">
+								<div th:if="${sendMessageSuccess!=null}" class="alert alert-success alert-dismissible fade show mt-3" style="border-radius: 25px;" role="alert">
+								  <strong th:text="${sendMessageSuccess}">Mesajınız başarıyla gönderildi. Teşekkür ederiz.</strong>
+								  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
 								<div class="row gy-4">
 
 									<div class="col-md-6">
@@ -641,7 +645,9 @@
 									</div>
 
 								</div>
+								
 							</form>
+							
 						</div><!-- End Contact Form -->
 
 					</div>

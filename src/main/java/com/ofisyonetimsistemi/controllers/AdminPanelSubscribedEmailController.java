@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisMessage;
+import com.ofisyonetimsistemi.models.SmmmOfisSubscribedEmail;
 import com.ofisyonetimsistemi.security.model.MyUser;
 import com.ofisyonetimsistemi.security.model.MyUserDetails;
 import com.ofisyonetimsistemi.security.service.MyUserService;
@@ -24,19 +26,23 @@ import com.ofisyonetimsistemi.services.SmmmOfisMessageService;
 import com.ofisyonetimsistemi.services.SmmmOfisNoteService;
 import com.ofisyonetimsistemi.services.SmmmOfisNotificationService;
 import com.ofisyonetimsistemi.services.SmmmOfisService;
+import com.ofisyonetimsistemi.services.SmmmOfisSubsCribedEmailService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/cp/")
-public class AdminPanelMessagesController {
+public class AdminPanelSubscribedEmailController {
 	
 	@Autowired private SmmmOfisService smmmOfisService;
 	@Autowired private MyUserService myUserService;
 	@Autowired private SmmmOfisMessageService messageService;
 	@Autowired private SmmmOfisNotificationService notificationService;
 	@Autowired private SmmmOfisNoteService noteService;
+	@Autowired private SmmmOfisSubsCribedEmailService subscribedEmailService;
 		
-	@GetMapping("/get-un-read-messages")
-	public String getUnReadMessages(@AuthenticationPrincipal MyUserDetails loggedUser, Model model) {
+	@GetMapping("/get-in-active-subscribed-emails")
+	public String getInActiveSubscribedEmail(@AuthenticationPrincipal MyUserDetails loggedUser, Model model) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		
@@ -44,120 +50,113 @@ public class AdminPanelMessagesController {
 		model.addAttribute("currentUser", currentUser);
 		model.addAttribute("selectedMessage", new SmmmOfisMessage());
 		
-		model.addAttribute("allMessages", messageService.getAllUnReadMessages());
+		model.addAttribute("emailList", subscribedEmailService.getInActiveSubscribedEmailList());
 		
 		loadRequaredCommenItems(model);
 		
-		return "adminpanel/messages";
+		return "adminpanel/subscribed-emails";
 	}
 	
-	@GetMapping("/get-read-messages")
-	public String getReadMessages(@AuthenticationPrincipal MyUserDetails loggedUser, Model model) {
+	@GetMapping("/get-active-subscribed-emails")
+	public String getActiveSubscribedEmail(@AuthenticationPrincipal MyUserDetails loggedUser, Model model) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		
 		model.addAttribute("smmmOfis", smmmOfis.get());
 		model.addAttribute("currentUser", currentUser);
 		
-		model.addAttribute("allMessages", messageService.getAllReadMessages());
+		model.addAttribute("emailList", subscribedEmailService.getActiveSubscribedEmailList());
 		
 		loadRequaredCommenItems(model);
 		
-		return "adminpanel/messages";
+		return "adminpanel/subscribed-emails";
 	}
 	
-	@GetMapping("/get-all-messages")
-	public String getAllMessages(@AuthenticationPrincipal MyUserDetails loggedUser, Model model) {
+	@GetMapping("/get-all-subscribed-emails")
+	public String getAllSubscribedEmail(@AuthenticationPrincipal MyUserDetails loggedUser, Model model) {
 		MyUser currentUser = myUserService.getMyUserByUsername(loggedUser.getUsername());
 		Optional<SmmmOfis> smmmOfis = smmmOfisService.getFirstSmmmOfis();
 		
 		model.addAttribute("smmmOfis", smmmOfis.get());
 		model.addAttribute("currentUser", currentUser);
 		
-		model.addAttribute("allMessages", messageService.getAllMessages());
+		model.addAttribute("emailList", subscribedEmailService.getSubscribedEmailList());
 		
 		loadRequaredCommenItems(model);
 		
-		return "adminpanel/messages";
+		return "adminpanel/subscribed-emails";
 	}
 	
-	@GetMapping("/get-message/{id}")
+	@GetMapping("/get-subscribed-email/{id}")
 	@ResponseBody
-	public Optional<SmmmOfisMessage> viewSelectedMessage(@PathVariable("id") Integer id) {
-		return messageService.getById(id);
+	public Optional<SmmmOfisSubscribedEmail> viewSubscribedEmailById(@PathVariable("id") Integer id) {
+		return subscribedEmailService.getSubscribedEmailById(id);
 	}
 	
-	@RequestMapping(value="/delete-message", method = {RequestMethod.DELETE, RequestMethod.GET})
-	public String delById(@RequestParam("id") Integer id) {
-		messageService.deleteById(id);
-		return "redirect:/cp/get-un-read-messages";
+	@RequestMapping(value="/delete-subscribed-email", method = {RequestMethod.DELETE, RequestMethod.GET})
+	public String deleteSubscribedEmailById(@RequestParam("id") Integer id) {
+		subscribedEmailService.deleteSubscribedEmailById(id);
+		return "redirect:/cp/get-in-active-subscribed-emails";
 	}
 	
-	@PostMapping("/add-message")
-	public String addMessage(
+	@PostMapping("/add-subscribed-email")
+	public String addSubscribedEmail(
 			
-									 @RequestParam("name")String name,
-						             @RequestParam("email")String email,
-						             @RequestParam("subject")String subject,
-						             @RequestParam("message")String message
+									 @Valid @RequestParam("email")String email,
+						             BindingResult result
 			                        
 									) {
+		
+		if(result.hasErrors()) {
+			
+			return "redirect:/";
+		}
 		SmmmOfis smmmOfis = smmmOfisService.getFirstSmmmOfis().get();
 		
-		SmmmOfisMessage newMessage = SmmmOfisMessage.builder()
-				.name(name)
+		SmmmOfisSubscribedEmail newSubscribedEmail = SmmmOfisSubscribedEmail.builder()
 				.email(email)
-				.subject(subject)
-				.message(message)
 				.date(LocalDateTime.now().withNano(0))
 				.smmmofis_id(smmmOfis.getId())
 				.build();
 
-		messageService.saveMessage(newMessage);
-		return "redirect:/cp/get-un-read-messages";
+		subscribedEmailService.save(newSubscribedEmail);
+		return "redirect:/";
 	}
 	
-	@PostMapping("/update-message")
+	@PostMapping("/update-subscribed-email")
 	public String updateMessage(
 									@RequestParam("id")Integer id,
-			                        @RequestParam("name")String name,
 			                        @RequestParam("email")String email,
-			                        @RequestParam("subject")String subject,
-			                        @RequestParam("message")String message,
-			                        @RequestParam(value="okundu", required = false)boolean okundu,
+			                        @RequestParam(value="active", required = false)boolean active,
 			                        @RequestParam("smmmofis_id")Integer smmmofis_id
 			                        
 									) {
 		SmmmOfisMessage selectedMessage = messageService.getById(id).get();
-		SmmmOfisMessage newMessage = new SmmmOfisMessage();
-		if(okundu==false) {
-			newMessage = SmmmOfisMessage.builder()
+		SmmmOfisSubscribedEmail newSubscribedEmail = new SmmmOfisSubscribedEmail();
+		if(active==false) {
+			newSubscribedEmail = SmmmOfisSubscribedEmail.builder()
 					.id(id)
-					.name(name)
 					.email(email)
-					.subject(subject)
-					.message(message)
 					.date(selectedMessage.getDate().withNano(0))
 					.smmmofis_id(smmmofis_id)
 					.build();
-		}else if(okundu==true) {
-			newMessage = SmmmOfisMessage.builder()
+			subscribedEmailService.save(newSubscribedEmail);
+			return "redirect:/cp/get-in-active-subscribed-emails";
+			
+		}else if(active==true) {
+			newSubscribedEmail = SmmmOfisSubscribedEmail.builder()
 					.id(id)
-					.name(name)
 					.email(email)
-					.subject(subject)
-					.message(message)
 					.date(selectedMessage.getDate().withNano(0))
-					.dateofread(LocalDateTime.now().withNano(0))
-					.okundu(okundu)
+					.active(active)
 					.smmmofis_id(smmmofis_id)
 					.build();
 		}
 		
 		
-		messageService.saveMessage(newMessage);
+		subscribedEmailService.save(newSubscribedEmail);
 		
-		return "redirect:/cp/get-un-read-messages";
+		return "redirect:/cp/get-active-subscribed-emails";
 		
 	}
 	
