@@ -60,7 +60,7 @@
 								<!-- Table with hoverable rows -->
 								<div class="overflow-scroll"
 									style="height: 300px; scrollbar-width: thin;">
-									<table id="messageTable" class="table table-hover table-sm">
+									<table id="subscribedEmailTable" class="table table-hover table-sm">
 										<thead class="position-sticky fixed-top z-1">
 											<tr>
 												<th>#</th>
@@ -70,7 +70,7 @@
 												<th class="d-none">smmmofisId</th>
 											</tr>
 										</thead>
-										<tbody id="messageTableBody">
+										<tbody id="subscribedEmailTableBody">
 											<tr th:each="e,i :${emailList}">
 												<td th:text="${i.count}"></td>
 												<td>
@@ -121,6 +121,11 @@
 
 				</div>
 			</section>
+			
+			<div class="alert alert-warning alert-dismissible fade show mt-3" th:if="${emailExist!=null}" role="alert">
+			  <strong>[[${emailExist}]]</strong>
+			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
 
 		</main>
 		<!-- End #main -->
@@ -134,50 +139,33 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header bg-primary">
-					<h5 class="modal-title text-white">Mesaj Ekle</h5>
+					<h5 class="modal-title text-white">Email Ekle</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<!-- Horizontal Form -->
 					<form class="mt-3" id="addSubscribedEmailForm"
-						th:action="@{/cp/add-message}" method="post">
-
+						th:action="@{/cp/add-email}" method="post">
 						<div class="row mb-1">
-							<label for="name" class="col-sm-2 col-form-label">İsim</label>
-							<div class="col-sm-10">
+							<label for="email" class="col-sm-3 col-form-label">Email</label>
+							<div class="col-sm-9">
 								<input type="text" class="form-control form-control-sm" required="required"
-									id="name" name="name">
-
+									id="email" name="email">
 							</div>
-						</div>
-						<div class="row mb-2">
-							<label for="email" class="col-sm-2 col-form-label">E-mail</label>
-							<div class="col-sm-10">
-								<input class="form-control form-control-sm" id="name" required="required"
-									name="name">
+						</div>											
+						<div class="row mb-3">
+							<div class="col-sm-9 offset-sm-3">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="active" name="active">
+									<label class="form-check-label"
+										for="active"> Aktif olarak işaretle </label>
+								</div>
 							</div>
-						</div>
-						<div class="row mb-2">
-							<label for="subject" class="col-sm-2 col-form-label">Konu</label>
-							<div class="col-sm-10">
-								<input class="form-control form-control-sm" id="subject"
-									name="subject">
-							</div>
-						</div>
-						<div class="row mb-2">
-							<label for="message" class="col-sm-2 col-form-label">Mesaj</label>
-							<div class="col-sm-10">
-								<textarea class="form-control form-control-sm" id="message"
-									name="message"
-									style="height: 150px;"></textarea>
-							</div>
-						</div>							
-						
-						<div class="d-grid">
+						</div>						
+						<div class="d-grid col-sm-9 offset-sm-3">
 							<button type="submit" class="btn btn-primary">Kaydet</button>
 						</div>
-
 					</form>
 					<!-- End Horizontal Form -->
 				</div>
@@ -200,27 +188,19 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header bg-info">
-					<h5 class="modal-title text-white">Mesaj Bilgileri</h5>
+					<h5 class="modal-title text-white">Email Bilgileri</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<!-- Horizontal Form -->
-					<form class="mt-3" id="messageInfoForm">
+					<form class="mt-3" id="emailInfoForm">
 						<div class="row mb-1 d-none">
 							<label for="messageid" class="col-sm-3 col-form-label">#</label>
 							<div class="col-sm-9">
 								<input type="text"
-									class="form-control-plaintext form-control-sm" id="messageid" disabled="disabled"
+									class="form-control form-control-sm" id="emailid" disabled="disabled"
 									readonly="readonly">
-							</div>
-						</div>
-
-						<div class="row mb-1">
-							<label for="name" class="col-sm-3 col-form-label">İsim</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control form-control-sm" disabled="disabled"
-									id="name">
 							</div>
 						</div>
 						<div class="row mb-1">
@@ -230,51 +210,30 @@
 									id="email">
 							</div>
 						</div>
+						
 						<div class="row mb-1">
-							<label for="subject" class="col-sm-3 col-form-label">Konu</label>
-							<div class="col-sm-9">
-								<input class="form-control form-control-sm" id="subject" disabled="disabled">
-							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="message" class="col-sm-3 col-form-label">Mesaj</label>
-							<div class="col-sm-9">
-								<textarea class="form-control form-control-sm" id="message" disabled="disabled"
-									style="height: 200px;"></textarea>
-							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="date" class="col-sm-3 col-form-label">Gönderim Tarihi</label>
+							<label for="date" class="col-sm-3 col-form-label">Abonelik talep tarihi</label>
 							<div class="col-sm-9">
 								<input type="datetime-local"
-									id="sendDate" disabled="disabled"
+									id="date" disabled="disabled"
 									class="form-control form-control-sm">
 							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="dateofread" class="col-sm-3 col-form-label">Okuma Tarihi</label>
-							<div class="col-sm-9">
-								<input type="datetime-local" id="dateofread" disabled="disabled"
-									class="form-control form-control-sm">
-							</div>
-						</div>
-
-
-						<div class="row mb-3 d-none">
+						</div>						
+						<div class="row mb-3">
 							<div class="col-sm-9 offset-sm-3">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="okundu" disabled="disabled">
+									<input class="form-check-input" type="checkbox" id="active" disabled="disabled">
 									<label class="form-check-label"
-										for="okundu"> Okundu olarak işaretle </label>
+										for="active"> Aktif olarak işaretle </label>
 								</div>
 							</div>
 						</div>
+						
 						<div class="row mb-1 d-none">
 							<label for="smmmofis_id" class="col-sm-3 col-form-label">#</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control form-control-sm"
-									id="smmmofis_id" disabled="disabled"
-									readonly="readonly">
+									id="smmmofis_id" readonly="readonly" disabled="disabled">
 							</div>
 						</div>
 
@@ -300,90 +259,56 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header bg-warning">
-					<h5 class="modal-title text-white">Mesajı Oku</h5>
+					<h5 class="modal-title text-white">Email Güncelle</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<!-- Horizontal Form -->
 					<form class="mt-3" id="messageEditForm"
-						th:action="@{/cp/update-message}" method="post">
-						
+						th:action="@{/cp/update-email}" method="post">						
 						<div class="row mb-1 d-none">
 							<label for="messageid" class="col-sm-3 col-form-label">#</label>
 							<div class="col-sm-9">
 								<input type="text"
-									class="form-control form-control-sm" id="messageid"
-									name="id" disabled="disabled">
-							</div>
-						</div>
-
-						<div class="row mb-1">
-							<label for="name" class="col-sm-3 col-form-label">İsim</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control form-control-sm" disabled="disabled"
-									id="name" name="name">
+									class="form-control form-control-sm" id="emailid" name="id"
+									readonly="readonly">
 							</div>
 						</div>
 						<div class="row mb-1">
 							<label for="email" class="col-sm-3 col-form-label">E-mail</label>
 							<div class="col-sm-9">
-								<textarea class="form-control form-control-sm" id="email"
-									name="email" disabled="disabled"
-									style="height: 200px;"></textarea>
+								<input type="text" class="form-control form-control-sm"
+									id="email" name="email">
 							</div>
-						</div>
+						</div>						
 						<div class="row mb-1">
-							<label for="subject" class="col-sm-3 col-form-label">Konu</label>
+							<label for="date" class="col-sm-3 col-form-label">Abonelik talep tarihi</label>
 							<div class="col-sm-9">
-								<input class="form-control form-control-sm" id="subject"
-									name="subject" disabled="disabled">
-							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="message" class="col-sm-3 col-form-label">Mesaj</label>
-							<div class="col-sm-9">
-								<textarea class="form-control form-control-sm" id="message"
-									name="message" disabled="disabled"
-									style="height: 200px;"></textarea>
-							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="dateofpublish" class="col-sm-3 col-form-label">Gönderim Tarihi</label>
-							<div class="col-sm-9">
-								<input type="datetime-local" disabled="disabled"
-									id="sendDate"
+								<input type="datetime-local"
+									id="date" name="date" disabled="disabled"
 									class="form-control form-control-sm">
 							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="readDate" class="col-sm-3 col-form-label">Okuma Tarihi</label>
-							<div class="col-sm-9">
-								<input type="datetime-local" id="dateofread" disabled="disabled"
-									class="form-control form-control-sm">
-							</div>
-						</div>
+						</div>						
 						<div class="row mb-3">
-							<div class="col-sm-10 offset-sm-3">
+							<div class="col-sm-9 offset-sm-3">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="okundu" id="okundu">
+									<input class="form-check-input" type="checkbox" id="active" name="active">
 									<label class="form-check-label"
-										for="okundu"> Okundu olarak işaretle </label>
+										for="active"> Aktif olarak işaretle </label>
 								</div>
 							</div>
-						</div>
+						</div>						
 						<div class="row mb-1 d-none">
 							<label for="smmmofis_id" class="col-sm-3 col-form-label">#</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control form-control-sm"
-									id="smmmofis_id" name="smmmofis_id"
-									disabled="disabled">
+									id="smmmofis_id" name="smmmofis_id" readonly="readonly">
 							</div>
 						</div>
 						<div class="d-grid">
 							<button type="submit" class="btn btn-primary">Kaydet</button>
 						</div>
-
 					</form>
 					<!-- End Horizontal Form -->
 				</div>
@@ -412,75 +337,46 @@
 				</div>
 				<div class="modal-body">
 					<!-- Horizontal Form -->
-					<form class="mt-3" id="messageDeleteForm">
+					<form class="mt-3" id="subscribedEmailDeleteForm">
 						<div class="row mb-1 d-none">
 							<label for="messageid" class="col-sm-3 col-form-label">#</label>
 							<div class="col-sm-9">
 								<input type="text"
-									class="form-control form-control-sm" id="messageid"
-									disabled="disabled">
-							</div>
-						</div>
-
-						<div class="row mb-1">
-							<label for="name" class="col-sm-3 col-form-label">İsim</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control form-control-sm" readonly="readonly"
-									id="name" disabled="disabled">
+									class="form-control form-control-sm" id="emailid" disabled="disabled"
+									readonly="readonly">
 							</div>
 						</div>
 						<div class="row mb-1">
 							<label for="email" class="col-sm-3 col-form-label">E-mail</label>
 							<div class="col-sm-9">
-								<input class="form-control form-control-sm" id="email"
-									disabled="disabled">
+								<input type="text" class="form-control form-control-sm" disabled="disabled"
+									id="email">
 							</div>
 						</div>
+						
 						<div class="row mb-1">
-							<label for="subject" class="col-sm-3 col-form-label">Konu</label>
+							<label for="date" class="col-sm-3 col-form-label">Abonelik talep tarihi</label>
 							<div class="col-sm-9">
-								<input class="form-control form-control-sm" id="subject"
-									disabled="disabled">
-							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="message" class="col-sm-3 col-form-label">Mesaj</label>
-							<div class="col-sm-9">
-								<textarea class="form-control form-control-sm" id="message"
-									disabled="disabled"
-									style="height: 200px;"></textarea>
-							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="dateofpublish" class="col-sm-3 col-form-label">Gönderim Tarihi</label>
-							<div class="col-sm-9">
-								<input type="datetime-local" disabled="disabled"
-									id="sendDate"
+								<input type="datetime-local"
+									id="date" disabled="disabled"
 									class="form-control form-control-sm">
 							</div>
-						</div>
-						<div class="row mb-1">
-							<label for="readDate" class="col-sm-3 col-form-label">Okuma Tarihi</label>
-							<div class="col-sm-9">
-								<input type="datetime-local" id="readDate" disabled="disabled"
-									class="form-control form-control-sm">
-							</div>
-						</div>
-						<div class="row mb-3 d-none">
-							<div class="col-sm-10 offset-sm-3">
+						</div>						
+						<div class="row mb-3">
+							<div class="col-sm-9 offset-sm-3">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="okundu" disabled="disabled">
+									<input class="form-check-input" type="checkbox" id="active" disabled="disabled">
 									<label class="form-check-label"
-										for="okundu"> Okundu olarak işaretle </label>
+										for="active"> Aktif olarak işaretle </label>
 								</div>
 							</div>
 						</div>
+						
 						<div class="row mb-1 d-none">
 							<label for="smmmofis_id" class="col-sm-3 col-form-label">#</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control form-control-sm"
-									id="smmmofis_id"
-									disabled="disabled">
+									id="smmmofis_id" readonly="readonly" disabled="disabled">
 							</div>
 						</div>
 						
@@ -503,7 +399,7 @@
 
 	<div th:replace="~{adminpanel/fragments/footer}"></div>
 	<div th:replace="~{adminpanel/fragments/js}"></div>
-	<script th:src="@{../../customjs/messages.js}"
+	<script th:src="@{../../customjs/subscribedemails.js}"
 		type="text/javascript"></script>
 
 </body>

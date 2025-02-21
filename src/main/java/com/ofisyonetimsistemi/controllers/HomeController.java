@@ -69,8 +69,10 @@ public class HomeController {
 		if(smmmOfis.isPresent()) {
 			model.addAttribute("smmmOfisHomePage", smmmOfis.get());
 			model.addAttribute("company", companyService.getById(id).get());
+			model.addAttribute("subscribedEmail", new SmmmOfisSubscribedEmail());
 		}else if(!smmmOfis.isPresent()){
 			model.addAttribute("smmmOfisHomePage", new SmmmOfis());
+			model.addAttribute("subscribedEmail", new SmmmOfisSubscribedEmail());
 		}		
 		return "portfolio-details";
 	}
@@ -83,8 +85,10 @@ public class HomeController {
 		if(smmmOfis.isPresent()) {
 			model.addAttribute("smmmOfisHomePage", smmmOfis.get());
 			model.addAttribute("homepageService", homepageServicesServis.getServiceById(id).get());
+			model.addAttribute("subscribedEmail", new SmmmOfisSubscribedEmail());
 		}else if(!smmmOfis.isPresent()){
 			model.addAttribute("smmmOfisHomePage", new SmmmOfis());
+			model.addAttribute("subscribedEmail", new SmmmOfisSubscribedEmail());
 		}		
 		return "service-details";
 	}
@@ -130,7 +134,7 @@ public class HomeController {
 		
 		if(result.hasErrors()) {
 			
-			return "redirect:/";
+			return "redirect:/#footer";
 		}
 		SmmmOfis smmmOfis = smmmOfisHomePageService.getFirstSmmmOfis().get();
 		

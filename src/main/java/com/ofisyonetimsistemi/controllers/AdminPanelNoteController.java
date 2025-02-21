@@ -124,8 +124,10 @@ public class AdminPanelNoteController {
 			                        @RequestParam("smmmofis_id")Integer smmmofis_id
 			                        
 									) {
+		
 		SmmmOfisNotes selectedNote = noteService.getNoteById(id).get();
 		SmmmOfisNotes newNote = new SmmmOfisNotes();
+		
 		if(okundu==false) {
 			newNote = SmmmOfisNotes.builder()
 					.id(id)
@@ -135,7 +137,13 @@ public class AdminPanelNoteController {
 					.okundu(okundu)
 					.smmmofis_id(smmmofis_id)
 					.build();
+			
+			noteService.saveNote(newNote);
+			
+			return "redirect:/cp/get-un-read-notes";
+			
 		}else if(okundu==true) {
+			
 			newNote = SmmmOfisNotes.builder()
 					.id(id)
 					.subject(subject)
@@ -145,10 +153,12 @@ public class AdminPanelNoteController {
 					.okundu(okundu)
 					.smmmofis_id(smmmofis_id)
 					.build();
+			
+			noteService.saveNote(newNote);
+			
+			return "redirect:/cp/get-read-notes";
+			
 		}
-		
-		
-		noteService.saveNote(newNote);
 		
 		return "redirect:/cp/get-un-read-notes";
 		

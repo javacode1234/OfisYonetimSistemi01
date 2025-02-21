@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ofisyonetimsistemi.models.SmmmOfis;
 import com.ofisyonetimsistemi.models.SmmmOfisMessage;
@@ -99,55 +100,98 @@ public class AdminPanelSubscribedEmailController {
 		return "redirect:/cp/get-in-active-subscribed-emails";
 	}
 	
-	@PostMapping("/add-subscribed-email")
+	@PostMapping("/add-email")
 	public String addSubscribedEmail(
 			
-									 @Valid @RequestParam("email")String email,
-						             BindingResult result
+									 @RequestParam("email")String email,
+									 @RequestParam(value="active", required = false)boolean active,
+									 RedirectAttributes redirectAttr
 			                        
 									) {
 		
-		if(result.hasErrors()) {
-			
-			return "redirect:/";
-		}
 		SmmmOfis smmmOfis = smmmOfisService.getFirstSmmmOfis().get();
 		
-		SmmmOfisSubscribedEmail newSubscribedEmail = SmmmOfisSubscribedEmail.builder()
-				.email(email)
-				.date(LocalDateTime.now().withNano(0))
-				.smmmofis_id(smmmOfis.getId())
-				.build();
-
-		subscribedEmailService.save(newSubscribedEmail);
-		return "redirect:/";
+		boolean emailExist = subscribedEmailService.emailExist(email);
+		
+		if(emailExist) {
+			
+			redirectAttr.addFlashAttribute("emailExist", "Email adresi zaten kayıtlı !!!");
+			
+			return "redirect:/cp/get-in-active-subscribed-emails";
+			
+		}
+		
+		if(active==true) {
+			
+			SmmmOfisSubscribedEmail newSubscribedEmail = SmmmOfisSubscribedEmail.builder()
+					.email(email)
+					.active(active)
+					.date(LocalDateTime.now().withNano(0))
+					.smmmofis_id(smmmOfis.getId())
+					.build();
+			
+			subscribedEmailService.save(newSubscribedEmail);
+			
+			return "redirect:/cp/get-active-subscribed-emails";
+			
+		}else if(active==false) {
+			
+			SmmmOfisSubscribedEmail newSubscribedEmail = SmmmOfisSubscribedEmail.builder()
+					.email(email)
+					.date(LocalDateTime.now().withNano(0))
+					.smmmofis_id(smmmOfis.getId())
+					.build();
+			
+			subscribedEmailService.save(newSubscribedEmail);
+			
+			return "redirect:/cp/get-in-active-subscribed-emails";
+		}
+		
+		return "redirect:/cp/get-in-active-subscribed-emails";
 	}
 	
-	@PostMapping("/update-subscribed-email")
+	@PostMapping("/update-email")
 	public String updateMessage(
 									@RequestParam("id")Integer id,
 			                        @RequestParam("email")String email,
 			                        @RequestParam(value="active", required = false)boolean active,
-			                        @RequestParam("smmmofis_id")Integer smmmofis_id
+			                        @RequestParam("smmmofis_id")Integer smmmofis_id,
+			                        RedirectAttributes redirectAttr
 			                        
 									) {
-		SmmmOfisMessage selectedMessage = messageService.getById(id).get();
+		
+		SmmmOfisSubscribedEmail selectedSubscribedEmail = subscribedEmailService.getSubscribedEmailById(id).get();
 		SmmmOfisSubscribedEmail newSubscribedEmail = new SmmmOfisSubscribedEmail();
+		
+//		boolean emailExist = subscribedEmailService.emailExist(email);
+//		
+//		if(emailExist) {
+//			
+//			redirectAttr.addFlashAttribute("emailExist", "Email adresi zaten kayıtlı !!!");
+//			
+//			return "redirect:/cp/get-in-active-subscribed-emails";
+//			
+//		}
+		
 		if(active==false) {
+			
 			newSubscribedEmail = SmmmOfisSubscribedEmail.builder()
 					.id(id)
 					.email(email)
-					.date(selectedMessage.getDate().withNano(0))
+					.date(selectedSubscribedEmail.getDate().withNano(0))
 					.smmmofis_id(smmmofis_id)
 					.build();
+			
 			subscribedEmailService.save(newSubscribedEmail);
+			
 			return "redirect:/cp/get-in-active-subscribed-emails";
 			
 		}else if(active==true) {
+			
 			newSubscribedEmail = SmmmOfisSubscribedEmail.builder()
 					.id(id)
 					.email(email)
-					.date(selectedMessage.getDate().withNano(0))
+					.date(selectedSubscribedEmail.getDate().withNano(0))
 					.active(active)
 					.smmmofis_id(smmmofis_id)
 					.build();
